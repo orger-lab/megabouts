@@ -1102,7 +1102,7 @@ fixes things like head orientation bugs</p>
 <p>Takes a <code>dataset</code> object and produces a <code>bouts</code> object.
 Responsible for segmenting the data into bouts.
 Each type of segmentation algorithm implement its extra functions.</p>
-<p><div class="highlight"><pre><span class="k">class</span> <span class="nc">BoutSegmentationAlgorithm</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<p><div class="highlight"><pre><span class="k">class</span> <span class="nc">BoutSegmenter</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">segment_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_data</span><span class="p">):</span>
@@ -1110,21 +1110,21 @@ Each type of segmentation algorithm implement its extra functions.</p>
         <span class="k">return</span> <span class="n">bouts</span>
 
 
-<span class="k">class</span> <span class="nc">MarquesBoutSegmentation</span><span class="p">(</span><span class="n">BoutSegmentationAlgorithm</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">MarquesBoutSegmenter</span><span class="p">(</span><span class="n">BoutSegmenter</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">segment_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_data</span><span class="p">):</span>
         <span class="c1"># process raw_data</span>
         <span class="k">return</span> <span class="n">bouts</span>
 
 <span class="o">...</span>
 <span class="c1">#use case</span>
-<span class="kn">from</span> <span class="nn">megabouts.segmentation</span> <span class="kn">import</span> <span class="n">MarquesBoutSegmentation</span>
-<span class="n">algorithm</span> <span class="o">=</span> <span class="n">MarquesBoutSegmentation</span><span class="p">(</span><span class="n">some</span><span class="p">,</span><span class="n">params</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">megabouts.segmentation</span> <span class="kn">import</span> <span class="n">MarquesBoutSegmenter</span>
+<span class="n">algorithm</span> <span class="o">=</span> <span class="n">MarquesBoutSegmenter</span><span class="p">(</span><span class="n">some</span><span class="p">,</span><span class="n">params</span><span class="p">)</span>
 <span class="n">bouts</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">segment_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 <em>corrections related to specific algorithms i.e. how joao tags broken bouts must be implemented at the inherited class level instead of the base class.</em></p>
 <h1 id="classification">classification<a class="headerlink" href="#classification" title="Permanent link"></a></h1>
 <p>Takes a <code>bout</code> object and produces a <code>bout class</code> object.</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">BoutClassificationAlgorithm</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">BoutClassifier</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">classify_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segmented_data</span><span class="p">):</span>
@@ -1132,15 +1132,15 @@ Each type of segmentation algorithm implement its extra functions.</p>
         <span class="k">return</span> <span class="n">classified_bouts</span>
 
 
-<span class="k">class</span> <span class="nc">MarquesBoutClassification</span><span class="p">(</span><span class="n">BoutClassificationAlgorithm</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">MarquesClassifier</span><span class="p">(</span><span class="n">BoutClassifier</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">classify_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segmented_data</span><span class="p">):</span>
         <span class="c1"># process segmented_data</span>
         <span class="k">return</span> <span class="n">classified_bouts</span>
 
 <span class="o">...</span>
 <span class="c1">#use case</span>
-<span class="kn">from</span> <span class="nn">megabouts.classification</span> <span class="kn">import</span> <span class="n">MarquesBoutClassification</span>
-<span class="n">algorithm</span> <span class="o">=</span> <span class="n">MarquesBoutClassification</span><span class="p">(</span><span class="n">some</span><span class="p">,</span><span class="n">params</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">megabouts.classification</span> <span class="kn">import</span> <span class="n">BoutClassifier</span>
+<span class="n">algorithm</span> <span class="o">=</span> <span class="n">BoutClassifier</span><span class="p">(</span><span class="n">some</span><span class="p">,</span><span class="n">params</span><span class="p">)</span>
 <span class="n">bout_classes</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">classify_data</span><span class="p">(</span><span class="n">bouts</span><span class="p">)</span>
 </pre></div>
 
@@ -1178,6 +1178,7 @@ Each type of segmentation algorithm implement its extra functions.</p>
 <h1 id="questions">questions<a class="headerlink" href="#questions" title="Permanent link"></a></h1>
 <h1 id="marques-et-al">Marques et al.<a class="headerlink" href="#marques-et-al" title="Permanent link"></a></h1>
 <p><img alt="MATLAB dependencies" src="https://yuml.me/eb7562d4.svg" title="MATLAB dependencies" /></p>
+<h3 id="removed">Removed<a class="headerlink" href="#removed" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
@@ -1187,44 +1188,8 @@ Each type of segmentation algorithm implement its extra functions.</p>
 </thead>
 <tbody>
 <tr>
-<td>BeatDetector</td>
-<td><em>segmentation</em></td>
-</tr>
-<tr>
-<td>BeatMaxAngularSpeedCorr</td>
-<td>segmentation</td>
-</tr>
-<tr>
-<td>BeatParametersCalculator</td>
-<td>segmentation</td>
-</tr>
-<tr>
-<td>boutCatFunctionWithDistanceToCenterCalculator</td>
-<td>classification</td>
-</tr>
-<tr>
-<td>BoutDetectorCurvatureFunction</td>
-<td>segmentation</td>
-</tr>
-<tr>
-<td>BoutParametersCalculator</td>
-<td>segmentation</td>
-</tr>
-<tr>
-<td>BoutParametersCalculatorMaxAngularSpeed</td>
-<td>segmentation</td>
-</tr>
-<tr>
 <td>boxcarf</td>
 <td>&mdash;</td>
-</tr>
-<tr>
-<td>C1C2Calculator</td>
-<td>segmentation</td>
-</tr>
-<tr>
-<td>calculateDistance</td>
-<td>utils</td>
 </tr>
 <tr>
 <td>EnumeratorBeatKinPar</td>
@@ -1234,6 +1199,52 @@ Each type of segmentation algorithm implement its extra functions.</p>
 <td>EnumeratorBoutKinPar</td>
 <td>&mdash;</td>
 </tr>
+<tr>
+<td>mikesmoothv</td>
+<td>&mdash;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="utils_1">Utils<a class="headerlink" href="#utils_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>MATLAB</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>calculateDistance</td>
+<td>utils</td>
+</tr>
+<tr>
+<td>rotate_matrix</td>
+<td>utils.math</td>
+</tr>
+<tr>
+<td>mikesmoothv2</td>
+<td>utils.filters</td>
+</tr>
+<tr>
+<td>minFilterFast</td>
+<td>utils.filters</td>
+</tr>
+<tr>
+<td>maxFilterFast</td>
+<td>utils.filters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>MATLAB</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>findPeaks</td>
 <td>preprocessing</td>
@@ -1251,40 +1262,55 @@ Each type of segmentation algorithm implement its extra functions.</p>
 <td>preprocessing</td>
 </tr>
 <tr>
+<td>yawCalculator</td>
+<td>preprocessing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bout-segmentation">Bout segmentation<a class="headerlink" href="#bout-segmentation" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>MATLAB</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BeatDetector</td>
+<td>segmentation</td>
+</tr>
+<tr>
+<td>BeatMaxAngularSpeedCorr</td>
+<td>segmentation</td>
+</tr>
+<tr>
+<td>BeatParametersCalculator</td>
+<td>segmentation</td>
+</tr>
+<tr>
+<td>BoutDetectorCurvatureFunction</td>
+<td>segmentation</td>
+</tr>
+<tr>
+<td>BoutParametersCalculator</td>
+<td>segmentation</td>
+</tr>
+<tr>
+<td>BoutParametersCalculatorMaxAngularSpeed</td>
+<td>segmentation</td>
+</tr>
+<tr>
+<td>C1C2Calculator</td>
+<td>segmentation</td>
+</tr>
+<tr>
 <td>halfBeatTailWaveExtrapolation</td>
 <td>segmentation</td>
 </tr>
 <tr>
-<td>maxFilterFast</td>
-<td>utils.filters.max_filter</td>
-</tr>
-<tr>
-<td>MikeKinAnalysisAndBoutCat</td>
-<td>pipeline</td>
-</tr>
-<tr>
-<td>mikesmoothv</td>
-<td>&mdash;</td>
-</tr>
-<tr>
-<td>mikesmoothv2</td>
-<td>utils.filters.boxcar_filter</td>
-</tr>
-<tr>
-<td>minFilterFast</td>
-<td>utils.filters.min_filter</td>
-</tr>
-<tr>
 <td>ObjDetector</td>
 <td>segmentation</td>
-</tr>
-<tr>
-<td>putInJoaosSpace</td>
-<td>classification</td>
-</tr>
-<tr>
-<td>rotate_matrix</td>
-<td>utils.math.matrix_rotation</td>
 </tr>
 <tr>
 <td>speedWithDirectionCalculator</td>
@@ -1294,9 +1320,39 @@ Each type of segmentation algorithm implement its extra functions.</p>
 <td>TailCurvatureCalculator</td>
 <td>segmentation</td>
 </tr>
+</tbody>
+</table>
+<h3 id="bout-classification">bout classification<a class="headerlink" href="#bout-classification" title="Permanent link"></a></h3>
+<table>
+<thead>
 <tr>
-<td>yawCalculator</td>
-<td>preprocessing</td>
+<th>MATLAB</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boutCatFunctionWithDistanceToCenterCalculator</td>
+<td>classification</td>
+</tr>
+<tr>
+<td>putInJoaosSpace</td>
+<td>classification</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pipeline">Pipeline<a class="headerlink" href="#pipeline" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>MATLAB</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MikeKinAnalysisAndBoutCat</td>
+<td>pipeline</td>
 </tr>
 </tbody>
 </table></article></body></html>

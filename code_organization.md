@@ -46,7 +46,7 @@ Each type of segmentation algorithm implement its extra functions.
 
 
 ```python
-class BoutSegmentationAlgorithm(ABC):
+class BoutSegmenter(ABC):
 
 	@abstractmethod
 	def segment_data(self.raw_data):
@@ -54,15 +54,15 @@ class BoutSegmentationAlgorithm(ABC):
 		return bouts
 
 
-class MarquesBoutSegmentation(BoutSegmentationAlgorithm):
+class MarquesBoutSegmenter(BoutSegmenter):
 	def segment_data(self.raw_data):
 		# process raw_data
 		return bouts
 
 ...
 #use case
-from megabouts.segmentation import MarquesBoutSegmentation
-algorithm = MarquesBoutSegmentation(some,params)
+from megabouts.segmentation import MarquesBoutSegmenter
+algorithm = MarquesBoutSegmenter(some,params)
 bouts = algorithm.segment_data(data)
 
 ```
@@ -75,7 +75,7 @@ bouts = algorithm.segment_data(data)
 Takes a `bout` object and produces a `bout class` object.
 
 ```python
-class BoutClassificationAlgorithm(ABC):
+class BoutClassifier(ABC):
 
 	@abstractmethod
 	def classify_data(self.segmented_data):
@@ -83,15 +83,15 @@ class BoutClassificationAlgorithm(ABC):
 		return classified_bouts
 
 
-class MarquesBoutClassification(BoutClassificationAlgorithm):
+class MarquesClassifier(BoutClassifier):
 	def classify_data(self.segmented_data):
 		# process segmented_data
 		return classified_bouts
 
 ...
 #use case
-from megabouts.classification import MarquesBoutClassification
-algorithm = MarquesBoutClassification(some,params)
+from megabouts.classification import BoutClassifier
+algorithm = BoutClassifier(some,params)
 bout_classes = algorithm.classify_data(bouts)
 ```
 
@@ -148,33 +148,60 @@ classes = model.predict(bouts)
 
 
 
+### Removed
+
+| MATLAB										| Python        |
+| --------------------------------------------- |---------------|
+| boxcarf 										| --- |
+| EnumeratorBeatKinPar 							| --- |
+| EnumeratorBoutKinPar 							| --- |
+| mikesmoothv 									| --- |
+
+### Utils
+
+| MATLAB										| Python        |
+| --------------------------------------------- |---------------|
+| calculateDistance 							| utils |
+| rotate_matrix 								| utils.math |
+| mikesmoothv2 									| utils.filters |
+| minFilterFast 								| utils.filters |
+| maxFilterFast 								| utils.filters |
+
+### Preprocessing
+
+| MATLAB										| Python        |
+| --------------------------------------------- |---------------|
+| findPeaks 									| preprocessing |
+| FishAngleCalculatorFast 						| preprocessing |
+| FixHeadDirErrorGaps 							| preprocessing |
+| FixTailTrackingGaps 							| preprocessing |
+| yawCalculator 								| preprocessing |
+
+### Bout segmentation
+
 | MATLAB										| Python        |
 | --------------------------------------------- |---------------|
 | BeatDetector 									| segmentation |
 | BeatMaxAngularSpeedCorr 						| segmentation |
 | BeatParametersCalculator 						| segmentation |
-| boutCatFunctionWithDistanceToCenterCalculator | classification |
 | BoutDetectorCurvatureFunction 				| segmentation |
 | BoutParametersCalculator 						| segmentation |
 | BoutParametersCalculatorMaxAngularSpeed 		| segmentation |
-| boxcarf 										| --- |
 | C1C2Calculator 								| segmentation |
-| calculateDistance 							| utils |
-| EnumeratorBeatKinPar 							| --- |
-| EnumeratorBoutKinPar 							| --- |
-| findPeaks 									| preprocessing |
-| FishAngleCalculatorFast 						| preprocessing |
-| FixHeadDirErrorGaps 							| preprocessing |
-| FixTailTrackingGaps 							| preprocessing
 | halfBeatTailWaveExtrapolation 				| segmentation |
-| maxFilterFast 								| utils.filters |
-| MikeKinAnalysisAndBoutCat						| pipeline |
-| mikesmoothv 									| --- |
-| mikesmoothv2 									| utils.filters |
-| minFilterFast 								| utils.filters |
 | ObjDetector 									| segmentation |
-| putInJoaosSpace								| classification |
-| rotate_matrix 								| utils.math |
 | speedWithDirectionCalculator 					| segmentation |
 | TailCurvatureCalculator 						| segmentation |
-| yawCalculator 								| preprocessing |
+
+### bout classification
+
+| MATLAB										| Python        |
+| --------------------------------------------- |---------------|
+| boutCatFunctionWithDistanceToCenterCalculator | classification |
+| putInJoaosSpace								| classification |
+
+### Pipeline
+
+| MATLAB										| Python        |
+| --------------------------------------------- |---------------|
+| MikeKinAnalysisAndBoutCat						| pipeline |
