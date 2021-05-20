@@ -1,7 +1,8 @@
 # Compute Hankel:
 import numpy as np
 from scipy.ndimage.interpolation import shift
-import scipy 
+import scipy
+from scipy.signal.ltisys import ZerosPolesGainContinuous 
 
 def moving_average(x, w):
     return np.convolve(x, np.ones(w), 'same') / w
@@ -113,7 +114,43 @@ class LocallyLinearDynamicalSystem:
         volume = np.log(np.power(2*np.pi,d)*det_sigma_a)
         precision = np.linalg.inv(theta_a[2])
         mahal = (error.T.dot(precision)*error.T).sum(axis=1)
-        likelihood = -1/2 * np.sum(volume-mahal)
+        likelihood = -1/2 * np.sum(volume+mahal)
         # Careful on the sign (volume + mahal() or (volume - mahal) wikipedia different from article
         return likelihood,volume,mahal
 
+    def compute_likelihood_around_peak(self,peak_loc,margin_time=[50,50],margin_peak=None):
+
+        id_st = peak_loc - margin_time[0]
+        id_mid = peak_loc
+        id_ed = peak_loc + margin_time[1]
+
+        if (id_st>0) & (id_ed<self.V.shape[0]):
+
+            V_b = self.V[id_st:id_ed,:].T
+
+            onset_fit = id_st
+            offset_fit = id_mid
+            theta_a = self.fit_dynamical_system(self.V[onset_fit:offset_fit,:])
+            likelihood0,volume0,mahal0 = self.compute_likelihood(theta_a,V_b)
+
+            onset_fit = id_st
+            offset_fit = id_ed
+            theta_a = self.fit_dynamical_system(self.V[onset_fit:offset_fit,:])
+            likelihood1,volume1,mahal1 = self.compute_likelihood(theta_a,V_b)
+
+            return likelihood1-likelihood0
+
+    def evaluate_break_point(self,onset,offset,all_peaks,margin_time=[50,50]):
+        
+        peak_evaluated = []
+        likelihood_ratio = []
+
+        for i in range(len(onset)):
+            peak_inside_bouts = all_peaks[(all_peaks>(onset[i]+2*margin_time[0]))&(all_peaks<(offset[i]-2*margin_time[1]))]
+            for peak in peak_inside_bouts:
+                tmp = self.compute_likelihood_around_peak(peak,margin_time=margin_time)
+                if tmp is not None:
+                    likelihood_ratio.append(tmp)
+                    peak_evaluated.append(peak)
+
+        return np.array(peak_evaluated),np.array(likelihood_ratio)
