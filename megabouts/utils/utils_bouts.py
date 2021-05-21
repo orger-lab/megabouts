@@ -40,6 +40,7 @@ def find_onset_offset_numpy(binary_serie):
     offset = ranges[:,1]
     duration = offset-onset
     return onset,offset,duration
+    
 from sklearn.decomposition import PCA
 
 def clean_using_pca(X,num_pcs=4):
@@ -121,7 +122,7 @@ def compute_tail_speed(smooth_cumul_tail_angle,notrack,NumSegments,BCFilt):
             speed_tail_angle[notrack[:-1]+1,:]=0
         else:
             speed_tail_angle[notrack+1,:]=0
-    speed_tail_angle = speed_tail_angle[:,0:NumSegments];
+    speed_tail_angle = speed_tail_angle[:,0:NumSegments]
     
     
     # Smooth the tail movement

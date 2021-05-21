@@ -1,9 +1,9 @@
 import numpy as np
 from sklearn.mixture import GaussianMixture
 from scipy import stats
-import cv2
 import scipy.signal as signal
 
+import cv2
 from skimage import measure
 from skimage import filters
 from skimage.measure import label, regionprops,regionprops_table
@@ -59,58 +59,6 @@ def estimate_speed_threshold_using_GMM(speed,margin_std,axis=None):
         c='green')
 
     return BoutThresh[0],axis
-
-
-
-def find_half_beat(bout_slice,Half_BCFilt = 150, stdThres = 5,MinSizeBlob = 500):
-    BCFilt = Half_BCFilt*2+1
-    X = bout_slice
-    oversample_slice = cv2.resize(X, dsize=(X.shape[1],X.shape[0]*10), interpolation=cv2.INTER_CUBIC)
-        
-    filtered_=np.zeros_like(oversample_slice)
-    binary_thresh_up=np.zeros_like(oversample_slice)
-    binary_thresh_down=np.zeros_like(oversample_slice)
-    for i in range(oversample_slice.shape[1]):
-            filtered_[:,i]= signal.convolve(oversample_slice[:,i],1/BCFilt*signal.boxcar(M=BCFilt,sym=True),mode='same')
-            sigma = np.std(filtered_[:,i])
-            binary_thresh_up[:,i] = filtered_[:,i]+sigma/stdThres
-            binary_thresh_down[:,i] = filtered_[:,i]-sigma/stdThres
-
-    binary_image = np.zeros_like(oversample_slice)
-    for i in range(oversample_slice.shape[1]):
-        binary_image[:,i] = (oversample_slice[:,i]>binary_thresh_up[:,i]) + -1*(oversample_slice[:,i]<binary_thresh_down[:,i])
-    
-    all_labels_pos = measure.label((binary_image)==1)
-    if len(np.where(all_labels_pos)[0])>0:
-        props_pos = regionprops_table(all_labels_pos, properties=('area','centroid'))#,
-        half_beat_pos = []
-        for i,lab_ in enumerate(np.unique(all_labels_pos)[1:]):
-            if props_pos['area'][i]> MinSizeBlob:
-                id = np.where(all_labels_pos[:,-1]==lab_)[0]
-                #np.argmax(res[id,8])
-                if len(id)>0:
-                    half_beat_pos.append(id[np.argmax(oversample_slice[id,-1])])
-    else:
-        half_beat_pos = []
-
-    all_labels_neg = measure.label((binary_image)==-1)
-    if len(np.where(all_labels_neg)[0])>0:
-        props_neg = regionprops_table(all_labels_neg, properties=('area','centroid'))
-        half_beat_neg = []
-        for i,lab_ in enumerate(np.unique(all_labels_neg)[1:]):
-            if props_neg['area'][i]> MinSizeBlob:
-                id = np.where(all_labels_neg[:,-1]==lab_)[0]
-                #np.argmax(res[id,8])
-                if len(id)>0:
-                    half_beat_neg.append(id[np.argmin(oversample_slice[id,-1])])
-    else:
-        half_beat_neg = []
-
-    half_beat_pos = np.floor(np.array(half_beat_pos)/10).astype('int')
-    half_beat_neg = np.floor(np.array(half_beat_neg)/10).astype('int')
-
-    return half_beat_pos,half_beat_neg,binary_image
-
 
 class InitialSegmentation:
     
@@ -174,10 +122,10 @@ class InitialSegmentation:
         peaks_neg = []
 
         for i,(on_,off_) in enumerate(zip(self.onset,self.offset)):
-            on_ = on_ - Margin
-            off_ = off_ + Margin
+            on_ = max(0,on_ - Margin)
+            off_ = min(off_ + Margin,self.tail_angle.shape[0])
             bout_slice = self.tail_angle_smooth[on_:off_,2:self.Reference_tail_segment+1]
-            half_beat_pos,half_beat_neg,binary_image = find_half_beat(bout_slice,Half_BCFilt = Half_BCFilt, stdThres = stdThres,MinSizeBlob=MinSizeBlob)
+            half_beat_pos,half_beat_neg,binary_image = self.find_half_beat(bout_slice,Half_BCFilt = Half_BCFilt, stdThres = stdThres,MinSizeBlob=MinSizeBlob)
             
             peaks_pos = peaks_pos + (half_beat_pos+on_).tolist()
             peaks_neg = peaks_neg + (half_beat_neg+on_).tolist()
@@ -189,7 +137,58 @@ class InitialSegmentation:
         self.half_beat_neg = peaks_neg
 
         return peaks_pos,peaks_neg
-    
+
+    def find_half_beat(self,bout_slice,Half_BCFilt = 150, stdThres = 5,MinSizeBlob = 500):
+
+        BCFilt = Half_BCFilt*2+1
+        X = bout_slice
+        oversample_slice = cv2.resize(X, dsize=(X.shape[1],X.shape[0]*10), interpolation=cv2.INTER_CUBIC)
+            
+        filtered_=np.zeros_like(oversample_slice)
+        binary_thresh_up=np.zeros_like(oversample_slice)
+        binary_thresh_down=np.zeros_like(oversample_slice)
+        for i in range(oversample_slice.shape[1]):
+                filtered_[:,i]= signal.convolve(oversample_slice[:,i],1/BCFilt*signal.boxcar(M=BCFilt,sym=True),mode='same')
+                sigma = np.std(filtered_[:,i])
+                binary_thresh_up[:,i] = filtered_[:,i]+sigma/stdThres
+                binary_thresh_down[:,i] = filtered_[:,i]-sigma/stdThres
+
+        binary_image = np.zeros_like(oversample_slice)
+        for i in range(oversample_slice.shape[1]):
+            binary_image[:,i] = (oversample_slice[:,i]>binary_thresh_up[:,i]) + -1*(oversample_slice[:,i]<binary_thresh_down[:,i])
+        
+        all_labels_pos = measure.label((binary_image)==1)
+        if len(np.where(all_labels_pos)[0])>0:
+            props_pos = regionprops_table(all_labels_pos, properties=('area','centroid'))#,
+            half_beat_pos = []
+            for i,lab_ in enumerate(np.unique(all_labels_pos)[1:]):
+                if props_pos['area'][i]> MinSizeBlob:
+                    id = np.where(all_labels_pos[:,-1]==lab_)[0]
+                    #np.argmax(res[id,8])
+                    if len(id)>0:
+                        half_beat_pos.append(id[np.argmax(oversample_slice[id,-1])])
+        else:
+            half_beat_pos = []
+
+        all_labels_neg = measure.label((binary_image)==-1)
+        if len(np.where(all_labels_neg)[0])>0:
+            props_neg = regionprops_table(all_labels_neg, properties=('area','centroid'))
+            half_beat_neg = []
+            for i,lab_ in enumerate(np.unique(all_labels_neg)[1:]):
+                if props_neg['area'][i]> MinSizeBlob:
+                    id = np.where(all_labels_neg[:,-1]==lab_)[0]
+                    #np.argmax(res[id,8])
+                    if len(id)>0:
+                        half_beat_neg.append(id[np.argmin(oversample_slice[id,-1])])
+        else:
+            half_beat_neg = []
+
+        half_beat_pos = np.floor(np.array(half_beat_pos)/10).astype('int')
+        half_beat_neg = np.floor(np.array(half_beat_neg)/10).astype('int')
+
+        return half_beat_pos,half_beat_neg,binary_image
+
+
     def refine_bouts(self,MaxIBeatI = 50):
         # Easier way : redefined tail active as a series of continuous bouts:
         all_peaks = np.concatenate((self.half_beat_pos,self.half_beat_neg))
