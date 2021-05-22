@@ -140,6 +140,30 @@ class LocallyLinearDynamicalSystem:
 
             return likelihood1-likelihood0
 
+    def compute_likelihood_around_peak_sim(self,V_sim,margin_time=[50,50]):
+
+        id_st = 0
+        id_mid = margin_time[0]
+        id_ed = margin_time[0] + margin_time[1]
+
+        if (id_st>0) & (id_ed<self.V.shape[0]):
+
+            V_b = V_sim.T
+
+            onset_fit = id_st
+            offset_fit = id_mid
+            theta_a = self.fit_dynamical_system(V_b[:,onset_fit:offset_fit])
+            print(theta_a)
+            print(V_b[:,onset_fit:offset_fit].shape)
+            likelihood0,volume0,mahal0 = self.compute_likelihood(theta_a,V_b)
+
+            onset_fit = id_st
+            offset_fit = id_ed
+            theta_a = self.fit_dynamical_system(V_b[:,onset_fit:offset_fit])
+            likelihood1,volume1,mahal1 = self.compute_likelihood(theta_a,V_b)
+
+            return likelihood1-likelihood0
+
     def evaluate_break_point(self,onset,offset,all_peaks,margin_time=[50,50]):
         
         peak_evaluated = []

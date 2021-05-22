@@ -313,7 +313,6 @@ def find_half_beat(bout_slice,Half_BCFilt = 150, stdThres = 5,MinSizeBlob = 500)
         for i,lab_ in enumerate(np.unique(all_labels_pos)[1:]):
             if props_pos['area'][i]> MinSizeBlob:
                 id = np.where(all_labels_pos[:,-1]==lab_)[0]
-                #np.argmax(res[id,8])
                 if len(id)>0:
                     half_beat_pos.append(id[np.argmax(oversample_slice[id,-1])])
     else:
@@ -326,7 +325,6 @@ def find_half_beat(bout_slice,Half_BCFilt = 150, stdThres = 5,MinSizeBlob = 500)
         for i,lab_ in enumerate(np.unique(all_labels_neg)[1:]):
             if props_neg['area'][i]> MinSizeBlob:
                 id = np.where(all_labels_neg[:,-1]==lab_)[0]
-                #np.argmax(res[id,8])
                 if len(id)>0:
                     half_beat_neg.append(id[np.argmin(oversample_slice[id,-1])])
     else:
@@ -374,7 +372,7 @@ class HalfBeat(object):
         for i,(on_,off_) in enumerate(zip(self.onset,self.offset)):
             on_ = max(0,on_ - Margin)
             off_ = min(off_ + Margin,self.tail.T)
-            bout_slice = self.tail.angle_smooth[on_:off_,self.tail.Reference_tail_segment_start:self.tail.Reference_tail_segment_end]
+            bout_slice = self.tail.angle_smooth[on_:off_,self.tail.Reference_tail_segment_start:self.tail.Reference_tail_segment_end+1]
             half_beat_pos,half_beat_neg,binary_image = find_half_beat(bout_slice,Half_BCFilt = Half_BCFilt, stdThres = stdThres,MinSizeBlob=MinSizeBlob)
             
             peaks_pos = peaks_pos + (half_beat_pos+on_).tolist()
@@ -387,3 +385,10 @@ class HalfBeat(object):
         self.half_beat_neg = peaks_neg
 
         
+
+######################################################################################################
+##########################################   BREAKPOINT    ###########################################
+######################################################################################################
+
+
+
