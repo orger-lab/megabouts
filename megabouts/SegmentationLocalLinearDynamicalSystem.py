@@ -89,6 +89,22 @@ class LocallyLinearDynamicalSystem:
         return theta
 
 
+    def fit_dynamical_system_no_intercept(self,V_):
+        V_past = V_[0:-1,:]
+        V_future = V_[1:,:]
+        #all_ones = np.ones(V_past.shape[0])[:,np.newaxis]
+        #V_past_w_intercept =  np.concatenate((all_ones.T,V_past.T)).T
+        res = np.linalg.lstsq(V_past,V_future,rcond=None)
+        A_fromV,residual = res[0].T,res[1] # Transpose is crutial to match Atil
+        Prediction = A_fromV.dot(V_past.T)
+        # Compute Covariance of noise:
+        A = A_fromV
+        c = np.zeros(A.shape[0])
+        noise = V_future - Prediction.T
+        covariance_noise = (noise.T.dot(noise))/noise.shape[0]
+        theta = (c,A,covariance_noise)
+        return theta
+    
     def predict_recursively(self,V0,horizon,theta):
         c = theta[0]
         A = theta[1]
@@ -108,7 +124,7 @@ class LocallyLinearDynamicalSystem:
 
         V_future_pred = np.repeat(theta_a[0][:,np.newaxis],V_past.shape[1],axis=1)+ theta_a[1].dot(V_past) 
         error = V_future-V_future_pred
-
+        
         det_sigma_a = np.linalg.det(theta_a[2])
         d = len(theta_a[0])
         volume = np.log(np.power(2*np.pi,d)*det_sigma_a)
@@ -117,6 +133,23 @@ class LocallyLinearDynamicalSystem:
         likelihood = -1/2 * np.sum(volume+mahal)
         # Careful on the sign (volume + mahal() or (volume - mahal) wikipedia different from article
         return likelihood,volume,mahal
+
+    def compute_likelihood_alternative(self,theta_a,V_b):
+
+        dim = V_b.shape[0]
+
+        inter = theta_a[0][:,np.newaxis]
+        coef = theta_a[1]
+        sigma = theta_a[2]
+
+        V_past = V_b[:,0:-1]
+        V_future = V_b[:,1:]
+
+        V_future_pred = np.repeat(inter,V_past.shape[1],axis=1)+ np.dot(coef,V_past) 
+        error = V_future-V_future_pred
+        likelihood = scipy.stats.multivariate_normal.pdf(error.T, mean=np.zeros(dim), cov=sigma, allow_singular=False).sum()
+        
+        return likelihood
 
     def compute_likelihood_around_peak(self,peak_loc,margin_time=[50,50],margin_peak=None):
 
@@ -128,41 +161,46 @@ class LocallyLinearDynamicalSystem:
 
             V_b = self.V[id_st:id_ed,:].T
 
-            onset_fit = id_st
-            offset_fit = id_mid
-            theta_a = self.fit_dynamical_system(self.V[onset_fit:offset_fit,:])
+            theta_a = self.fit_dynamical_system(self.V[id_st:id_mid,:])
             likelihood0,volume0,mahal0 = self.compute_likelihood(theta_a,V_b)
 
-            onset_fit = id_st
-            offset_fit = id_ed
-            theta_a = self.fit_dynamical_system(self.V[onset_fit:offset_fit,:])
+            theta_a = self.fit_dynamical_system(self.V[id_st:id_ed,:])
             likelihood1,volume1,mahal1 = self.compute_likelihood(theta_a,V_b)
 
             return likelihood1-likelihood0
-
-    def compute_likelihood_around_peak_sim(self,V_sim,margin_time=[50,50]):
-
-        id_st = 0
-        id_mid = margin_time[0]
-        id_ed = margin_time[0] + margin_time[1]
+    
+    def compute_symetric_likelihood_around_peak(self,peak_loc,margin_time=[50,10]):
+        
+        id_st = peak_loc - margin_time[0]
+        id_mid = peak_loc
+        id_ed = peak_loc + margin_time[1]
 
         if (id_st>0) & (id_ed<self.V.shape[0]):
 
-            V_b = V_sim.T
+            theta_a0 = self.fit_dynamical_system_no_intercept(self.V[id_st:id_mid,:])#llds.fit_dynamical_system_no_intercept(V_eval[0:margin,:])
+            theta_a1 = self.fit_dynamical_system_no_intercept(self.V[id_st:id_ed,:])
+            # Make sure we don't fit the covariance on the first segment:
+            theta_a0 = theta_a0[0],theta_a0[1],theta_a1[2]
+            
+            #likelihood0,volume0,mahal0 = compute_likelihood(theta_a,V_eval.T)
+            likelihood0 = self.compute_likelihood_alternative(theta_a0,self.V[id_st:id_ed,:].T)
 
-            onset_fit = id_st
-            offset_fit = id_mid
-            theta_a = self.fit_dynamical_system(V_b[:,onset_fit:offset_fit])
-            print(theta_a)
-            print(V_b[:,onset_fit:offset_fit].shape)
-            likelihood0,volume0,mahal0 = self.compute_likelihood(theta_a,V_b)
-
-            onset_fit = id_st
-            offset_fit = id_ed
-            theta_a = self.fit_dynamical_system(V_b[:,onset_fit:offset_fit])
-            likelihood1,volume1,mahal1 = self.compute_likelihood(theta_a,V_b)
-
+            #likelihood1,volume1,mahal1 = compute_likelihood(theta_a,V_eval.T)
+            likelihood1 = self.compute_likelihood_alternative(theta_a1,self.V[id_st:id_ed,:].T)
+            
+            #if (likelihood1-likelihood0)<0:
+            #    print(peak_loc)
             return likelihood1-likelihood0
+        
+    def compute_likelihood_around_peak_sim(self,V_sim,id_mid = 50):
+
+        V_b = V_sim.T
+        theta_a = self.fit_dynamical_system(V_b[:,0:id_mid].T)
+        likelihood0,volume0,mahal0 = self.compute_likelihood(theta_a,V_b)
+        theta_a = self.fit_dynamical_system(V_b.T)
+        likelihood1,volume1,mahal1 = self.compute_likelihood(theta_a,V_b)
+
+        return likelihood1-likelihood0
 
     def evaluate_break_point(self,onset,offset,all_peaks,margin_time=[50,50]):
         
@@ -173,6 +211,22 @@ class LocallyLinearDynamicalSystem:
             peak_inside_bouts = all_peaks[(all_peaks>(onset[i]+2*margin_time[0]))&(all_peaks<(offset[i]-2*margin_time[1]))]
             for peak in peak_inside_bouts:
                 tmp = self.compute_likelihood_around_peak(peak,margin_time=margin_time)
+                if tmp is not None:
+                    likelihood_ratio.append(tmp)
+                    peak_evaluated.append(peak)
+
+        return np.array(peak_evaluated),np.array(likelihood_ratio)
+    
+    
+    def evaluate_break_point_symetric(self,onset,offset,all_peaks,margin_time=[50,10]):
+        
+        peak_evaluated = []
+        likelihood_ratio = []
+
+        for i in range(len(onset)):
+            peak_inside_bouts = all_peaks[(all_peaks>(onset[i]+2*margin_time[0]))&(all_peaks<(offset[i]-2*margin_time[1]))]
+            for peak in peak_inside_bouts:
+                tmp = self.compute_symetric_likelihood_around_peak(peak,margin_time=[50,10])
                 if tmp is not None:
                     likelihood_ratio.append(tmp)
                     peak_evaluated.append(peak)
