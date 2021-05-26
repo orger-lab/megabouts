@@ -363,7 +363,25 @@ class HalfBeat(object):
         for on_,off_ in zip(onset,offset):
             self.tail_active_out[on_:off_]=1
 
-    
+    def refine_bouts(self,MaxIBeatI = 50):
+        # Easier way : redefined tail active as a series of continuous bouts:
+        all_peaks = np.concatenate((self.half_beat_pos,self.half_beat_neg))
+        all_peaks = np.sort(all_peaks)
+        tail_active = np.zeros_like(self.tail_active_in)
+        for p1,p2 in zip(all_peaks[0:-1],all_peaks[1:]):
+            if (p2-p1)<MaxIBeatI:
+                tail_active[p1:p2] = 1
+            else:
+                tail_active[p1-5:p1+5] = 1
+        
+        # Recompute onset and offset:
+        #id = np.where(np.diff(tail_active)==1)[0]
+        #self.onset = id
+        #id = np.where(np.diff(tail_active)==-1)[0]
+        #self.offset = id
+        #self.tail_active = tail_active
+        return tail_active
+
     def extract_half_beat(self,Half_BCFilt = 150, stdThres = 5,MinSizeBlob=500,Margin=10):
 
         peaks_pos = []
