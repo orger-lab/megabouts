@@ -408,5 +408,217 @@ class HalfBeat(object):
 ##########################################   BREAKPOINT    ###########################################
 ######################################################################################################
 
+from statsmodels.tsa.ar_model import AutoReg, ar_select_order
+from statsmodels.tsa.api import acf, pacf, graphics
+import scipy
+from scipy.ndimage.interpolation import shift
+from scipy.stats import rankdata
 
+class BreakPoint(object):
+    
+    def __init__(self):
+        pass
+        
+
+    def compute_hankel(self,x,L):
+        H = np.ones((1,len(x)))#H.reshape(0,len(x))
+        for i in range(1,L+1):
+            H = np.vstack((H,shift(x[:,np.newaxis],(i,0), cval=0).T))#.reshape(NumSeg,tail.shape[0])))
+        y = x[L:][np.newaxis,:].T
+        H = H[:,L:].T
+        return H,y
+
+    def fit_AR(self,x,L):
+        H,y = self.compute_hankel(x,L)
+
+        res2 = np.linalg.lstsq(H,y,rcond=None)
+        coeff,residual = res2[0].T,res2[1]
+
+        y_pred = np.dot(H,coeff.T)
+        error = y - y_pred
+        covariance_noise = (error.T.dot(error))/(error.shape[0])
+
+        return coeff,covariance_noise
+
+    def compute_likelihood(self,x,coeff,covariance_noise):
+        L = len(coeff[0])-1
+        H,y = self.compute_hankel(x,L)
+        y_pred = np.dot(H,coeff.T)
+        error = y - y_pred
+        likelihood = scipy.stats.multivariate_normal.logpdf(error, mean=0, cov=covariance_noise, allow_singular=False).sum()
+        return likelihood,error
+
+    def predict(self,x,coeff,covariance_noise):
+        noise_sim = np.random.normal(0, np.sqrt(covariance_noise), size=len(x))
+        x_ = np.zeros_like(x)
+        n = len(coeff)-1
+        x_[0:n]=x[0:n]
+        #for i in range(n,len(x)):
+        #    x_[i] = res.params[0] + np.array([res.params[j]*x_[i-j] for j in range(1,n+1)]).sum() + noise_sim[i]
+        for i in range(n,len(x)):
+            x_[i] = coeff[0] + np.array([coeff[j]*x_[i-j] for j in range(1,n+1)]).sum() + noise_sim[i]
+        return x_
+
+
+
+    def compute_nested_likelihood_around_peak(self,x,L,peak_loc,margin_time=[50,50],sigma=None):
+        
+        id_st = peak_loc - margin_time[0]
+        id_mid = peak_loc
+        id_ed = peak_loc + margin_time[1]
+
+        if (id_st>0) & (id_ed<len(x)):
+
+            coeff0,covariance_noise0 = self.fit_AR(x[id_st:id_ed],L)
+            coeff1,covariance_noise1 = self.fit_AR(x[id_st:id_mid],L)
+            coeff2,covariance_noise2 = self.fit_AR(x[id_mid-L:id_ed],L)
+            if sigma is not None:
+                covariance_noise0,covariance_noise1,covariance_noise2 = sigma,sigma,sigma
+            
+            likelihood0,error0 = self.compute_likelihood(x[id_st:id_ed],coeff0,covariance_noise0)
+            likelihood1,error1 = self.compute_likelihood(x[id_st:id_mid],coeff1,covariance_noise1)
+            likelihood2,error2 = self.compute_likelihood(x[id_mid-L:id_ed],coeff2,covariance_noise2)
+
+            return (likelihood1+likelihood2)-likelihood0
+
+    def compute_likelihood_ratio_around_peak(self,x,L,peak_loc,margin_time=[50,50],sigma=None):
+        
+        id_st = peak_loc - margin_time[0]
+        id_mid = peak_loc
+        id_ed = peak_loc + margin_time[1]
+
+        if (id_st>0) & (id_ed<len(x)):
+
+            coeff0,covariance_noise0 = self.fit_AR(x[id_st:id_ed],L)
+            coeff1,covariance_noise1 = self.fit_AR(x[id_st:id_mid],L)
+            if sigma is not None:
+                covariance_noise0,covariance_noise1,covariance_noise2 = sigma,sigma,sigma
+
+            likelihood0,error0 = self.compute_likelihood(x[id_st:id_ed],coeff0,covariance_noise0)
+            likelihood1,error1 = self.compute_likelihood(x[id_st:id_ed],coeff1,covariance_noise1)
+
+            return likelihood0 - likelihood1
+
+
+    def compute_likelihood_distribution_around_peak(self,x,L,peak_loc,margin_time=[50,50],N=100):
+
+        id_st = peak_loc - margin_time[0]
+        id_mid = peak_loc
+        id_ed = peak_loc + margin_time[1]
+
+        if (id_st>0) & (id_ed<len(x)):
+
+            coeff0,covariance_noise0 = self.fit_AR(x[id_st:id_ed],L)
+            coeff1,covariance_noise1 = self.fit_AR(x[id_st:id_mid],L)
+
+            likelihood0,_ = self.compute_likelihood(x[id_st:id_ed],coeff0,covariance_noise0)
+            likelihood1,_ = self.compute_likelihood(x[id_st:id_ed],coeff1,covariance_noise1)
+            
+            likelihood_ratio = likelihood0 - likelihood1
+            likelihood_ratio_null = np.zeros(N)
+
+            xstart =  x[id_st:id_mid]
+            xend = x[id_mid:id_ed]
+
+            for i in range(N):
+                xend_ = self.predict(xend,coeff1[0],covariance_noise1[0])
+                xall_ = np.concatenate((xstart,xend_))
+                coeff0sim,covariance_noise0sim = self.fit_AR(xall_,L)
+                coeff1sim,covariance_noise1sim = self.fit_AR(xall_[:margin_time[0]],L)
+                
+                likelihood0sim,_ = self.compute_likelihood(xall_,coeff0sim,covariance_noise0)
+                likelihood1sim,_ = self.compute_likelihood(xall_,coeff1sim,covariance_noise0)
+                
+                likelihood_ratio_null[i] = likelihood0sim - likelihood1sim
+            
+            rank = rankdata(np.hstack((-likelihood_ratio,-likelihood_ratio_null)),'ordinal')
+            return rank[0]
+
+    def evaluate_break_point(self,x,L,onset,offset,all_peaks,margin_time=[50,50],sigma=None,method='costa'):
+        
+        peak_evaluated = []
+        likelihood_ratio = []
+
+        for i in range(len(onset)):
+
+            peak_inside_bouts = all_peaks[(all_peaks>(onset[i]+margin_time[0]))&(all_peaks<(offset[i]-2*margin_time[1]))]
+            for peak in peak_inside_bouts:
+                if method=='nested':
+                    tmp = self.compute_nested_likelihood_around_peak(x,L,peak,margin_time=margin_time,sigma=None)
+                elif method=='costa':
+                    tmp = self.compute_likelihood_distribution_around_peak(x,L,peak,margin_time=margin_time,N=100)
+                elif method=='costafast':
+                    tmp = self.compute_likelihood_ratio_around_peak(x,L,peak,margin_time=margin_time,sigma=None)
+                if tmp is not None:
+                    likelihood_ratio.append(tmp)
+                    peak_evaluated.append(peak)
+
+        return np.array(peak_evaluated),np.array(likelihood_ratio)
+
+
+    def segment_from_breakpoint(self,onset,offset,all_peaks,break_point,likelihood_ratio_break_point,MinBoutDuration=80):
+
+        bouts_onset,bouts_offset = [],[]
+        n = 0
+        for on_,off_ in zip(onset,offset):
+            
+            # Collect useful list:
+
+            peak_in_interval = all_peaks[(all_peaks<off_)&(all_peaks>on_)]
+
+            if len(peak_in_interval)>0:
+
+                peak_in_interval = all_peaks[(all_peaks<off_)&(all_peaks>on_)]
+                breakpoint_in_interval = break_point[(break_point<off_)&(break_point>on_)]
+                likelihood_ratio_in_interval = likelihood_ratio_break_point[(break_point<off_)&(break_point>on_)]
+                #    break
+                #n = n+1
+                Duration = off_-on_
+
+                # Routine to find double bouts:
+                sub_on,sub_off = [],[]
+
+                candidate_breakpoint = np.copy(breakpoint_in_interval).tolist()
+                candidate_breakpoint_likelihood = np.copy(likelihood_ratio_in_interval).tolist()
+
+                while len(candidate_breakpoint)>0:
+                    # Find largest peak:
+                    i = np.argmax(np.array(candidate_breakpoint_likelihood))
+                    candidate_breakpoint_likelihood.pop(i)
+                    id_st = candidate_breakpoint.pop(i)
+                    id_ed = id_st+MinBoutDuration
+                    # Check condition for including the breakpoint:
+                    far_from_end = id_ed<off_
+                    interval_busy = np.zeros(max(np.max(offset),np.max(all_peaks))) # TO DO : replace weird max with T (size of tail)
+
+                    for s1,s2 in zip(sub_on,sub_off):
+                        interval_busy[s1:s2]=1
+                    close_to_onset_other_bout = np.max(interval_busy[id_st:id_ed])
+                    if far_from_end&(close_to_onset_other_bout==0):
+                        sub_on.append(id_st)
+                        sub_off.append(id_ed)
+
+                # Sort sub_on and sub_off by time:
+                sub_on.sort()
+                sub_off.sort()
+                
+                # Propagate first peak forward:
+                first_peak = peak_in_interval[0]
+                last_peak = peak_in_interval[-1]
+
+                bouts_onset.append(first_peak)
+                for s1 in sub_on:
+                    bouts_offset.append(s1)
+                    if (bouts_offset[-1]-bouts_onset[-1])<0:
+                        print(first_peak)
+                        print(sub_on)
+
+                    bouts_onset.append(s1)
+                bouts_offset.append(last_peak)
+
+
+        bouts_onset = np.array(bouts_onset)
+        bouts_offset = np.array(bouts_offset)
+        
+        return bouts_onset,bouts_offset
 
