@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 
 from sporco.admm import cbpdn
 
+from numba import njit, prange
+
 def batch_tail_angle(tail_angle,batch_duration=700*60*2):
     N = int(np.ceil(tail_angle.shape[0]/(batch_duration)))
     Nseg = tail_angle.shape[1]
@@ -47,6 +49,7 @@ def compute_sparse_code(dict_atoms,lambda_=1):
 def compute_likelihood_ratio_test(win_size=50):
     ### Math:
     # http://www.claudiobellei.com/2016/11/15/changepoint-frequentist/
+    
     def likelihood_ratio_test_poisson(z):
 
         zpoisson = np.abs(z)
@@ -58,8 +61,9 @@ def compute_likelihood_ratio_test(win_size=50):
         likelihood_ratio = np.zeros((num_time,zpoisson.shape[-1]))
         # Compute min lambda
         lambda_min=np.mean(zpoisson,axis=0)
-
-        for t in range(win_size,num_time-win_size):
+        return sub_likelihood_loop(zpoisson,num_time,win_size,lambda_min)
+        '''
+        for t in prange(win_size,num_time-win_size):
             #for t in range(IdSt-500,IdSt+Duration+500):
             if (t%(700*60*5)==0):
                 print(t/num_time)
@@ -75,5 +79,22 @@ def compute_likelihood_ratio_test(win_size=50):
                 likelihood_ratio[t,n] = np.sum(zpast)*np.log(lambdaPast) + np.sum(zfutur)*np.log(lambdaFuture) - np.sum(zall)*np.log(lambdaAll)
 
         return likelihood_ratio
-    
+        '''
+
     return likelihood_ratio_test_poisson
+
+@njit(parallel=True)
+def sub_likelihood_loop(zpoisson,num_time,win_size,lambda_min):
+    likelihood_ratio = np.zeros((num_time,zpoisson.shape[-1]))
+    for t in prange(win_size,num_time-win_size):
+        for n in range(zpoisson.shape[-1]):
+            zfutur = zpoisson[t:t+win_size,n]
+            zpast = zpoisson[t-win_size:t,n]
+            zall = zpoisson[t-win_size:t+win_size,n]
+
+            lambdaPast = max(np.mean(zpast),lambda_min[n])
+            lambdaFuture = max(np.mean(zfutur),lambda_min[n])
+            lambdaAll = max(np.mean(zall),lambda_min[n])
+
+            likelihood_ratio[t,n] = np.sum(zpast)*np.log(lambdaPast) + np.sum(zfutur)*np.log(lambdaFuture) - np.sum(zall)*np.log(lambdaAll)
+    return likelihood_ratio
