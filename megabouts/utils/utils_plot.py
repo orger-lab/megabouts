@@ -1,37 +1,45 @@
-import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
 import matplotlib.gridspec as gridspec
+from matplotlib.patches import Rectangle
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 
 
-def display_canopy_member(df,All_Bouts,cat_list,filename_fig,title):
-    n = int(np.ceil(np.sqrt(len(cat_list))))
 
-    fig, ax = plt.subplots(facecolor='white',figsize=(15,15))
-    plt.rc('font', family='monospace', serif='Courier New')
-    plt.rc('xtick', labelsize=13)
-    plt.rc('ytick', labelsize=13)
-    plt.rc('axes', labelsize=13)
-    gs = fig.add_gridspec(n, n)
+list_color_no_CS = ['#82cfff','#4589ff','#0000c8','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
+list_color_w_CS = ['#82cfff','#4589ff','#0000c8','#5d5d66','#000000','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
+NameCatSym_w_CS=['approach_swim', 'slow1', 'slow2', 'slow_capture_swim','fast_capture_swim', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
+NameCatSym_no_CS=['approach_swim', 'slow1', 'slow2', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
 
-    for i in range(n):
-        for j in range(n):
-            ax = fig.add_subplot(gs[i,j])
-            ax.set_ylim(-4,4)
-            ax.set_xlim(0,100)
-            ax.set_yticks([])
-            ax.set_xticks([])
-            try:
-                k = int(cat_list[j+i*n])
-                ax.plot(All_Bouts[df.all_label==k,:,8].T,'k',lw=0.3)
-                ax.plot(All_Bouts[df.all_label_centroid==k,:,8].T,'r',lw=2)
-                #ax.plot(All_Bouts_Centroid[k,:,8].T,'k',lw=0.3)
-                #ax.plot(tail_angle_segment[id[::1],:,8].T,'k',lw=0.3)
-                #ax.plot(tail_angle_segment[k,:,8],'r',lw=2)
-                ax.set_xlim(0,100)
-            except:
-                pass
+cmp = colors.ListedColormap(list_color_w_CS)
 
-    plt.suptitle(title)
-    plt.draw()
-    plt.savefig(filename_fig)
+
+fig, ax = plt.subplots(figsize=(5,10))
+for i,c in enumerate(list_color_w_CS):
+    ax.add_patch(Rectangle(xy=(0,i*2), width=1,
+                      height=1, facecolor=c))
+    ax.text(1.1, i*2+0.5, NameCatSym_w_CS[i], fontsize=14,
+                horizontalalignment='left',
+                verticalalignment='center')                     
+ax.set_ylim(0,25)
+ax.set_xlim(0,3)
+ax.set_yticks(np.arange(0,26,2)+0.5)
+ax.set_yticklabels(np.arange(13))
+plt.show()
+
+from matplotlib.patches import Rectangle
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+
+fig, ax = plt.subplots(figsize=(5,10))
+for i,c in enumerate(list_color_no_CS):
+    ax.add_patch(Rectangle(xy=(0,i*2), width=1,
+                      height=1, facecolor=c))
+    ax.text(1.1, i*2+0.5, NameCatSym_no_CS[i], fontsize=14,
+                horizontalalignment='left',
+                verticalalignment='center')                     
+ax.set_ylim(0,21)
+ax.set_xlim(0,3)
+ax.set_yticks(np.arange(0,22,2)+0.5)
+ax.set_yticklabels(np.arange(11))
+plt.show()
