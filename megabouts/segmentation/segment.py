@@ -32,7 +32,11 @@ def create_segmentation_from_code(Min_Code_Ampl=1,SpikeDist=120,Bout_Duration=14
                     id_st = peak - Margin_before_peak
                     id_ed = id_st +140
                     tmp = tail_angle[id_st:id_ed,7]
-                    peak_location = align_bout_peaks(tmp,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
+
+                    try:
+                        peak_location = align_bout_peaks(tmp,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
+                    except:
+                        peak_location = np.nan
                     if np.isnan(peak_location):
                         peak_location = peak
                     else:
