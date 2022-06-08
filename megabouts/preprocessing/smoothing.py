@@ -17,7 +17,6 @@ def clean_using_pca(X,num_pcs=4):
     return X_clean
 
 
-# Cleaning trajectory using Alexandre Algorithm
 def one_euro_filter(x,fc_min,beta,rate):
     dx = 0
     x_smooth = np.zeros_like(x)
