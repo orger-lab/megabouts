@@ -1,9 +1,10 @@
 import numpy as np
-from scipy.ndimage import zoom
+#from scipy.ndimage import zoom
+from super_resolution.downsampling import create_downsampling_function
+from scipy.ndimage.interpolation import shift
 
-
-def generate_template_bouts(format='tail&traj',template_duration=140,target_fps=700,ExludeCaptureSwim=True,delays=np.arange(0,60,9)):
-
+def generate_template_bouts(format='tail&traj',target_fps=700,ExludeCaptureSwim=True,delays=np.arange(0,60,9)):
+    
     arr = np.load('./classification/CleanBalancedBoutDataset.npz')
     ref_bouts = arr['bouts']
     labels = arr['label']
@@ -26,10 +27,9 @@ def generate_template_bouts(format='tail&traj',template_duration=140,target_fps=
 
     ref_bouts = ref_bouts[(labels!=3)&(labels!=4)] # Remove slow and fast capture swim
     labels = labels[(labels!=3)&(labels!=4)]  # Remove slow and fast capture swim
-    
-    downsampling_factor = target_fps/700
-    Duration_after_Downsampling = int(np.round(template_duration*downsampling_factor))
-    
+
+    downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(target_fps,duration_original=140,original_fps=700)
+
     templates = np.zeros((len(labels),10,Duration_after_Downsampling))
     if format=='tail':
         templates = np.zeros((len(labels),7,Duration_after_Downsampling))
@@ -40,26 +40,32 @@ def generate_template_bouts(format='tail&traj',template_duration=140,target_fps=
         tmp = ref_bouts[i,:]
         tmp = np.reshape(tmp,(10,140))
         if format=='tail':
-            tmp = tmp[:7,:template_duration]  # Only use the trajectory
+            tmp = tmp[:7,:]  # Only use the trajectory
         if format=='traj':
-            tmp = tmp[7:,:template_duration]  # Only use the trajectory
+            tmp = tmp[7:,:]  # Only use the trajectory
 
-        for j in range(templates.shape[1]):
-            templates[i,j,:]= zoom(tmp[j,:],downsampling_factor,order=3)
-    
+        #for j in range(templates.shape[1]):
+        #    templates[i,j,:]= zoom(tmp[j,:],downsampling_factor,order=3)
+        templates[i,:,:]= downsampling_f(tmp[:,:],axis=1)
+        
     if format=='traj':
         templates[:,0,:],templates[:,1,:],templates[:,2,:] = templates[:,0,:]*5,templates[:,1,:]*5,templates[:,2,:]/2 # Rescaling to make x,y in mm and angle in radian
+    if format=='tail&traj':
+        templates[:,7,:],templates[:,8,:],templates[:,9,:] = templates[:,7,:]*5,templates[:,8,:]*5,templates[:,9,:]/2 # Rescaling to make x,y in mm and angle in radian
 
     templates_rolled = np.zeros((len(labels)*len(delays),templates.shape[1],Duration_after_Downsampling))
     labels_rolled = np.nan*np.ones(len(labels)*len(delays))
+    delays_rolled = np.nan*np.ones(len(labels)*len(delays))
+
     iter_=0
     for k,t in enumerate(delays):
         for i in range(len(labels)):
             for j in range(templates.shape[1]):
-                tmp = np.roll(templates[i,j,:],t)
-                tmp[:t]=0
-                templates_rolled[iter_,j,:] = tmp
+                #tmp = np.roll(templates[i,j,:],t)
+                #tmp[:t]=0
+                templates_rolled[iter_,j,:] = shift(templates[i,j,:],t, cval=0)
             labels_rolled[iter_] = labels[i]
+            delays_rolled[iter_] = t
             iter_ = iter_+1
 
     flipped = np.copy(templates_rolled)
@@ -67,15 +73,20 @@ def generate_template_bouts(format='tail&traj',template_duration=140,target_fps=
         flipped[:,[1,2]] = -flipped[:,[1,2]] # We only flip y and bodyangle to get the symetric bouts
     if format == 'tail':
         flipped = -flipped
+    if format == 'tail&traj':
+        flipped[:,[0,1,2,3,4,5,6,8,9]] = -flipped[:,[0,1,2,3,4,5,6,8,9]] # We only tail, flip y and bodyangle to get the symetric bouts
+
+
     templates = np.vstack((templates_rolled,flipped))
 
     labels = np.concatenate((labels_rolled,labels_rolled+13))
+    delays = np.concatenate((delays_rolled,delays_rolled))
 
     NameCat = [i+'_+' for i in NameCat]+[i+'_-' for i in NameCat]
     templates_flat = np.reshape(templates,(templates.shape[0],templates.shape[1]*templates.shape[2]))
 
-    return templates_flat,labels,NameCat,Duration_after_Downsampling
-
+    return templates_flat,labels,delays,NameCat,Duration_after_Downsampling
+    
     '''
 
 
