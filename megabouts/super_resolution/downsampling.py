@@ -2,20 +2,51 @@ import numpy as np
 from scipy.interpolate import interp1d
 
 
-def convert_duration(N_frame,original_fps,new_fps):
+def convert_frame_duration(n_frames_origin:int,fps_origin:int,fps_new:int)->int:
+    """_summary_
 
-    return int(np.ceil(new_fps/original_fps*N_frame))
+    Args:
+        n_frames (int): number of frames in input times series
+        fps_origin (int): fps of input times series
+        fps_new (int): target fps
+
+    Returns:
+        int: number of frames corresponding for target fps
+    """    
+
+    return int(np.ceil(fps_new/fps_origin*n_frames_origin))
+
+#TODO: REPLACE CONVERT DURATION USE BY CONVERT MS TO FRAMES WHEN POSSIBLE
+
+def convert_ms_to_frames(fps:int,duration:int)->int:
+    """Convert duration in ms to number of frames
+
+    Args:
+        fps (int): frame rate 
+        duration (int): duration in number of frames
+
+    Returns:
+        int: number of frames correponding to duration
+    """    
+    n_frames = int(np.ceil(duration*fps/1000))
+    return n_frames
 
 
+def create_downsampling_function(fps_new:int,n_frames_origin:int,fps_origin=700):
+    """Generate function that will downsample according to fps_new
 
-def create_downsampling_function(new_fps,duration_original=140,original_fps=700):
+    Args:
+        fps_new (int): target fps
+        n_frames_origin (int): number of frames at the original fps
+        fps_origin (int, optional): Defaults to 700.
+
+    Returns:
+        _type_: downsampling function that downsample a np.ndarray along a given axis
+    """    
     
-    N_downsampled = convert_duration(duration_original,original_fps,new_fps)
-    
-    t = np.linspace(0,1000/original_fps*duration_original,duration_original,endpoint=False)
-
-    tnew = np.linspace(0,1000/original_fps*duration_original,N_downsampled,endpoint=False)
-
+    n_frames_new = convert_frame_duration(n_frames_origin,fps_origin,fps_new)
+    t = np.linspace(0,1000/fps_origin*n_frames_origin,n_frames_origin,endpoint=False)
+    tnew = np.linspace(0,1000/fps_origin*n_frames_origin,n_frames_new,endpoint=False)
 
     def downsampling_f(x,axis=0):
             
@@ -26,4 +57,4 @@ def create_downsampling_function(new_fps,duration_original=140,original_fps=700)
         return xnew
 
 
-    return downsampling_f, N_downsampled,t,tnew
+    return downsampling_f, n_frames_new,t,tnew

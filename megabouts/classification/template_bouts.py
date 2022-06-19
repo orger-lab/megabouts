@@ -2,9 +2,46 @@ import numpy as np
 #from scipy.ndimage import zoom
 from super_resolution.downsampling import create_downsampling_function
 from scipy.ndimage.interpolation import shift
+from dataclasses import dataclass,field
+
+
+@dataclass
+class Template:
+    """This is a dataclasse for template bouts.
+
+    Attributes:
+        BoutDuration (int): An integer.
+        bouts (np.ndarray): template bouts of shape (n_samples, n_features, BoutDuration)
+        delays (np.ndarray): shift corresponding to each bouts of shape (n_samples)
+        label (np.ndarray): category integer corresponding to each bouts of shape (n_samples)
+        label_str (np.ndarray): category name corresponding to each bouts of shape (n_samples)
+        
+    """    
+    BoutDuration: int
+    bouts: np.ndarray=field(repr=False)
+    delays: np.ndarray=field(repr=False)
+    label: np.ndarray=field(repr=False)
+    label_str: np.ndarray=field(repr=False)
+    
+    def flat(self) -> np.ndarray:
+        return np.reshape(self.bouts,(self.bouts.shape[0],self.bouts.shape[1]*self.bouts.shape[2]))
+
+#TODO: Need to change template.npz such that the templates are already balanced and normalized
+#TODO: Remove hardcoded NameCat
+#TODO: Only use full format
 
 def generate_template_bouts(format='tail&traj',target_fps=700,ExludeCaptureSwim=True,delays=np.arange(0,60,9)):
-    
+    """Generate reference movements for classifying new movments
+
+    Args:
+        format (str, optional): _description_. Defaults to 'tail&traj'.
+        target_fps (int, optional): _description_. Defaults to 700.
+        ExludeCaptureSwim (bool, optional): _description_. Defaults to True.
+        delays (_type_, optional): _description_. Defaults to np.arange(0,60,9).
+
+    Returns:
+        _type_: Template dataclass
+    """    
     arr = np.load('./classification/CleanBalancedBoutDataset.npz')
     ref_bouts = arr['bouts']
     labels = arr['label']

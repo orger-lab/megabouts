@@ -1,3 +1,4 @@
+from megabouts.classification.template_bouts import Template
 from sklearn.neighbors import KNeighborsClassifier
 from scipy import stats
 import numpy as np
@@ -18,49 +19,41 @@ def create_classifier(templates_flat,templates_labels,n_neighbors=5):
         return bout_cat
 
     return classifier'''
-
-def array_normalizer(array,scale,Duration=140):
-    N = int(len(scale))
-    X = array.reshape(-1,N,Duration)
-    for i in range(N):
-        X[:,i,:] = X[:,i,:]*scale[i]
-    X_flat =   X.reshape(-1,Duration*N)
-    return X_flat
-
-
-def create_classifier(templates_flat,templates_labels,templates_delays,scale,n_neighbors=5,Bout_Duration=140):
     
-    def classifier(bouts_array_flat):
+def array_normalizer(array:np.ndarray,
+                     scale:int
+                     )->np.ndarray:
+    """Normalize each feature of the array according to the scale
+    Args:
+        array (np.ndarray): input of shape (n_samples, n_features, duration)
+        scale (int): input array of shape (n_featues,)
+    Returns:
+        np.ndarray: scaled version of the input array
+    """     
+    assert len(scale)==array.shape[1]
+    array_scaled = array*scale.reshape(-1,len(scale),-1)
+    return array_scaled
+
+
+#TODO: ONLY USE FLAY ARRAY WHEN REQUIRED
+
+def create_classifier(template:Template,scale:np.ndarray,n_neighbors=5):
+    
+    def classifier(X:np.ndarray):
         
+        assert X.shape[1]==template.bouts.shape[1] and X.shape[2]==template.bouts.shape[2], \
+            "size of input does not match the template"
+            
         ###### Scale Template and bouts: #####
 
-        #scale_x,scale_y,scale_theta = 1/np.std(templates_flat[:,:Bout_Duration]),1/np.std(templates_flat[:,Bout_Duration:Bout_Duration*2]),1/np.std(templates_flat[:,Bout_Duration*2:])
-        #scale_x,scale_y,scale_theta = 0.5,0.4,1
-        #scale_tail = 1.6
-        '''
-        templates_flat_normalized = np.copy(templates_flat)
-        templates_flat_normalized[:,:Bout_Duration] = templates_flat_normalized[:,:Bout_Duration]*scale_x
-        templates_flat_normalized[:,Bout_Duration:Bout_Duration*2] = templates_flat_normalized[:,Bout_Duration:Bout_Duration*2]*scale_y
-        templates_flat_normalized[:,Bout_Duration*2:] = templates_flat_normalized[:,Bout_Duration*2:]*scale_theta
-
-        bouts_array_flat_normalized = np.copy(bouts_array_flat)
-        bouts_array_flat_normalized[:,:Bout_Duration] = bouts_array_flat_normalized[:,:Bout_Duration]*scale_x
-        bouts_array_flat_normalized[:,Bout_Duration:Bout_Duration*2] = bouts_array_flat_normalized[:,Bout_Duration:Bout_Duration*2]*scale_y
-        bouts_array_flat_normalized[:,Bout_Duration*2:] = bouts_array_flat_normalized[:,Bout_Duration*2:]*scale_theta
-        '''
-        templates_flat_normalized = array_normalizer(templates_flat, scale,Duration=Bout_Duration)
-        bouts_array_flat_normalized = array_normalizer(bouts_array_flat, scale,Duration=Bout_Duration)
+        #templates_flat_normalized = array_normalizer(templates_flat, scale,Duration=Bout_Duration)
+        #bouts_array_flat_normalized = array_normalizer(bouts_array_flat, scale,Duration=Bout_Duration)
 
         ##### Compute NN #####
         knn = KNeighborsClassifier(n_neighbors=5)
         knn.fit(templates_flat_normalized, templates_labels)
         res = knn.kneighbors(bouts_array_flat_normalized)
 
-        '''
-        Nearest_bouts_x = templates_flat_normalized[res[1][:,0],:140]
-        Nearest_bouts_y = templates_flat_normalized[res[1][:,0],140:140*2]
-        Nearest_bouts_angle = templates_flat_normalized[res[1][:,0],140*2:]
-        '''
         id_nearest = res[1][:,0]
         l = templates_labels[res[1]]
         d = templates_delays[res[1]]
