@@ -3,6 +3,13 @@ from scipy.signal import find_peaks
 from segmentation.align import align_bout_peaks
 
 
+# How to Segment Tail, Traj or Both:
+
+# Define initial onset,offset (from mobility or code)
+# Refine Onset/Offset
+# Collect Array from onset/offset:
+    #* Adjust onset/offset
+    #* Rotate traj
 
 
 def segment_from_peaks(peaks,T,Margin_before_peak=20,Bout_Duration=140):

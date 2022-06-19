@@ -21,10 +21,11 @@ def create_classifier(templates_flat,templates_labels,n_neighbors=5):
 
 def array_normalizer(array,scale,Duration=140):
     N = int(len(scale))
-    X = array.reshape(-1,N,Duration)
+    X = np.copy(array)
+    X = np.reshape(X,(-1,N,Duration))
     for i in range(N):
         X[:,i,:] = X[:,i,:]*scale[i]
-    X_flat =   X.reshape(-1,Duration*N)
+    X_flat =   np.reshape(X,(-1,Duration*N))
     return X_flat
 
 
@@ -52,7 +53,7 @@ def create_classifier(templates_flat,templates_labels,templates_delays,scale,n_n
         bouts_array_flat_normalized = array_normalizer(bouts_array_flat, scale,Duration=Bout_Duration)
 
         ##### Compute NN #####
-        knn = KNeighborsClassifier(n_neighbors=5)
+        knn = KNeighborsClassifier(n_neighbors=n_neighbors)
         knn.fit(templates_flat_normalized, templates_labels)
         res = knn.kneighbors(bouts_array_flat_normalized)
 

@@ -8,7 +8,7 @@ def convert_duration(N_frame,original_fps,new_fps):
 
 
 
-def create_downsampling_function(new_fps,duration_original=140,original_fps=700):
+def create_downsampling_function(new_fps,duration_original=140,original_fps=700,kind='linear'):
     
     N_downsampled = convert_duration(duration_original,original_fps,new_fps)
     
@@ -20,7 +20,7 @@ def create_downsampling_function(new_fps,duration_original=140,original_fps=700)
     def downsampling_f(x,axis=0):
             
         # Make the interpolator function.
-        func = interp1d(t, x, kind="linear",axis=axis)
+        func = interp1d(t, x, kind=kind,axis=axis)
         xnew = func(tnew)
 
         return xnew

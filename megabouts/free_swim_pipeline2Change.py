@@ -1,0 +1,9 @@
+from preprocessing.smoothing import create_preprocess
+from sparse_coding.sparse_coding import create_sparse_coder
+from segmentation.segment import create_segmentation_from_code
+from classification.classify import create_classifier
+from classification.template_bouts import generate_template_bouts
+
+
+from super_resolution.downsampling import convert_duration
+from utils.utils_bouts import compute_bout_cat_ts
