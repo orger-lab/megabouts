@@ -51,7 +51,7 @@ def create_downsampling_function(fps_new:int,n_frames_origin:int,fps_origin=700)
     def downsampling_f(x,axis=0):
             
         # Make the interpolator function.
-        func = interp1d(t, x, kind="linear",axis=axis)
+        func = interp1d(t, x, kind=kind,axis=axis)
         xnew = func(tnew)
 
         return xnew

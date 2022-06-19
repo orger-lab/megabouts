@@ -19,7 +19,7 @@ def create_classifier(templates_flat,templates_labels,n_neighbors=5):
         return bout_cat
 
     return classifier'''
-    
+
 def array_normalizer(array:np.ndarray,
                      scale:int
                      )->np.ndarray:
@@ -50,7 +50,7 @@ def create_classifier(template:Template,scale:np.ndarray,n_neighbors=5):
         #bouts_array_flat_normalized = array_normalizer(bouts_array_flat, scale,Duration=Bout_Duration)
 
         ##### Compute NN #####
-        knn = KNeighborsClassifier(n_neighbors=5)
+        knn = KNeighborsClassifier(n_neighbors=n_neighbors)
         knn.fit(templates_flat_normalized, templates_labels)
         res = knn.kneighbors(bouts_array_flat_normalized)
 

@@ -98,9 +98,7 @@ def generate_template_bouts(format='tail&traj',target_fps=700,ExludeCaptureSwim=
     for k,t in enumerate(delays):
         for i in range(len(labels)):
             for j in range(templates.shape[1]):
-                #tmp = np.roll(templates[i,j,:],t)
-                #tmp[:t]=0
-                templates_rolled[iter_,j,:] = shift(templates[i,j,:],t, cval=0)
+                templates_rolled[iter_,j,:] = shift(templates[i,j,:],t,mode='nearest')# cval=0)
             labels_rolled[iter_] = labels[i]
             delays_rolled[iter_] = t
             iter_ = iter_+1
