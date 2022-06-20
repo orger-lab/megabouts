@@ -1,6 +1,9 @@
 import numpy as np
 
 
+NameCat = ['approach_swim','slow1','slow2','slow_capture_swim','fast_capture_swim','burst_swim','J_turn','high_angle_turn','routine_turn','spot_avoidance_turn','O_bend','long_latency_C_start','C_start']
+
+
 
 def compute_bout_cat_ts(onset,offset,bout_cat,T):
     # COMPUTE BOUT CAT MATRIX:

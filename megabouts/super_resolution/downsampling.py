@@ -32,13 +32,14 @@ def convert_ms_to_frames(fps:int,duration:int)->int:
     return n_frames
 
 
-def create_downsampling_function(fps_new:int,n_frames_origin:int,fps_origin=700):
+def create_downsampling_function(fps_new:int,n_frames_origin:int,fps_origin=700,kind='linear'):
     """Generate function that will downsample according to fps_new
 
     Args:
         fps_new (int): target fps
         n_frames_origin (int): number of frames at the original fps
         fps_origin (int, optional): Defaults to 700.
+        kind (str,optional): Defauts to linear, The string can be  'nearest', 'slinear', 'quadratic', 'cubic'...
 
     Returns:
         _type_: downsampling function that downsample a np.ndarray along a given axis
@@ -55,6 +56,5 @@ def create_downsampling_function(fps_new:int,n_frames_origin:int,fps_origin=700)
         xnew = func(tnew)
 
         return xnew
-
 
     return downsampling_f, n_frames_new,t,tnew

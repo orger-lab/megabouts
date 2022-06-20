@@ -4,30 +4,47 @@ from sklearn.decomposition import PCA
 from scipy.signal import savgol_filter
 import pandas as pd
 
+def clean_using_pca(X:np.ndarray,num_pcs=4)->np.ndarray:
+    """Apply PCA autoencoding to clean up the tail angle time series
 
+    Args:
+        X (np.ndarray): tail angle, should be of size (T,num_tail_segments)
+        num_pcs (int, optional): Cutoff on number of principal components. Defaults to 4.
 
-def clean_using_pca(X,num_pcs=4):
+    Returns:
+        np.ndarray: return X_hat
+    """
     # X Should be T,NumSegments
     T=X.shape[0]
-    NumSeg=X.shape[1]
+    num_tail_segments=X.shape[1]
     pca = PCA(n_components=num_pcs)
     pca.fit(X)
     low_D = pca.transform(X)
-    X_clean = pca.inverse_transform(low_D)
-    return X_clean
+    X_hat = pca.inverse_transform(low_D)
+    return X_hat
 
+def one_euro_filter(x:np.ndarray,fc_min:float,beta:float,rate:int)->np.ndarray:
+    """Apply 1€ filter over x
 
-def one_euro_filter(x,fc_min,beta,rate):
+    Args:
+        x (np.ndarray): input array to filter, size (n_frames,)
+        fc_min (float): minimum cuoff frequency in Hz
+        beta (float): cutoff slope
+        rate (int): fps on x
+
+    Returns:
+        np.ndarray: filtered input
+    """    
+    n_frames = len(x)
     dx = 0
     x_smooth = np.zeros_like(x)
-    x_smooth[0] = x[0]
 
     fc = fc_min
     tau = 1/(2*np.pi*fc)
     te=1/rate
     alpha = 1/(1+tau/te)
     
-    for i in range(1,len(x)):
+    for i in range(1,n_frames):
                 
         x_smooth[i] = alpha * x[i] + (1-alpha) * x_smooth[i-1]
         
@@ -40,6 +57,7 @@ def one_euro_filter(x,fc_min,beta,rate):
     return x_smooth
 
 
+#TODO: Should this be here?
 def create_preprocess(limit_na=5,num_pcs=4):
     
     def preprocess(tail_angle) :
@@ -58,27 +76,5 @@ def create_preprocess(limit_na=5,num_pcs=4):
 
     return preprocess
 
-
-
-'''
-Do we need this since I didn't account for 
-def compute_smooth_tail_angle(relative_tail_angle,thresh_error):
-    tail_angle = relative_tail_angle
-    # Define Cumul Sum and Find Tracking Nan:
-    tail_angle[tail_angle<thresh_error]=0
-    cumul_tail_angle=np.cumsum(tail_angle,1)
-    notrack=np.where(np.sum(cumul_tail_angle,1)==0)[0]
-
-    smooth_cumul_tail_angle=np.copy(cumul_tail_angle)
-    for n in range(1,cumul_tail_angle.shape[1]-1):
-        smooth_cumul_tail_angle[:,n]=np.mean(cumul_tail_angle[:,n-1:n+2],1)
-
-    for n in range(cumul_tail_angle.shape[1]):
-        tmp=cumul_tail_angle[:,n]
-        tmp=signal.savgol_filter(tmp, 11, 2, deriv=0, delta=1.0, axis=-1, mode='interp', cval=0.0)
-        smooth_cumul_tail_angle[:,n]=tmp
-        
-    return cumul_tail_angle,smooth_cumul_tail_angle,notrack
-'''
 
 

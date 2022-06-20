@@ -3,7 +3,7 @@ import numpy as np
 from super_resolution.downsampling import create_downsampling_function
 from scipy.ndimage.interpolation import shift
 from dataclasses import dataclass,field
-
+from utils.utils_bouts import NameCat
 
 @dataclass
 class Template:
@@ -45,7 +45,6 @@ def generate_template_bouts(format='tail&traj',target_fps=700,ExludeCaptureSwim=
     arr = np.load('./classification/CleanBalancedBoutDataset.npz')
     ref_bouts = arr['bouts']
     labels = arr['label']
-    NameCat = ['approach_swim','slow1','slow2','slow_capture_swim','fast_capture_swim','burst_swim','J_turn','high_angle_turn','routine_turn','spot_avoidance_turn','O_bend','long_latency_C_start','C_start']
 
     N_Sample = 1400
     balanced_bouts = np.zeros((0,ref_bouts.shape[1]))
@@ -122,32 +121,3 @@ def generate_template_bouts(format='tail&traj',target_fps=700,ExludeCaptureSwim=
 
     return templates_flat,labels,delays,NameCat,Duration_after_Downsampling
     
-    '''
-
-
-knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(ref_bouts_flat, ref_labels)
-
-
-    #bout_cat = find_nearest_bouts_parallel(onset_aligned,x,y,body_angle,ref_bouts_flat,ref_labels)
-    #bout_cat = np.array(bout_cat)
-
-
-    bout_array = np.zeros((len(onset_aligned),80*3))
-    for i,(on_,off_) in enumerate(zip(onset_aligned,offset_aligned)):
-        sub_x,sub_y,sub_body_angle = x[on_-20:on_+60],y[on_-20:on_+60],body_angle[on_-20:on_+60]
-        Pos = np.zeros((2,80))
-        Pos[0,:] = sub_x-sub_x[0]
-        Pos[1,:] = sub_y-sub_y[0]
-        theta=-sub_body_angle[0]
-        body_angle_rotated=sub_body_angle-sub_body_angle[0]
-        RotMat=np.array([[np.cos(theta),-np.sin(theta)],[np.sin(theta),np.cos(theta)]])
-        PosRot=np.dot(RotMat,Pos)
-        sub_x,sub_y,sub_body_angle = PosRot[0,:],PosRot[1,:],body_angle_rotated
-        bout_array[i,:80] = sub_x
-        bout_array[i,80:80*2] = sub_y
-        bout_array[i,80*2:] = sub_body_angle
-
-
-    bout_cat = knn.predict(bout_array)
-'''

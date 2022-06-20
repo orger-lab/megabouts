@@ -32,7 +32,6 @@ def compute_speed(x,y,body_angle,fps,Ndiff=45):
     
     return axial_speed,lateral_speed,yaw_speed
 
-
 def compute_mobility(traj_speed,Lag_dt = 140,fps=700):
 
     traj_cumul = np.cumsum(np.abs(traj_speed),axis=0)
