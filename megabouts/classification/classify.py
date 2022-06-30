@@ -1,73 +1,74 @@
-from megabouts.classification.template_bouts import Template
+from classification.template_bouts import Knn_Training_Dataset
 from sklearn.neighbors import KNeighborsClassifier
 from scipy import stats
 import numpy as np
-'''
-def create_classifier(templates_flat,templates_labels,n_neighbors=5):
-    
-    def classifier(bouts_array):
-        
-        # FLATTEN ARRAY:
-        bouts_array = bouts_array[:,:,:]
-        bouts_array_flat = np.reshape(np.swapaxes(bouts_array, 1, 2),(bouts_array.shape[0],bouts_array.shape[1]*bouts_array.shape[2]))
 
-        knn = KNeighborsClassifier(n_neighbors=n_neighbors)
-        knn.fit(templates_flat, templates_labels)
-
-        bout_cat = knn.predict(bouts_array_flat)
-
-        return bout_cat
-
-    return classifier'''
 
 def array_normalizer(array:np.ndarray,
-                     scale:int
+                     weight:np.ndarray,
                      )->np.ndarray:
     """Normalize each feature of the array according to the scale
     Args:
         array (np.ndarray): input of shape (n_samples, n_features, duration)
-        scale (int): input array of shape (n_featues,)
+        weight (int): input array of shape (n_featues,)
     Returns:
         np.ndarray: scaled version of the input array
     """     
-    assert len(scale)==array.shape[1]
-    array_scaled = array*scale.reshape(-1,len(scale),-1)
+    assert len(weight)==array.shape[1]
+    array_scaled = array*weight.reshape(1,len(weight),1)
     return array_scaled
 
 
 #TODO: ONLY USE FLAY ARRAY WHEN REQUIRED
 
-def create_classifier(template:Template,scale:np.ndarray,n_neighbors=5):
+def create_classifier(kNN_training_dataset:type(Knn_Training_Dataset),weight:np.ndarray,n_neighbors=5,tracking_method='tail_and_traj'):
     
+    bout_duration = kNN_training_dataset.bout_duration
+    if tracking_method=='tail_and_traj':
+        template = kNN_training_dataset.tail_and_traj
+        n_feat = kNN_training_dataset.tail_and_traj.shape[1]
+    elif tracking_method=='tail':
+        template = kNN_training_dataset.tail
+        n_feat = kNN_training_dataset.tail.shape[1]
+    elif tracking_method=='traj':
+        template = kNN_training_dataset.traj
+        n_feat = kNN_training_dataset.traj.shape[1]
+    else:
+        raise ValueError(f"Unsupported value for `tracking_method`: {tracking_method}")
+
+    if len(weight)!=n_feat:
+        raise ValueError(f"Size of weight should be {n_feat}")
+
     def classifier(X:np.ndarray):
+
+        assert X.shape[1]==n_feat and X.shape[2]==bout_duration, \
+            f"size of input should be: (n,{n_feat},{bout_duration}) to match the template"
+
+        X_scaled = array_normalizer(X, weight)
+        template_scaled = array_normalizer(template, weight)        
+        # Apply Weighting to different features:
+        X_flat = np.reshape(X_scaled,(X_scaled.shape[0],X_scaled.shape[1]*X_scaled.shape[2]))
+        template_flat = np.reshape(template_scaled,(template_scaled.shape[0],template_scaled.shape[1]*template_scaled.shape[2]))
         
-        assert X.shape[1]==template.bouts.shape[1] and X.shape[2]==template.bouts.shape[2], \
-            "size of input does not match the template"
-            
-        ###### Scale Template and bouts: #####
-
-        #templates_flat_normalized = array_normalizer(templates_flat, scale,Duration=Bout_Duration)
-        #bouts_array_flat_normalized = array_normalizer(bouts_array_flat, scale,Duration=Bout_Duration)
-
-        ##### Compute NN #####
+        # Compute Nearest Neigbor:
         knn = KNeighborsClassifier(n_neighbors=n_neighbors)
-        knn.fit(templates_flat_normalized, templates_labels)
-        res = knn.kneighbors(bouts_array_flat_normalized)
+        knn.fit(template_flat, kNN_training_dataset.labels)
+        res = knn.kneighbors(X_flat)
 
-        id_nearest = res[1][:,0]
-        l = templates_labels[res[1]]
-        d = templates_delays[res[1]]
+        id_nearest_template = res[1][:,0]
+        l = kNN_training_dataset.labels[res[1]]
+        d = kNN_training_dataset.delays[res[1]]
 
         m = stats.mode(l.T)
-        label_pred = m.mode[0]
+        bout_category = m.mode[0]
 
         id = np.where(m.count[0]==1)[0]
         # This make sure that if no class is overrepresented, the nearest example class is attributed
         if len(id)>0:
-            label_pred[id] = l[id,0]
-        delay_pred = d[:,0]
-
-        return label_pred,delay_pred,id_nearest
+            bout_category[id] = l[id,0]
+        onset_delay = d[:,0]
+        onset_delay_mode = stats.mode(d.T).mode[0]
+        return bout_category,onset_delay,id_nearest_template,onset_delay_mode
 
     return classifier
 

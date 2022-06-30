@@ -1,4 +1,6 @@
 import numpy as np
+from scipy.special import binom
+from utils import smallestenclosingcircle as smallestenclosingcircle
 
 def find_onset_offset_numpy(binary_serie):
     # Create an array that is 1 where a is 0, and pad each end with an extra 0.
@@ -11,7 +13,6 @@ def find_onset_offset_numpy(binary_serie):
     duration = offset-onset
     return onset,offset,duration
 
-from scipy.special import binom
 
 
 def robust_diff(x,dt=1/700, filter_length=71):
@@ -28,3 +29,12 @@ def robust_diff(x,dt=1/700, filter_length=71):
     filtered = np.concatenate((np.nan*np.ones(M),filtered,np.nan*np.ones(M)))
     return filtered
 
+
+
+def compute_outer_circle(x,y,interval=100):
+    p= [(x[i],y[i]) for i in np.arange(0,len(x),interval)]
+    Circle = smallestenclosingcircle.make_circle(p)
+    xc=Circle[0]
+    yc=Circle[1]
+    radius=Circle[2]
+    return (xc,yc,radius)  

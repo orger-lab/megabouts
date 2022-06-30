@@ -18,12 +18,12 @@ def convert_frame_duration(n_frames_origin:int,fps_origin:int,fps_new:int)->int:
 
 #TODO: REPLACE CONVERT DURATION USE BY CONVERT MS TO FRAMES WHEN POSSIBLE
 
-def convert_ms_to_frames(fps:int,duration:int)->int:
+def convert_ms_to_frames(fps:int,duration:float)->int:
     """Convert duration in ms to number of frames
 
     Args:
         fps (int): frame rate 
-        duration (int): duration in number of frames
+        duration (float): duration in ms
 
     Returns:
         int: number of frames correponding to duration
