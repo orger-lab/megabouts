@@ -7,6 +7,19 @@ NameCat = [s+'+' for s in NameCatSym] + [s+'-' for s in NameCatSym]#[::-1]
 
 
 def compute_bout_cat_ts(onset,offset,bout_cat,T):
+    """Make time series of tail bout category
+
+    Args:
+        onset (np.ndarray): bouts onset
+        offset (np.ndarray): bouts  offset
+        bout_cat (np.ndarray): bouts category 
+        T (_type_): lenght of recording
+
+    Returns:
+        time series of unsigned and signed bout category
+    """    
+    assert len(onset)==len(offset)==len(bout_cat), \
+            f"Onset offset and bout cat should have the same lenght"
     # COMPUTE BOUT CAT MATRIX:
     bout_cat_ts = -1+np.zeros(T)
     for on_,off_,b in zip(onset,offset,bout_cat):

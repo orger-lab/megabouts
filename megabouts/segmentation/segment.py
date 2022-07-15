@@ -76,75 +76,145 @@ def extract_aligned_traj(x:np.ndarray,
         traj_array[i,0,:],traj_array[i,1,:],traj_array[i,2,:] = sub_x,sub_y,sub_body_angle
     
     return traj_array
+
     
+def extract_bouts(tail_angle:np.ndarray,
+                  segment:type(Segment))->np.ndarray:
+    """ Segment continuous trajectory into a tensor of segments
+    the trajectory are aligned according to the initial position and angle
 
-def create_segmentation_from_mobility(bout_duration=140,prominence=0.4,margin_before_peak=20):
+    Args:
+        tail_angle (np.ndarray): tail_angle of size (n_segments,n_frames)
+    
+    Returns:
+        np.ndarray: Tensor of concatenated tail_angle
+        of size (num_bouts,n_segments,bout_duration)
+    """
+    tail_array = np.zeros((len(segment.onset),tail_angle.shape[1],segment.bout_duration))
+    for i,(id_st,id_ed) in enumerate(zip(segment.onset,segment.offset)):
 
-    def segment_from_mobility(mobility):
-        peaks, _ = find_peaks(mobility,distance=bout_duration,prominence=prominence)
-        peaks_bin = np.zeros(mobility.shape[0])
-        peaks_bin[peaks]=1
-        onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(mobility),margin_before_peak=margin_before_peak)
-        segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
+        tail_array[i,:,:]=tail_angle[id_st:id_ed,:].T
         
-        return segment
-    return segment_from_mobility
+    return tail_array
+
+
+
+def segment_from_mobility(*,mobility,bout_duration,margin_before_peak,prominence=0.4):
+    """_summary_
+
+    Args:
+        mobility (np.ndarry): mobility whose peak signal onset of bouts.
+        bout_duration (int, optional): Distance between peaks in frames
+        margin_before_peak (int, optional): onset will be peak location shifted by the margin,
+        prominence (float, optional): prominence of peaks in mobility. Defaults to 0.4.
+
+    Returns:
+        Segment: contains onset offset and duration of bouts
+    """    
+    peaks, _ = find_peaks(mobility,distance=bout_duration,prominence=prominence)
+    peaks_bin = np.zeros(mobility.shape[0])
+    peaks_bin[peaks]=1
+    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(mobility),margin_before_peak=margin_before_peak)
+    segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
+        
+    return segment
     
 
-def create_segmentation_from_code(Min_Code_Ampl=1,SpikeDist=120,Bout_Duration=140):
+def segment_from_code(*,z,
+                      min_code_height=1,
+                      min_spike_dist=120,
+                      bout_duration=140,
+                      margin_before_peak=20):
 
-    def segment_from_code(z,tail_angle):
+    # FINDING PEAKS IN SPARSE CODE:
+    z_max = np.max(np.abs(z),axis=1)
+    peaks, _ = find_peaks(z_max, height=min_code_height,distance=min_spike_dist)
+    peaks_bin = np.zeros(z.shape[0])
+    peaks_bin[peaks]=1
+    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(z_max),margin_before_peak=margin_before_peak)
+    segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
+        
+    return segment
 
-        # FINDING PEAKS IN SPARSE CODE:
-        z_max = np.max(np.abs(z),axis=1)
-        peaks, _ = find_peaks(z_max, height=Min_Code_Ampl,distance=SpikeDist)
-        peaks_bin = np.zeros(tail_angle.shape[0])
-        peaks_bin[peaks]=1
+def segment_from_code_w_fine_alignement(*,z,tail_angle,
+                                        min_code_height=1,
+                                        min_spike_dist=120,
+                                        bout_duration=140,
+                                        margin_before_peak=20,
+                                        dict_peak=20):
+    
+    # FINDING PEAKS IN SPARSE CODE:
+    z_max = np.max(np.abs(z),axis=1)
+    peaks, _ = find_peaks(z_max, height=min_code_height,distance=min_spike_dist)
+    #peaks_bin = np.zeros(z.shape[0])
+    #peaks_bin[peaks]=1
+    #onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(z_max),margin_before_peak=margin_before_peak)
+    #segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
+    onset,offset = [],[]
+    for iter_,peak in enumerate(peaks):
+            if ((peak>margin_before_peak)&(peak+bout_duration<tail_angle.shape[0]-margin_before_peak)):
+                id_st = peak
+                id_ed = id_st + bout_duration
+                tmp = tail_angle[id_st:id_ed,6]
+                try:
+                    peak_location = align_bout_peaks(tmp,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
+                except:
+                    peak_location = np.nan
+                    
+                if np.isnan(peak_location):
+                    peak_location = dict_peak
+            
+                id_st = np.round(id_st + peak_location-margin_before_peak)
+                id_ed = np.round(id_st + bout_duration)
+                onset.append(int(id_st))
+                offset.append(int(id_ed))
+                
+    segment = Segment(onset=onset,offset=offset,bout_duration=bout_duration)
+        
+    return segment
+ 
 
-        '''kernel = np.ones(SpikeDist)
-        filtered_forward = np.convolve(kernel,peaks_bin, mode='full')[:peaks_bin.shape[0]]
-        is_tail_active = 1.0*(filtered_forward>0)'''
+'''kernel = np.ones(SpikeDist)
+    filtered_forward = np.convolve(kernel,peaks_bin, mode='full')[:peaks_bin.shape[0]]
+    is_tail_active = 1.0*(filtered_forward>0)
+    
+    # EXTRACT BOUTS:
+    bouts_array = np.zeros((len(peaks),Bout_Duration,7))
+    bouts_hat_array = np.zeros((len(peaks),Bout_Duration,7))
 
-        # EXTRACT BOUTS:
-        bouts_array = np.zeros((len(peaks),Bout_Duration,7))
-        bouts_hat_array = np.zeros((len(peaks),Bout_Duration,7))
+    onset = []
+    offset = []
+    aligned_peaks = []
 
-        onset = []
-        offset = []
-        aligned_peaks = []
+    i = 0
+    Margin_before_peak = 0
 
-        i = 0
-        Margin_before_peak = 0
+    for iter_,peak in enumerate(peaks):
+            if ((peak>Margin_before_peak)&(peak+140<tail_angle.shape[0]-Margin_before_peak)):
+                id_st = peak - Margin_before_peak
+                id_ed = id_st +140
+                tmp = tail_angle[id_st:id_ed,7]
 
-        for iter_,peak in enumerate(peaks):
-                if ((peak>Margin_before_peak)&(peak+140<tail_angle.shape[0]-Margin_before_peak)):
-                    id_st = peak - Margin_before_peak
+                try:
+                    peak_location = align_bout_peaks(tmp,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
+                except:
+                    peak_location = np.nan
+                if np.isnan(peak_location):
+                    peak_location = peak
+                else:
+                    aligned_peaks.append(id_st+peak_location)
+                    id_st = id_st+peak_location - Margin_before_peak -20
                     id_ed = id_st +140
-                    tmp = tail_angle[id_st:id_ed,7]
+                bouts_array[i,:,:] = tail_angle[id_st:id_ed,:7]
+                i = i+1
+                onset.append(id_st)
+                offset.append(id_ed)
+    bouts_array = bouts_array[:i,:,:]
 
-                    try:
-                        peak_location = align_bout_peaks(tmp,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
-                    except:
-                        peak_location = np.nan
-                    if np.isnan(peak_location):
-                        peak_location = peak
-                    else:
-                        aligned_peaks.append(id_st+peak_location)
-                        id_st = id_st+peak_location - Margin_before_peak -20
-                        id_ed = id_st +140
-                    bouts_array[i,:,:] = tail_angle[id_st:id_ed,:7]
-                    i = i+1
-                    onset.append(id_st)
-                    offset.append(id_ed)
-        bouts_array = bouts_array[:i,:,:]
-
-        return onset,offset,bouts_array
-
-    return segment_from_code
+    return onset,offset,bouts_array
 
 
 
 
 
-
-
+'''

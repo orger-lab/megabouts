@@ -21,7 +21,7 @@ class Dataset_FullTracking():
             self.tail_angle = resize(self.tail_angle, (self.tail_angle.shape[0], 10),order=0) # 0 for nearest neighbor
             print(f"tail_angle was rescaled to have size to have {self.tail_angle.shape[1]} segments")
 
-        same_lenght = (len(self.x) == len(self.y) == len(self.body_angle) == self.tail.shape[0])
+        same_lenght = (len(self.x) == len(self.y) == len(self.body_angle) == self.tail_angle.shape[0])
         if not same_lenght:
             raise ValueError("All input must have the same number of time steps")
     

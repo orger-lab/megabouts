@@ -4,12 +4,12 @@ from utils.utils import find_onset_offset_numpy
 from utils.utils_bouts import compute_bout_cat_ts
 from super_resolution.downsampling import create_downsampling_function
 
-def compute_bout_cat_matlab(df,new_fps=700,old_fps=700):
+def compute_bout_cat_matlab(df,fps_new=700,fps_old=700):
 
     tail_active =  df.tail_active.values
     bout_cat_init = df.bout_sign_matlab.values
 
-    downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(new_fps,duration_original=len(tail_active),original_fps=700,kind='nearest')
+    downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(fps_new,n_frames_origin=len(tail_active),fps_origin=fps_old,kind='nearest')
     tail_active = downsampling_f(tail_active,axis = 0)
     bout_cat_init = downsampling_f(bout_cat_init,axis = 0)
 

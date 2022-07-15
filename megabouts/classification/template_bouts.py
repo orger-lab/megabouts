@@ -31,6 +31,10 @@ class Knn_Training_Dataset():
         bouts,labels,delays = self._augment_with_delays(bouts,labels)
         bouts,labels,delays = self._augment_with_negative(bouts, labels,delays)
 
+        # compute unshifted delays:
+        
+        
+        
         self._bouts=bouts
         self.labels = labels.astype('int')
         self.labels_str = 0#np.array(NameCat)[labels]

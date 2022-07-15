@@ -4,7 +4,7 @@ from scipy.signal import find_peaks
 import numpy as np
 
 DEBUG_TEXT = False
-DEBUG_PLOT = False
+DEBUG_PLOT = True
 def debug(name,value=''):
     """prints variables and their contents when debuging"""
     if(DEBUG_TEXT):

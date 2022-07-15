@@ -1,6 +1,5 @@
 from sporco.admm import cbpdnin
 import numpy as np
-from preprocessing.baseline import remove_slow_trend
 
 def batch_tail_angle(tail_angle,batch_duration=700*30):
     N = int(np.ceil(tail_angle.shape[0]/(batch_duration)))
@@ -12,18 +11,19 @@ def batch_tail_angle(tail_angle,batch_duration=700*30):
     tail_angle_batch = np.swapaxes(tail_angle_batch,1,2)
     return tail_angle_batch
 
-def compute_sparse_code(tail_angle_detrend,Dict,Wg,lmbda=0.05,gamma=0.1,mu=0.5,Whn=60):
-
+def compute_sparse_code(*,tail_angle,Dict,Wg=[],lmbda=0.05,gamma=0.1,mu=0.5,Whn=60):
 
     # Batch Dataset:
-    tail_angle_batch = batch_tail_angle(tail_angle_detrend)
+    tail_angle_batch = batch_tail_angle(tail_angle)
 
     T_trial = tail_angle_batch.shape[0]
     N_Seg = tail_angle_batch.shape[1]
     N_atoms = Dict.shape[2]
 
     z = np.zeros((T_trial,N_atoms,1))
-
+    if not Wg:
+        Wg = np.ones((1,N_atoms))
+        
     opt = cbpdnin.ConvBPDNInhib.Options({'Verbose': True, 'MaxMainIter': 200,
                                             'RelStopTol': 5e-3, 'AuxVarObj': False,'HighMemSolve': True})                                    
     b = cbpdnin.ConvBPDNInhib(Dict[:,:,:],tail_angle_batch,lmbda=lmbda, Wg=Wg,gamma=gamma,mu=mu,Whn=Whn,win_args='box', opt=opt, dimK=1, dimN=1)
@@ -35,15 +35,22 @@ def compute_sparse_code(tail_angle_detrend,Dict,Wg,lmbda=0.05,gamma=0.1,mu=0.5,W
     for i in range(z.shape[2]):
         z_flat[:,i] = z[:,:,i].T.flatten()
     z = np.copy(z_flat)
-    z = z[:tail_angle_detrend.shape[0],:]
+    z = z[:tail_angle.shape[0],:]
     tail_angle_hat_ = np.zeros((tail_hat.shape[0]*tail_hat.shape[2],tail_hat.shape[1]))
     for i in range(tail_hat.shape[1]):
         tail_angle_hat_[:,i] = tail_hat[:,i,:].T.flatten()
-    tail_angle_hat_ = tail_angle_hat_[:tail_angle_detrend.shape[0],:]
+    tail_angle_hat_ = tail_angle_hat_[:tail_angle.shape[0],:]
+    
+    # Decomposition
+    decomposition = np.zeros((z.shape[1],tail_angle.shape[0]))
+    for j in range(z.shape[1]):
+        tmp =  np.convolve(z[:,j],Dict[:,-1,j],'full')
+        decomposition[j,:] = tmp[:tail_angle.shape[0]]
+    decomposition = decomposition.T
 
-    return z,tail_angle_hat_
+    return z,tail_angle_hat_,decomposition
 
-
+'''
 def create_sparse_coder(Dict,lmbda=0.01,gamma=0.05,mu=0.05,Whn=60):
     
     def sparse_coder(tail_angle):
@@ -56,4 +63,4 @@ def create_sparse_coder(Dict,lmbda=0.01,gamma=0.05,mu=0.05,Whn=60):
         
         return z,tail_angle_hat
     
-    return sparse_coder
+    return sparse_coder'''
