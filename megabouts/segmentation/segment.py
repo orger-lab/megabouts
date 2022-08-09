@@ -136,7 +136,7 @@ def segment_from_code(*,z,
         
     return segment
 
-def segment_from_code_w_fine_alignement(*,z,tail_angle,
+def segment_from_code_w_fine_alignement(*,z,tail_angle1d,
                                         min_code_height=1,
                                         min_spike_dist=120,
                                         bout_duration=140,
@@ -152,12 +152,12 @@ def segment_from_code_w_fine_alignement(*,z,tail_angle,
     #segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
     onset,offset = [],[]
     for iter_,peak in enumerate(peaks):
-            if ((peak>margin_before_peak)&(peak+bout_duration<tail_angle.shape[0]-margin_before_peak)):
+            if ((peak>margin_before_peak)&(peak+bout_duration<tail_angle1d.shape[0]-margin_before_peak)):
                 id_st = peak
                 id_ed = id_st + bout_duration
-                tmp = tail_angle[id_st:id_ed,6]
+                tail_bout = tail_angle1d[id_st:id_ed]
                 try:
-                    peak_location = align_bout_peaks(tmp,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
+                    peak_location = align_bout_peaks(tail_bout,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
                 except:
                     peak_location = np.nan
                     

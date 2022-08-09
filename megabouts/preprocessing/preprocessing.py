@@ -59,22 +59,23 @@ def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,baseline_method,baseline_p
         np.ndarray: filtered tail angle
     """ 
     # Interpolate NaN:
+    tail_angle_clean = np.copy(tail_angle)
     for s in range(tail_angle.shape[1]):
         ds = pd.Series(tail_angle[:,s])
-        ds.interpolate(method='nearest',limit=limit_na)
-        tail_angle[:,s] = ds.values
+        ds.interpolate(method='nearest',limit=limit_na,inplace=True)
+        tail_angle_clean[:,s] = ds.values
 
     # Set to 0 for long sequence of nan:
-    tail_angle[np.isnan(tail_angle)]=0
+    tail_angle_clean[np.isnan(tail_angle_clean)]=0
 
     # Use PCA for Cleaning (Could use DMD for better results)
-    tail_angle = clean_using_pca(tail_angle,num_pcs=num_pcs)
+    tail_angle_clean = clean_using_pca(tail_angle_clean,num_pcs=num_pcs)
     
     # Remove baseline:
-    baseline = np.zeros_like(tail_angle)
-    for s in range(tail_angle.shape[1]):
-        baseline[:,s] = compute_baseline(tail_angle[:,s],baseline_method,baseline_params)
+    baseline = np.zeros_like(tail_angle_clean)
+    for s in range(tail_angle_clean.shape[1]):
+        baseline[:,s] = compute_baseline(tail_angle_clean[:,s],baseline_method,baseline_params)
 
-    return tail_angle,baseline
+    return tail_angle_clean,baseline
 
 

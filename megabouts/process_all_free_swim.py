@@ -71,7 +71,7 @@ for file in os.listdir(folder):
 
 ##### RUN PIPELINE OVER ALL FISH #####
 
-for filename,filename_result in zip(file_input_list,file_result_list):
+for filename,filename_result in zip(file_input_list[:],file_result_list[:]):
 
     df = pd.read_csv(filename)
     # Load Matlab pipeline results:
@@ -98,7 +98,7 @@ for filename,filename_result in zip(file_input_list,file_result_list):
     tail_angle = np.copy(tail_angle_init)
     tail_angle[tail_angle<-10]=np.nan # Set Nan when tail angle out of range
     
-    tracking_data,clean_traj,baseline,tail_angle_detrend,segments,tail_and_traj_array,bout_category,id_nearest_template = pipeline.run(tail_angle,x,y,body_angle)
+    tracking_data,clean_traj,baseline,tail_angle_detrend,z,segments,tail_and_traj_array,bout_category,id_nearest_template = pipeline.run(tail_angle,x,y,body_angle)
     
     bout_cat_ts,bout_cat_ts_signed = compute_bout_cat_ts(segments.onset,
                                                          segments.offset,
@@ -109,6 +109,7 @@ for filename,filename_result in zip(file_input_list,file_result_list):
                         'clean_traj':clean_traj,
                         'baseline':baseline,
                         'tail_angle_detrend':tail_angle_detrend,
+                        'z':z,
                         'segments':segments,
                         'tail_and_traj_array':tail_and_traj_array,
                         'bout_cat':bout_category}

@@ -73,8 +73,8 @@ class PipelineFullTracking():
                                    mu=self.cfg_sparse_coding.mu,
                                    Whn=self.cfg_sparse_coding.window_inhib)
     
-    def find_segment(self,z,tail_angle):
-        return segment_from_code_w_fine_alignement(z=z,tail_angle=tail_angle,
+    def find_segment(self,z,tail_angle1d):
+        return segment_from_code_w_fine_alignement(z=z,tail_angle1d=tail_angle1d,
                                  min_code_height=self.cfg_segment_classify.min_code_height,
                                  min_spike_dist=self.cfg_segment_classify.min_spike_dist,
                                  bout_duration=self.cfg_segment_classify.bout_duration,
@@ -99,12 +99,10 @@ class PipelineFullTracking():
                                           y=tracking_data.y,
                                           body_angle=tracking_data.body_angle)
         
-        tail_angle_clean,baseline = self.preprocess_tail(tail_angle)(tail_angle=tracking_data.tail_angle)
-        tail_angle_detrend = tail_angle_clean-baseline
-        tail_angle_detrend = tail_angle_detrend[:,:7]
+        tail_angle_clean,baseline = self.preprocess_tail(tail_angle=tracking_data.tail_angle)
+        tail_angle_detrend = tail_angle_clean[:,:7]-baseline[:,:7]
         z,tail_angle_hat,decomposition = self.compute_sparse_code(tail_angle_detrend)
-        segments = self.find_segment(z=z,tail_angle=tail_angle_detrend)
-        
+        segments = self.find_segment(z=z,tail_angle1d=tail_angle_detrend[:,6])
         
         traj_array = extract_aligned_traj(x = clean_traj.x,
                                           y = clean_traj.y,
@@ -140,6 +138,5 @@ class PipelineFullTracking():
         
         tail_and_traj_array = np.concatenate((tail_array,traj_array),axis=1)
         
-        
 
-        return tracking_data,clean_traj,baseline,tail_angle_detrend,segments_refined,tail_and_traj_array,bout_category,id_nearest_template
+        return tracking_data,clean_traj,baseline,tail_angle_detrend,z,segments_refined,tail_and_traj_array,bout_category,id_nearest_template

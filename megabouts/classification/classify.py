@@ -19,7 +19,6 @@ def array_normalizer(array:np.ndarray,
     return array_scaled
 
 
-#TODO: ONLY USE FLAY ARRAY WHEN REQUIRED
 
 def bouts_classifier(X:np.ndarray,kNN_training_dataset:type(Knn_Training_Dataset),weight:np.ndarray,n_neighbors=5,tracking_method='tail_and_traj'):
     

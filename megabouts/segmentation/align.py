@@ -37,7 +37,7 @@ def debug_plot( ax,
 def align_bout_peaks(bout_data,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None):
 
     # only use the first 150 segments to calculate the alignment.
-    bout = bout_data[:150]   
+    bout = np.copy(bout_data[:min(len(bout_data),150)])
     # 1. Find peaks in data and remove peaks with small amplitude
     
     max_location_bout, _ = find_peaks(bout , height = minimum_peak_size)
