@@ -32,9 +32,6 @@ class Knn_Training_Dataset():
         bouts,labels,delays = self._augment_with_negative(bouts, labels,delays)
 
         # compute unshifted delays:
-        
-        
-        
         self._bouts=bouts
         self.labels = labels.astype('int')
         self.labels_str = 0#np.array(NameCat)[labels]
@@ -66,7 +63,7 @@ class Knn_Training_Dataset():
         return self._flatten(self.traj)
 
     def _downsample(self,bouts,axis=2):
-        downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(fps_new=self.fps,n_frames_origin=140,fps_origin=700)
+        downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(fps_new=self.fps,fps_origin=700,duration_ms=200)
         return downsampling_f(bouts,axis=axis)
 
     def _augment_with_delays(self,bouts,labels):

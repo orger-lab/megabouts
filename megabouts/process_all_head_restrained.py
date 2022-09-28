@@ -53,7 +53,8 @@ pipeline = PipelineTailTracking(cfg_preprocess,
 ##### COLLECT ALL FISH #####
 
 
-folder='H://HeadRestrainedDataset//all_csv//'
+
+folder='I://SCAPE//nacrecal520//RawData_csv//'
 folder_result = 'G://Megabouts_dataset//Head_Restrained_Pipeline//'
 file_input_list=[]
 file_result_list = []
@@ -61,6 +62,8 @@ for file in os.listdir(folder):
     if file.endswith(".csv"):
         file_input_list.append(os.path.join(folder, file))
         file_result_list.append(os.path.join(folder_result, file[:-7])+'.pickle')
+
+
 
 ##### RUN PIPELINE OVER ALL FISH #####
 

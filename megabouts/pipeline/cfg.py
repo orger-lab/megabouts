@@ -18,6 +18,7 @@ class ConfigTrajPreprocess:
         res = convert_ms_to_frames(self.fps,self.robust_diff_filt_ms)    
         if res%2==0:
             res=res+1 # Make sure robust_diff_dn is odd
+        res = max(res,3)
         return res
     @property
     def lag_mobility(self):
@@ -86,6 +87,7 @@ class ConfigTailSegmentationClassification:
     @property
     def augment_step_delay(self):
         return convert_ms_to_frames(self.fps,self.augment_step_delay_ms)         
+
 
 @dataclass
 class ConfigTrajSegmentationClassification:

@@ -62,7 +62,7 @@ def extract_aligned_traj(x:np.ndarray,
     """        
     traj_array = np.zeros((len(segment.onset),3,segment.bout_duration))
     for i,(id_st,id_ed) in enumerate(zip(segment.onset,segment.offset)):
-
+        
         sub_x,sub_y,sub_body_angle = x[id_st:id_ed],y[id_st:id_ed],body_angle[id_st:id_ed]
         Pos = np.zeros((2,segment.bout_duration))
         Pos[0,:] = sub_x-sub_x[0]
@@ -114,7 +114,7 @@ def segment_from_mobility(*,mobility,bout_duration,margin_before_peak,prominence
     peaks, _ = find_peaks(mobility,distance=bout_duration,prominence=prominence)
     peaks_bin = np.zeros(mobility.shape[0])
     peaks_bin[peaks]=1
-    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(mobility),margin_before_peak=margin_before_peak)
+    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(mobility),margin_before_peak=margin_before_peak,bout_duration=bout_duration)
     segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
         
     return segment
@@ -131,9 +131,8 @@ def segment_from_code(*,z,
     peaks, _ = find_peaks(z_max, height=min_code_height,distance=min_spike_dist)
     peaks_bin = np.zeros(z.shape[0])
     peaks_bin[peaks]=1
-    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(z_max),margin_before_peak=margin_before_peak)
+    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(z_max),margin_before_peak=margin_before_peak,bout_duration=bout_duration)
     segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
-        
     return segment
 
 def segment_from_code_w_fine_alignement(*,z,tail_angle1d,

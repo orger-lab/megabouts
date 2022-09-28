@@ -8,8 +8,9 @@ def compute_bout_cat_matlab(df,fps_new=700,fps_old=700):
 
     tail_active =  df.tail_active.values
     bout_cat_init = df.bout_sign_matlab.values
-
-    downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(fps_new,n_frames_origin=len(tail_active),fps_origin=fps_old,kind='nearest')
+    
+    downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(fps_new=self.fps,fps_origin=fps_old,duration_ms=len(tail_active)*1000/700)
+    #downsampling_f, Duration_after_Downsampling,t,tnew = create_downsampling_function(fps_new,n_frames_origin=len(tail_active),fps_origin=fps_old,kind='nearest')
     tail_active = downsampling_f(tail_active,axis = 0)
     bout_cat_init = downsampling_f(bout_cat_init,axis = 0)
 
