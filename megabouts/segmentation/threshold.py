@@ -5,6 +5,18 @@ from scipy import stats
 
 
 def estimate_threshold_using_GMM(x,margin_std,axis=None):
+    """
+    Estimate the threshold of a given input using a Gaussian mixture model.
+
+    Parameters:
+    - x: 1D numpy array of the input values.
+    - margin_std: float, margin in number of standard deviations to use when estimating the threshold.
+    - axis: matplotlib axis object, used for plotting if provided.
+
+    Returns:
+    - threshold: float, estimated threshold value.
+    - axis: matplotlib axis object, updated with the plotted histogram and Gaussian mixture model if provided.
+    """
     
     log_x = np.log(x[x>0])
 

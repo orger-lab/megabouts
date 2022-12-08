@@ -1,6 +1,9 @@
+import os
+from pathlib import Path
 from dataclasses import dataclass,field
-from super_resolution.downsampling import convert_ms_to_frames
+import pickle
 import numpy as np
+from megabouts.utils.utils_downsampling import convert_ms_to_frames
 
 
 @dataclass
@@ -11,7 +14,7 @@ class ConfigTrajPreprocess:
     freq_cutoff_min: float = 20
     beta: float = 1
     robust_diff_filt_ms: float = 21
-    lag_mobility_ms : float = 85
+    lag_kinematic_activity_ms : float = 85
     bout_duration_ms= float = 200
     @property
     def robust_diff(self):
@@ -21,10 +24,8 @@ class ConfigTrajPreprocess:
         res = max(res,3)
         return res
     @property
-    def lag_mobility(self):
-        return convert_ms_to_frames(self.fps,self.lag_mobility_ms)  
-    
-    
+    def lag_kinematic_activity(self):
+        return convert_ms_to_frames(self.fps,self.lag_kinematic_activity_ms)  
 
 @dataclass
 class ConfigTailPreprocess:
@@ -32,15 +33,14 @@ class ConfigTailPreprocess:
     """
     fps: float
     num_pcs: int = 4
+    tail_segment_cutoff: int = 7
     limit_na_ms: float = 100
     baseline_method: str = 'slow'
     baseline_params: dict = field(default_factory=dict)
- 
     @property
     def limit_na(self):
         return convert_ms_to_frames(self.fps,self.limit_na_ms)        
     
-
 @dataclass
 class ConfigSparseCoding:
     """All parameters values relative to time should be in ms
@@ -51,26 +51,27 @@ class ConfigSparseCoding:
     gamma: float = 0.01    
     mu: float = 0.05
     window_inhib_ms: float = 85
+    dict_peak_ms: float = 28
     
     @property
     def window_inhib(self):
         return convert_ms_to_frames(self.fps,self.window_inhib_ms)        
     
-
-
+    @property
+    def dict_peak(self):
+        return convert_ms_to_frames(self.fps,self.dict_peak_ms)        
+    
+    
 @dataclass
-class ConfigTailSegmentationClassification:
+class ConfigTailSegmentation:
     """All parameters values relative to time should be in ms
     """
     fps: float
+    peak_prominence: float = 0.4
     min_code_height: float = 1
     min_spike_dist_ms: float = 200
-    margin_before_peak_ms: float = 0
+    margin_before_peak_ms: float = 28
     bout_duration_ms: float = 200
-    augment_max_delay_ms: float = 28
-    augment_step_delay_ms: float = 4
-    feature_weight: np.ndarray = np.ones(7)
-    N_kNN: int = 50
 
     @property
     def min_spike_dist(self):
@@ -81,27 +82,52 @@ class ConfigTailSegmentationClassification:
     @property
     def bout_duration(self):
         return convert_ms_to_frames(self.fps,self.bout_duration_ms)        
-    @property
-    def augment_max_delay(self):
-        return convert_ms_to_frames(self.fps,self.augment_max_delay_ms)        
-    @property
-    def augment_step_delay(self):
-        return convert_ms_to_frames(self.fps,self.augment_step_delay_ms)         
-
 
 @dataclass
-class ConfigTrajSegmentationClassification:
+class ConfigTrajSegmentation:
     """All parameters values relative to time should be in ms
     """
     fps: float
     peak_prominence: float = 0.4
     margin_before_peak_ms: float = 28
     bout_duration_ms: float = 200
-    augment_max_delay_ms: float = 28
-    augment_step_delay_ms: float = 4
-    feature_weight: np.ndarray = np.array([0.4,0.4,2])
-    N_kNN: int = 15
+    
+    @property
+    def margin_before_peak(self):
+        return convert_ms_to_frames(self.fps,self.margin_before_peak_ms)        
+    @property
+    def bout_duration(self):
+        return convert_ms_to_frames(self.fps,self.bout_duration_ms)        
+ 
 
+@dataclass
+class ConfigClassification:
+    """All parameters values relative to time should be in ms
+    """
+    fps: float
+    margin_before_peak_ms: float = 28
+    bout_duration_ms: float = 200
+    
+    augment_min_delay_ms: float = -7
+    augment_max_delay_ms: float = 20
+    augment_step_delay_ms: float = 4
+    
+    feature_weight: np.ndarray = np.ones(10)
+    N_kNN: int = 15
+    
+    dict_bouts: dict = field(init=False)
+
+    
+    def __post_init__(self):
+        
+        folder = Path(__file__).parent.parent
+        filename = os.path.join(folder,"classification", "Bouts_dict.pickle")
+        with open(filename, 'rb') as handle:
+            self.bouts_dict = pickle.load(handle)
+            
+        #TODO NEED TO INCLUDE CHECK TO MAKE SURE THE DELAY ARE SUITED TO THE BOUTS DICTS
+        
+    
     @property
     def margin_before_peak(self):
         return convert_ms_to_frames(self.fps,self.margin_before_peak_ms)        
@@ -109,8 +135,15 @@ class ConfigTrajSegmentationClassification:
     def bout_duration(self):
         return convert_ms_to_frames(self.fps,self.bout_duration_ms)        
     @property
+    def augment_min_delay(self):
+        return convert_ms_to_frames(self.fps,self.augment_min_delay_ms)        
+    @property
     def augment_max_delay(self):
         return convert_ms_to_frames(self.fps,self.augment_max_delay_ms)        
     @property
     def augment_step_delay(self):
         return convert_ms_to_frames(self.fps,self.augment_step_delay_ms)     
+
+
+
+

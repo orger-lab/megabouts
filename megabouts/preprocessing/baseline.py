@@ -8,17 +8,7 @@ from pybaselines.whittaker import asls
 from scipy.signal import savgol_filter
 
 from functools import partial
-'''
-baseline_func = partial(compute_baseline_whittaker,
-                        win_slow = 700,
-                        win_std = int(700/2),
-                        thresh_sigma = 1,
-                        lmbda = 1e4)
-baseline_func = partial(compute_baseline_beads,
-                        win_slow = 700,
-                        fc = 0.007,
-                        lmbda = 1e1,
-                        fps = 700)'''
+
 
 def compute_baseline(x,method,params):
     """Main function to compute baseline
@@ -74,6 +64,19 @@ def compute_baseline_whittaker(x,
                      win_std = int(700/2),
                      thresh_sigma = 1,
                      lmbda = 1e4):
+    """
+    Compute the baseline of a given input using the Whittaker smoother.
+
+    Parameters:
+    - x: 1D numpy array of the input values.
+    - win_slow: int, slow window size to use when computing the slow baseline.
+    - win_std: int, window size to use when computing the standard deviation for clipping.
+    - thresh_sigma: float, number of standard deviations to use as the clipping threshold.
+    - lmbda: float, regularization parameter to use in the Whittaker smoother.
+
+    Returns:
+    - baseline: 1D numpy array of the computed baseline.
+    """
     
     slow_baseline = noise_median(x, half_window=win_slow, smooth_half_window=None, sigma=None)[0]
     x_centered = x-slow_baseline
@@ -97,6 +100,19 @@ def compute_baseline_beads(x,
                      fc = 0.02,
                      lmbda = 1e4,
                      fps = 700):
+    """
+    Compute the baseline of a given input using the beads algorithm.
+
+    Parameters:
+    - x: 1D numpy array of the input values.
+    - win_slow: int, window size to use when computing the slow baseline.
+    - fc: float, frequency cutoff to use in the beads algorithm.
+    - lmbda: float, regularization parameter to use in the beads algorithm.
+    - fps: float, frames per second at which the input values were recorded.
+
+    Returns:
+    - baseline: 1D numpy array of the computed baseline.
+    """
     
     slow_baseline = noise_median(x, half_window=win_slow, smooth_half_window=None, sigma=None)[0]
     x_centered = x-slow_baseline
@@ -111,7 +127,16 @@ def compute_baseline_beads(x,
 
 
 def compute_baseline_on_batch(x_batch,baseline_func):
-    
+    """
+    Compute the baseline of a batch of input values using a given baseline computation function.
+
+    Parameters:
+    - x_batch: list of 1D numpy arrays, the input values to compute the baseline for.
+    - baseline_func: function, the function to use to compute the baseline of each element of x_batch.
+
+    Returns:
+    - y_batch: list of 1D numpy arrays, the computed baselines for each element of x_batch.
+    """
     y_batch = []
     for x in x_batch:
         y_batch.append(baseline_func(x))

@@ -3,41 +3,37 @@ import pandas as pd
 from dataclasses import dataclass,field
 from functools import partial
 
-from pipeline.cfg import ConfigTailSegmentationClassification,ConfigTailPreprocess,ConfigSparseCoding
+from megabouts.pipeline.cfg import ConfigTailPreprocess,ConfigSparseCoding,ConfigTailSegmentation
 
-from tracking_data.dataset import Dataset_CentroidTracking,Dataset_TailTracking
-from preprocessing.preprocessing import preprocess_tail
-from sparse_coding.sparse_coding import compute_sparse_code
-from segmentation.segment import Segment,segment_from_code,segment_from_code_w_fine_alignement,extract_bouts
-from classification.template_bouts import Knn_Training_Dataset
-from classification.classify import bouts_classifier
+from megabouts.tracking_data.dataset import Dataset_CentroidTracking,Dataset_TailTracking
+from megabouts.preprocessing.preprocessing import preprocess_tail
+from megabouts.sparse_coding.sparse_coding import compute_sparse_code,SparseCode
+from megabouts.segmentation.segment import Segment,segment_from_code,segment_from_code_w_fine_alignement,extract_bouts
+from megabouts.classification.classify import bouts_classifier,Classification
+from megabouts.classification.template_bouts import Knn_Training_Dataset
 
-
-
-# TAIL TRACKING PIPELINE:
-
+@dataclass
+class PipelineTailTracking_Result:
+    tracking_data: Dataset_TailTracking
+    tracking_data_clean: Dataset_TailTracking
+    baseline: np.ndarray=field(init=True,repr=False)
+    sparse_code: SparseCode
+    segments: Segment
+    tail_array: np.ndarray=field(init=True,repr=False)
+    
 @dataclass(repr=False)
 class PipelineTailTracking():
 
     cfg_preprocess : ConfigTailPreprocess = field(init=True)
     cfg_sparse_coding : ConfigSparseCoding = field(init=True)
-    cfg_segment_classify : ConfigTailSegmentationClassification = field(init=True)
+    cfg_segment : ConfigTailSegmentation = field(init=True)
     knn_training_dataset: Knn_Training_Dataset = field(init=False)
-    load_training: bool = True
-    
+    res: PipelineTailTracking_Result = field(init=False)
+
     def __post_init__(self):
-        assert self.cfg_preprocess.fps==self.cfg_segment_classify.fps==self.cfg_sparse_coding.fps, \
+        assert self.cfg_preprocess.fps==self.cfg_segment.fps==self.cfg_sparse_coding.fps, \
             f"fps should be the same in all configs"
-        if self.load_training:
-            self.load_training_template()
-            
-    
-    def load_training_template(self):
-        self.knn_training_dataset_augmented = Knn_Training_Dataset(fps=self.cfg_preprocess.fps,
-                                                         augmentation_delays=np.arange(0,
-                                                                                       self.cfg_segment_classify.augment_max_delay,
-                                                                                       self.cfg_segment_classify.augment_step_delay),
-                                                         ignore_CS=True)
+        
         
     def preprocess(self,tail_angle):
         return preprocess_tail(tail_angle=tail_angle,
@@ -55,51 +51,46 @@ class PipelineTailTracking():
                                    mu=self.cfg_sparse_coding.mu,
                                    Whn=self.cfg_sparse_coding.window_inhib)
     
+    
     def find_segment(self,z,tail_angle1d):
         return segment_from_code_w_fine_alignement(z=z,tail_angle1d=tail_angle1d,
-                                 min_code_height=self.cfg_segment_classify.min_code_height,
-                                 min_spike_dist=self.cfg_segment_classify.min_spike_dist,
-                                 bout_duration=self.cfg_segment_classify.bout_duration,
-                                 margin_before_peak=self.cfg_segment_classify.margin_before_peak)
+                                 min_code_height=self.cfg_segment.min_code_height,
+                                 min_spike_dist=self.cfg_segment.min_spike_dist,
+                                 bout_duration=self.cfg_segment.bout_duration,
+                                 margin_before_peak=self.cfg_segment.margin_before_peak,
+                                 dict_peak=self.cfg_sparse_coding.dict_peak)
         
-    def classify(self,X):
-        return bouts_classifier(X,
-                                kNN_training_dataset=self.knn_training_dataset_augmented,
-                                weight=self.cfg_segment_classify.feature_weight,
-                                n_neighbors=self.cfg_segment_classify.N_kNN,
-                                tracking_method='tail')
         
     def run(self,tail_angle):
+        
+        # Preprocess Data:
+        
         tracking_data = Dataset_TailTracking(fps=self.cfg_preprocess.fps,
                                              tail_angle=tail_angle)
-                
+        
         tail_angle_clean,baseline = self.preprocess(tail_angle=tracking_data.tail_angle)
-        tail_angle_detrend = tail_angle_clean[:,:7]-baseline[:,:7]
-        #tail_angle_detrend = tail_angle_detrend[:,:7]
-        #tail_angle_tmp = np.copy(tail_angle_detrend)
-        z,tail_angle_hat,decomposition = self.compute_sparse_code(tail_angle_detrend)
-        segments = self.find_segment(z=z,tail_angle1d=tail_angle_detrend[:,6])
+        N_c = self.cfg_preprocess.tail_segment_cutoff
+        tail_angle_detrend = tail_angle_clean[:,:N_c]-baseline[:,:N_c]
+        
+        tracking_data_clean = Dataset_TailTracking(fps=self.cfg_preprocess.fps,
+                                                   tail_angle=tail_angle_clean-baseline)
+        # Compute Sparse Code:
+        sparse_code = self.compute_sparse_code(tail_angle_detrend)
+        
+        # Compute Segments:
+        segments,segment_original,is_aligned = self.find_segment(z=sparse_code.z,tail_angle1d=tail_angle_detrend[:,N_c-1])
         
         tail_array = extract_bouts(tail_angle=tail_angle_detrend,
                                    segment = segments)
+                
+        # Compute result:
+        res = PipelineTailTracking_Result(tracking_data=tracking_data,
+                                          tracking_data_clean=tracking_data_clean,
+                                          baseline = baseline,
+                                          sparse_code = sparse_code,
+                                          segments = segments,
+                                          tail_array = tail_array)
         
-        bout_category,onset_delay,id_nearest_template = self.classify(tail_array)
-        onset_refined = [on_ + int(onset_delay[i]) for i,on_ in enumerate(segments.onset)]
-        offset_refined = [off_ + int(onset_delay[i]) for i,off_  in enumerate(segments.offset)]
-
-        i = id_nearest_template
-        N = len(np.where(self.knn_training_dataset_augmented.delays==0)[0])/2
-        N_mid = len(self.knn_training_dataset_augmented.delays)/2
-        sg = [-1 if i>N_mid else 1 for i in id_nearest_template]
-        mod_,div_ = np.divmod(id_nearest_template, N)
-
-        id_nearest_template = np.array([int(i) if s>0 else int(i+N_mid) for i,s in zip(div_,sg)])
-
-
-        segments_refined = Segment(onset=onset_refined,offset=offset_refined,bout_duration=self.cfg_segment_classify.bout_duration)
-
-        tail_array = extract_bouts(tail_angle=tail_angle_detrend,
-                                    segment = segments_refined)
-        #bout_category,_,id_nearest_template  = pipeline.classify(tail_array)'''
-
-        return tail_angle_detrend,tail_angle_clean,baseline,z,tail_angle_hat,decomposition,segments,segments_refined,tail_array,bout_category,id_nearest_template
+        self.res = res
+        
+        return self.res

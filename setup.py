@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="megabouts", # Replace with your own username
+    name="megabouts",
     version="0.0.1",
     author="Adrien Jouary & Alexandre Laborde",
     author_email="adrien.jouary@research.fchampalimaud.org",
@@ -24,6 +24,8 @@ setuptools.setup(
         "sporco",
     ],
     packages=setuptools.find_packages(),
+    package_data={
+        "": ["*.npz","*.npy","*.pickle"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

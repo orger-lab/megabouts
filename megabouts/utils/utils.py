@@ -1,8 +1,19 @@
 import numpy as np
 from scipy.special import binom
-from utils import smallestenclosingcircle as smallestenclosingcircle
+from megabouts.utils import smallestenclosingcircle
 
 def find_onset_offset_numpy(binary_serie):
+    """
+    Find the onset, offset, and duration of runs of 1s in a binary sequence.
+
+    Parameters:
+    - binary_serie: 1D numpy array of binary values.
+
+    Returns:
+    - onset: 1D numpy array of the indices at which each run of 1s starts.
+    - offset: 1D numpy array of the indices at which each run of 1s ends.
+    - duration: 1D numpy array of the duration of each run of 1s in number of time steps.
+    """
     # Create an array that is 1 where a is 0, and pad each end with an extra 0.
     iszero = np.concatenate(([0], np.equal(binary_serie,1).view(np.int8), [0]))
     absdiff = np.abs(np.diff(iszero))
@@ -16,6 +27,17 @@ def find_onset_offset_numpy(binary_serie):
 
 
 def robust_diff(x,dt=1/700, filter_length=71):
+    """
+    Compute the robust estimate of the derivative of a sequence of values.
+
+    Parameters:
+    - x: 1D numpy array of values to differentiate.
+    - dt: float, time step to use in the derivative calculation.
+    - filter_length: int, length of the filter to use in the derivative calculation.
+
+    Returns:
+    - filtered: 1D numpy array of the robust derivative estimate of the input sequence.
+    """
     if not filter_length % 2 == 1:
         raise ValueError('Filter length must be odd.')
     M = int((filter_length - 1) / 2)
@@ -32,6 +54,19 @@ def robust_diff(x,dt=1/700, filter_length=71):
 
 
 def compute_outer_circle(x,y,interval=100):
+    """
+    Compute the smallest circle that encloses a set of points.
+
+    The set of points is obtained by selecting every `interval`-th point from the input x and y sequences.
+
+    Parameters:
+    - x: 1D numpy array of x-coordinates of the points.
+    - y: 1D numpy array of y-coordinates of the points.
+    - interval: int, the interval at which to select points from the input sequences.
+
+    Returns:
+    - circle: tuple of (xc, yc, radius), where xc and yc are the coordinates of the center of the circle, and radius is the circle radius.
+    """
     p= [(x[i],y[i]) for i in np.arange(0,len(x),interval)]
     Circle = smallestenclosingcircle.make_circle(p)
     xc=Circle[0]

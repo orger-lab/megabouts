@@ -1,7 +1,33 @@
 from sporco.admm import cbpdnin
 import numpy as np
+from dataclasses import dataclass,field
+
+
+
+@dataclass
+class SparseCode():
+    Dict: np.ndarray=field(init=True,repr=False)
+    z: np.ndarray=field(init=True,repr=False)
+    tail_angle_hat: np.ndarray=field(init=True,repr=False)
+    decomposition: np.ndarray=field(init=True,repr=False)
+
+    @property
+    def n_atoms(self):
+        return decomposition.shape[-1]
+    
+    
 
 def batch_tail_angle(tail_angle,batch_duration=700*30):
+    """
+    Split a given tail angle sequence into batches of a given duration.
+
+    Parameters:
+    - tail_angle: 2D numpy array of tail angle values.
+    - batch_duration: int, duration of each batch in number of time steps.
+
+    Returns:
+    - tail_angle_batch: 3D numpy array of tail angle values split into batches of the specified duration.
+    """
     N = int(np.ceil(tail_angle.shape[0]/(batch_duration)))
     Nseg = tail_angle.shape[1]
     tail_angle_ = np.zeros((N*batch_duration,Nseg))
@@ -11,8 +37,24 @@ def batch_tail_angle(tail_angle,batch_duration=700*30):
     tail_angle_batch = np.swapaxes(tail_angle_batch,1,2)
     return tail_angle_batch
 
-def compute_sparse_code(*,tail_angle,Dict,Wg=[],lmbda=0.05,gamma=0.1,mu=0.5,Whn=60):
 
+def compute_sparse_code(*,tail_angle,Dict,Wg=[],lmbda=0.05,gamma=0.1,mu=0.5,Whn=60):
+    """
+    Compute the sparse code of a given tail angle sequence using a dictionary of basis functions.
+
+    Parameters:
+    - tail_angle: 2D numpy array of tail angle values.
+    - Dict: 3D numpy array of basis functions to use for the sparse code.
+    - Wg: 1D numpy array of weights for the sparse code.
+    - lmbda: float, regularization parameter to use in the sparse coding optimization.
+    - gamma: float, weight to use for the inhibition term in the optimization.
+    - mu: float, weight to use for the L1 norm in the optimization.
+    - Whn: int, size of the convolutional window to use in the optimization.
+
+    Returns:
+    - sparse_code: instance of the SparseCode class, containing the computed sparse code and related information.
+    """
+    
     # Batch Dataset:
     tail_angle_batch = batch_tail_angle(tail_angle)
 
@@ -48,19 +90,5 @@ def compute_sparse_code(*,tail_angle,Dict,Wg=[],lmbda=0.05,gamma=0.1,mu=0.5,Whn=
         decomposition[j,:] = tmp[:tail_angle.shape[0]]
     decomposition = decomposition.T
 
-    return z,tail_angle_hat_,decomposition
-
-'''
-def create_sparse_coder(Dict,lmbda=0.01,gamma=0.05,mu=0.05,Whn=60):
-    
-    def sparse_coder(tail_angle):
-        N_atoms = Dict.shape[2]
-        Wg = np.ones((1,N_atoms))
-        # DETRENDING:
-        tail_angle_detrend = remove_slow_trend(tail_angle,ref_segment=7)
-        # SPARSE CODING:
-        z,tail_angle_hat = compute_sparse_code(tail_angle_detrend[:,:7],Dict,Wg,lmbda=lmbda,gamma=gamma,mu=gamma,Whn=Whn)
-        
-        return z,tail_angle_hat
-    
-    return sparse_coder'''
+    sparse_code = SparseCode(Dict=Dict,z=z,tail_angle_hat=tail_angle_hat_,decomposition=decomposition)
+    return sparse_code

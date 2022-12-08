@@ -1,9 +1,25 @@
 import numpy as np
 from scipy.ndimage.interpolation import shift
-from utils.utils import robust_diff
-from preprocessing.smoothing import one_euro_filter
+from megabouts.utils.utils import robust_diff
+from megabouts.preprocessing.smoothing import one_euro_filter
 
 def compute_speed(x,y,body_angle,fps,n_diff=45):
+    """
+    Compute the axial, lateral, and yaw speed of a body given its position, body angle, and FPS.
+
+    Parameters:
+    - x: 1D numpy array of x-coordinates of the body's position.
+    - y: 1D numpy array of y-coordinates of the body's position.
+    - body_angle: 1D numpy array of the body's angle.
+    - fps: float, frames per second at which the body's position and angle were recorded.
+    - n_diff: int, number of frames to use in the robust difference computation.
+
+    Returns:
+    - axial_speed: 1D numpy array of the body's axial speed.
+    - lateral_speed: 1D numpy array of the body's lateral speed.
+    - yaw_speed: 1D numpy array of the body's yaw speed.
+    
+    """
     body_vector = np.array([np.cos(body_angle),np.sin(body_angle)])[:,:-1]
     position_change = np.zeros_like(body_vector)
     position_change[0,:] = robust_diff(x,dt=1/fps, filter_length=n_diff)[:-1]
@@ -22,7 +38,20 @@ def compute_speed(x,y,body_angle,fps,n_diff=45):
     
     return axial_speed,lateral_speed,yaw_speed
 
-def compute_mobility(axial_speed,lateral_speed,yaw_speed,lag = 140,fps=700):
+def compute_kinematic_activity(axial_speed,lateral_speed,yaw_speed,lag = 140,fps=700):
+    """
+    Compute the kinematic_activity of a body given its axial, lateral, and yaw speed.
+
+    Parameters:
+    - axial_speed: 1D numpy array of the body's axial speed.
+    - lateral_speed: 1D numpy array of the body's lateral speed.
+    - yaw_speed: 1D numpy array of the body's yaw speed.
+    - lag: int, number of frames to use in the kinematic_activity calculation.
+    - fps: float, frames per second at which the body's speed was recorded.
+
+    Returns:
+    - kinematic_activity: 1D numpy array of the body's kinematic_activity.
+    """
     
     traj_speed = np.vstack((axial_speed,lateral_speed,yaw_speed)).T
     traj_speed[np.isnan(traj_speed)]=0
@@ -38,6 +67,6 @@ def compute_mobility(axial_speed,lateral_speed,yaw_speed,lag = 140,fps=700):
     displacement[:lag,:] = 0
     displacement[-lag:,:] = 0
 
-    mobility = np.linalg.norm(displacement,axis=1)
+    kinematic_activity = np.linalg.norm(displacement,axis=1)
 
-    return mobility
+    return kinematic_activity

@@ -30,6 +30,8 @@ class Dataset_FullTracking():
         return len(self.x)
 
 
+
+
 @dataclass
 class Dataset_TailTracking():
     fps: int = field(init=True,repr=True)
@@ -49,6 +51,8 @@ class Dataset_TailTracking():
     @property
     def n_frames(self):
         return self.tail_angle.shape[0]
+
+
 
 
 @dataclass

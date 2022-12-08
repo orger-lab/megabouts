@@ -1,10 +1,10 @@
 from dataclasses import dataclass,field
 import numpy as np
 import pandas as pd
-from preprocessing.smoothing import one_euro_filter,clean_using_pca
-from preprocessing.trajectory import compute_mobility,compute_speed
-from super_resolution.downsampling import convert_ms_to_frames
-from preprocessing.baseline import compute_baseline
+from megabouts.preprocessing.smoothing import one_euro_filter,clean_using_pca
+from megabouts.preprocessing.trajectory import compute_kinematic_activity,compute_speed
+from megabouts.utils.utils_downsampling import convert_ms_to_frames
+from megabouts.preprocessing.baseline import compute_baseline
 
 
 @dataclass(frozen=True)#,kw_only=True)
@@ -15,7 +15,7 @@ class Preprocessed_Traj():
     axial_speed: np.ndarray
     lateral_speed: np.ndarray
     yaw_speed: np.ndarray
-    mobility: np.ndarray
+    kinematic_activity: np.ndarray
 
 
 def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag=60):
@@ -35,7 +35,7 @@ def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag
     x,y,body_angle  = map(smooth_func,[x,y,body_angle])
 
     axial_speed,lateral_speed,yaw_speed = compute_speed(x,y,body_angle,fps,n_diff=robust_diff)
-    mobility = compute_mobility(axial_speed,lateral_speed,yaw_speed,lag=lag,fps=fps)
+    kinematic_activity = compute_kinematic_activity(axial_speed,lateral_speed,yaw_speed,lag=lag,fps=fps)
 
     preprocessed_traj = Preprocessed_Traj(x=x,
                                             y=y,
@@ -43,7 +43,7 @@ def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag
                                             axial_speed=axial_speed,
                                             lateral_speed=lateral_speed,
                                             yaw_speed=yaw_speed,
-                                            mobility=mobility)
+                                            kinematic_activity=kinematic_activity)
     return preprocessed_traj
 
 

@@ -134,3 +134,4 @@ megabouts/gold_standard/CleanBalancedBoutDataset.npz
 megabouts/classification/CleanBalancedBoutDataset.npz
 *.npz
 megabouts/Free_Swim_Tail.pickle
+*.pickle
