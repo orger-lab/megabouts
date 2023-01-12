@@ -1,7 +1,7 @@
 import numpy as np
 #from scipy.ndimage import zoom
 from megabouts.utils.utils_downsampling import create_downsampling_function,convert_ms_to_frames
-#from scipy.ndimage.interpolation import shift
+from scipy.ndimage.interpolation import shift
 from dataclasses import dataclass,field
 from pathlib import Path
 
@@ -100,7 +100,13 @@ class Knn_Training_Dataset():
         for t in self.augmentation_delays:
             id_st = (original_peak_loc-t)-target_peak_loc
             print(f'IdSt:{id_st}')
-            bouts_rolled[iter_:iter_+N_bouts,:,:] = bouts[:,:,id_st:id_st+N_timestep] #shift(bouts,(0,0,t),mode='nearest')
+            bouts_rolled[iter_:iter_+N_bouts,:,:] = shift(bouts,(0,0,t),mode='nearest')[:,:,original_peak_loc-target_peak_loc:original_peak_loc-target_peak_loc+N_timestep]
+
+            #if (id_st+N_timestep)<bouts.shape[2]:
+            #    bouts_rolled[iter_:iter_+N_bouts,:,:] = bouts[:,:,id_st:id_st+N_timestep] 
+            #else:
+            #    bouts_rolled[iter_:iter_+N_bouts,:,:] = shift(bouts[:,:,original_peak_loc-target_peak_loc:original_peak_loc-target_peak_loc+N_timestep],(0,0,t),mode='nearest')
+            
             labels_rolled[iter_:iter_+N_bouts] = labels
             delays_rolled[iter_:iter_+N_bouts] = t
             iter_ = iter_+N_bouts        

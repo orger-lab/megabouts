@@ -55,7 +55,7 @@ def create_downsampling_function(fps_new:int,fps_origin:int,duration=200,duratio
     else:
         n_frames_original = duration
         n_frames_new = convert_frame_duration(n_frames_original,fps_origin,fps_new)
-        duration_ms = duration*1000/fps_new
+        duration_ms = duration*1000/fps_origin
         
     t = np.linspace(0,duration_ms,n_frames_original,endpoint=False)
     tnew = np.linspace(0,duration_ms,n_frames_new,endpoint=False)
