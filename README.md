@@ -1,36 +1,5 @@
-Package use to navigate zebrafish behavior dataset.
+# Megabouts
 
-### What is this repository for? ###
+This Python package for annotating behavioral data from zebrafish larva. The package is based on a clustering algorithm that allows for great flexibility in recording and tracking options. 
+This package is currently being developed. Some notebook provide example but additional information and guides will be available when the accompanying research paper is released. Keep in mind that some features may not have been fully tested and could be subject to change. Use of this package is done so at your own risk.
 
-* Classify Zebrafish Movements
-
-* Version
-* [From github](https://github.com/orgs/orger-lab/teams/megabouts-team)
-
-### How do I get set up? ###
-
-* Pip install the package
-* Deployment instructions: 
-* https://packaging.python.org/tutorials/packaging-projects/
-=======
-# megabouts
-
-TODO:
-
-- Make Figure 1
-- <del> Make final reference bouts library
-- Find best alignement of bouts and trajectory
-- Make Figure 4 about Pharmacology and make super-resolution figure.
-- Finish HR analysis make Figure 3 on HR and Sparse coding
-- Finalize Megabouts wheels and update impacted figure
-
-- Write about pipeline and segmentation
-- Write about head-restrained results
-- Write about pharmacology
-- Finish Intro 
-- Write Abstract + Conclusion
-- Send for first proofreading
-- Edit Manuscript in Latex with proper biblio
-- Publish public repo + Pip package
-- Make first readthedoc website
-- Publish on Biorxiv 

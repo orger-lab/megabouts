@@ -14,9 +14,7 @@ from megabouts.preprocessing.preprocessing import preprocess_traj
 from megabouts.segmentation.segment import segment_from_kinematic_activity,extract_aligned_traj
 from megabouts.classification.classify import bouts_classifier,Classification
 
-
 from megabouts.utils.utils_bouts import compute_bout_cat_ts
-
 
 
 @dataclass
