@@ -3,6 +3,8 @@ from dataclasses import dataclass,field
 import numpy as np
 from scipy.signal import find_peaks
 from megabouts.segmentation.align import align_bout_peaks
+from megabouts.segmentation.threshold import estimate_threshold_using_GMM
+from megabouts.utils.utils import find_onset_offset_numpy
 
 @dataclass(repr=False)
 class Segment():
@@ -53,8 +55,9 @@ def extract_aligned_traj(x:np.ndarray,
         of size (num_bouts,3,bout_duration)
     """        
     traj_array = np.zeros((len(segment.onset),3,segment.bout_duration))
-    for i,(id_st,id_ed) in enumerate(zip(segment.onset,segment.offset)):
-        
+    duration = segment.bout_duration
+    for i,id_st in enumerate(segment.onset):
+        id_ed = id_st + duration
         sub_x,sub_y,sub_body_angle = x[id_st:id_ed],y[id_st:id_ed],body_angle[id_st:id_ed]
         Pos = np.zeros((2,segment.bout_duration))
         Pos[0,:] = sub_x-sub_x[0]
@@ -83,12 +86,12 @@ def extract_bouts(tail_angle:np.ndarray,
         of size (num_bouts,n_segments,bout_duration)
     """
     tail_array = np.zeros((len(segment.onset),tail_angle.shape[1],segment.bout_duration))
-    for i,(id_st,id_ed) in enumerate(zip(segment.onset,segment.offset)):
-
+    duration = segment.bout_duration
+    for i,id_st in enumerate(segment.onset):
+        id_ed = id_st + duration
         tail_array[i,:,:]=tail_angle[id_st:id_ed,:].T
         
     return tail_array
-
 
 
 def segment_from_kinematic_activity(*,kinematic_activity,bout_duration,margin_before_peak,prominence=0.4):
@@ -111,21 +114,59 @@ def segment_from_kinematic_activity(*,kinematic_activity,bout_duration,margin_be
         
     return segment
     
+    
+def segment_from_tail_speed(*,tail_angle1d,smooth_tail_speed,
+                            tail_speed_thresh_std=2.1,
+                            min_bout_duration=80,
+                            bout_duration=140,
+                            margin_before_peak=20):
+    
+    # Compute Threshold:
+    Thresh,ax = estimate_threshold_using_GMM(smooth_tail_speed,margin_std=2.1,axis=None)
+    tail_active = smooth_tail_speed>Thresh
 
-def segment_from_code(*,z,
-                      min_code_height=1,
-                      min_spike_dist=120,
-                      bout_duration=140,
-                      margin_before_peak=20):
+    # Remove bouts of short duration
+    onset,offset,duration = find_onset_offset_numpy(tail_active)
+    onset_init,offset_init,duration = onset[duration>min_bout_duration],offset[duration>min_bout_duration],duration[duration>min_bout_duration]
+    tail_active = 0*tail_active
+    for on_,off_ in zip(onset_init,offset_init):
+        tail_active[on_:off_]=1
 
-    # FINDING PEAKS IN SPARSE CODE:
-    z_max = np.max(np.abs(z),axis=1)
-    peaks, _ = find_peaks(z_max, height=min_code_height,distance=min_spike_dist)
-    peaks_bin = np.zeros(z.shape[0])
-    peaks_bin[peaks]=1
-    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(z_max),margin_before_peak=margin_before_peak,bout_duration=bout_duration)
-    segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
-    return segment
+    onset_aligned,offset_aligned = [],[]
+    onset_original,offset_original = [],[]
+    is_aligned = []
+    
+    for iter_,(on_,off_) in enumerate(zip(onset_init,offset_init)):
+            if (on_+bout_duration<tail_angle1d.shape[0]):
+                
+                tail_bout = tail_angle1d[on_:off_]
+                
+                onset_original.append(int(on_))
+                offset_original.append(int(off_))
+                
+                try:
+                    peak_location = align_bout_peaks(tail_bout,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
+                except:
+                    peak_location = np.nan
+                    
+                if np.isnan(peak_location):
+                    peak_location = margin_before_peak
+                    is_aligned.append(0)
+                else:
+                    is_aligned.append(1)
+
+                id_st = np.round(on_ + peak_location-margin_before_peak)
+                id_ed = np.round(off_)
+                onset_aligned.append(int(id_st))
+                offset_aligned.append(int(id_ed))
+            
+                
+                
+    segment_original = Segment(onset=onset_original,offset=offset_aligned,bout_duration=bout_duration)
+    segment = Segment(onset=onset_aligned,offset=offset_aligned,bout_duration=bout_duration)
+    
+    return segment,segment_original,np.array(is_aligned),Thresh
+
 
 def segment_from_code_w_fine_alignement(*,z,tail_angle1d,
                                         min_code_height=1,
@@ -172,4 +213,18 @@ def segment_from_code_w_fine_alignement(*,z,tail_angle1d,
     segment = Segment(onset=onset,offset=offset,bout_duration=bout_duration)
     
     return segment,segment_original,np.array(is_aligned)
- 
+
+def segment_from_code(*,z,
+                      min_code_height=1,
+                      min_spike_dist=120,
+                      bout_duration=140,
+                      margin_before_peak=20):
+
+    # FINDING PEAKS IN SPARSE CODE:
+    z_max = np.max(np.abs(z),axis=1)
+    peaks, _ = find_peaks(z_max, height=min_code_height,distance=min_spike_dist)
+    peaks_bin = np.zeros(z.shape[0])
+    peaks_bin[peaks]=1
+    onset_init,offset_init = segment_from_peaks(peaks=peaks,max_t=len(z_max),margin_before_peak=margin_before_peak,bout_duration=bout_duration)
+    segment = Segment(onset=onset_init,offset=offset_init,bout_duration=bout_duration)
+    return segment

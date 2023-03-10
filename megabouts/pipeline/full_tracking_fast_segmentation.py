@@ -3,7 +3,7 @@ import pandas as pd
 from dataclasses import dataclass,field
 from functools import partial
 
-from megabouts.pipeline.cfg import ConfigTrajPreprocess,ConfigTailPreprocess,ConfigSparseCoding,ConfigTailSegmentationClassification
+from megabouts.pipeline.cfg import ConfigTrajPreprocess,ConfigTailPreprocess,ConfigSparseCoding,ConfigClassification,ConfigTrajSegmentation
 
 from megabouts.tracking_data.dataset import Dataset_CentroidTracking,Dataset_TailTracking,Dataset_FullTracking
 from megabouts.preprocessing.preprocessing import Preprocessed_Traj
@@ -38,25 +38,25 @@ class PipelineFullTrackingFast():
     
     cfg_tail_preprocess : ConfigTailPreprocess = field(init=True)
     cfg_traj_preprocess : ConfigTrajPreprocess = field(init=True)
-    cfg_segment_classify : ConfigTailSegmentationClassification = field(init=True)
+    cfg_segment : ConfigTrajSegmentation = field(init=True)
+    cfg_classify : ConfigClassification = field(init=True)
     knn_training_dataset_augmented: Knn_Training_Dataset = field(init=False)
     load_training: bool = True
     res: PipelineFullTrackingFast_Result = field(init=False)
 
     
     def __post_init__(self):
-        assert self.cfg_tail_preprocess.fps==self.cfg_traj_preprocess.fps==self.cfg_segment_classify.fps, \
+        assert self.cfg_tail_preprocess.fps==self.cfg_traj_preprocess.fps==self.cfg_segment.fps==self.cfg_classify.fps, \
             f"fps should be the same in both config"
         if self.load_training:
             self.load_training_template()
-            
+
     def load_training_template(self):
-        self.knn_training_dataset_augmented = Knn_Training_Dataset(fps=self.cfg_tail_preprocess.fps,
-                                                         augmentation_delays=np.arange(0,
-                                                                                       self.cfg_segment_classify.augment_max_delay,
-                                                                                       self.cfg_segment_classify.augment_step_delay),
-                                                         ignore_CS=True,
-                                                         filename_template=self.cfg_segment_classify.filename_template)
+        self.knn_training_dataset_augmented = Knn_Training_Dataset(fps = self.cfg_tail_preprocess.fps,
+                                                                   augmentation_delays = np.unique(np.arange(self.cfg_classify.augment_min_delay,self.cfg_classify.augment_max_delay,self.cfg_classify.augment_step_delay).tolist()+[0]),
+                                                                   bouts_dict = self.cfg_classify.bouts_dict,
+                                                                   bout_duration =  self.cfg_classify.bout_duration,
+                                                                   peak_loc = self.cfg_classify.margin_before_peak)
         
     def preprocess_traj(self,x,y,body_angle):
         return preprocess_traj(x=x,
@@ -77,15 +77,15 @@ class PipelineFullTrackingFast():
         
     def find_segment(self,kinematic_activity):
         return segment_from_kinematic_activity(kinematic_activity=kinematic_activity,
-                                     bout_duration=self.cfg_segment_classify.bout_duration,
-                                     margin_before_peak=self.cfg_segment_classify.margin_before_peak,
-                                     prominence=self.cfg_segment_classify.peak_prominence)
+                                     bout_duration=self.cfg_segment.bout_duration,
+                                     margin_before_peak=self.cfg_segment.margin_before_peak,
+                                     prominence=self.cfg_segment.peak_prominence)
     
     def classify(self,X):
         return bouts_classifier(X,
                                 kNN_training_dataset=self.knn_training_dataset_augmented,
-                                weight=self.cfg_segment_classify.feature_weight,
-                                n_neighbors=self.cfg_segment_classify.N_kNN,
+                                weight=self.cfg_classify.feature_weight,
+                                n_neighbors=self.cfg_classify.N_kNN,
                                 tracking_method='tail_and_traj')
         
     def run(self,tail_angle,x,y,body_angle):
@@ -131,7 +131,7 @@ class PipelineFullTrackingFast():
         onset_refined = [on_ + int(onset_shift[i]) for i,on_ in enumerate(segments.onset)]
         offset_refined = [off_ + int(onset_shift[i]) for i,off_  in enumerate(segments.offset)]
     
-        segments_refined = Segment(onset=onset_refined,offset=offset_refined,bout_duration=self.cfg_segment_classify.bout_duration)
+        segments_refined = Segment(onset=onset_refined,offset=offset_refined,bout_duration=self.cfg_segment.bout_duration)
         traj_array = extract_aligned_traj(x = clean_traj.x,
                                           y = clean_traj.y,
                                           body_angle = clean_traj.body_angle,

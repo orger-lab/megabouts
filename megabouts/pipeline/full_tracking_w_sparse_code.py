@@ -3,18 +3,18 @@ import pandas as pd
 from dataclasses import dataclass,field
 from functools import partial
 
-from megabouts.pipeline.cfg import ConfigTrajPreprocess,ConfigTailPreprocess,ConfigTailSegmentation,ConfigClassification
+from megabouts.pipeline.cfg import ConfigTrajPreprocess,ConfigTailPreprocess,ConfigSparseCoding,ConfigTailSegmentationFromSparseCode,ConfigClassification
 
 from megabouts.tracking_data.dataset import Dataset_CentroidTracking,Dataset_TailTracking,Dataset_FullTracking
 from megabouts.preprocessing.preprocessing import Preprocessed_Traj
 from megabouts.segmentation.segment import Segment
 from megabouts.classification.template_bouts import Knn_Training_Dataset
 
-from megabouts.preprocessing.preprocessing import preprocess_traj,preprocess_tail,compute_tail_speed
+from megabouts.preprocessing.preprocessing import preprocess_traj,preprocess_tail
 from megabouts.segmentation.segment import segment_from_kinematic_activity,extract_aligned_traj,extract_bouts
 
 from megabouts.sparse_coding.sparse_coding import compute_sparse_code,SparseCode
-from megabouts.segmentation.segment import Segment,segment_from_tail_speed
+from megabouts.segmentation.segment import Segment,segment_from_code,segment_from_code_w_fine_alignement
 from megabouts.classification.classify import bouts_classifier,Classification
 
 from megabouts.utils.utils_bouts import compute_bout_cat_ts
@@ -25,7 +25,7 @@ class PipelineFullTracking_Result:
     tracking_data: Dataset_FullTracking
     tracking_data_clean: Dataset_FullTracking
     baseline: np.ndarray=field(init=True,repr=False)
-    smooth_tail_speed: np.ndarray=field(init=True,repr=False)
+    sparse_code: SparseCode
     segments: Segment
     segments_original: Segment
     tail_and_traj_array: np.ndarray=field(init=True,repr=False)
@@ -39,7 +39,8 @@ class PipelineFullTracking():
     
     cfg_tail_preprocess : ConfigTailPreprocess = field(init=True)
     cfg_traj_preprocess : ConfigTrajPreprocess = field(init=True)
-    cfg_segment : ConfigTailSegmentation = field(init=True)
+    cfg_sparse_coding : ConfigSparseCoding = field(init=True)
+    cfg_segment : ConfigTailSegmentationFromSparseCode = field(init=True)
     cfg_classify : ConfigClassification = field(init=True)
     knn_training_dataset_augmented: Knn_Training_Dataset = field(init=False)
     load_training: bool = True
@@ -73,28 +74,28 @@ class PipelineFullTracking():
                                lag=self.cfg_traj_preprocess.lag_kinematic_activity)
     
     def preprocess_tail(self,tail_angle):
+        return preprocess_tail(tail_angle=tail_angle,
+                               limit_na=self.cfg_tail_preprocess.limit_na,
+                               num_pcs=self.cfg_tail_preprocess.num_pcs,
+                               baseline_method = self.cfg_tail_preprocess.baseline_method,
+                               baseline_params = self.cfg_tail_preprocess.baseline_params)
         
-        tail_angle_clean,baseline = preprocess_tail(tail_angle=tail_angle,
-                                                    limit_na=self.cfg_tail_preprocess.limit_na,
-                                                    num_pcs=self.cfg_tail_preprocess.num_pcs,
-                                                    baseline_method = self.cfg_tail_preprocess.baseline_method,
-                                                    baseline_params = self.cfg_tail_preprocess.baseline_params)
-        N_c = self.cfg_tail_preprocess.tail_segment_cutoff
-        tail_angle_detrend = tail_angle_clean[:,:N_c]-baseline[:,:N_c]
-        smooth_tail_speed = compute_tail_speed(tail_angle= tail_angle_detrend,
-                                              fps=self.cfg_tail_preprocess.fps,
-                                              tail_speed_filter=self.cfg_segment.tail_speed_filter,
-                                              tail_speed_boxcar_filter=self.cfg_segment.tail_speed_boxcar_filter)
-        return tail_angle_clean,baseline,tail_angle_detrend,smooth_tail_speed
-
-
-    def find_segment(self,tail_angle1d,smooth_tail_speed):
-        return segment_from_tail_speed(tail_angle1d=tail_angle1d,
-                                       smooth_tail_speed=smooth_tail_speed,
-                                       tail_speed_thresh_std=self.cfg_segment.tail_speed_thresh_std,
-                                       min_bout_duration=self.cfg_segment.min_bout_duration,
-                                       bout_duration=self.cfg_segment.bout_duration,
-                                       margin_before_peak=self.cfg_segment.margin_before_peak)
+    def compute_sparse_code(self,tail_angle):
+        return compute_sparse_code(tail_angle=tail_angle,
+                                   Dict=self.cfg_sparse_coding.Dict,
+                                   Wg=[],
+                                   lmbda=self.cfg_sparse_coding.lmbda,
+                                   gamma=self.cfg_sparse_coding.gamma,
+                                   mu=self.cfg_sparse_coding.mu,
+                                   Whn=self.cfg_sparse_coding.window_inhib)
+    
+    def find_segment(self,z,tail_angle1d):
+        return segment_from_code_w_fine_alignement(z=z,tail_angle1d=tail_angle1d,
+                                 min_code_height=self.cfg_segment.min_code_height,
+                                 min_spike_dist=self.cfg_segment.min_spike_dist,
+                                 bout_duration=self.cfg_segment.bout_duration,
+                                 margin_before_peak=self.cfg_segment.margin_before_peak,
+                                 dict_peak=self.cfg_sparse_coding.dict_peak)
     
     def classify(self,X):
         return bouts_classifier(X,
@@ -107,7 +108,6 @@ class PipelineFullTracking():
         
         
         # Preprocess Data:
-        print('Preprocessing Tail and Trajectory')
         tracking_data = Dataset_FullTracking(fps=self.cfg_tail_preprocess.fps,
                                              x=x,
                                              y=y,
@@ -118,18 +118,21 @@ class PipelineFullTracking():
                                           y=tracking_data.y,
                                           body_angle=tracking_data.body_angle)
         
-        tail_angle_clean,baseline,tail_angle_detrend,smooth_tail_speed = self.preprocess_tail(tail_angle=tracking_data.tail_angle)
+        tail_angle_clean,baseline = self.preprocess_tail(tail_angle=tracking_data.tail_angle)
+        N_c = self.cfg_tail_preprocess.tail_segment_cutoff
+        tail_angle_detrend = tail_angle_clean[:,:N_c]-baseline[:,:N_c]
         
         tracking_data_clean = Dataset_FullTracking(fps=self.cfg_tail_preprocess.fps,
                                                    x=clean_traj.x,
                                                    y=clean_traj.y,
                                                    body_angle=clean_traj.body_angle,
                                                    tail_angle=tail_angle_clean-baseline)
-
+        # Compute Sparse Code:
+        sparse_code = self.compute_sparse_code(tail_angle_detrend)
+        
         # Compute Segments:
-        print('Segmentation')
-        N_c = self.cfg_tail_preprocess.tail_segment_cutoff
-        segments,segment_original,is_aligned,Thresh = self.find_segment(tail_angle1d=tail_angle_detrend[:,N_c-1],smooth_tail_speed=smooth_tail_speed)
+        segments,segment_original,is_aligned = self.find_segment(z=sparse_code.z,tail_angle1d=tail_angle_detrend[:,N_c-1])
+        
         traj_array = extract_aligned_traj(x = clean_traj.x,
                                           y = clean_traj.y,
                                           body_angle = clean_traj.body_angle,
@@ -140,14 +143,12 @@ class PipelineFullTracking():
         tail_and_traj_array = np.concatenate((tail_array,traj_array),axis=1)
         
         # Classify:
-        print('Classification')
-
         classification_res = self.classify(tail_and_traj_array)
         
         # Refine segmentation:
         onset_shift = classification_res.onset_shift
         onset_refined = [on_ + int(onset_shift[i]) for i,on_ in enumerate(segments.onset)]
-        offset_refined = segments.offset
+        offset_refined = [off_ + int(onset_shift[i]) for i,off_  in enumerate(segments.offset)]
     
         segments_refined = Segment(onset=onset_refined,offset=offset_refined,bout_duration=self.cfg_segment.bout_duration)
         traj_array = extract_aligned_traj(x = clean_traj.x,
@@ -169,7 +170,7 @@ class PipelineFullTracking():
         res = PipelineFullTracking_Result(tracking_data=tracking_data,
                                           tracking_data_clean = tracking_data_clean,
                                           baseline = baseline,
-                                          smooth_tail_speed = smooth_tail_speed,
+                                          sparse_code = sparse_code,
                                           segments = segments_refined,
                                           segments_original = segments,
                                           tail_and_traj_array = tail_and_traj_array_refined,

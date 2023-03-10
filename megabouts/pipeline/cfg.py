@@ -60,10 +60,39 @@ class ConfigSparseCoding:
     @property
     def dict_peak(self):
         return convert_ms_to_frames(self.fps,self.dict_peak_ms)        
-    
-    
+
 @dataclass
 class ConfigTailSegmentation:
+    """All parameters values relative to time should be in ms
+    """
+    fps: float
+    tail_speed_filter_ms: float = 100
+    tail_speed_boxcar_filter_ms: float = 14
+    tail_speed_thresh_std: float = 2.1
+    min_bout_duration_ms: float = 85
+    margin_before_peak_ms: float = 28
+    bout_duration_ms: float = 200
+
+    @property
+    def tail_speed_filter(self):
+        n = convert_ms_to_frames(self.fps,self.tail_speed_filter_ms)   
+        if n%2==0: n = n+1   
+        return  n
+    @property
+    def tail_speed_boxcar_filter(self):
+        return convert_ms_to_frames(self.fps,self.tail_speed_boxcar_filter_ms)        
+    @property
+    def min_bout_duration(self):
+        return convert_ms_to_frames(self.fps,self.min_bout_duration_ms)   
+    @property
+    def margin_before_peak(self):
+        return convert_ms_to_frames(self.fps,self.margin_before_peak_ms)        
+    @property
+    def bout_duration(self):
+        return convert_ms_to_frames(self.fps,self.bout_duration_ms)
+
+@dataclass
+class ConfigTailSegmentationFromSparseCode:
     """All parameters values relative to time should be in ms
     """
     fps: float
@@ -82,6 +111,7 @@ class ConfigTailSegmentation:
     @property
     def bout_duration(self):
         return convert_ms_to_frames(self.fps,self.bout_duration_ms)        
+
 
 @dataclass
 class ConfigTrajSegmentation:

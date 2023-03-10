@@ -4,7 +4,9 @@ import pandas as pd
 from megabouts.preprocessing.smoothing import one_euro_filter,clean_using_pca
 from megabouts.preprocessing.trajectory import compute_kinematic_activity,compute_speed
 from megabouts.utils.utils_downsampling import convert_ms_to_frames
+from megabouts.utils.utils import robust_diff
 from megabouts.preprocessing.baseline import compute_baseline
+import scipy.signal as signal
 
 
 @dataclass(frozen=True)#,kw_only=True)
@@ -25,7 +27,7 @@ def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag
         x (np.ndarray): x position in mm
         y (np.ndarray):  y position in mm
         body_angle (np.ndarray): yaw angle in radian
-        fps (int): frame rate def
+        fps (int): frame rate 
         fc_min (float): minimum cuoff frequency in Hz
         beta (float): cutoff slope
     Returns:
@@ -73,9 +75,32 @@ def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,baseline_method,baseline_p
     
     # Remove baseline:
     baseline = np.zeros_like(tail_angle_clean)
-    for s in range(tail_angle_clean.shape[1]):
-        baseline[:,s] = compute_baseline(tail_angle_clean[:,s],baseline_method,baseline_params)
+    #for s in range(tail_angle_clean.shape[1]):
+    #    baseline[:,s] = compute_baseline(tail_angle_clean[:,s],baseline_method,baseline_params)
 
     return tail_angle_clean,baseline
 
 
+def compute_tail_speed(*,tail_angle,fps,tail_speed_filter,tail_speed_boxcar_filter):
+    """ Smooth trajectory using 1€ filter and compute derivative
+
+    Args:
+        tail_angle (np.ndarray): input tail angle
+        fps (int): frame rate 
+        tail_speed_filter (int): length to compute robust diff, should be odd
+        tail_speed_boxcar_filter (int): size of boxcar filter to smooth half-beat oscillation
+    Returns:
+        np.ndarray: smooth_tail_speed
+    """ 
+    tail_angle_speed = np.zeros_like(tail_angle)
+    for i in range(tail_angle.shape[1]):
+        tail_angle_speed[:,i] = robust_diff(tail_angle[:,i],dt=1/fps,filter_length=tail_speed_filter)
+    # Sum the angle differences down the length of the tail to give prominence to regions of continuous curvature in one direction
+    cumul_filtered_speed=np.sum(np.abs(tail_angle_speed),axis=1)
+    # Sum the absolute value of this accumulated curvature so bends in both directions are considered
+    smooth_tail_speed= signal.convolve(
+            cumul_filtered_speed,
+            1/tail_speed_boxcar_filter*signal.boxcar(M=tail_speed_boxcar_filter,sym=False),
+            mode='same')
+    
+    return smooth_tail_speed
