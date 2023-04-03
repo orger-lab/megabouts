@@ -33,14 +33,22 @@ class ConfigTailPreprocess:
     """
     fps: float
     num_pcs: int = 4
-    tail_segment_cutoff: int = 7
     limit_na_ms: float = 100
-    baseline_method: str = 'slow'
+    savgol_window_ms: float = 15
+    baseline_method: str = 'None'
     baseline_params: dict = field(default_factory=dict)
     @property
     def limit_na(self):
         return convert_ms_to_frames(self.fps,self.limit_na_ms)        
-    
+    @property
+    def savgol_window(self):
+        res = convert_ms_to_frames(self.fps,self.savgol_window_ms)    
+        if res%2==0:
+            res=res+1 # Make sure robust_diff_dn is odd
+        if res<3:
+            res=-1
+        return convert_ms_to_frames(self.fps,self.savgol_window_ms)        
+        
 @dataclass
 class ConfigSparseCoding:
     """All parameters values relative to time should be in ms

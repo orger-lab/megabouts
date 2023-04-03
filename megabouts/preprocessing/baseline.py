@@ -25,8 +25,9 @@ def compute_baseline(x,method,params):
     """
     
     fps = params['fps']
- 
-    if method =='slow':
+    if method =='None':
+        baseline = np.zeros_like(x)
+    elif method =='slow':
         baseline = noise_median(x, half_window=int(np.round(fps/2)), smooth_half_window=None, sigma=None)[0]
     elif method =='beads':
         baseline_func = partial(compute_baseline_beads,

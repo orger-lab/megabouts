@@ -98,5 +98,3 @@ def bouts_classifier(X:np.ndarray,kNN_training_dataset:type(Knn_Training_Dataset
                                     )
 
     return classification
-    
-    

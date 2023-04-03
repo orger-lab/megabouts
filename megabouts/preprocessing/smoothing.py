@@ -2,6 +2,36 @@ import numpy as np
 import scipy.signal as signal
 from scipy.signal import savgol_filter
 from sklearn.decomposition import PCA
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+
+def tail_imputing(tail_angle):
+    """Use sklearn to Imput missing tail segments:
+
+    Args:
+        X (np.ndarray): tail angle, should be of size (T,num_features)
+    Returns:
+        np.ndarray: return X where missing segments are interpolated
+    """
+
+    # Find when tail is moving:
+    tail_angle_train = np.copy(tail_angle)
+    tail_angle_train = tail_angle_train[np.isnan(tail_angle[:,-1])==False,:]
+    tail_angle_train = tail_angle_train[np.abs(tail_angle_train[:,-1])>0.5,:]
+    if tail_angle_train.shape[0]>10000:
+        tail_angle_train = tail_angle_train[:10000,:]
+        
+    # Train Imputer:
+    imp = IterativeImputer(max_iter=10, random_state=0)
+    imp.fit(tail_angle_train)
+
+    # Interpolate missing segments using the rest of the tail:
+    tail_angle_interp = np.copy(tail_angle)
+    no_segment_tracked = np.all(np.isnan(tail_angle_interp),axis=1)
+    tail_angle_interp[no_segment_tracked==False,:] = imp.transform(tail_angle[no_segment_tracked==False,:])
+    
+    return tail_angle_interp
 
 def clean_using_pca(X:np.ndarray,num_pcs=4)->np.ndarray:
     """Apply PCA autoencoding to clean up a multidimensional time series

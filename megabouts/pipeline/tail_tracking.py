@@ -39,6 +39,7 @@ class PipelineTailTracking():
         return preprocess_tail(tail_angle=tail_angle,
                                limit_na=self.cfg_preprocess.limit_na,
                                num_pcs=self.cfg_preprocess.num_pcs,
+                               savgol_window = self.cfg_tail_preprocess.savgol_window,
                                baseline_method = self.cfg_preprocess.baseline_method,
                                baseline_params = self.cfg_preprocess.baseline_params)
         

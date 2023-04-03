@@ -1,12 +1,14 @@
 from dataclasses import dataclass,field
 import numpy as np
 import pandas as pd
-from megabouts.preprocessing.smoothing import one_euro_filter,clean_using_pca
+from megabouts.preprocessing.smoothing import one_euro_filter,clean_using_pca,tail_imputing
 from megabouts.preprocessing.trajectory import compute_kinematic_activity,compute_speed
 from megabouts.utils.utils_downsampling import convert_ms_to_frames
 from megabouts.utils.utils import robust_diff
 from megabouts.preprocessing.baseline import compute_baseline
 import scipy.signal as signal
+from scipy.signal import savgol_filter
+
 
 
 @dataclass(frozen=True)#,kw_only=True)
@@ -49,36 +51,47 @@ def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag
     return preprocessed_traj
 
 
-def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,baseline_method,baseline_params):
+def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,savgol_window=11,
+                    baseline_method,baseline_params):
     """Interpolate Nan in tail_angle and remove noise using PCA
 
     Args:
         tail_angle (np.ndarray): input tail angle
-        limit_na (int, optional): _description_. Defaults to 5.
-        num_pcs (int, optional): _description_. Defaults to 4.
+        limit_na (int, optional): if more frames are missing we don't interpolate. Defaults to 5.
+        num_pcs (int, optional): number of principal components we keep. Defaults to 4.
+        savgol_window (int, optional): odd windows size used to fit a second order polynom. Defaults to 11. -1 avoid smoothing
 
     Returns:
         np.ndarray: filtered tail angle
-    """ 
-    # Interpolate NaN:
-    tail_angle_clean = np.copy(tail_angle)
-    for s in range(tail_angle.shape[1]):
-        ds = pd.Series(tail_angle[:,s])
+    """     
+    
+    tail_angle_interp = tail_imputing(tail_angle)
+    
+    # Interpolate NaN timestep:
+    tail_angle_clean = np.zeros_like(tail_angle_interp)
+    for s in range(tail_angle_interp.shape[1]):
+        ds = pd.Series(tail_angle_interp[:,s])
         ds.interpolate(method='nearest',limit=limit_na,inplace=True)
         tail_angle_clean[:,s] = ds.values
 
     # Set to 0 for long sequence of nan:
     tail_angle_clean[np.isnan(tail_angle_clean)]=0
 
-    # Use PCA for Cleaning (Could use DMD for better results)
+    # Use PCA for Cleaning 
     tail_angle_clean = clean_using_pca(tail_angle_clean,num_pcs=num_pcs)
     
-    # Remove baseline:
-    baseline = np.zeros_like(tail_angle_clean)
-    #for s in range(tail_angle_clean.shape[1]):
-    #    baseline[:,s] = compute_baseline(tail_angle_clean[:,s],baseline_method,baseline_params)
+    # Use Savgol filter:
+    smooth_tail_angle=np.copy(tail_angle_clean)
+    if savgol_window!=-1:
+        for n in range(tail_angle_clean.shape[1]):
+            smooth_tail_angle[:,n]=signal.savgol_filter(tail_angle_clean[:,n], savgol_window, 2, deriv=0, delta=1.0, axis=-1, mode='interp', cval=0.0)
 
-    return tail_angle_clean,baseline
+    # Remove baseline:
+    baseline = np.zeros_like(smooth_tail_angle)
+    for s in range(smooth_tail_angle.shape[1]):
+        baseline[:,s] = compute_baseline(smooth_tail_angle[:,s],baseline_method,baseline_params)
+
+    return smooth_tail_angle,baseline
 
 
 def compute_tail_speed(*,tail_angle,fps,tail_speed_filter,tail_speed_boxcar_filter):

@@ -26,9 +26,11 @@ class PipelineFullTracking_Result:
     tracking_data_clean: Dataset_FullTracking
     baseline: np.ndarray=field(init=True,repr=False)
     smooth_tail_speed: np.ndarray=field(init=True,repr=False)
+    tail_speed_thresh : float
     segments: Segment
     segments_original: Segment
     tail_and_traj_array: np.ndarray=field(init=True,repr=False)
+    tail_and_traj_array_original: np.ndarray=field(init=True,repr=False)
     classification: Classification
     bout_category_ts: np.ndarray=field(init=True,repr=False)
     bout_category_ts_signed: np.ndarray=field(init=True,repr=False)
@@ -73,19 +75,20 @@ class PipelineFullTracking():
                                lag=self.cfg_traj_preprocess.lag_kinematic_activity)
     
     def preprocess_tail(self,tail_angle):
-        
-        tail_angle_clean,baseline = preprocess_tail(tail_angle=tail_angle,
+        # We don't use the last two segments as they are noisy
+        tail_angle = tail_angle[:,:8]
+        smooth_tail_angle,baseline = preprocess_tail(tail_angle=tail_angle,
                                                     limit_na=self.cfg_tail_preprocess.limit_na,
                                                     num_pcs=self.cfg_tail_preprocess.num_pcs,
+                                                    savgol_window = self.cfg_tail_preprocess.savgol_window,
                                                     baseline_method = self.cfg_tail_preprocess.baseline_method,
                                                     baseline_params = self.cfg_tail_preprocess.baseline_params)
-        N_c = self.cfg_tail_preprocess.tail_segment_cutoff
-        tail_angle_detrend = tail_angle_clean[:,:N_c]-baseline[:,:N_c]
+        tail_angle_detrend = smooth_tail_angle-baseline
         smooth_tail_speed = compute_tail_speed(tail_angle= tail_angle_detrend,
                                               fps=self.cfg_tail_preprocess.fps,
                                               tail_speed_filter=self.cfg_segment.tail_speed_filter,
                                               tail_speed_boxcar_filter=self.cfg_segment.tail_speed_boxcar_filter)
-        return tail_angle_clean,baseline,tail_angle_detrend,smooth_tail_speed
+        return smooth_tail_angle,baseline,tail_angle_detrend,smooth_tail_speed
 
 
     def find_segment(self,tail_angle1d,smooth_tail_speed):
@@ -128,8 +131,7 @@ class PipelineFullTracking():
 
         # Compute Segments:
         print('Segmentation')
-        N_c = self.cfg_tail_preprocess.tail_segment_cutoff
-        segments,segment_original,is_aligned,Thresh = self.find_segment(tail_angle1d=tail_angle_detrend[:,N_c-1],smooth_tail_speed=smooth_tail_speed)
+        segments,segment_original,is_aligned,Thresh = self.find_segment(tail_angle1d=tail_angle_detrend[:,-1],smooth_tail_speed=smooth_tail_speed)
         traj_array = extract_aligned_traj(x = clean_traj.x,
                                           y = clean_traj.y,
                                           body_angle = clean_traj.body_angle,
@@ -170,9 +172,11 @@ class PipelineFullTracking():
                                           tracking_data_clean = tracking_data_clean,
                                           baseline = baseline,
                                           smooth_tail_speed = smooth_tail_speed,
+                                          tail_speed_thresh = Thresh,
                                           segments = segments_refined,
                                           segments_original = segments,
                                           tail_and_traj_array = tail_and_traj_array_refined,
+                                          tail_and_traj_array_original = tail_and_traj_array,
                                           classification = classification_res,
                                           bout_category_ts = bout_category_ts,
                                           bout_category_ts_signed = bout_category_ts_signed)
