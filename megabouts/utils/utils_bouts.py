@@ -7,7 +7,7 @@ NameCat = [s+'+' for s in NameCatSym] + [s+'-' for s in NameCatSym]#[::-1]
 
 
 
-def compute_bout_cat_ts(onset,offset,bout_cat,T):
+def compute_bout_cat_ts(onset,offset,bout_cat,T,num_cat=11):
     """Make time series of tail bout category
 
     Args:
@@ -28,11 +28,11 @@ def compute_bout_cat_ts(onset,offset,bout_cat,T):
 
     bout_cat_ts_signed = bout_cat_ts[:,np.newaxis]
     bout_cat_ts_signed = np.concatenate((bout_cat_ts_signed,bout_cat_ts_signed),axis=1)
-    bout_cat_ts_signed[bout_cat_ts_signed[:,0]>10,0] = -1
-    bout_cat_ts_signed[bout_cat_ts_signed[:,1]<11,1] = -1
-    bout_cat_ts_signed[bout_cat_ts_signed[:,1]>-1,1] = bout_cat_ts_signed[bout_cat_ts_signed[:,1]>-1,1]%11
+    bout_cat_ts_signed[bout_cat_ts_signed[:,0]>(num_cat-1),0] = -1
+    bout_cat_ts_signed[bout_cat_ts_signed[:,1]<num_cat,1] = -1
+    bout_cat_ts_signed[bout_cat_ts_signed[:,1]>-1,1] = bout_cat_ts_signed[bout_cat_ts_signed[:,1]>-1,1]%num_cat
 
-    bout_cat_ts[bout_cat_ts>-1] = bout_cat_ts[bout_cat_ts>-1]%11
+    bout_cat_ts[bout_cat_ts>-1] = bout_cat_ts[bout_cat_ts>-1]%num_cat
     
     return bout_cat_ts,bout_cat_ts_signed
 

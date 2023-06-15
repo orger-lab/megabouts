@@ -22,6 +22,78 @@ class Preprocessed_Traj():
     kinematic_activity: np.ndarray
 
 
+def interp_traj_nan(x,y,body_angle,limit_na=5):
+    """
+    Interpolates missing values in trajectory data.
+
+    Parameters:
+    - x, y, body_angle: Arrays of trajectory data with missing values (NaN).
+
+    Returns:
+    - interp_x, interp_y, interp_body_angle: Interpolated trajectory data.
+    - failed_traj_tracking: Boolean array indicating failed trajectory tracking points.
+
+    Interpolates missing values in the input trajectory data using linear interpolation.
+    NaN values in each array are independently interpolated.
+    Forward-fill and back-fill are used to handle NaN values at the beginning or end of the arrays.
+    """
+    
+    # Interpolate within limit na:
+
+    linear_fill_na = lambda x : pd.Series(x).interpolate(method='linear',limit=limit_na).values
+    x,y,body_angle  = map(linear_fill_na,[x,y,body_angle])
+
+    failed_traj_tracking = np.logical_or.reduce((np.isnan(x),np.isnan(y),np.isnan(body_angle)))
+
+
+    # Interpolate remaining values:
+    body_angle_unwraped = np.copy(body_angle)
+    body_angle_unwraped[~np.isnan(body_angle_unwraped)] = np.unwrap(body_angle_unwraped[~np.isnan(body_angle_unwraped)])
+    
+    linear_fill_na_no_limit = lambda x : pd.Series(x).interpolate(method='linear', axis=0).ffill().bfill().values
+
+    x,y,body_angle  = map(linear_fill_na_no_limit,[x,y,body_angle_unwraped])
+
+    
+    return x,y,body_angle,failed_traj_tracking
+
+def interp_tail_nan(tail_angle,limit_na=5):
+    """
+    Interpolates missing values in tail angle trajectory data.
+
+    Parameters:
+    - tail_angle: Array of tail angle trajectory data with missing values (NaN).
+    - limit_na: Maximum number of consecutive NaN values to interpolate (default: 5).
+
+    Returns:
+    - tail_angle_interp: Interpolated tail angle trajectory data.
+    - failed_tail_tracking: Boolean array indicating failed tracking points.
+    - failed_tail_tracking_partial: Boolean array indicating partially failed tracking points.
+
+    Interpolates missing values using nearest neighbor interpolation.
+    The `limit_na` parameter sets the maximum number of consecutive NaN values to interpolate.
+    NaN values exceeding `limit_na` will not be interpolated.
+    The resulting trajectory data, along with tracking failure information, is returned.
+    """
+    failed_tail_tracking_partial = np.isnan(np.sum(tail_angle,axis=1))
+    
+    tail_angle_interp = tail_imputing(tail_angle)
+    
+    # Interpolate NaN timestep:
+    tail_angle_no_nan = np.zeros_like(tail_angle_interp)
+    for s in range(tail_angle_interp.shape[1]):
+        ds = pd.Series(tail_angle_interp[:,s])
+        ds.interpolate(method='nearest',limit=limit_na,inplace=True)
+        tail_angle_no_nan[:,s] = ds.values
+        
+    # Set to 0 for long sequence of nan:
+    
+    failed_tail_tracking = np.isnan(np.sum(tail_angle_no_nan,axis=1))
+    tail_angle_no_nan[np.isnan(tail_angle_no_nan)]=0
+    
+    return tail_angle_no_nan, failed_tail_tracking,failed_tail_tracking_partial
+
+
 def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag=60):
     """ Smooth trajectory using 1€ filter and compute derivative
 
@@ -35,6 +107,7 @@ def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag
     Returns:
         Preprocessed_Traj: instance of class preprocessed_traj
     """ 
+    
     smooth_func = lambda x : one_euro_filter(x,fc_min,beta,fps)
     x,y,body_angle  = map(smooth_func,[x,y,body_angle])
 
@@ -51,7 +124,7 @@ def preprocess_traj(*,x,y,body_angle,fps=700,fc_min=20,beta=1,robust_diff=15,lag
     return preprocessed_traj
 
 
-def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,savgol_window=11,
+def preprocess_tail(*,tail_angle,num_pcs=4,savgol_window=11,
                     baseline_method,baseline_params):
     """Interpolate Nan in tail_angle and remove noise using PCA
 
@@ -65,6 +138,7 @@ def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,savgol_window=11,
         np.ndarray: filtered tail angle
     """     
     
+    '''
     tail_angle_interp = tail_imputing(tail_angle)
     
     # Interpolate NaN timestep:
@@ -76,9 +150,9 @@ def preprocess_tail(*,tail_angle,limit_na=5,num_pcs=4,savgol_window=11,
 
     # Set to 0 for long sequence of nan:
     tail_angle_clean[np.isnan(tail_angle_clean)]=0
-
+    '''
     # Use PCA for Cleaning 
-    tail_angle_clean = clean_using_pca(tail_angle_clean,num_pcs=num_pcs)
+    tail_angle_clean = clean_using_pca(tail_angle,num_pcs=num_pcs)
     
     # Use Savgol filter:
     smooth_tail_angle=np.copy(tail_angle_clean)

@@ -2,7 +2,7 @@ from dataclasses import dataclass,field
 
 import numpy as np
 from scipy.signal import find_peaks
-from megabouts.segmentation.align import align_bout_peaks
+from megabouts.segmentation.align import find_first_half_beat
 from megabouts.segmentation.threshold import estimate_threshold_using_GMM
 from megabouts.utils.utils import find_onset_offset_numpy
 
@@ -115,14 +115,23 @@ def segment_from_kinematic_activity(*,kinematic_activity,bout_duration,margin_be
     return segment
     
     
-def segment_from_tail_speed(*,tail_angle1d,smooth_tail_speed,
+def segment_from_tail_speed(*,tail_angle,smooth_tail_speed,missed_frame,
                             tail_speed_thresh_std=2.1,
+                            tail_speed_thresh_default=10,
                             min_bout_duration=80,
                             bout_duration=140,
-                            margin_before_peak=20):
+                            margin_before_peak=20,
+                            half_BC_filt = 150,
+                            std_thresh = 5,
+                            min_size_blob = 500):
     
     # Compute Threshold:
-    Thresh,ax = estimate_threshold_using_GMM(smooth_tail_speed,margin_std=2.1,axis=None)
+    if len(smooth_tail_speed[missed_frame==False])>10000:
+        Thresh,ax = estimate_threshold_using_GMM(smooth_tail_speed[missed_frame==False],margin_std=2.1,axis=None)
+    else:
+        Thesh = tail_speed_thresh_default
+        print('tail_speed_thresh_default is being used since recording is to short for estimation')
+        
     tail_active = smooth_tail_speed>Thresh
 
     # Remove bouts of short duration
@@ -137,18 +146,14 @@ def segment_from_tail_speed(*,tail_angle1d,smooth_tail_speed,
     is_aligned = []
     
     for iter_,(on_,off_) in enumerate(zip(onset_init,offset_init)):
-            if (on_+bout_duration<tail_angle1d.shape[0]):
+            if (on_+bout_duration<tail_angle.shape[0]):
                 
-                tail_bout = tail_angle1d[on_:off_]
+                tail_bout = tail_angle[on_:off_,:]
                 
                 onset_original.append(int(on_))
                 offset_original.append(int(off_))
                 
-                try:
-                    peak_location = align_bout_peaks(tail_bout,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
-                except:
-                    peak_location = np.nan
-                    
+                peak_location = find_first_half_beat(tail_bout,half_BC_filt = half_BC_filt, std_thresh = std_thresh,min_size_blob = min_size_blob)
                 if np.isnan(peak_location):
                     peak_location = margin_before_peak
                     is_aligned.append(0)
@@ -157,11 +162,23 @@ def segment_from_tail_speed(*,tail_angle1d,smooth_tail_speed,
 
                 id_st = np.round(on_ + peak_location-margin_before_peak)
                 id_ed = np.round(off_)
-                onset_aligned.append(int(id_st))
-                offset_aligned.append(int(id_ed))
-            
-                
-                
+                if (id_st+bout_duration<tail_angle.shape[0]):
+                    onset_aligned.append(int(id_st))
+                    offset_aligned.append(int(id_ed))
+    
+    # Remove bouts with NaN:
+    onset_no_nan,offset_no_nan = [],[]
+    for on_,off_ in zip(onset_original,offset_original):
+        if np.any(missed_frame[on_:off_])==False:
+            onset_no_nan.append(on_)
+            offset_no_nan.append(off_)
+    
+    onset_aligned_no_nan,offset_aligned_no_nan = [],[]
+    for on_,off_ in zip(onset_aligned,offset_aligned):
+        if np.any(missed_frame[on_:off_])==False:
+            onset_aligned_no_nan.append(on_)
+            offset_aligned_no_nan.append(off_)
+      
     segment_original = Segment(onset=onset_original,offset=offset_aligned,bout_duration=bout_duration)
     segment = Segment(onset=onset_aligned,offset=offset_aligned,bout_duration=bout_duration)
     
@@ -173,7 +190,10 @@ def segment_from_code_w_fine_alignement(*,z,tail_angle1d,
                                         min_spike_dist=120,
                                         bout_duration=140,
                                         margin_before_peak=20,
-                                        dict_peak=20):
+                                        dict_peak=20,
+                                        half_BC_filt = 150,
+                                        std_thresh = 5,
+                                        min_size_blob = 500):
     
     # FINDING PEAKS IN SPARSE CODE:
     z_max = np.max(np.abs(z),axis=1)
@@ -191,11 +211,7 @@ def segment_from_code_w_fine_alignement(*,z,tail_angle1d,
                 onset_original.append(int(id_st-dict_peak))
                 offset_original.append(int(id_st-dict_peak+bout_duration))
                 
-                try:
-                    peak_location = align_bout_peaks(tail_bout,quantile_threshold = 0.25 , minimum_peak_size = 0.25, minimum_peak_to_peak_amplitude = 4,debug_plot_axes=None)
-                except:
-                    peak_location = np.nan
-                    
+                peak_location = find_first_half_beat(tail_bout,half_BC_filt = half_BC_filt, std_thresh = std_thresh,min_size_blob = min_size_blob)
                 if np.isnan(peak_location):
                     peak_location = dict_peak
                     is_aligned.append(0)

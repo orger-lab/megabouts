@@ -2,13 +2,47 @@ import matplotlib.pyplot as plt
 import h5py
 from scipy.signal import find_peaks
 import numpy as np
+from megabouts.half_beat.half_beat_detector import find_half_beat
 
-DEBUG_TEXT = False
-DEBUG_PLOT = False
-def debug(name,value=''):
-    """prints variables and their contents when debuging"""
-    if(DEBUG_TEXT):
-        print(f'{name} : {value}')
+
+def find_first_half_beat(bout_slice,half_BC_filt = 150, std_thresh = 5,min_size_blob = 500):
+
+    half_beat_pos,half_beat_neg,binary_image = find_half_beat(bout_slice,
+                                                              half_BC_filt = half_BC_filt, 
+                                                              std_thresh = std_thresh,
+                                                              min_size_blob = min_size_blob)
+
+    all_peaks = np.concatenate((half_beat_pos,half_beat_neg))
+    all_peaks = np.sort(all_peaks)
+    
+    if len(all_peaks)<2:
+        if len(all_peaks)==0:
+            return np.nan
+        else:
+            return all_peaks[0]
+    
+    inter_HB_interval = np.diff(all_peaks)
+    peak_value = np.abs(bout_slice[all_peaks,-1])
+
+    # Remove peak smaller than 20% of the max:
+    all_peaks = all_peaks[peak_value>(0.2*np.max(peak_value))]
+    peak_value = peak_value[peak_value>(0.2*np.max(peak_value))]
+    if len(all_peaks)==1:
+        return all_peaks[0]
+    # Compute Disruptive factor: how big is each peak compared to the previous ones:
+    disruptive_factor = [0]+[peak_value[i]/np.max(peak_value[:i]) for i in range(1,len(peak_value))]
+    no_disruptive = np.max(disruptive_factor)<3
+
+    if no_disruptive:
+        return all_peaks[0]
+    else:
+        i = [ i for i,d in enumerate(disruptive_factor) if d>3 ][0]
+        return all_peaks[i]
+        
+        
+
+
+
 
 def debug_plot( ax, 
                 bout,bout_cumsum, 

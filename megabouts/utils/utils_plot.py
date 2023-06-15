@@ -13,8 +13,11 @@ from matplotlib import colors
 list_color_no_CS = ['#82cfff','#4589ff','#0000c8','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
 list_color_w_CS = ['#82cfff','#4589ff','#0000c8','#5d5d66','#000000','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
 
-NameCatSym_w_CS=['approach_swim', 'slow1', 'slow2', 'slow_capture_swim','fast_capture_swim', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
+NameCatSym_w_CS=['approach_swim', 'slow1', 'slow2', 'short_capture_swim','long_capture_swim', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
 NameCatSym_no_CS=['approach_swim', 'slow1', 'slow2', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
+
+NameCatShortSym_w_CS=['AS', 'S1', 'S2', 'SCS','LCS', 'BS', 'J', 'HAT','RT', 'SAT', 'O','LLC', 'SLC']
+NameCatShortSym_no_CS=['AS', 'S1', 'S2', 'BS', 'J', 'HAT','RT', 'SAT', 'O','LLC', 'SLC']
 
 
 cmp_bouts = colors.ListedColormap(list_color_w_CS)

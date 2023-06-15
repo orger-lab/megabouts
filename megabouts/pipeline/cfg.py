@@ -14,6 +14,7 @@ class ConfigTrajPreprocess:
     freq_cutoff_min: float = 20
     beta: float = 1
     robust_diff_filt_ms: float = 21
+    limit_na_ms: float = 100
     lag_kinematic_activity_ms : float = 85
     bout_duration_ms= float = 200
     @property
@@ -26,17 +27,23 @@ class ConfigTrajPreprocess:
     @property
     def lag_kinematic_activity(self):
         return convert_ms_to_frames(self.fps,self.lag_kinematic_activity_ms)  
+    @property
+    def limit_na(self):
+        return convert_ms_to_frames(self.fps,self.limit_na_ms)        
 
 @dataclass
 class ConfigTailPreprocess:
     """All parameters values relative to time should be in ms
     """
     fps: float
+    tail_input_type: str = 'tail_angle'
     num_pcs: int = 4
     limit_na_ms: float = 100
+    num_tail_segments: int = 8
     savgol_window_ms: float = 15
     baseline_method: str = 'None'
     baseline_params: dict = field(default_factory=dict)
+
     @property
     def limit_na(self):
         return convert_ms_to_frames(self.fps,self.limit_na_ms)        
@@ -47,7 +54,10 @@ class ConfigTailPreprocess:
             res=res+1 # Make sure robust_diff_dn is odd
         if res<3:
             res=-1
-        return convert_ms_to_frames(self.fps,self.savgol_window_ms)        
+        return convert_ms_to_frames(self.fps,self.savgol_window_ms)   
+    @property
+    def limit_na(self):
+        return convert_ms_to_frames(self.fps,self.limit_na_ms)           
         
 @dataclass
 class ConfigSparseCoding:
@@ -69,6 +79,19 @@ class ConfigSparseCoding:
     def dict_peak(self):
         return convert_ms_to_frames(self.fps,self.dict_peak_ms)        
 
+@dataclass 
+class ConfigHalfBeat:
+    fps: float
+    half_BC_filt_ms: int = 200
+    std_thresh: float = 5
+    min_size_blob_ms: int = 700
+    @property
+    def half_BC_filt(self):
+        return convert_ms_to_frames(self.fps,self.half_BC_filt_ms)
+    @property
+    def min_size_blob(self):
+        return convert_ms_to_frames(self.fps,self.min_size_blob_ms)        
+
 @dataclass
 class ConfigTailSegmentation:
     """All parameters values relative to time should be in ms
@@ -77,10 +100,12 @@ class ConfigTailSegmentation:
     tail_speed_filter_ms: float = 100
     tail_speed_boxcar_filter_ms: float = 14
     tail_speed_thresh_std: float = 2.1
+    tail_speed_thresh_default: float = 11
     min_bout_duration_ms: float = 85
     margin_before_peak_ms: float = 28
     bout_duration_ms: float = 200
-
+    
+    
     @property
     def tail_speed_filter(self):
         n = convert_ms_to_frames(self.fps,self.tail_speed_filter_ms)   
@@ -155,6 +180,7 @@ class ConfigClassification:
     
     dict_bouts: dict = field(init=False)
 
+    refine_segmentation: float = False
     
     def __post_init__(self):
         
@@ -162,9 +188,7 @@ class ConfigClassification:
         filename = os.path.join(folder,"classification", "Bouts_dict.pickle")
         with open(filename, 'rb') as handle:
             self.bouts_dict = pickle.load(handle)
-            
-        #TODO NEED TO INCLUDE CHECK TO MAKE SURE THE DELAY ARE SUITED TO THE BOUTS DICTS
-        
+                    
     
     @property
     def margin_before_peak(self):
