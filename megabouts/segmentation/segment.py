@@ -41,7 +41,8 @@ def segment_from_peaks(peaks,max_t,margin_before_peak=20,bout_duration=140):
 def extract_aligned_traj(x:np.ndarray,
                          y:np.ndarray,
                          body_angle:np.ndarray,
-                         segment:type(Segment))->np.ndarray:
+                         segment:type(Segment),
+                         idx_ref=0)->np.ndarray:
     """ Segment continuous trajectory into a tensor of segments
     the trajectory are aligned according to the initial position and angle
 
@@ -60,10 +61,10 @@ def extract_aligned_traj(x:np.ndarray,
         id_ed = id_st + duration
         sub_x,sub_y,sub_body_angle = x[id_st:id_ed],y[id_st:id_ed],body_angle[id_st:id_ed]
         Pos = np.zeros((2,segment.bout_duration))
-        Pos[0,:] = sub_x-sub_x[0]
-        Pos[1,:] = sub_y-sub_y[0]
-        theta=-sub_body_angle[0]
-        body_angle_rotated=sub_body_angle-sub_body_angle[0]
+        Pos[0,:] = sub_x-sub_x[idx_ref]
+        Pos[1,:] = sub_y-sub_y[idx_ref]
+        theta=-sub_body_angle[idx_ref]
+        body_angle_rotated=sub_body_angle-sub_body_angle[idx_ref]
         RotMat=np.array([[np.cos(theta),-np.sin(theta)],[np.sin(theta),np.cos(theta)]])
         PosRot=np.dot(RotMat,Pos)
         sub_x,sub_y,sub_body_angle = PosRot[0,:],PosRot[1,:],body_angle_rotated
@@ -117,6 +118,7 @@ def segment_from_kinematic_activity(*,kinematic_activity,bout_duration,margin_be
     
 def segment_from_tail_speed(*,tail_angle,smooth_tail_speed,missed_frame,
                             tail_speed_thresh_std=2.1,
+                            segment_peak_loc = 8,
                             tail_speed_thresh_default=10,
                             min_bout_duration=80,
                             bout_duration=140,
@@ -153,7 +155,7 @@ def segment_from_tail_speed(*,tail_angle,smooth_tail_speed,missed_frame,
                 onset_original.append(int(on_))
                 offset_original.append(int(off_))
                 
-                peak_location = find_first_half_beat(tail_bout,half_BC_filt = half_BC_filt, std_thresh = std_thresh,min_size_blob = min_size_blob)
+                peak_location = find_first_half_beat(tail_bout[:,:segment_peak_loc],half_BC_filt = half_BC_filt, std_thresh = std_thresh,min_size_blob = min_size_blob)
                 if np.isnan(peak_location):
                     peak_location = margin_before_peak
                     is_aligned.append(0)

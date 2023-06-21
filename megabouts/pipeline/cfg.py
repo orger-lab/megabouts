@@ -100,6 +100,7 @@ class ConfigTailSegmentation:
     tail_speed_filter_ms: float = 100
     tail_speed_boxcar_filter_ms: float = 14
     tail_speed_thresh_std: float = 2.1
+    segment_peak_loc: int = 8
     tail_speed_thresh_default: float = 11
     min_bout_duration_ms: float = 85
     margin_before_peak_ms: float = 28

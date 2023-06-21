@@ -100,6 +100,7 @@ class PipelineFullTracking():
                                        smooth_tail_speed=smooth_tail_speed,
                                        missed_frame=missed_frame,
                                        tail_speed_thresh_std=self.cfg_segment.tail_speed_thresh_std,
+                                       segment_peak_loc = self.cfg_segment.segment_peak_loc,
                                        min_bout_duration=self.cfg_segment.min_bout_duration,
                                        bout_duration=self.cfg_segment.bout_duration,
                                        margin_before_peak=self.cfg_segment.margin_before_peak,

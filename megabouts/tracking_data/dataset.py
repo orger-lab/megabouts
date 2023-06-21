@@ -2,7 +2,8 @@ from dataclasses import dataclass,field
 import numpy as np
 from skimage.transform import resize
 
-
+import warnings
+  
 @dataclass
 class Dataset_FullTracking():
     fps: int = field(init=True,repr=True)
@@ -23,8 +24,7 @@ class Dataset_FullTracking():
             raise ValueError("All input must have the same number of time steps")
 
         if self.tail_angle.shape[0]<(60*self.fps):
-            raise ValueError("The pipeline should be applied to long recording to allow for automatic segmentation and avoid border effect")
-
+            warnings.warn("The pipeline should be applied to long recording to allow for automatic segmentation and avoid border effect")
     @property
     def n_frames(self):
         return len(self.x)
@@ -43,7 +43,7 @@ class Dataset_TailTracking():
             print(f"tail_angle was flipped to have size {self.tail_angle.shape[0]},{self.tail_angle.shape[1]}")
 
         if self.tail_angle.shape[0]<(60*self.fps):
-            raise ValueError("The pipeline should be applied to long recording to allow for automatic segmentation and avoid border effect")
+            warnings.warn("The pipeline should be applied to long recording to allow for automatic segmentation and avoid border effect")
 
     @property
     def n_frames(self):
@@ -65,7 +65,7 @@ class Dataset_CentroidTracking():
             raise ValueError("All input must have the same number of time steps")
 
         if self.tail_angle.shape[0]<(60*self.fps):
-            raise ValueError("The pipeline should be applied to long recording to allow for automatic segmentation and avoid border effect")
+            warnings.warn("The pipeline should be applied to long recording to allow for automatic segmentation and avoid border effect")
 
     @property
     def n_frames(self):
