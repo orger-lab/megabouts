@@ -6,7 +6,7 @@
 .. rst-class:: heading-center
 
 Welcome to Megabouts' documentation!
-====================================
+=================================
 
 Accurate measurements of behavior are crucial to understanding animal physiology. 
 Megabouts allows to quantify zebrafish larvae locomotion. 
