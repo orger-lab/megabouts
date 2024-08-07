@@ -1,0 +1,9 @@
+LICENSE.md
+README.md
+pyproject.toml
+megabouts/__init__.py
+megabouts.egg-info/PKG-INFO
+megabouts.egg-info/SOURCES.txt
+megabouts.egg-info/dependency_links.txt
+megabouts.egg-info/requires.txt
+megabouts.egg-info/top_level.txt
