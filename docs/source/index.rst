@@ -1,17 +1,42 @@
-.. Megabouts documentation master file, created by
-   sphinx-quickstart on Wed Aug  7 16:01:10 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. image:: logo_color_dark.png
+   :align: center
+   :width: 640px
+   :class: only-dark
 
-Megabouts documentation
-=======================
+.. rst-class:: heading-center
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Welcome to Megabouts' documentation!
+=================================
 
+Accurate measurements of behavior are crucial to understanding animal physiology. 
+Megabouts allows to quantify zebrafish larvae locomotion. 
+This open-source Python toolbox handles locomotion in both freely swimming and head-restrained conditions and aims to promote standardized zebrafish locomotion analysis across neuroscience, pharmacology, and genetics.
+
+
+The details for the underlying mathematics can be found in
+`our paper on ArXiv <https://arxiv.org>`_:
+
+Jouary, A et al., *Megabouts: a toolbox for quantifying zebrafish locomotion*, ArXiv e-prints number, 2024
+
+You can find the software `on github <https://github.com/>`_.
+
+**Installation**
+
+PyPI install, presuming you have pytorch and all its requirements installed:
+
+
+.. code:: bash
+
+    pip install megabouts
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
+
+   Home <self>
+
+.. toctree::
+   :maxdepth: 1
+   :caption: User Guide / Tutorial:
+
+   notebooks/Loading_Data
 
