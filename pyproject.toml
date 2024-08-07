@@ -30,8 +30,12 @@ dependencies = ['ipykernel',
                 'sporco']
 
 [project.optional-dependencies]
-doc = [
+doc = ['build',
+      'twine',
+      'setuptools',
       'sphinx',
+      'pydata-sphinx-theme',
+      'sphinx-autobuild',
       'furo',
       'nbsphinx',
       'sphinx-autoapi',
