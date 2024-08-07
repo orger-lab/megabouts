@@ -39,7 +39,10 @@ doc = ['build',
       'furo',
       'nbsphinx',
       'sphinx-autoapi',
-      'sphinxcontrib-video']
+      'sphinxcontrib-video',
+      'rst-to-myst[sphinx]',
+      'myst-parser'
+]
 
 [project.urls]
 Homepage = "https://example.com"
