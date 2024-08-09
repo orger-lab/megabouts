@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=7c8e37d5" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -315,8 +315,12 @@
 <li><p><a class="reference internal" href="#Example-of-low-resolution-centroid-tracking-from-the-Zebrabox-config"><span class="std std-ref">Example of low resolution centroid tracking from the Zebrabox config</span></a></p></li>
 <li><p><a class="reference internal" href="#Example-of-noisy-tracking-of-freely-swimming-zebrafish"><span class="std std-ref">Example of noisy tracking of freely-swimming zebrafish</span></a></p></li>
 </ol>
+</section>
+</section>
+<section id="Testing-Plotly-Display">
+<h1>Testing Plotly Display<a class="headerlink" href="#Testing-Plotly-Display" title="Link to this heading">#</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
@@ -346,16 +350,8 @@
 </div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
@@ -423,19 +419,11 @@
 </div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 <ul class="simple">
 <li><p>Loading dependencies</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
@@ -453,7 +441,6 @@
 </pre></div>
 </div>
 </div>
-</section>
 <section id="Tracking-method-and-data-format">
 <h2>Tracking method and data format<a class="headerlink" href="#Tracking-method-and-data-format" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -476,7 +463,7 @@
 <li><p>The tail posture will be interpolated to 10 equidistant points.</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;megabouts_tracking_configuration.svg&#39;</span><span class="p">))</span>
@@ -487,7 +474,7 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Loading_Data_9_0.svg" src="../_images/notebooks_Loading_Data_9_0.svg" />
+<img alt="../_images/notebooks_Loading_Data_8_0.svg" src="../_images/notebooks_Loading_Data_8_0.svg" />
 </div>
 </div>
 </section>
@@ -500,7 +487,7 @@
 <section id="Example-of-high-resolution-tracking-for-freely-swimming-zebrafish">
 <h2>Example of high-resolution tracking for freely-swimming zebrafish<a class="headerlink" href="#Example-of-high-resolution-tracking-for-freely-swimming-zebrafish" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
@@ -509,7 +496,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -635,7 +622,7 @@
 <li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
@@ -646,7 +633,7 @@
 <li><p>We first extract the posture from the <code class="docutils literal notranslate"><span class="pre">df_recording</span></code> dataframe and convert position to mm</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
@@ -660,7 +647,7 @@
 <li><p>Finally we input the postural array into the <code class="docutils literal notranslate"><span class="pre">FullTrackingData</span></code> class:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
@@ -674,7 +661,7 @@
 <li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.tail_df</span></code> and <code class="docutils literal notranslate"><span class="pre">tracking_data.traj_df</span></code> to visualize the tail and head trajectory</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
@@ -696,7 +683,7 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Loading_Data_20_0.png" src="../_images/notebooks_Loading_Data_20_0.png" />
+<img alt="../_images/notebooks_Loading_Data_19_0.png" src="../_images/notebooks_Loading_Data_19_0.png" />
 </div>
 </div>
 </section>
@@ -706,7 +693,7 @@
 <li><p>The following example correspond to tail tracking using DeepLabCut at 250fps.</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;HR_DLC&#39;</span><span class="p">)</span>
@@ -716,7 +703,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -903,7 +890,7 @@
 <li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;tail_tracking&#39;</span><span class="p">)</span>
@@ -914,7 +901,7 @@
 <li><p>We will place nan on the tail keypoints coordinate when the likelihood is below a threshold</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kpts_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
@@ -929,7 +916,7 @@
 <li><p>We extract the tail keypoints coordinate and convert them in millimeters:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="n">segment</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">segment</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">kpts_list</span> <span class="ow">and</span> <span class="n">coord</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
@@ -944,7 +931,7 @@
 <li><p>Finally we input the postural array into the <code class="docutils literal notranslate"><span class="pre">TailTrackingData</span></code> class:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">TailTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">tail_x</span><span class="p">,</span>
@@ -956,7 +943,7 @@
 <li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.tail_df</span></code> to visualize the tail angle</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
@@ -980,7 +967,7 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Loading_Data_33_0.png" src="../_images/notebooks_Loading_Data_33_0.png" />
+<img alt="../_images/notebooks_Loading_Data_32_0.png" src="../_images/notebooks_Loading_Data_32_0.png" />
 </div>
 </div>
 </section>
@@ -990,7 +977,7 @@
 <li><p>The following example correspond to head and swim-bladder tracking using SLEAP on video data from the Zebrabox system.</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;zebrabox_SLEAP&#39;</span><span class="p">)</span>
@@ -999,7 +986,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1101,7 +1088,7 @@
 <li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;head_tracking&#39;</span><span class="p">)</span>
@@ -1112,7 +1099,7 @@
 <li><p>We will place nan on the keypoints coordinate when the score is below a threshold</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thresh_score</span> <span class="o">=</span> <span class="mf">0.75</span>
@@ -1128,7 +1115,7 @@
 <li><p>We extract the head and swim bladder keypoints coordinate and convert them in millimeters:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;mid_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
@@ -1142,7 +1129,7 @@
 <li><p>Finally we input the keypoints into the <code class="docutils literal notranslate"><span class="pre">HeadTrackingData</span></code> class:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">HeadTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
@@ -1156,7 +1143,7 @@
 <li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.traj_df</span></code> to visualize the head position and yaw</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
@@ -1183,7 +1170,7 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Loading_Data_46_0.png" src="../_images/notebooks_Loading_Data_46_0.png" />
+<img alt="../_images/notebooks_Loading_Data_45_0.png" src="../_images/notebooks_Loading_Data_45_0.png" />
 </div>
 </div>
 </section>
@@ -1193,7 +1180,7 @@
 <li><p>The following example correspond to full tracking at 350fps. The fish posture is tracked using SLEAP but the keypoints are not reliably placed due to insufficient labelling.</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;SLEAP_fulltracking&#39;</span><span class="p">)</span>
@@ -1202,7 +1189,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1377,7 +1364,7 @@
 <li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
@@ -1388,7 +1375,7 @@
 <li><p>We will place nan on the keypoints coordinate when the score is below a threshold</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Place nan where the score is below a threshold:</span>
@@ -1405,7 +1392,7 @@
 <li><p>We extract the head and tail keypoints coordinate and convert them in millimeters:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;left_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">+</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;right_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
@@ -1425,7 +1412,7 @@
 <li><p>Finally we keypoints array are loaded into the <code class="docutils literal notranslate"><span class="pre">FullTrackingData</span></code> class:</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
@@ -1439,7 +1426,7 @@
 <li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.tail_df</span></code> and <code class="docutils literal notranslate"><span class="pre">tracking_data.traj_df</span></code> to visualize the fish posture.</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
@@ -1461,7 +1448,7 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Loading_Data_59_0.png" src="../_images/notebooks_Loading_Data_59_0.png" />
+<img alt="../_images/notebooks_Loading_Data_58_0.png" src="../_images/notebooks_Loading_Data_58_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1512,7 +1499,11 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Loading Tracking Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Table-of-Contents">Table of Contents</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#Testing-Plotly-Display">Testing Plotly Display</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Tracking-method-and-data-format">Tracking method and data format</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#TrackingData-Class">TrackingData Class</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#Tail-Tracking-Requirements">Tail Tracking Requirements</a></li>
@@ -1526,6 +1517,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Example-of-low-resolution-centroid-tracking-from-the-Zebrabox-config">Example of low resolution centroid tracking from the Zebrabox config</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Example-of-noisy-tracking-of-freely-swimming-zebrafish">Example of noisy tracking of freely-swimming zebrafish</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
   <div class="sidebar-secondary-item">
