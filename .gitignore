@@ -1,0 +1,14 @@
+# Editors
+.vscode/
+
+
+# Distribution / packaging
+.Python
+megabouts.egg-info/
+
+
+# Sphinx documentation
+docs/_build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
