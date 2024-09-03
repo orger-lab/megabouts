@@ -40,8 +40,6 @@ doc = ['build',
       'nbsphinx',
       'sphinx-autoapi',
       'sphinxcontrib-video',
-      'rst-to-myst[sphinx]',
-      'myst-parser'
 ]
 
 [project.urls]
