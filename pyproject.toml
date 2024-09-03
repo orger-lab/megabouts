@@ -40,6 +40,7 @@ doc = ['build',
       'nbsphinx',
       'sphinx-autoapi',
       'sphinxcontrib-video',
+      'sphinxcontrib-jupyter'
 ]
 
 [project.urls]

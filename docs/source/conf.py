@@ -22,6 +22,7 @@ extensions = ["sphinx.ext.autosectionlabel",
               "sphinx.ext.napoleon",
               "sphinxcontrib.video"]
 
+
 templates_path = ['_templates']
 exclude_patterns = []
 
@@ -42,3 +43,5 @@ html_context = {"default_mode": "dark"}
 html_theme_options = {
     "navbar_end": []#["navbar-icon-links.html", "search-field.html"]
 }
+import plotly.io as pio
+pio.renderers.default = 'sphinx_gallery'
