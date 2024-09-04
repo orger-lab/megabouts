@@ -41,6 +41,10 @@ html_static_path = ['_static']
 html_css_files = ["css/custom.css"]
 html_favicon = "_static/favicon.ico"
 html_context = {"default_mode": "dark"}
+
+# For plotly
+html_js_files = ["https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"]
+
 '''
 # Removes sidebars for all pages
 html_sidebars = {"**":[]} 
