@@ -36,11 +36,11 @@ doc = ['build',
       'sphinx',
       'pydata-sphinx-theme',
       'sphinx-autobuild',
-      'furo',
-      'nbsphinx',
+      'myst-nb',
       'sphinx-autoapi',
       'sphinxcontrib-video',
-      'sphinxcontrib-jupyter'
+      'sphinxcontrib-jupyter',
+      'sphinx-togglebutton'
 ]
 
 [project.urls]

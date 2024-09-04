@@ -14,13 +14,14 @@ release = '0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
+#"nbsphinx",
 extensions = ["sphinx.ext.autosectionlabel",
-              "nbsphinx",
+              "myst_nb",
               "sphinx.ext.viewcode",
               "sphinx.ext.autodoc",
               "sphinx.ext.napoleon",
-              "sphinxcontrib.video"]
+              "sphinxcontrib.video",
+              "sphinx_togglebutton"]
 
 
 templates_path = ['_templates']
@@ -40,8 +41,15 @@ html_static_path = ['_static']
 html_css_files = ["css/custom.css"]
 html_favicon = "_static/favicon.ico"
 html_context = {"default_mode": "dark"}
+'''
+# Removes sidebars for all pages
+html_sidebars = {"**":[]} 
 html_theme_options = {
-    "navbar_end": []#["navbar-icon-links.html", "search-field.html"]
-}
-import plotly.io as pio
-pio.renderers.default = 'sphinx_gallery'
+    "navbar_start": [],  # Empty the navbar start section if needed
+    "navbar_end": [],    # Empty the navbar end section if needed
+    "footer_items": [],  # Empty the footer section if needed
+    "secondary_sidebar_items": [],  # Remove secondary sidebar items
+    "left_sidebar": False,  # Explicitly disable the left sidebar
+    "right_sidebar": False, # Explicitly disable the right sidebar
+    "navigation_depth": 1,  # Set navigation depth to minimal if needed
+}'''

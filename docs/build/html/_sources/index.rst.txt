@@ -33,10 +33,16 @@ PyPI install, presuming you have pytorch and all its requirements installed:
    :hidden:
 
    Home <self>
+   
+.. note::
+    :class: dropdown
+
+    This is my note.
 
 .. toctree::
    :maxdepth: 1
    :caption: User Guide / Tutorial:
 
    notebooks/Loading_Data
+   notebooks/test
 
