@@ -1,9 +1,0 @@
-
-
-/* Expand the content area to use the full width of the page */
-.bd-content, 
-.bd-main .bd-content .bd-article-container, 
-.bd-page-width {
-    max-width: 80% !important;
-    flex-grow: 1;  /* Allows the content to grow and fill available space */
-}
