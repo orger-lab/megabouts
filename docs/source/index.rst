@@ -3,6 +3,11 @@
    :width: 640px
    :class: only-dark
 
+.. image:: logo_color_white.png
+   :align: center
+   :width: 640px
+   :class: only-light
+
 .. rst-class:: heading-center
 
 Welcome to Megabouts' documentation!
@@ -20,6 +25,9 @@ Jouary, A et al., *Megabouts: a toolbox for quantifying zebrafish locomotion*, A
 
 You can find the software `on github <https://github.com/>`_.
 
+.. raw:: 
+    :file: figure_2.html
+
 **Installation**
 
 PyPI install, presuming you have pytorch and all its requirements installed:
@@ -33,7 +41,7 @@ PyPI install, presuming you have pytorch and all its requirements installed:
    :hidden:
 
    Home <self>
-   
+
 .. note::
     :class: dropdown
 
