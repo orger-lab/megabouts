@@ -28,8 +28,8 @@ jobs:
 
       - name: Build Sphinx documentation
         run: |
-          cd docs
-          sphinx-build -b html . _build/html
+          cd ../docs
+          sphinx-build -b html . build/html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
