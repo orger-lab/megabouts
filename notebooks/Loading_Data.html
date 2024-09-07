@@ -1,0 +1,1673 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Loading Tracking Data &#8212; Megabouts 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3628164e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Loading_Data';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Test" href="test.html" />
+    <link rel="prev" title="Welcome to Megabouts’ documentation!" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Megabouts 0.1 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Loading Tracking Data
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="test.html">
+    Test
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Loading Tracking Data
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="test.html">
+    Test
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Loading...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="loading-tracking-data">
+<h1>Loading Tracking Data<a class="headerlink" href="#loading-tracking-data" title="Link to this heading">#</a></h1>
+<p>In this tutorial, we will walk through the process of loading tracking data from different format
+into Megabouts.</p>
+<ul class="simple">
+<li><p>Loading dependencies</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">FullTrackingData</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">HeadTrackingData</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TailTrackingData</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data.load_example</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">FullTrackingData</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">HeadTrackingData</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;megabouts.tracking_data&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tracking-method-and-data-format">
+<h2>Tracking method and data format<a class="headerlink" href="#tracking-method-and-data-format" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Megabouts handle a variety of tracking methods</strong>:</p>
+<ul>
+<li><p>Full Tracking</p></li>
+<li><p>Head Tracking</p></li>
+<li><p>Tail Tracking</p></li>
+</ul>
+</li>
+<li><p><strong>Different Input Formats</strong>: the tracking data can be loaded using two format, the <code class="docutils literal notranslate"><span class="pre">keypoint</span></code> or <code class="docutils literal notranslate"><span class="pre">posture</span></code> format.</p></li>
+</ul>
+<section id="trackingdata-class">
+<h3>TrackingData Class<a class="headerlink" href="#trackingdata-class" title="Link to this heading">#</a></h3>
+<p>The class <code class="docutils literal notranslate"><span class="pre">FullTrackingData</span></code>,<code class="docutils literal notranslate"><span class="pre">HeadTrackingData</span></code> and <code class="docutils literal notranslate"><span class="pre">TailTrackingData</span></code> handles the input and reformats the movement data into a standardized format.</p>
+<section id="tail-tracking-requirements">
+<h4>Tail Tracking Requirements<a class="headerlink" href="#tail-tracking-requirements" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>At least 4 keypoints from the swim bladder to the tail tip are required to load tail tracking data.</p></li>
+<li><p>The tail posture will be interpolated to 10 equidistant points.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;megabouts_tracking_configuration.svg&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/8fea557b5417fff7afc54e92e8d0e5d50cff2497c9c3e83c6ab32714919fa430.svg" src="../_images/8fea557b5417fff7afc54e92e8d0e5d50cff2497c9c3e83c6ab32714919fa430.svg" />
+</div>
+</div>
+</section>
+</section>
+<section id="loading-example-data">
+<h3>Loading Example Data<a class="headerlink" href="#loading-example-data" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">load_example_data</span></code> function allows to load example <code class="docutils literal notranslate"><span class="pre">.csv</span></code> dataset corresponding to several tracking configuration (<code class="docutils literal notranslate"><span class="pre">fulltracking_posture</span></code>, <code class="docutils literal notranslate"><span class="pre">SLEAP_fulltracking</span></code>, <code class="docutils literal notranslate"><span class="pre">HR_DLC</span></code>, <code class="docutils literal notranslate"><span class="pre">zebrabox_SLEAP</span></code>). In the following sections we  demonstrates how to import the example dataset into the <code class="docutils literal notranslate"><span class="pre">TrackingData</span></code> class.</p>
+</section>
+</section>
+<section id="high-resolution-tracking-for-freely-swimming-zebrafish">
+<h2>High-resolution tracking for freely-swimming zebrafish<a class="headerlink" href="#high-resolution-tracking-for-freely-swimming-zebrafish" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>head_x</th>
+      <th>head_y</th>
+      <th>head_angle</th>
+      <th>tail_angle_0</th>
+      <th>tail_angle_1</th>
+      <th>tail_angle_2</th>
+      <th>tail_angle_3</th>
+      <th>tail_angle_4</th>
+      <th>tail_angle_5</th>
+      <th>tail_angle_6</th>
+      <th>tail_angle_7</th>
+      <th>tail_angle_8</th>
+      <th>tail_angle_9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-22.979468</td>
+      <td>3.989994</td>
+      <td>-2.218813</td>
+      <td>-0.101865</td>
+      <td>-0.092813</td>
+      <td>-0.107645</td>
+      <td>-0.110575</td>
+      <td>-0.047699</td>
+      <td>-0.145887</td>
+      <td>-0.130414</td>
+      <td>-0.058892</td>
+      <td>-0.128705</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-22.977063</td>
+      <td>3.998453</td>
+      <td>-2.225990</td>
+      <td>-0.082618</td>
+      <td>-0.087957</td>
+      <td>-0.096951</td>
+      <td>-0.092459</td>
+      <td>-0.119418</td>
+      <td>-0.043354</td>
+      <td>-0.099788</td>
+      <td>-0.101741</td>
+      <td>-0.171555</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-22.978636</td>
+      <td>3.993386</td>
+      <td>-2.221900</td>
+      <td>-0.093377</td>
+      <td>-0.095235</td>
+      <td>-0.094292</td>
+      <td>-0.105936</td>
+      <td>-0.073785</td>
+      <td>-0.084193</td>
+      <td>-0.144378</td>
+      <td>-0.112398</td>
+      <td>-0.042585</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-22.981788</td>
+      <td>3.992900</td>
+      <td>-2.223969</td>
+      <td>-0.092590</td>
+      <td>-0.083650</td>
+      <td>-0.100938</td>
+      <td>-0.088223</td>
+      <td>-0.097370</td>
+      <td>-0.099559</td>
+      <td>-0.101538</td>
+      <td>-0.091272</td>
+      <td>-0.021459</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-22.977184</td>
+      <td>3.999899</td>
+      <td>-2.226333</td>
+      <td>-0.086849</td>
+      <td>-0.081982</td>
+      <td>-0.096705</td>
+      <td>-0.118475</td>
+      <td>-0.046264</td>
+      <td>-0.136459</td>
+      <td>-0.115412</td>
+      <td>-0.085300</td>
+      <td>-0.015487</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We first extract the posture from the <code class="docutils literal notranslate"><span class="pre">df_recording</span></code> dataframe and convert position to mm</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">head_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_angle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_angle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Finally we input the postural array into the <code class="docutils literal notranslate"><span class="pre">FullTrackingData</span></code> class:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
+                                              <span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="p">,</span>
+                                              <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span><span class="p">,</span>
+                                              <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.tail_df</span></code> and <code class="docutils literal notranslate"><span class="pre">tracking_data.traj_df</span></code> to visualize the tail and head trajectory</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">mark_inset</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+
+<span class="n">num_colors</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">blue_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">)))</span>
+
+<span class="c1"># Generate time and data for plotting</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">IdSt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">short_interval</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">IdSt</span><span class="o">+</span><span class="mi">10</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span> <span class="n">IdSt</span><span class="o">+</span><span class="mi">12</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>  <span class="c1"># 10-second interval</span>
+
+<span class="c1"># Create figure and subplots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Main plot for tail angle with zoom box (ax[0])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="n">blue_cycler</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;tail angle&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39;angle (rad)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)})</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="o">.</span><span class="n">start</span><span class="p">],</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">))</span>
+
+<span class="c1"># Hide ax[1]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># Trajectory plot with circle (ax[2])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">27</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">27</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;head trajectory&#39;</span><span class="p">,</span> <span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;x (mm)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39; y (mm)&#39;</span><span class="p">})</span>
+
+<span class="c1"># Inset axis for zoomed tail angle (above ax[1])</span>
+<span class="n">inset_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="n">blue_cycler</span><span class="p">)</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">short_interval</span><span class="p">])</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="o">.</span><span class="n">start</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="o">.</span><span class="n">stop</span><span class="p">]),</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)})</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">mark_inset</span><span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inset_ax</span><span class="p">,</span> <span class="n">loc1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]]]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">IdSt</span><span class="p">,</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">,</span><span class="mi">350</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                 <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">head_width</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]]]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/0f582371db99388e9c4e7ceed203eeb88e39e1d5b5656ee3c4d3e7ab44890a78.png" src="../_images/0f582371db99388e9c4e7ceed203eeb88e39e1d5b5656ee3c4d3e7ab44890a78.png" />
+</div>
+</div>
+<section id="plotly-version">
+<h3>Plotly version:<a class="headerlink" href="#plotly-version" title="Link to this heading">#</a></h3>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;import numpy as np</span>
+<span class="sd">import plotly.graph_objects as go</span>
+<span class="sd">import matplotlib.colors as mcolors</span>
+
+<span class="sd"># Define time based on tracking data</span>
+<span class="sd">t = np.arange(tracking_data.T) / tracking_cfg.fps</span>
+
+
+<span class="sd"># Create a figure in Plotly</span>
+<span class="sd">fig = go.Figure()</span>
+
+<span class="sd"># Define a custom color cycle (similar to blue_cycler in matplotlib)</span>
+<span class="sd">colors = plt.cm.Blues(np.linspace(.2, .9, num_colors))#[&#39;#1f77b4&#39;, &#39;#1f77b4&#39;, &#39;#1f77b4&#39;]  # You can add more colors if needed</span>
+<span class="sd">hex_colors = [mcolors.to_hex(c) for c in colors] </span>
+
+
+<span class="sd"># Add multiple lines (one for each column in tracking_data.tail_df)</span>
+<span class="sd">for i, column in enumerate(tracking_data.tail_df.columns):</span>
+<span class="sd">    fig.add_trace(go.Scatter(</span>
+<span class="sd">        x=t[:700*60*5],</span>
+<span class="sd">        y=tracking_data.tail_df.iloc[:700*60*5, i],</span>
+<span class="sd">        mode=&#39;lines&#39;,</span>
+<span class="sd">        name=f&#39;Tail Angle {i}&#39;,</span>
+<span class="sd">        line=dict(color=hex_colors[i % len(colors)])  # Apply color cycling</span>
+<span class="sd">    ))</span>
+
+<span class="sd"># Update the layout to match matplotlib style</span>
+<span class="sd">fig.update_layout(</span>
+<span class="sd">    title=&quot;Tail Angle&quot;,</span>
+<span class="sd">    xaxis_title=&quot;Time (s)&quot;,</span>
+<span class="sd">    yaxis_title=&quot;Angle (rad)&quot;,</span>
+<span class="sd">    yaxis=dict(range=[-4, 4]),  # Equivalent to ylim=(-4, 4)</span>
+<span class="sd">    width=1200,  # Equivalent to figsize=(20,5)</span>
+<span class="sd">    height=300</span>
+<span class="sd">)</span>
+<span class="sd">fig.update_xaxes(range=[10, 12])</span>
+<span class="sd">fig.update_yaxes(fixedrange=True)</span>
+
+<span class="sd"># Show the figure</span>
+<span class="sd">fig.show()</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;import numpy as np\nimport plotly.graph_objects as go\nimport matplotlib.colors as mcolors\n\n# Define time based on tracking data\nt = np.arange(tracking_data.T) / tracking_cfg.fps\n\n\n# Create a figure in Plotly\nfig = go.Figure()\n\n# Define a custom color cycle (similar to blue_cycler in matplotlib)\ncolors = plt.cm.Blues(np.linspace(.2, .9, num_colors))#[\&#39;#1f77b4\&#39;, \&#39;#1f77b4\&#39;, \&#39;#1f77b4\&#39;]  # You can add more colors if needed\nhex_colors = [mcolors.to_hex(c) for c in colors] \n\n\n# Add multiple lines (one for each column in tracking_data.tail_df)\nfor i, column in enumerate(tracking_data.tail_df.columns):\n    fig.add_trace(go.Scatter(\n        x=t[:700*60*5],\n        y=tracking_data.tail_df.iloc[:700*60*5, i],\n        mode=\&#39;lines\&#39;,\n        name=f\&#39;Tail Angle {i}\&#39;,\n        line=dict(color=hex_colors[i % len(colors)])  # Apply color cycling\n    ))\n\n# Update the layout to match matplotlib style\nfig.update_layout(\n    title=&quot;Tail Angle&quot;,\n    xaxis_title=&quot;Time (s)&quot;,\n    yaxis_title=&quot;Angle (rad)&quot;,\n    yaxis=dict(range=[-4, 4]),  # Equivalent to ylim=(-4, 4)\n    width=1200,  # Equivalent to figsize=(20,5)\n    height=300\n)\nfig.update_xaxes(range=[10, 12])\nfig.update_yaxes(fixedrange=True)\n\n# Show the figure\nfig.show()\n&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tail-tracking-in-head-restrained-condition">
+<h2>Tail tracking in head-restrained condition<a class="headerlink" href="#tail-tracking-in-head-restrained-condition" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The following example correspond to tail tracking using DeepLabCut at 250fps.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;HR_DLC&#39;</span><span class="p">)</span>
+<span class="n">df_recording</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;DLC_resnet50_Zebrafish&#39;</span><span class="p">]</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">head_rostral</th>
+      <th colspan="3" halign="left">head_caudal</th>
+      <th colspan="3" halign="left">tail0</th>
+      <th>tail1</th>
+      <th>...</th>
+      <th>tail7</th>
+      <th colspan="3" halign="left">tail8</th>
+      <th colspan="3" halign="left">tail9</th>
+      <th colspan="3" halign="left">tail10</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>likelihood</th>
+      <th>x</th>
+      <th>y</th>
+      <th>likelihood</th>
+      <th>x</th>
+      <th>y</th>
+      <th>likelihood</th>
+      <th>x</th>
+      <th>...</th>
+      <th>likelihood</th>
+      <th>x</th>
+      <th>y</th>
+      <th>likelihood</th>
+      <th>x</th>
+      <th>y</th>
+      <th>likelihood</th>
+      <th>x</th>
+      <th>y</th>
+      <th>likelihood</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>173.163055</td>
+      <td>2.995913</td>
+      <td>0.999985</td>
+      <td>177.695465</td>
+      <td>40.429813</td>
+      <td>0.999986</td>
+      <td>180.415710</td>
+      <td>80.903931</td>
+      <td>0.999986</td>
+      <td>180.984070</td>
+      <td>...</td>
+      <td>0.999699</td>
+      <td>176.853455</td>
+      <td>255.031494</td>
+      <td>0.999377</td>
+      <td>177.243164</td>
+      <td>275.275574</td>
+      <td>0.999759</td>
+      <td>182.846207</td>
+      <td>295.142303</td>
+      <td>0.998607</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>172.605087</td>
+      <td>2.485497</td>
+      <td>0.999978</td>
+      <td>177.292572</td>
+      <td>40.164856</td>
+      <td>0.999983</td>
+      <td>180.129837</td>
+      <td>80.911896</td>
+      <td>0.999986</td>
+      <td>180.985275</td>
+      <td>...</td>
+      <td>0.999701</td>
+      <td>176.757172</td>
+      <td>254.480911</td>
+      <td>0.999264</td>
+      <td>177.075943</td>
+      <td>274.513336</td>
+      <td>0.999753</td>
+      <td>181.680435</td>
+      <td>294.865326</td>
+      <td>0.998829</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>172.442398</td>
+      <td>2.889864</td>
+      <td>0.999985</td>
+      <td>176.992661</td>
+      <td>40.337017</td>
+      <td>0.999978</td>
+      <td>179.854385</td>
+      <td>81.170639</td>
+      <td>0.999989</td>
+      <td>180.823120</td>
+      <td>...</td>
+      <td>0.999689</td>
+      <td>176.803375</td>
+      <td>254.154663</td>
+      <td>0.999175</td>
+      <td>177.024689</td>
+      <td>274.277985</td>
+      <td>0.999738</td>
+      <td>181.801056</td>
+      <td>294.448608</td>
+      <td>0.998983</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>173.055008</td>
+      <td>3.141099</td>
+      <td>0.999988</td>
+      <td>177.103790</td>
+      <td>40.811363</td>
+      <td>0.999983</td>
+      <td>179.919678</td>
+      <td>81.260208</td>
+      <td>0.999992</td>
+      <td>180.836472</td>
+      <td>...</td>
+      <td>0.999672</td>
+      <td>176.752884</td>
+      <td>253.947128</td>
+      <td>0.999102</td>
+      <td>176.918564</td>
+      <td>274.054047</td>
+      <td>0.999732</td>
+      <td>181.057159</td>
+      <td>294.441162</td>
+      <td>0.999080</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>172.497513</td>
+      <td>3.288911</td>
+      <td>0.999988</td>
+      <td>176.927582</td>
+      <td>40.711155</td>
+      <td>0.999981</td>
+      <td>179.895370</td>
+      <td>81.267540</td>
+      <td>0.999990</td>
+      <td>180.830780</td>
+      <td>...</td>
+      <td>0.999690</td>
+      <td>176.760941</td>
+      <td>254.114883</td>
+      <td>0.999147</td>
+      <td>176.989029</td>
+      <td>274.209351</td>
+      <td>0.999724</td>
+      <td>181.283981</td>
+      <td>294.534668</td>
+      <td>0.999020</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 39 columns</p>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;tail_tracking&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We will place nan on the tail keypoints coordinate when the likelihood is below a threshold</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kpts_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
+<span class="n">thresh_score</span> <span class="o">=</span> <span class="mf">0.99</span>
+<span class="k">for</span> <span class="n">kps</span> <span class="ow">in</span> <span class="n">kpts_list</span><span class="p">:</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_recording</span><span class="p">[(</span><span class="n">kps</span><span class="p">,</span><span class="s1">&#39;likelihood&#39;</span><span class="p">)]</span> <span class="o">&lt;</span> <span class="n">thresh_score</span><span class="p">,</span> <span class="p">(</span><span class="n">kps</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_recording</span><span class="p">[(</span><span class="n">kps</span><span class="p">,</span><span class="s1">&#39;likelihood&#39;</span><span class="p">)]</span> <span class="o">&lt;</span> <span class="n">thresh_score</span><span class="p">,</span> <span class="p">(</span><span class="n">kps</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We extract the tail keypoints coordinate and convert them in millimeters:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="n">segment</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">segment</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">kpts_list</span> <span class="ow">and</span> <span class="n">coord</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">tail_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="n">segment</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">segment</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">kpts_list</span> <span class="ow">and</span> <span class="n">coord</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">tail_x</span> <span class="o">=</span> <span class="n">tail_x</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">tail_y</span> <span class="o">=</span> <span class="n">tail_y</span><span class="o">*</span><span class="n">mm_per_unit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Finally we input the postural array into the <code class="docutils literal notranslate"><span class="pre">TailTrackingData</span></code> class:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">TailTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">tail_x</span><span class="p">,</span>                                                
+                                                <span class="n">tail_y</span> <span class="o">=</span> <span class="n">tail_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.tail_df</span></code> to visualize the tail angle</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">IdSt</span> <span class="o">=</span> <span class="mi">33000</span><span class="c1">#np.random.randint(tracking_data.T)</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span><span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="n">blue_cycler</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">,:])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;tail angle&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;time (s)&#39;</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span><span class="s1">&#39;angle (rad)&#39;</span><span class="p">)</span>
+
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;cividis&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">IdSt</span><span class="p">,</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">_tail_y</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">_tail_x</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="n">IdSt</span><span class="p">)</span><span class="o">/</span><span class="n">Duration</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;tail posture&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">[</span><span class="n">axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]]]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/7f4fed86ec78f7abc2a14d09d29da0ea7dc57cbd967be274a9d51752ac583f6a.png" src="../_images/7f4fed86ec78f7abc2a14d09d29da0ea7dc57cbd967be274a9d51752ac583f6a.png" />
+</div>
+</div>
+</section>
+<section id="low-resolution-centroid-tracking-from-the-zebrabox-config">
+<h2>Low resolution centroid tracking from the Zebrabox config<a class="headerlink" href="#low-resolution-centroid-tracking-from-the-zebrabox-config" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The following example correspond to head and swim-bladder tracking using SLEAP on video data from the Zebrabox system.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;zebrabox_SLEAP&#39;</span><span class="p">)</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>track</th>
+      <th>frame_idx</th>
+      <th>instance.score</th>
+      <th>swim_bladder.x</th>
+      <th>swim_bladder.y</th>
+      <th>swim_bladder.score</th>
+      <th>mid_eye.x</th>
+      <th>mid_eye.y</th>
+      <th>mid_eye.score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.732962</td>
+      <td>111.594383</td>
+      <td>122.333862</td>
+      <td>0.834701</td>
+      <td>120.034706</td>
+      <td>118.537903</td>
+      <td>0.827217</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.733804</td>
+      <td>111.594688</td>
+      <td>122.324165</td>
+      <td>0.834202</td>
+      <td>120.029968</td>
+      <td>118.541588</td>
+      <td>0.826500</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>0.734254</td>
+      <td>111.595268</td>
+      <td>122.321350</td>
+      <td>0.834111</td>
+      <td>120.029823</td>
+      <td>118.539879</td>
+      <td>0.826383</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>3</td>
+      <td>0.732529</td>
+      <td>111.611320</td>
+      <td>122.310394</td>
+      <td>0.831942</td>
+      <td>120.030312</td>
+      <td>118.545074</td>
+      <td>0.827309</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>4</td>
+      <td>0.733020</td>
+      <td>111.588501</td>
+      <td>122.294258</td>
+      <td>0.832367</td>
+      <td>120.054565</td>
+      <td>118.565849</td>
+      <td>0.820087</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;head_tracking&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We will place nan on the keypoints coordinate when the score is below a threshold</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thresh_score</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">is_tracking_bad</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;swim_bladder.score&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thresh_score</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;mid_eye.score&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thresh_score</span><span class="p">)</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">is_tracking_bad</span><span class="p">,</span><span class="s1">&#39;mid_eye.x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">is_tracking_bad</span><span class="p">,</span><span class="s1">&#39;mid_eye.y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">is_tracking_bad</span><span class="p">,</span><span class="s1">&#39;swim_bladder.x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">is_tracking_bad</span><span class="p">,</span><span class="s1">&#39;swim_bladder.y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We extract the head and swim bladder keypoints coordinate and convert them in millimeters:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;mid_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">head_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;mid_eye.y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">swimbladder_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;swim_bladder.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">swimbladder_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;swim_bladder.y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Finally we input the keypoints into the <code class="docutils literal notranslate"><span class="pre">HeadTrackingData</span></code> class:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">HeadTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>  
+                                                <span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="p">,</span>  
+                                                <span class="n">swimbladder_x</span> <span class="o">=</span> <span class="n">swimbladder_x</span><span class="p">,</span>                                                
+                                                <span class="n">swimbladder_y</span> <span class="o">=</span> <span class="n">swimbladder_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.traj_df</span></code> to visualize the head position and yaw</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">mark_inset</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span> <span class="nn">megabouts.utils.utils_plot</span> <span class="kn">import</span> <span class="n">cmp_bouts</span>
+
+<span class="n">num_colors</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">blue_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">)))</span>
+
+<span class="c1"># Generate time and data for plotting</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">IdSt</span> <span class="o">=</span> <span class="mi">25365</span><span class="c1">#np.random.randint(tracking_data.T)</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">short_interval</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">IdSt</span><span class="o">+</span><span class="mi">10</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span> <span class="n">IdSt</span><span class="o">+</span><span class="mi">12</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>  <span class="c1"># 10-second interval</span>
+
+<span class="c1"># Create figure and subplots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Main plot for tail angle with zoom box (ax[0])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;yaw angle&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39;angle (rad)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)})</span>
+
+<span class="c1"># Trajectory plot with circle (ax[2])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">13.5</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span> <span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">26.</span><span class="p">),</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;head trajectory&#39;</span><span class="p">,</span> <span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;x (mm)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39; y (mm)&#39;</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">IdSt</span><span class="p">,</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                 <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">head_width</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]]]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/8d85169d8ad529cb7f03d2274c58b7e31c514c05a3068fb98b2f7dc2873e724a.png" src="../_images/8d85169d8ad529cb7f03d2274c58b7e31c514c05a3068fb98b2f7dc2873e724a.png" />
+</div>
+</div>
+</section>
+<section id="noisy-tracking-of-freely-swimming-zebrafish">
+<h2>Noisy tracking of freely-swimming zebrafish<a class="headerlink" href="#noisy-tracking-of-freely-swimming-zebrafish" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The following example correspond to full tracking at 350fps. The fish posture is tracked using SLEAP but the keypoints are not reliably placed due to insufficient labelling.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;SLEAP_fulltracking&#39;</span><span class="p">)</span>
+<span class="n">df_recording</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>track</th>
+      <th>frame_idx</th>
+      <th>instance.score</th>
+      <th>left_eye.x</th>
+      <th>left_eye.y</th>
+      <th>left_eye.score</th>
+      <th>right_eye.x</th>
+      <th>right_eye.y</th>
+      <th>right_eye.score</th>
+      <th>tail0.x</th>
+      <th>...</th>
+      <th>tail1.score</th>
+      <th>tail2.x</th>
+      <th>tail2.y</th>
+      <th>tail2.score</th>
+      <th>tail3.x</th>
+      <th>tail3.y</th>
+      <th>tail3.score</th>
+      <th>tail4.x</th>
+      <th>tail4.y</th>
+      <th>tail4.score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.977651</td>
+      <td>822.667358</td>
+      <td>839.635101</td>
+      <td>0.988699</td>
+      <td>807.832947</td>
+      <td>840.091492</td>
+      <td>0.953313</td>
+      <td>813.303932</td>
+      <td>...</td>
+      <td>0.987229</td>
+      <td>807.466705</td>
+      <td>767.853134</td>
+      <td>1.027914</td>
+      <td>806.901657</td>
+      <td>747.167450</td>
+      <td>0.941431</td>
+      <td>803.414474</td>
+      <td>730.643631</td>
+      <td>0.821148</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.977400</td>
+      <td>822.669495</td>
+      <td>839.644699</td>
+      <td>0.988768</td>
+      <td>807.837723</td>
+      <td>840.099838</td>
+      <td>0.951950</td>
+      <td>813.305016</td>
+      <td>...</td>
+      <td>0.987644</td>
+      <td>807.468445</td>
+      <td>767.856720</td>
+      <td>1.027526</td>
+      <td>806.901627</td>
+      <td>747.176315</td>
+      <td>0.941242</td>
+      <td>803.420502</td>
+      <td>730.653046</td>
+      <td>0.822505</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>0.977176</td>
+      <td>822.668884</td>
+      <td>839.653854</td>
+      <td>0.988344</td>
+      <td>807.838104</td>
+      <td>840.107727</td>
+      <td>0.950716</td>
+      <td>813.306580</td>
+      <td>...</td>
+      <td>0.987669</td>
+      <td>807.469040</td>
+      <td>767.860291</td>
+      <td>1.027348</td>
+      <td>806.905151</td>
+      <td>747.177567</td>
+      <td>0.941105</td>
+      <td>803.416382</td>
+      <td>730.654694</td>
+      <td>0.820525</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>3</td>
+      <td>0.976941</td>
+      <td>822.670547</td>
+      <td>839.665436</td>
+      <td>0.989196</td>
+      <td>810.813538</td>
+      <td>840.147018</td>
+      <td>0.950221</td>
+      <td>813.307747</td>
+      <td>...</td>
+      <td>0.988717</td>
+      <td>807.468109</td>
+      <td>767.858276</td>
+      <td>1.026542</td>
+      <td>806.905106</td>
+      <td>747.178329</td>
+      <td>0.940126</td>
+      <td>803.417862</td>
+      <td>730.658585</td>
+      <td>0.820215</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>4</td>
+      <td>0.976689</td>
+      <td>822.674286</td>
+      <td>839.674667</td>
+      <td>0.989967</td>
+      <td>810.819382</td>
+      <td>840.155060</td>
+      <td>0.949718</td>
+      <td>813.308144</td>
+      <td>...</td>
+      <td>0.989073</td>
+      <td>807.468567</td>
+      <td>767.867950</td>
+      <td>1.026512</td>
+      <td>806.904449</td>
+      <td>747.200958</td>
+      <td>0.940060</td>
+      <td>803.418640</td>
+      <td>730.675385</td>
+      <td>0.824549</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 24 columns</p>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>We first define the tracking configuration given the framerate and tracking method:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We will place nan on the keypoints coordinate when the score is below a threshold</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Place nan where the score is below a threshold:</span>
+<span class="n">thresh_score</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="k">for</span> <span class="n">kps</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left_eye&#39;</span><span class="p">,</span><span class="s1">&#39;right_eye&#39;</span><span class="p">,</span><span class="s1">&#39;tail0&#39;</span><span class="p">,</span><span class="s1">&#39;tail1&#39;</span><span class="p">,</span><span class="s1">&#39;tail2&#39;</span><span class="p">,</span><span class="s1">&#39;tail3&#39;</span><span class="p">,</span><span class="s1">&#39;tail4&#39;</span><span class="p">]:</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;instance.score&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">thresh_score</span><span class="p">,</span><span class="n">kps</span><span class="o">+</span><span class="s1">&#39;.x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;instance.score&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">thresh_score</span><span class="p">,</span><span class="n">kps</span><span class="o">+</span><span class="s1">&#39;.y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_recording</span><span class="p">[</span><span class="n">kps</span><span class="o">+</span><span class="s1">&#39;.score&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">thresh_score</span><span class="p">,</span><span class="n">kps</span><span class="o">+</span><span class="s1">&#39;.x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_recording</span><span class="p">[</span><span class="n">kps</span><span class="o">+</span><span class="s1">&#39;.score&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">thresh_score</span><span class="p">,</span><span class="n">kps</span><span class="o">+</span><span class="s1">&#39;.y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We extract the head and tail keypoints coordinate and convert them in millimeters:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;left_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">+</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;right_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">head_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;left_eye.y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">+</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;right_eye.y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">tail_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[[</span><span class="s1">&#39;tail0.x&#39;</span><span class="p">,</span><span class="s1">&#39;tail1.x&#39;</span><span class="p">,</span><span class="s1">&#39;tail2.x&#39;</span><span class="p">,</span><span class="s1">&#39;tail3.x&#39;</span><span class="p">,</span><span class="s1">&#39;tail4.x&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">tail_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[[</span><span class="s1">&#39;tail0.y&#39;</span><span class="p">,</span><span class="s1">&#39;tail1.y&#39;</span><span class="p">,</span><span class="s1">&#39;tail2.y&#39;</span><span class="p">,</span><span class="s1">&#39;tail3.y&#39;</span><span class="p">,</span><span class="s1">&#39;tail4.y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">tail_x</span> <span class="o">=</span> <span class="n">tail_x</span><span class="o">*</span><span class="n">mm_per_unit</span>
+<span class="n">tail_y</span> <span class="o">=</span> <span class="n">tail_y</span><span class="o">*</span><span class="n">mm_per_unit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Finally we keypoints array are loaded into the <code class="docutils literal notranslate"><span class="pre">FullTrackingData</span></code> class:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
+                                                <span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="p">,</span>
+                                                <span class="n">tail_x</span> <span class="o">=</span> <span class="n">tail_x</span><span class="p">,</span>                                                
+                                                <span class="n">tail_y</span> <span class="o">=</span> <span class="n">tail_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can use the dataframe <code class="docutils literal notranslate"><span class="pre">tracking_data.tail_df</span></code> and <code class="docutils literal notranslate"><span class="pre">tracking_data.traj_df</span></code> to visualize the fish posture.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">mark_inset</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span> <span class="nn">megabouts.utils.utils_plot</span> <span class="kn">import</span> <span class="n">cmp_bouts</span>
+
+<span class="n">num_colors</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">blue_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">)))</span>
+
+<span class="c1"># Generate time and data for plotting</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">IdSt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">short_interval</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">IdSt</span><span class="o">+</span><span class="mi">10</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span> <span class="n">IdSt</span><span class="o">+</span><span class="mi">12</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>  <span class="c1"># 10-second interval</span>
+
+<span class="c1"># Create figure and subplots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Main plot for tail angle with zoom box (ax[0])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="n">blue_cycler</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;tail angle&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39;angle (rad)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)})</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="o">.</span><span class="n">start</span><span class="p">],</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">))</span>
+
+<span class="c1"># Hide ax[1]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># Trajectory plot with circle (ax[2])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">),</span> <span class="mf">21.5</span><span class="p">,</span><span class="mf">21.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;head trajectory&#39;</span><span class="p">,</span> <span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;x (mm)&#39;</span><span class="p">,</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39; y (mm)&#39;</span><span class="p">})</span>
+
+<span class="c1"># Inset axis for zoomed tail angle (above ax[1])</span>
+<span class="n">inset_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="n">blue_cycler</span><span class="p">)</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="p">],</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">short_interval</span><span class="p">])</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="o">.</span><span class="n">start</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="n">short_interval</span><span class="o">.</span><span class="n">stop</span><span class="p">]),</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)})</span>
+<span class="n">inset_ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">mark_inset</span><span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inset_ax</span><span class="p">,</span> <span class="n">loc1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]]]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">IdSt</span><span class="p">,</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">,</span><span class="mi">350</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                 <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">head_width</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]]]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/cfeff738db9f57940f4c7be75790c3e8a8dcb0163742649a34ddd17ebd7195d7.png" src="../_images/cfeff738db9f57940f4c7be75790c3e8a8dcb0163742649a34ddd17ebd7195d7.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to Megabouts’ documentation!</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="test.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Test</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-method-and-data-format">Tracking method and data format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trackingdata-class">TrackingData Class</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-tracking-requirements">Tail Tracking Requirements</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-example-data">Loading Example Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-resolution-tracking-for-freely-swimming-zebrafish">High-resolution tracking for freely-swimming zebrafish</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotly-version">Plotly version:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-tracking-in-head-restrained-condition">Tail tracking in head-restrained condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#low-resolution-centroid-tracking-from-the-zebrabox-config">Low resolution centroid tracking from the Zebrabox config</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noisy-tracking-of-freely-swimming-zebrafish">Noisy tracking of freely-swimming zebrafish</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/notebooks/Loading_Data.ipynb.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Adrien Jouary.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
