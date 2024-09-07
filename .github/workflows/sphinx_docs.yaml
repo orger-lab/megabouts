@@ -23,9 +23,13 @@ jobs:
 
       - name: Debug folder structure
         run: |
-          ls -la
+          ls -lha
           cd ..
-          ls -la
+          ls -lha
+          cd megabouts
+          ls -lha
+          cd docs
+          ls -lha
 
       # - name: Install dependencies
       #   run: |
