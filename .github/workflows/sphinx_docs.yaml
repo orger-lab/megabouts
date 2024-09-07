@@ -26,13 +26,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install .[doc]
 
+      # - name: Changing directory to docs
+      #   run: |
+      #     cd docs
+      #     ls -lha
+
       - name: Build Sphinx documentation
         run: |
-          cd ../docs
-          sphinx-build -b html . build/html
+          sphinx-build -b html -v docs/source docs/build/html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/_build/html
+          publish_dir: ./docs/build/html
