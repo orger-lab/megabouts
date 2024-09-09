@@ -53,7 +53,7 @@ Issues = "https://github.com/me/spam/issues"
 Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [tool.setuptools]
-include = ["megabouts", "megabouts.preprocessing", "megabouts.tracking_data", "megabouts.utils"]
+packages = ["megabouts", "megabouts.preprocessing", "megabouts.tracking_data","megabouts.utils"]
 
 [tool.setuptools.package-data]
 mypkg = ["*.pt,*.csv"]
