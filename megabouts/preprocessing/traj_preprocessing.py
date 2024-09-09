@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 from scipy.ndimage import shift
-from megabouts.utils.utils_dataframe import create_hierarchical_df
-from megabouts.utils.utils import robust_diff
+from megabouts.utils.utils_df import create_hierarchical_df
+from megabouts.utils.utils_math import robust_diff
 from typing import Tuple
 from megabouts.preprocessing.tail_preprocessing import PreprocessingConfig
 

@@ -7,3 +7,13 @@
     max-width: 90% !important;
     flex-grow: 1;  /* Allows the content to grow and fill available space */
 }
+
+
+/* Make the images smaller */
+.gallery-thumbnail {
+    width: 400px;  /* Adjust this value to your desired image width */
+    height: auto;  /* Maintain aspect ratio */
+    display: block;
+    margin: 0 auto;  /* Center the image within the card */
+    border-radius: 5px;  /* Optional: Rounded corners for the image */
+}
