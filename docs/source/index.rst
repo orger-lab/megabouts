@@ -52,5 +52,4 @@ PyPI install, presuming you have pytorch and all its requirements installed:
    :caption: User Guide / Tutorial:
 
    notebooks/Loading_Data
-   notebooks/test
-
+   preprocessing

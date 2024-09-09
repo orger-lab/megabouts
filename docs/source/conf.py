@@ -14,9 +14,11 @@ release = '0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-#"nbsphinx",
+#
 extensions = ["sphinx.ext.autosectionlabel",
               "myst_nb",
+              "nbsphinx",
+              "sphinx_gallery.load_style",
               "sphinx.ext.viewcode",
               "sphinx.ext.autodoc",
               "sphinx.ext.napoleon",

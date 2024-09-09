@@ -5,7 +5,7 @@
 # Distribution / packaging
 .Python
 megabouts.egg-info/
-
+*.pyc
 
 # Sphinx documentation
 docs/build/
