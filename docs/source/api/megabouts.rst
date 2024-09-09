@@ -1,0 +1,5 @@
+megabouts
+=========
+
+.. py:module:: megabouts
+
