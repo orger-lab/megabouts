@@ -56,4 +56,4 @@ Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 packages = ["megabouts", "megabouts.preprocessing", "megabouts.tracking_data","megabouts.utils"]
 
 [tool.setuptools.package-data]
-mypkg = ["*.pt,*.csv"]
+"*" = ["*.pt,*.csv"]
