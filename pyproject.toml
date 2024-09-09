@@ -53,7 +53,7 @@ Issues = "https://github.com/me/spam/issues"
 Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [tool.setuptools]
-packages = ["megabouts"]
+find = { where = ["megabouts"] }
 
 [tool.setuptools.package-data]
 mypkg = ["*.pt,*.csv"]
