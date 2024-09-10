@@ -7,17 +7,18 @@ import numpy as np
 import h5py
 import scipy
 
-# Set the device (use GPU if available, otherwise CPU)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 
 class BoutsDataset(Dataset):
     def __init__(self,X,
                  t_sample,
-                 sampling_mask):
-
-        self.X = torch.from_numpy(np.swapaxes(X,1,2)).to(dtype=torch.float64).to(device)
-        self.t_sample = torch.from_numpy(t_sample[:,:,np.newaxis]).to(dtype=torch.float64).to(device)
+                 sampling_mask,
+                 device=None,precision=None):
+        
+        device = device if device else torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        precision = precision if precision else (torch.float64 if self.device.type == 'cuda' else torch.float32)
+        
+        self.X = torch.from_numpy(np.swapaxes(X,1,2)).to(dtype=precision).to(device)
+        self.t_sample = torch.from_numpy(t_sample[:,:,np.newaxis]).to(dtype=precision).to(device)
         self.sampling_mask = torch.from_numpy(sampling_mask).to(dtype=torch.bool).to(device)
        
     def __len__(self):
@@ -25,7 +26,6 @@ class BoutsDataset(Dataset):
     
     def __getitem__(self, idx):
         return self.X[idx,:,:],self.t_sample[idx,:],self.sampling_mask[idx,:]
-    
     
     
 class ContinuousPositionalEncoding(nn.Module):
@@ -62,7 +62,7 @@ class TransAm(nn.Module):
         input[:,:,9] = torch.cos(body_angle)
         input = torch.cat([input,torch.sin(body_angle[:,:,None])],axis=2)
         mask_feature = torch.isnan(input)
-        feature_filler = torch.broadcast_to(self.feature_fill, input.shape).to(input.dtype)  # Match dtype with input
+        feature_filler = torch.broadcast_to(self.feature_fill, input.shape).to(dtype=input.dtype)  # Match dtype with input
         input[mask_feature==True] = feature_filler[mask_feature==True]
         output = self.input_embedding(input) # linear transformation before positional embedding
         output = self.pos_encoder(output,t)

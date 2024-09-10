@@ -7,14 +7,11 @@ from torch.utils.data import Dataset, DataLoader
 import torch.optim as optim
 from torch import nn
 
-from megabouts.classification.transformer_network import BoutsDataset, TransAm, ContinuousPositionalEncoding
+from megabouts.classification.transformer_network import BoutsDataset,TransAm, ContinuousPositionalEncoding 
 from megabouts.pipeline.base_config import BaseConfig
 from megabouts.tracking_data.tracking_data import TrackingConfig
 from megabouts.segmentation.segmentation_config import SegmentationConfig
 
-
-# Set device (use GPU if available, otherwise fallback to CPU)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class TailBouts:
     def __init__(self,*,segments,classif_results,tail_array=None,traj_array=None):
@@ -61,26 +58,28 @@ class TailBouts:
         return pd.DataFrame(data, index=range(data.shape[0]), columns=columns)
 
 class BoutClassifier:
-    def __init__(self, tracking_cfg:TrackingConfig, segmentation_cfg:SegmentationConfig,exclude_CS:bool =False):
+    def __init__(self, tracking_cfg:TrackingConfig, segmentation_cfg:SegmentationConfig,exclude_CS:bool =False,device=None,precision=None):
         self.tracking_cfg = tracking_cfg
         self.segmentation_cfg = segmentation_cfg
         self.exclude_CS = exclude_CS
-        self.device = device  # Set the device for the model
+        # Set device and precision dynamically based on arguments
+        self.device = device if device else torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.precision = precision if precision else (torch.float64 if self.device.type == 'cuda' else torch.float32)
         self.net = self.load_classifier()
         self.input_len = 140
         
     def load_classifier(self):
         mapping_label_to_sublabel = {0: [0], 1: [1], 2: [2], 3: [3], 4: [4, 5, 6], 5: [7, 8], 6: [9], 7: [10], 8: [11], 9: [12], 10: [13, 14], 11: [15], 12: [16, 17]}
-        net = TransAm(mapping_label_to_sublabel,num_layers=3,nhead=8).double().to(self.device)
+        net = TransAm(mapping_label_to_sublabel,num_layers=3,nhead=8).to(dtype=self.precision).to(self.device)
         transformer_weights_path = os.path.join(os.path.dirname(__file__),'transformer_weights.pt')
-        net.load_state_dict(torch.load(transformer_weights_path))
+        net.load_state_dict(torch.load(transformer_weights_path,map_location=torch.device(self.device)))
         return net  
 
     def prepare_tensor_input(self, **kwargs):
         X = self.extract_bouts(**kwargs)
         t_sampling, sampling_mask = self.compute_sampling_input(X.shape[0])
         sampling_mask = 1 - sampling_mask  # the positions with the value of True will be ignored
-        data = BoutsDataset(X, t_sampling, sampling_mask)
+        data = BoutsDataset(X, t_sampling, sampling_mask,device=self.device,precision=self.precision)
         data_loader = DataLoader(data, batch_size=50, shuffle=False)
         return data, data_loader
     
