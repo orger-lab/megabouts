@@ -3,7 +3,6 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 from scipy.signal import find_peaks
-from megabouts.segmentation.threshold import estimate_threshold_using_GMM
 from megabouts.utils.utils_math import find_onset_offset_numpy
 from typing import Tuple
 from megabouts.segmentation.segmentation_config import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
@@ -110,16 +109,7 @@ class TailSegmentation(Segmentation):
         """
         missed_frame = np.isnan(tail_vigor)
         
-        # Compute Threshold
-        if self.config.threshold_params['method']=='GMM':
-            if len(tail_vigor[missed_frame == False]) < 10000:
-                print("we recommend using the standard threshold using threshold_params = {'method':'simple','thresh':...}")
-                
-            Thresh, _ = estimate_threshold_using_GMM(tail_vigor[missed_frame == False],
-                                                     margin_std=self.config.threshold_params['thresh_std'],
-                                                     axis=None)
-        else:
-            Thresh = self.config.threshold_params['thresh']
+        Thresh = self.config.threshold
 
         tail_active = tail_vigor > Thresh
 
