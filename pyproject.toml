@@ -16,18 +16,16 @@ classifiers = [
   "Programming Language :: Python :: 3"
 ]
 #requires-python = "~=3.10"
+
 dependencies = ['ipykernel',
                 'h5py',
                 'matplotlib',
-                'plotly',
                 'numpy==1.23.5',
                 'pandas',
                 'scipy',
                 'scikit-image',
                 'pybaselines',
-                'scikit-learn',
-                'torch',
-                'sporco']
+                'scikit-learn']
 
 [project.optional-dependencies]
 doc = ['build',
@@ -53,7 +51,7 @@ Issues = "https://github.com/me/spam/issues"
 Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [tool.setuptools]
-packages = ["megabouts"]
+packages = ["megabouts", "megabouts.preprocessing", "megabouts.tracking_data","megabouts.tracking_data.example_dataset","megabouts.utils"]
 
 [tool.setuptools.package-data]
-mypkg = ["*.pt,*.csv"]
+"megabouts.tracking_data.example_dataset" = ["*.csv"]
