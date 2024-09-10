@@ -25,7 +25,8 @@ dependencies = ['ipykernel',
                 'scipy',
                 'scikit-image',
                 'pybaselines',
-                'scikit-learn']
+                'scikit-learn',
+                'torch']
 
 [project.optional-dependencies]
 doc = ['build',
@@ -51,7 +52,14 @@ Issues = "https://github.com/me/spam/issues"
 Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [tool.setuptools]
-packages = ["megabouts","megabouts.tracking_data","megabouts.tracking_data.example_dataset","megabouts.preprocessing","megabouts.segmentation", "megabouts.utils"]
+packages = ["megabouts",
+            "megabouts.tracking_data","megabouts.tracking_data.example_dataset",
+            "megabouts.preprocessing",
+            "megabouts.segmentation",
+            "megabouts.pipeline",
+            "megabouts.classification",
+            "megabouts.utils"]
 
 [tool.setuptools.package-data]
 "megabouts.tracking_data.example_dataset" = ["*.csv"]
+"megabouts.classification" = ["*.pt"]
