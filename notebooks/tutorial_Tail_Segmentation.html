@@ -172,11 +172,26 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../api/index.html">
+  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../api/index.html">
     API Reference
   </a>
 </li>
 
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -292,6 +307,13 @@ document.write(`
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../api/index.html">
     API Reference
   </a>
@@ -399,27 +421,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">TailSegmentation</span>
 <span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">SegmentationFactory</span>
 <span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">SegmentationResult</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data.load_example</span> <span class="kn">import</span> <span class="n">load_example_data</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">FullTrackingData</span>
-<span class="ne">---&gt; </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">megabouts.preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessingConfig</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">megabouts.preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessingResult</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">megabouts.preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessing</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.10.14</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">megabouts</span><span class="o">/</span><span class="n">preprocessing</span><span class="o">/</span><span class="n">tail_preprocessing</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">scipy.signal.windows</span> <span class="kn">import</span> <span class="n">boxcar</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">megabouts.pipeline.base_config</span> <span class="kn">import</span> <span class="n">BaseConfig</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">megabouts.preprocessing.baseline</span> <span class="kn">import</span> <span class="n">compute_baseline</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">megabouts.utils.utils_math</span> <span class="kn">import</span> <span class="n">robust_diff</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;megabouts.pipeline&#39;
 </pre></div>
 </div>
 </div>
@@ -656,8 +657,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail_vigor</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="n">vigor</span>
-<span class="n">tail_segmentation_cfg</span> <span class="o">=</span> <span class="n">TailSegmentationConfig</span><span class="p">(</span><span class="n">fps</span> <span class="o">=</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
-                                               <span class="n">threshold</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">tail_segmentation_cfg</span> <span class="o">=</span> <span class="n">TailSegmentationConfig</span><span class="p">(</span><span class="n">fps</span> <span class="o">=</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
 <span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">SegmentationFactory</span><span class="o">.</span><span class="n">get_segmenter</span><span class="p">(</span><span class="n">tail_segmentation_cfg</span><span class="p">)</span>
 <span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment_from_tail</span><span class="p">(</span><span class="n">tail_vigor</span><span class="p">)</span>
 </pre></div>
@@ -698,7 +698,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/fe0385a295e3919f733519f7b759f29c3d185cf673c52f711af09a4d295fc3e7.png" src="../_images/fe0385a295e3919f733519f7b759f29c3d185cf673c52f711af09a4d295fc3e7.png" />
+<img alt="../_images/17a86930ecee1209b9d06544041d4b7dbf102b9b148c951de6671faad3066c0a.png" src="../_images/17a86930ecee1209b9d06544041d4b7dbf102b9b148c951de6671faad3066c0a.png" />
 </div>
 </div>
 <div class="cell docutils container">

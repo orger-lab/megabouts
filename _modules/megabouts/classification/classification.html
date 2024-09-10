@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>megabouts.classification.classification &#8212; Megabouts 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=9bde0e37" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/megabouts/classification/classification';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Megabouts 0.1 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../notebooks/Loading_Data.html">
+    Loading Tracking Data
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../preprocessing.html">
+    Preprocessing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../segmentation.html">
+    Segmentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../notebooks/tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../notebooks/Loading_Data.html">
+    Loading Tracking Data
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../preprocessing.html">
+    Preprocessing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../segmentation.html">
+    Segmentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../notebooks/tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">megabouts.cl...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for megabouts.classification.classification</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="kn">from</span> <span class="nn">megabouts.classification.transformer_network</span> <span class="kn">import</span> <span class="n">BoutsDataset</span><span class="p">,</span><span class="n">TransAm</span><span class="p">,</span> <span class="n">ContinuousPositionalEncoding</span> 
+<span class="kn">from</span> <span class="nn">megabouts.pipeline.base_config</span> <span class="kn">import</span> <span class="n">BaseConfig</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
+<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation_config</span> <span class="kn">import</span> <span class="n">SegmentationConfig</span>
+
+
+<div class="viewcode-block" id="TailBouts">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.TailBouts">[docs]</a>
+<span class="k">class</span> <span class="nc">TailBouts</span><span class="p">:</span>
+<div class="viewcode-block" id="TailBouts.__init__">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.TailBouts.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">segments</span><span class="p">,</span><span class="n">classif_results</span><span class="p">,</span><span class="n">tail_array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">traj_array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        
+        <span class="c1"># Segmentation Info:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">onset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">offset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">HB1</span>
+        <span class="c1"># Classif Info:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">classif_results</span><span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subcategory</span> <span class="o">=</span> <span class="n">classif_results</span><span class="p">[</span><span class="s1">&#39;subcat&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">=</span> <span class="n">classif_results</span><span class="p">[</span><span class="s1">&#39;sign&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proba</span> <span class="o">=</span> <span class="n">classif_results</span><span class="p">[</span><span class="s1">&#39;proba&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Dataframe:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_dataframe</span><span class="p">()</span>
+        
+        <span class="c1"># Tail or Traj_array:</span>
+        <span class="k">if</span> <span class="n">tail_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">tail_array</span>
+        <span class="k">if</span> <span class="n">traj_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj_array</span></div>
+
+        
+    <span class="k">def</span> <span class="nf">_create_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> 
+                          <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> 
+                          <span class="bp">self</span><span class="o">.</span><span class="n">subcategory</span><span class="p">,</span> 
+                          <span class="bp">self</span><span class="o">.</span><span class="n">sign</span><span class="p">,</span> 
+                          <span class="bp">self</span><span class="o">.</span><span class="n">proba</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;onset&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;offset&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;HB1&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;subcategory&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;sign&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;proba&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BoutClassifier">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier">[docs]</a>
+<span class="k">class</span> <span class="nc">BoutClassifier</span><span class="p">:</span>
+<div class="viewcode-block" id="BoutClassifier.__init__">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_cfg</span><span class="p">:</span><span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">segmentation_cfg</span><span class="p">:</span><span class="n">SegmentationConfig</span><span class="p">,</span><span class="n">exclude_CS</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">precision</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">tracking_cfg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segmentation_cfg</span> <span class="o">=</span> <span class="n">segmentation_cfg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_CS</span> <span class="o">=</span> <span class="n">exclude_CS</span>
+        <span class="c1"># Set device and precision dynamically based on arguments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span> <span class="k">if</span> <span class="n">device</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="n">precision</span> <span class="k">if</span> <span class="n">precision</span> <span class="k">else</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;cuda&#39;</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_classifier</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_len</span> <span class="o">=</span> <span class="mi">140</span></div>
+
+        
+<div class="viewcode-block" id="BoutClassifier.load_classifier">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.load_classifier">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_classifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mapping_label_to_sublabel</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">4</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">5</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">6</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="mi">7</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="mi">8</span><span class="p">:</span> <span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="mi">9</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="mi">10</span><span class="p">:</span> <span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">],</span> <span class="mi">11</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="mi">12</span><span class="p">:</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">]}</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">TransAm</span><span class="p">(</span><span class="n">mapping_label_to_sublabel</span><span class="p">,</span><span class="n">num_layers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">nhead</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">transformer_weights_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span><span class="s1">&#39;transformer_weights.pt&#39;</span><span class="p">)</span>
+        <span class="n">net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">transformer_weights_path</span><span class="p">,</span><span class="n">map_location</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">net</span>  </div>
+
+
+<div class="viewcode-block" id="BoutClassifier.prepare_tensor_input">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.prepare_tensor_input">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_tensor_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_bouts</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">t_sampling</span><span class="p">,</span> <span class="n">sampling_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_sampling_input</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">sampling_mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sampling_mask</span>  <span class="c1"># the positions with the value of True will be ignored</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">BoutsDataset</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t_sampling</span><span class="p">,</span> <span class="n">sampling_mask</span><span class="p">,</span><span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span><span class="n">precision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">)</span>
+        <span class="n">data_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_loader</span></div>
+
+    
+<div class="viewcode-block" id="BoutClassifier.extract_bouts">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.extract_bouts">[docs]</a>
+    <span class="k">def</span> <span class="nf">extract_bouts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">tracking</span> <span class="o">==</span> <span class="s2">&quot;full_tracking&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_bouts_full_tracking</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">tracking</span> <span class="o">==</span> <span class="s2">&quot;head_tracking&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_bouts_head_tracking</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No implemented yet tracking mode: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">tracking</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BoutClassifier.extract_bouts_full_tracking">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.extract_bouts_full_tracking">[docs]</a>
+    <span class="k">def</span> <span class="nf">extract_bouts_full_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">tail_array</span><span class="p">,</span> <span class="n">traj_array</span><span class="p">):</span>
+        <span class="n">num_samples</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">tail_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tail_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_len</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="p">:</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">tail_array</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">X</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">:,</span> <span class="p">:</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">traj_array</span>
+        <span class="k">return</span> <span class="n">X</span></div>
+
+
+<div class="viewcode-block" id="BoutClassifier.extract_bouts_head_tracking">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.extract_bouts_head_tracking">[docs]</a>
+    <span class="k">def</span> <span class="nf">extract_bouts_head_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">traj_array</span><span class="p">):</span>
+        <span class="n">num_samples</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">traj_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">traj_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_len</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">:,</span> <span class="p">:</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">traj_array</span>
+        <span class="k">return</span> <span class="n">X</span></div>
+
+
+<div class="viewcode-block" id="BoutClassifier.compute_sampling_input">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.compute_sampling_input">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_sampling_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">t_sampling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_len</span><span class="p">)</span>
+        <span class="n">t_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segmentation_cfg</span><span class="o">.</span><span class="n">bout_duration_ms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segmentation_cfg</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">t_sampling</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">t_</span><span class="p">)]</span> <span class="o">=</span> <span class="n">t_</span>
+        <span class="n">t_sampling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">t_sampling</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">sampling_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_len</span><span class="p">))</span>
+        <span class="n">sampling_mask</span><span class="p">[:,</span> <span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">t_</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">t_sampling</span><span class="p">,</span> <span class="n">sampling_mask</span></div>
+
+    
+<div class="viewcode-block" id="BoutClassifier.run_classification">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.run_classification">[docs]</a>
+    <span class="k">def</span> <span class="nf">run_classification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">data_loader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_tensor_input</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">inputs</span> <span class="ow">in</span> <span class="n">data_loader</span><span class="p">:</span>
+                <span class="n">feature</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">inputs</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">mask</span><span class="p">))</span>
+
+        <span class="n">classif_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">classif_results</span></div>
+
+    
+<div class="viewcode-block" id="BoutClassifier.process_results">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.process_results">[docs]</a>
+    <span class="k">def</span> <span class="nf">process_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">bout_cat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+        <span class="n">bout_subcat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+        <span class="n">bout_sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+        <span class="n">proba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+        <span class="n">t_peak_ms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">id_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">)</span>
+            <span class="n">logit_label</span><span class="p">,</span> <span class="n">logit_sublabel</span><span class="p">,</span> <span class="n">logit_bout_sign</span><span class="p">,</span> <span class="n">t_p</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+            <span class="n">logit_label</span><span class="p">,</span><span class="n">logit_sublabel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_logit</span><span class="p">(</span><span class="n">logit_label</span><span class="p">,</span><span class="n">logit_sublabel</span><span class="p">)</span>
+            <span class="n">proba</span><span class="p">[</span><span class="n">id_batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logit_label</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logit_label</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bout_cat</span><span class="p">[</span><span class="n">id_batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">logit_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bout_subcat</span><span class="p">[</span><span class="n">id_batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">logit_sublabel</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bout_sign</span><span class="p">[</span><span class="n">id_batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">logit_bout_sign</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">t_peak_ms</span><span class="p">[</span><span class="n">id_batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_p</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">k</span> <span class="o">+=</span> <span class="n">batch_size</span>
+            
+        <span class="c1"># Convert first half-beat location from ms to frame unit:</span>
+        <span class="n">first_half_beat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">t_peak_ms</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="c1"># Convert bout sign from {0,1} to {-1,1}:</span>
+        <span class="n">bout_sign</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">bout_sign</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">bout_sign</span> <span class="o">=</span> <span class="n">bout_sign</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;cat&#39;</span><span class="p">:</span> <span class="n">bout_cat</span><span class="p">,</span> 
+                <span class="s1">&#39;subcat&#39;</span><span class="p">:</span> <span class="n">bout_subcat</span><span class="p">,</span> 
+                <span class="s1">&#39;sign&#39;</span><span class="p">:</span> <span class="n">bout_sign</span><span class="p">,</span> 
+                <span class="s1">&#39;proba&#39;</span><span class="p">:</span> <span class="n">proba</span><span class="p">,</span> 
+                <span class="s1">&#39;first_half_beat&#39;</span><span class="p">:</span><span class="n">first_half_beat</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="BoutClassifier.filter_logit">
+<a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.filter_logit">[docs]</a>
+    <span class="k">def</span> <span class="nf">filter_logit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">logit_label</span><span class="p">,</span><span class="n">logit_sublabel</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_CS</span><span class="p">:</span>
+            <span class="n">CS_cat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">CS_subcat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+            <span class="n">logit_label</span><span class="p">[:,</span><span class="n">CS_cat</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+            <span class="n">logit_sublabel</span><span class="p">[:,</span><span class="n">CS_subcat</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>     
+        <span class="k">return</span> <span class="n">logit_label</span><span class="p">,</span><span class="n">logit_sublabel</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Adrien Jouary.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

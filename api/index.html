@@ -54,8 +54,8 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="megabouts.pipeline" href="pipeline.html" />
-    <link rel="prev" title="Segmentation" href="../segmentation.html" />
+    <link rel="next" title="megabouts.tracking_data" href="tracking_data.html" />
+    <link rel="prev" title="Classification" href="../notebooks/tutorial_Tail_Classification.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -173,12 +173,27 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="#">
     API Reference
   </a>
 </li>
 
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -291,6 +306,13 @@ document.write(`
 </li>
 
 
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="#">
     API Reference
@@ -330,9 +352,11 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracking_data.html">megabouts.tracking_data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils.html">megabouts.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">megabouts.preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="segmentation.html">megabouts.segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">megabouts.classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a></li>
 </ul>
 </div>
 </nav></div>
@@ -392,11 +416,6 @@ document.write(`
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="tracking_data.html">megabouts.tracking_data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.convert_tracking.compute_angle_between_vectors"><code class="docutils literal notranslate"><span class="pre">compute_angle_between_vectors()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint"><code class="docutils literal notranslate"><span class="pre">interpolate_tail_keypoint()</span></code></a></li>
@@ -411,8 +430,38 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData"><code class="docutils literal notranslate"><span class="pre">TailTrackingData</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="utils.html">megabouts.utils</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#megabouts.utils.utils_plot.lighten_color"><code class="docutils literal notranslate"><span class="pre">lighten_color()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">megabouts.preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing"><code class="docutils literal notranslate"><span class="pre">TailPreprocessing</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessing</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="segmentation.html">megabouts.segmentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationResult"><code class="docutils literal notranslate"><span class="pre">SegmentationResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.Segmentation"><code class="docutils literal notranslate"><span class="pre">Segmentation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.TailSegmentation"><code class="docutils literal notranslate"><span class="pre">TailSegmentation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationFactory"><code class="docutils literal notranslate"><span class="pre">SegmentationFactory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">megabouts.classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="classification.html#megabouts.classification.transformer_network.BoutsDataset"><code class="docutils literal notranslate"><span class="pre">BoutsDataset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification.html#megabouts.classification.transformer_network.ContinuousPositionalEncoding"><code class="docutils literal notranslate"><span class="pre">ContinuousPositionalEncoding</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification.html#megabouts.classification.transformer_network.TransAm"><code class="docutils literal notranslate"><span class="pre">TransAm</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification.html#megabouts.classification.classification.TailBouts"><code class="docutils literal notranslate"><span class="pre">TailBouts</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification.html#megabouts.classification.classification.BoutClassifier"><code class="docutils literal notranslate"><span class="pre">BoutClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -430,20 +479,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../segmentation.html"
+       href="../notebooks/tutorial_Tail_Classification.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Segmentation</p>
+        <p class="prev-next-title">Classification</p>
       </div>
     </a>
     <a class="right-next"
-       href="pipeline.html"
+       href="tracking_data.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">megabouts.pipeline</p>
+        <p class="prev-next-title">megabouts.tracking_data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

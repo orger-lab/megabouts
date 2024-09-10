@@ -1,0 +1,879 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>megabouts.segmentation &#8212; Megabouts 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/segmentation';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="megabouts.classification" href="classification.html" />
+    <link rel="prev" title="megabouts.preprocessing" href="preprocessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Megabouts 0.1 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
+    Loading Tracking Data
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../preprocessing.html">
+    Preprocessing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../segmentation.html">
+    Segmentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
+    Loading Tracking Data
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../preprocessing.html">
+    Preprocessing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../segmentation.html">
+    Segmentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
+    Classification
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tracking_data.html">megabouts.tracking_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">megabouts.preprocessing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">megabouts.segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">megabouts.classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">megabouts.se...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-megabouts.segmentation">
+<span id="megabouts-segmentation"></span><h1>megabouts.segmentation<a class="headerlink" href="#module-megabouts.segmentation" title="Link to this heading">#</a></h1>
+<dl class="py class" id="module-megabouts.segmentation.segmentation_config">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.SegmentationConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation_config.</span></span><span class="sig-name descname"><span class="pre">SegmentationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_half_beat_loc_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">36</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation_config.html#SegmentationConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation_config.SegmentationConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.BaseConfig" title="megabouts.pipeline.base_config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></p>
+<p>Configuration for generic preprocessing.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration_ms">
+<span class="sig-name descname"><span class="pre">bout_duration_ms</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration_ms" title="Link to this definition">#</a></dt>
+<dd><p>Duration of the bout in milliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc_ms">
+<span class="sig-name descname"><span class="pre">first_half_beat_loc_ms</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc_ms" title="Link to this definition">#</a></dt>
+<dd><p>Location of first half beat within a bout in milliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">bout_duration_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">first_half_beat_loc_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">36</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bout_duration</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration" title="Link to this definition">#</a></dt>
+<dd><p>Convert the minimum segment size from milliseconds to frames.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">first_half_beat_loc</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc" title="Link to this definition">#</a></dt>
+<dd><p>Convert the first half beat location from milliseconds to frames.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.SegmentationConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_half_beat_loc_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">36</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TailSegmentationConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation_config.</span></span><span class="sig-name descname"><span class="pre">TailSegmentationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_half_beat_loc_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation_config.html#TailSegmentationConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#megabouts.segmentation.segmentation_config.SegmentationConfig" title="megabouts.segmentation.segmentation_config.SegmentationConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">SegmentationConfig</span></code></a></p>
+<p>Configuration for tail segmentation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TailSegmentationConfig.threshold">
+<span class="sig-name descname"><span class="pre">threshold</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.threshold" title="Link to this definition">#</a></dt>
+<dd><p>Threshold for tail speed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration_ms">
+<span class="sig-name descname"><span class="pre">min_bout_duration_ms</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration_ms" title="Link to this definition">#</a></dt>
+<dd><p>Minimum bout duration in milliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">min_bout_duration_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">85</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100.0</span></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_bout_duration</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration" title="Link to this definition">#</a></dt>
+<dd><p>Convert the minimum segment size from milliseconds to frames.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TailSegmentationConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_half_beat_loc_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TrajSegmentationConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation_config.</span></span><span class="sig-name descname"><span class="pre">TrajSegmentationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_half_beat_loc_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_prominence:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_percentage:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation_config.html#TrajSegmentationConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#megabouts.segmentation.segmentation_config.SegmentationConfig" title="megabouts.segmentation.segmentation_config.SegmentationConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">SegmentationConfig</span></code></a></p>
+<p>Configuration for traj segmentation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_prominence">
+<span class="sig-name descname"><span class="pre">peak_prominence</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_prominence" title="Link to this definition">#</a></dt>
+<dd><p>prominence for peak finding algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TrajSegmentationConfig.margin_before_peak_ms">
+<span class="sig-name descname"><span class="pre">margin_before_peak_ms</span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.margin_before_peak_ms" title="Link to this definition">#</a></dt>
+<dd><p>Margin from peak to onset in milliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">peak_prominence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.4</span></em><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_percentage">
+<span class="sig-name descname"><span class="pre">peak_percentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.2</span></em><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_percentage" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation_config.TrajSegmentationConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_half_beat_loc_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_prominence:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_percentage:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-megabouts.segmentation.segmentation">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">SegmentationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.SegmentationConfig" title="megabouts.segmentation.segmentation_config.SegmentationConfig"><span class="pre">SegmentationConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.SegmentationConfig" title="megabouts.segmentation.segmentation_config.SegmentationConfig"><span class="pre">SegmentationConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.set_HB1">
+<span class="sig-name descname"><span class="pre">set_HB1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first_half_beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.set_HB1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.set_HB1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.extract_tail_array">
+<span class="sig-name descname"><span class="pre">extract_tail_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_to_onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.extract_tail_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.extract_tail_array" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.extract_traj_array">
+<span class="sig-name descname"><span class="pre">extract_traj_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_to_onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.extract_traj_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.extract_traj_array" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.align_traj_array">
+<span class="sig-name descname"><span class="pre">align_traj_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_ref</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.align_traj_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.align_traj_array" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.Segmentation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">Segmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#Segmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.Segmentation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.Segmentation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#Segmentation.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.Segmentation.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TailSegmentation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">TailSegmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig" title="megabouts.segmentation.segmentation_config.TailSegmentationConfig"><span class="pre">TailSegmentationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TailSegmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TailSegmentation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#megabouts.segmentation.segmentation.Segmentation" title="megabouts.segmentation.segmentation.Segmentation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Segmentation</span></code></a></p>
+<p>Class for segmenting data based on tail movement.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TailSegmentation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig" title="megabouts.segmentation.segmentation_config.TailSegmentationConfig"><span class="pre">TailSegmentationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TailSegmentation.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TailSegmentation.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TailSegmentation.segment_from_tail">
+<span class="sig-name descname"><span class="pre">segment_from_tail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_vigor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult"><span class="pre">SegmentationResult</span></a></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TailSegmentation.segment_from_tail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TailSegmentation.segment_from_tail" title="Link to this definition">#</a></dt>
+<dd><p>Segment data based on tail vigor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tail_speed</strong> (<em>np.ndarray</em>) – 1D Array of tail vigor.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Onset and offset indices, and threshold value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">TrajSegmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig" title="megabouts.segmentation.segmentation_config.TrajSegmentationConfig"><span class="pre">TrajSegmentationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#megabouts.segmentation.segmentation.Segmentation" title="megabouts.segmentation.segmentation.Segmentation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Segmentation</span></code></a></p>
+<p>Class for segmenting data based on trajectory movement.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig" title="megabouts.segmentation.segmentation_config.TrajSegmentationConfig"><span class="pre">TrajSegmentationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.segment_from_traj">
+<span class="sig-name descname"><span class="pre">segment_from_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kinematic_activity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult"><span class="pre">SegmentationResult</span></a></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.segment_from_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.segment_from_traj" title="Link to this definition">#</a></dt>
+<dd><p>Segment data based on kinematic activity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kinematic_activity</strong> (<em>np.ndarray</em>) – Array of kinematic activity values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Onset and offset indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_inter_peak_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.find_inter_peak_min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_onset_offset_around_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter_peak_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.find_onset_offset_around_peak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak" title="Link to this definition">#</a></dt>
+<dd><p>Find the onset and offset around each peak where the signal goes below a certain percentage of the peak value.
+Ensure that segments do not overlap and that the duration is non-negative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Input signal</p></li>
+<li><p><strong>peaks</strong> (<em>np.ndarray</em>) – Indices of peaks in the signal</p></li>
+<li><p><strong>peak_percentage</strong> (<em>float</em>) – Percentage of the peak value to determine onset and offset</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Onset indices
+np.ndarray: Offset indices</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">SegmentationFactory</span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationFactory" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationFactory.get_segmenter">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_segmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.segmentation.segmentation_config.SegmentationConfig" title="megabouts.segmentation.segmentation_config.SegmentationConfig"><span class="pre">SegmentationConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#megabouts.segmentation.segmentation.Segmentation" title="megabouts.segmentation.segmentation.Segmentation"><span class="pre">Segmentation</span></a></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationFactory.get_segmenter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationFactory.get_segmenter" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="preprocessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">megabouts.preprocessing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="classification.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">megabouts.classification</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.SegmentationConfig"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration_ms"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.bout_duration_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc_ms"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.first_half_beat_loc_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.bout_duration_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.first_half_beat_loc_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.bout_duration</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.first_half_beat_loc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.SegmentationConfig.__init__"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.threshold"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig.threshold</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration_ms"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig.min_bout_duration_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig.min_bout_duration_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig.threshold</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig.min_bout_duration</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TailSegmentationConfig.__init__"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_prominence"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig.peak_prominence</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.margin_before_peak_ms"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig.margin_before_peak_ms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig.peak_prominence</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_percentage"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig.peak_percentage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.__init__"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationResult"><code class="docutils literal notranslate"><span class="pre">SegmentationResult</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationResult.__init__"><code class="docutils literal notranslate"><span class="pre">SegmentationResult.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationResult.set_HB1"><code class="docutils literal notranslate"><span class="pre">SegmentationResult.set_HB1()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationResult.extract_tail_array"><code class="docutils literal notranslate"><span class="pre">SegmentationResult.extract_tail_array()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationResult.extract_traj_array"><code class="docutils literal notranslate"><span class="pre">SegmentationResult.extract_traj_array()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationResult.align_traj_array"><code class="docutils literal notranslate"><span class="pre">SegmentationResult.align_traj_array()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.Segmentation"><code class="docutils literal notranslate"><span class="pre">Segmentation</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.Segmentation.__init__"><code class="docutils literal notranslate"><span class="pre">Segmentation.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TailSegmentation"><code class="docutils literal notranslate"><span class="pre">TailSegmentation</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TailSegmentation.__init__"><code class="docutils literal notranslate"><span class="pre">TailSegmentation.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TailSegmentation.segment_from_tail"><code class="docutils literal notranslate"><span class="pre">TailSegmentation.segment_from_tail()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TrajSegmentation"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TrajSegmentation.__init__"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TrajSegmentation.segment_from_traj"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation.segment_from_traj()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation.find_inter_peak_min()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation.find_onset_offset_around_peak()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationFactory"><code class="docutils literal notranslate"><span class="pre">SegmentationFactory</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.SegmentationFactory.get_segmenter"><code class="docutils literal notranslate"><span class="pre">SegmentationFactory.get_segmenter()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/api/segmentation.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Adrien Jouary.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
