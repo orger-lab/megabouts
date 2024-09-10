@@ -53,4 +53,5 @@ PyPI install, presuming you have pytorch and all its requirements installed:
 
    notebooks/Loading_Data
    preprocessing
+   segmentation
    api/index
