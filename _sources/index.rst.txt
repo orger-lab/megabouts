@@ -1,12 +1,22 @@
-.. image:: logo_color_dark.png
+.. raw:: html
+
+   <div style="text-align: center; padding-top: 20px;">
+       <img src="_static/images/under_construction.png" alt="Under Construction" style="vertical-align: middle; height: 50px; margin-right: 10px;">
+       <span style="font-size: 24px; color: #FFA500; font-weight: bold; vertical-align: middle;">Website Under Construction</span>
+   </div>
+
+
+.. image:: _static/images/logo_color_dark.png
    :align: center
    :width: 640px
    :class: only-dark
 
-.. image:: logo_color_white.png
+.. image:: _static/images/logo_color_white.png
    :align: center
    :width: 640px
    :class: only-light
+
+
 
 .. rst-class:: heading-center
 
