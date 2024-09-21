@@ -55,11 +55,23 @@ html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
 html_css_files = ["css/custom.css"]
 html_favicon = "_static/favicon.ico"
-html_context = {"default_mode": "dark"}
+html_context = {"default_mode": "light"}
 
 # For plotly
 html_js_files = ["https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"]
 
+
+html_theme_options = {
+
+    # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html#fontawesome-icons
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/arviz-devs/arviz",
+            "icon": "fa-brands fa-github",
+        }],
+}
+    
 '''
 # Removes sidebars for all pages
 html_sidebars = {"**":[]} 
