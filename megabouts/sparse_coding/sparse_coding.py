@@ -2,9 +2,9 @@ import os
 from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
-from megabouts.config.base_config import BaseConfig
-from megabouts.utils.utils_downsampling import create_downsampling_function
-from megabouts.utils.utils_dataframe import create_hierarchical_df
+from ..config.base_config import BaseConfig
+from ..utils.utils_downsampling import create_downsampling_function
+from ..utils.utils_dataframe import create_hierarchical_df
 from sporco.admm import cbpdnin
 
 

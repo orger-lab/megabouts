@@ -3,9 +3,9 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 from scipy.signal import find_peaks
-from megabouts.utils.math_utils import find_onset_offset_numpy
+from ..utils.math_utils import find_onset_offset_numpy
 from typing import Tuple
-from megabouts.config.segmentation import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
+from ..config.segmentation import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
 
 
 class SegmentationResult():

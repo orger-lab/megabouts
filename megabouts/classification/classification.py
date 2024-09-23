@@ -7,10 +7,10 @@ from torch.utils.data import Dataset, DataLoader
 import torch.optim as optim
 from torch import nn
 
-from megabouts.classification.transformer_network import BoutsDataset,TransAm, ContinuousPositionalEncoding 
-from megabouts.pipeline.base_config import BaseConfig
-from megabouts.tracking_data.tracking_data import TrackingConfig
-from megabouts.segmentation.segmentation_config import SegmentationConfig
+from ..classification.transformer_network import BoutsDataset,TransAm, ContinuousPositionalEncoding 
+from ..pipeline.base_config import BaseConfig
+from ..tracking_data.tracking_data import TrackingConfig
+from ..segmentation.segmentation_config import SegmentationConfig
 
 
 class TailBouts:

@@ -2,10 +2,10 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 from scipy.ndimage import shift
-from megabouts.utils.data_utils import create_hierarchical_df
-from megabouts.utils.math_utils import robust_diff
+from ..utils.data_utils import create_hierarchical_df
+from ..utils.math_utils import robust_diff
 from typing import Tuple
-from megabouts.config.preprocessing import TrajPreprocessingConfig
+from ..config.preprocessing import TrajPreprocessingConfig
 
 
     

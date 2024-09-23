@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from megabouts.tracking_data.data_loader import TrackingConfig
+from ..tracking_data.data_loader import TrackingConfig
 
 
 

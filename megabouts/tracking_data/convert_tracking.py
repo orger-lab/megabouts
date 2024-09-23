@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.interpolate import interp1d
-from megabouts.utils.math_utils import compute_angle_between_vectors
+from ..utils.math_utils import compute_angle_between_vectors
 
 def interpolate_tail_keypoint(tail_x, tail_y, n_segments=10):
     """

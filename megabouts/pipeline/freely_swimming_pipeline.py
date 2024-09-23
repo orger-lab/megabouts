@@ -3,28 +3,22 @@ import numpy as np
 import pandas as pd
 
 
-from megabouts.tracking_data.tracking_data import TrackingConfig
-from megabouts.tracking_data.tracking_data import FullTrackingData
+from ..tracking_data.tracking_data import TrackingConfig
+from ..tracking_data.tracking_data import FullTrackingData
 
-from megabouts.preprocessing.tail_preprocessing import TailPreprocessingConfig
-from megabouts.preprocessing.tail_preprocessing import TailPreprocessing
+from ..config.preprocessing import TailPreprocessingConfig,TrajPreprocessingConfig
+from ..preprocessing.traj_preprocessing import TrajPreprocessing
+from ..preprocessing.tail_preprocessing import TailPreprocessing
 
-from megabouts.preprocessing.traj_preprocessing import TrajPreprocessingConfig
-from megabouts.preprocessing.traj_preprocessing import TrajPreprocessing
+from ..config.segmentation import TailSegmentationConfig,TrajSegmentationConfig
+from ..segmentation.segmentation import TailSegmentation,TrajSegmentation
 
-from megabouts.segmentation.segmentation_config import TailSegmentationConfig
-from megabouts.segmentation.segmentation import TailSegmentation
-from megabouts.segmentation.segmentation_config import TrajSegmentationConfig
-from megabouts.segmentation.segmentation import TrajSegmentation
+from ..segmentation.segmentation import SegmentationFactory,SegmentationResult
 
-from megabouts.segmentation.segmentation import SegmentationFactory
-from megabouts.segmentation.segmentation import SegmentationResult
-
-from megabouts.classification.classification import TailBouts
-from megabouts.classification.classification import BoutClassifier
+from ..classification.classification import TailBouts,BoutClassifier
 
 
-from megabouts.utils.data_utils import create_hierarchical_df
+from ..utils.data_utils import create_hierarchical_df
 
 class EthogramHeadTracking:
     def __init__(self,segments,bouts,traj):

@@ -6,11 +6,11 @@ import pandas as pd
 from scipy.signal import savgol_filter, convolve
 from scipy.signal.windows import boxcar
 from sklearn.decomposition import PCA
-from megabouts.config.preprocessing import TailPreprocessingConfig
-from megabouts.pipeline.base_config import BaseConfig
-from megabouts.preprocessing.tail_baseline import compute_baseline
-from megabouts.utils.math_utils import robust_diff
-from megabouts.utils.data_utils import create_hierarchical_df
+from ..config.preprocessing import TailPreprocessingConfig
+from ..pipeline.base_config import BaseConfig
+from ..preprocessing.tail_baseline import compute_baseline
+from ..utils.math_utils import robust_diff
+from ..utils.data_utils import create_hierarchical_df
 
 
 class TailPreprocessingResult():
