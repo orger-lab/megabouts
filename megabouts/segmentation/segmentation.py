@@ -5,7 +5,7 @@ import pandas as pd
 from scipy.signal import find_peaks
 from megabouts.utils.math_utils import find_onset_offset_numpy
 from typing import Tuple
-from megabouts.segmentation.segmentation_config import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
+from megabouts.config.segmentation import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
 
 
 class SegmentationResult():

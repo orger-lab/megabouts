@@ -5,37 +5,9 @@ from scipy.ndimage import shift
 from megabouts.utils.data_utils import create_hierarchical_df
 from megabouts.utils.math_utils import robust_diff
 from typing import Tuple
-from megabouts.preprocessing.tail_preprocessing import PreprocessingConfig
+from megabouts.config.preprocessing import TrajPreprocessingConfig
 
 
-@dataclass
-class TrajPreprocessingConfig(PreprocessingConfig):
-    """Configuration for head trajectory preprocessing.
-
-    All parameters values relative to time should be in ms.
-
-    Attributes:
-        freq_cutoff_min (float): Minimum frequency cutoff for 1euro filter in Hz.
-        beta (float): Beta value for 1euro filter.
-        robust_diff_filt_ms (float): Filter size for robust difference in milliseconds.
-        lag_kinematic_activity_ms (float): Lag for kinematic activity in milliseconds.
-    """
-    freq_cutoff_min: float = 20
-    beta: float = 1
-    robust_diff_filt_ms: float = 21
-    lag_kinematic_activity_ms: float = 85
-
-    @property
-    def robust_diff(self):
-        res = self.convert_ms_to_frames(self.robust_diff_filt_ms)
-        if res % 2 == 0:
-            res += 1  # Ensure robust_diff is odd
-        return max(res, 3)
-
-    @property
-    def lag_kinematic_activity(self):
-        return self.convert_ms_to_frames(self.lag_kinematic_activity_ms)
-    
     
 class TrajPreprocessingResult:
     def __init__(self, x, y, yaw, 

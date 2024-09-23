@@ -6,72 +6,11 @@ import pandas as pd
 from scipy.signal import savgol_filter, convolve
 from scipy.signal.windows import boxcar
 from sklearn.decomposition import PCA
-
+from megabouts.config.preprocessing import TailPreprocessingConfig
 from megabouts.pipeline.base_config import BaseConfig
 from megabouts.preprocessing.baseline import compute_baseline
 from megabouts.utils.math_utils import robust_diff
 from megabouts.utils.data_utils import create_hierarchical_df
-
-@dataclass
-class PreprocessingConfig(BaseConfig):
-    """Configuration for generic preprocessing.
-
-    Attributes:
-        limit_na_ms (float): Limit for consecutive NA values to interpolate in milliseconds.
-    """
-    limit_na_ms: float = 100
-    
-    @property
-    def limit_na(self) -> int:
-        return self.convert_ms_to_frames(self.limit_na_ms)
-
-@dataclass
-class TailPreprocessingConfig(PreprocessingConfig):
-    """Configuration for tail preprocessing.
-
-    All parameters values relative to time should be in ms.
-
-    Attributes:
-        num_pcs (int): Number of principal components.
-        savgol_window_ms (float): Window size for Savitzky-Golay filter in milliseconds.
-        baseline_method (str): Method for baseline computation.
-        baseline_params (Dict): Parameters for baseline computation.
-        tail_speed_filter_ms (float): Filter size for tail speed in milliseconds.
-        tail_speed_boxcar_filter_ms (float): Boxcar filter size for tail speed in milliseconds.
-    """
-    num_pcs: int = 4
-    savgol_window_ms: float = 15
-    baseline_method: str = "median"
-    baseline_params: Dict = field(default_factory=dict)
-    tail_speed_filter_ms: float = 100
-    tail_speed_boxcar_filter_ms: float = 14
-
-    def __post_init__(self):
-        super().__post_init__()
-        self.baseline_params['fps'] = self.fps
-        self.baseline_params['half_window'] = int(np.round(self.fps/2))
-        
-    @property
-    def savgol_window(self) -> int:
-        res = self.convert_ms_to_frames(self.savgol_window_ms)
-        if res % 2 == 0:
-            res += 1  # Ensure savgol_window is odd
-        return res
-
-    @property
-    def tail_speed_filter(self) -> int:
-        n = self.convert_ms_to_frames(self.tail_speed_filter_ms)
-        if n % 2 == 0:
-            n += 1
-        return n
-
-    @property
-    def tail_speed_boxcar_filter(self) -> int:
-        n = self.convert_ms_to_frames(self.tail_speed_boxcar_filter_ms)
-        if n==0:
-            return 1
-        else:
-            return n
 
 
 class TailPreprocessingResult():
