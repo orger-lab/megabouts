@@ -24,7 +24,7 @@ from megabouts.classification.classification import TailBouts
 from megabouts.classification.classification import BoutClassifier
 
 
-from megabouts.utils.utils_df import create_hierarchical_df
+from megabouts.utils.data_utils import create_hierarchical_df
 
 class EthogramHeadTracking:
     def __init__(self,segments,bouts,traj):

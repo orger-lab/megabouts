@@ -1,24 +1,6 @@
 import numpy as np
 from scipy.interpolate import interp1d
-
-
-def compute_angle_between_vectors(v1, v2):
-    """
-    Computes the angle between two vectors.
-    
-    Args:
-        v1 (ndarray): First set of vectors with shape (num_vectors, num_dimensions).
-        v2 (ndarray): Second set of vectors with shape (num_vectors, num_dimensions).
-    
-    Returns:
-        ndarray: Array of angles between the vectors.
-    """
-    dot_product = np.einsum('ij,ij->i', v1, v2)
-    cos_angle = dot_product 
-    sin_angle= np.cross(v1,v2) 
-    angle= np.arctan2(sin_angle,cos_angle)
-
-    return angle
+from megabouts.utils.math_utils import compute_angle_between_vectors
 
 def interpolate_tail_keypoint(tail_x, tail_y, n_segments=10):
     """

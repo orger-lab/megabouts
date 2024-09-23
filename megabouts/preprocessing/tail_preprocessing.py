@@ -9,8 +9,8 @@ from sklearn.decomposition import PCA
 
 from megabouts.pipeline.base_config import BaseConfig
 from megabouts.preprocessing.baseline import compute_baseline
-from megabouts.utils.utils_math import robust_diff
-from megabouts.utils.utils_df import create_hierarchical_df
+from megabouts.utils.math_utils import robust_diff
+from megabouts.utils.data_utils import create_hierarchical_df
 
 @dataclass
 class PreprocessingConfig(BaseConfig):

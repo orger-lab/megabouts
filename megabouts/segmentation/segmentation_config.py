@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 from scipy.signal import find_peaks
-from megabouts.utils.utils_math import find_onset_offset_numpy
+from megabouts.utils.math_utils import find_onset_offset_numpy
 #from megabouts.config.component_configs import SegmentationConfig, TailSegmentationConfig, TrajSegmentationConfig
 from typing import Tuple,Dict
 from megabouts.pipeline.base_config import BaseConfig

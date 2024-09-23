@@ -16,8 +16,6 @@ def convert_frame_duration(n_frames_origin:int,fps_origin:int,fps_new:int)->int:
 
     return int(np.ceil(fps_new/fps_origin*n_frames_origin))
 
-#TODO: REPLACE CONVERT DURATION USE BY CONVERT MS TO FRAMES WHEN POSSIBLE
-
 def convert_ms_to_frames(fps:int,duration:float)->int:
     """Convert duration in ms to number of frames
 
