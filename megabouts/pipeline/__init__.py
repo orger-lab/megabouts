@@ -1,2 +1,2 @@
-from .pipeline.freely_swimming_pipeline import EthogramHeadTracking,HeadTrackingPipeline
-from .pipeline.freely_swimming_pipeline import EthogramFullTracking,FullTrackingPipeline
+from .freely_swimming_pipeline import EthogramHeadTracking,HeadTrackingPipeline
+from .freely_swimming_pipeline import EthogramFullTracking,FullTrackingPipeline

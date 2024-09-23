@@ -87,17 +87,43 @@ class SegmentationResult():
             
             
             
+
 class Segmentation(ABC):
-    def __init__(self, config):
+    def __init__(self, config: SegmentationConfig):
         self.config = config
+
+    @abstractmethod
+    def segment(self, data: np.ndarray) -> SegmentationResult:
+        """Perform segmentation on the provided data."""
+        pass
+
+    @classmethod
+    def from_config(cls, config: SegmentationConfig) -> 'Segmentation':
+        """
+        Factory method to create appropriate segmentation instances based on configuration.
+
+        Args:
+            config (SegmentationConfig): Configuration object for segmentation.
+
+        Returns:
+            Segmentation: An instance of a subclass of Segmentation.
+        """
+        if isinstance(config, TailSegmentationConfig):
+            return TailSegmentation(config)
+        elif isinstance(config, TrajSegmentationConfig):
+            return TrajSegmentation(config)
+        else:
+            raise ValueError(f"Unknown segmentation config: {config}")
+ 
         
-        
+
+
 class TailSegmentation(Segmentation):
     """Class for segmenting data based on tail movement."""
     def __init__(self, config: TailSegmentationConfig):
         super().__init__(config)
 
-    def segment_from_tail(self, tail_vigor: np.ndarray) -> SegmentationResult:
+    def segment(self, tail_vigor: np.ndarray) -> SegmentationResult:
         """
         Segment data based on tail vigor.
 
@@ -125,7 +151,7 @@ class TrajSegmentation(Segmentation):
     def __init__(self, config: TrajSegmentationConfig):
         super().__init__(config)
         
-    def segment_from_traj(self, kinematic_activity: np.ndarray) -> SegmentationResult:
+    def segment(self, kinematic_activity: np.ndarray) -> SegmentationResult:
         """
         Segment data based on kinematic activity.
 
@@ -187,12 +213,3 @@ class TrajSegmentation(Segmentation):
 
         return np.array(onset), np.array(offset)
 
-class SegmentationFactory:
-    @staticmethod
-    def get_segmenter(config: SegmentationConfig) -> Segmentation:
-        if isinstance(config,TailSegmentationConfig):
-            return TailSegmentation(config)
-        elif isinstance(config,TrajSegmentationConfig):
-            return TrajSegmentation(config)
-        else:
-            raise ValueError(f"Unknown segmentation config: {config}")

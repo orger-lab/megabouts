@@ -1,9 +1,9 @@
-.. image:: logo_color_dark.png
+.. image:: _static/images/logo_color_dark.png
    :align: center
    :width: 640px
    :class: only-dark
 
-.. image:: logo_color_white.png
+.. image:: _static/images/logo_color_white.png
    :align: center
    :width: 640px
    :class: only-light

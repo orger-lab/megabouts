@@ -82,8 +82,8 @@ class FullTrackingData(TrackingData):
         cls._validate_posture(head_x,head_y,head_yaw,tail_angle)
         if tail_angle.shape[1] != 10:
             tail_angle = interpolate_tail_angle(tail_angle, 10)
-        #tail_x,tail_y = convert_tail_angle_to_keypoints(head_x, head_y, head_yaw, tail_angle, body_to_tail_mm=0.5, tail_to_tail_mm=0.32)
-        #return cls(head_x,head_y,head_yaw,tail_x,tail_y,tail_angle)
+        #
+        #
         return cls(head_x,head_y,head_yaw,None,None,tail_angle)
 
     @property
@@ -96,6 +96,15 @@ class FullTrackingData(TrackingData):
         traj_df = pd.DataFrame({'x': self._head_x, 'y': self._head_y, 'yaw': self._head_yaw})
         return traj_df
 
+    @property
+    def tail_keypoints_df(self):
+        if (self._tail_x is None or self._tail_y is None):
+            self._tail_x,self._tail_y = convert_tail_angle_to_keypoints(self._head_x, self._head_y, self._head_yaw, self._tail_angle, body_to_tail_mm=0.5, tail_to_tail_mm=0.32)
+        tail_keypoints_df = pd.DataFrame({'tail_x': self._tail_x, 'tail_y': self._tail_y})
+        return tail_keypoints_df
+        
+        
+        
     @staticmethod
     def _validate_keypoints(head_x,head_y,tail_x,tail_y):
         T = len(head_x)

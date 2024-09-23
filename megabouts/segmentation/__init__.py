@@ -1,1 +1,1 @@
-from .segmentation import TailSegmentation, SegmentationFactory, SegmentationResult
+from .segmentation import TailSegmentation, TrajSegmentation,Segmentation, SegmentationResult

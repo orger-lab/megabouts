@@ -1,10 +1,12 @@
 from dataclasses import dataclass, field
+from typing import Tuple,Dict
+
+from ..utils.math_utils import find_onset_offset_numpy
+from ..config.base import BaseConfig
+
 import numpy as np
 import pandas as pd
 from scipy.signal import find_peaks
-from megabouts.utils.math_utils import find_onset_offset_numpy
-from typing import Tuple,Dict
-from megabouts.pipeline.base_config import BaseConfig
 
 @dataclass
 class SegmentationConfig(BaseConfig):
