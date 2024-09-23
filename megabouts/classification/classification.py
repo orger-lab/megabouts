@@ -8,9 +8,8 @@ import torch.optim as optim
 from torch import nn
 
 from ..classification.transformer_network import BoutsDataset,TransAm, ContinuousPositionalEncoding 
-from ..pipeline.base_config import BaseConfig
 from ..tracking_data.tracking_data import TrackingConfig
-from ..segmentation.segmentation_config import SegmentationConfig
+from ..config.segmentation import SegmentationConfig
 
 
 class TailBouts:

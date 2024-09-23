@@ -1,7 +1,4 @@
 from abc import ABC, abstractmethod
-from ..tracking_data.data_loader import TrackingConfig
-
-
 
 class Pipeline(ABC):
     @abstractmethod
@@ -11,3 +8,4 @@ class Pipeline(ABC):
     @abstractmethod
     def run(self,**kwargs):
         raise NotImplementedError("This method should be overridden by subclasses")
+

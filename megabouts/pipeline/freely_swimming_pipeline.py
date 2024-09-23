@@ -3,22 +3,19 @@ import numpy as np
 import pandas as pd
 
 
-from ..tracking_data.tracking_data import TrackingConfig
-from ..tracking_data.tracking_data import FullTrackingData
-
 from ..config.preprocessing import TailPreprocessingConfig,TrajPreprocessingConfig
 from ..preprocessing.traj_preprocessing import TrajPreprocessing
 from ..preprocessing.tail_preprocessing import TailPreprocessing
 
 from ..config.segmentation import TailSegmentationConfig,TrajSegmentationConfig
 from ..segmentation.segmentation import TailSegmentation,TrajSegmentation
-
-from ..segmentation.segmentation import SegmentationFactory,SegmentationResult
+from ..segmentation.segmentation import Segmentation
 
 from ..classification.classification import TailBouts,BoutClassifier
 
-
 from ..utils.data_utils import create_hierarchical_df
+from ..pipeline.base_pipeline import Pipeline
+
 
 class EthogramHeadTracking:
     def __init__(self,segments,bouts,traj):
@@ -94,9 +91,7 @@ class EthogramFullTracking:
             x_ts[on_:off_] = x[i]
         return x_ts
     
-
-
-class HeadTrackingPipeline:
+class HeadTrackingPipeline(Pipeline):
     
     def __init__(self, tracking_cfg,exclude_CS=False):
         self.tracking_cfg = tracking_cfg
@@ -115,8 +110,8 @@ class HeadTrackingPipeline:
         return traj
     
     def segment_traj(self,traj_vigor):
-        segmentation_function = SegmentationFactory.get_segmenter(self.traj_segmentation_cfg)
-        segments = segmentation_function.segment_from_traj(traj_vigor)
+        segmentation_function = Segmentation.from_config(self.traj_segmentation_cfg)
+        segments = segmentation_function.segment(traj_vigor)
         return segments
     
     def classify_bouts(self,traj,segments):
@@ -162,7 +157,7 @@ class HeadTrackingPipeline:
         return self.__str__()
 
 
-class FullTrackingPipeline:
+class FullTrackingPipeline(Pipeline):
     
     def __init__(self, tracking_cfg,exclude_CS=False):
         self.tracking_cfg = tracking_cfg
@@ -185,14 +180,9 @@ class FullTrackingPipeline:
         traj = TrajPreprocessing(self.traj_preprocessing_cfg).preprocess_traj_df(traj_df)        
         return traj
     
-    def segment_tail(self,tail_vigor):
-        segmentation_function = SegmentationFactory.get_segmenter(self.segmentation_cfg)
-        segments = segmentation_function.segment_from_tail(tail_vigor)
-        return segments
-    
-    def segment_traj(self,traj_vigor):
-        segmentation_function = SegmentationFactory.get_segmenter(self.segmentation_cfg)
-        segments = segmentation_function.segment_from_traj(traj_vigor)
+    def segment(self,vigor):
+        segmentation_function = Segmentation.from_config(self.segmentation_cfg)
+        segments = segmentation_function.segment(vigor)
         return segments
     
     def classify_bouts(self,tail,traj,segments):
@@ -231,9 +221,9 @@ class FullTrackingPipeline:
         traj = self.preprocess_traj(tracking_data.traj_df)
         #self.logger.info("Segmentation...")
         if isinstance(self.segmentation_cfg,TailSegmentationConfig):
-            segments = self.segment_tail(tail.vigor)
+            segments = self.segment(tail.vigor)
         elif isinstance(self.segmentation_cfg,TrajSegmentationConfig):
-            segments = self.segment_traj(traj.vigor) 
+            segments = self.segment(traj.vigor)
         else:
             raise ValueError("segmentation_cfg should be an instance of TailSegmentationConfig or TrajSegmentationConfig")
 
