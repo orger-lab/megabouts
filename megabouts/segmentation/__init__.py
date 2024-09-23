@@ -1,2 +1,1 @@
-from .segmentation_config import TailSegmentationConfig
 from .segmentation import TailSegmentation, SegmentationFactory, SegmentationResult

@@ -11,18 +11,12 @@ from matplotlib import colors
 
 colorblind_list =  ['#0173b2','#de8f05','#029e73','#d55e00','#cc78bc','#ca9161','#fbafe4','#949494','#ece133','#56b4e9']
 
-
-list_color_no_CS = ['#82cfff','#4589ff','#0000c8','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
-list_color_w_CS = ['#82cfff','#4589ff','#0000c8','#5d5d66','#000000','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
-
-NameCatSym_w_CS=['approach_swim', 'slow1', 'slow2', 'short_capture_swim','long_capture_swim', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
-NameCatSym_no_CS=['approach_swim', 'slow1', 'slow2', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'C_start']
-
-NameCatShortSym_w_CS=['AS', 'S1', 'S2', 'SCS','LCS', 'BS', 'J', 'HAT','RT', 'SAT', 'O','LLC', 'SLC']
-NameCatShortSym_no_CS=['AS', 'S1', 'S2', 'BS', 'J', 'HAT','RT', 'SAT', 'O','LLC', 'SLC']
+bouts_category_name = ['approach_swim', 'slow1', 'slow2', 'short_capture_swim','long_capture_swim', 'burst_swim', 'J_turn', 'high_angle_turn','routine_turn', 'spot_avoidance_turn', 'O_bend','long_latency_C_start', 'short_latency_C_start']
+bouts_category_name_short = ['AS', 'S1', 'S2', 'SCS','LCS', 'BS', 'JT', 'HAT','RT', 'SAT', 'O','LLC', 'SLC']
+bouts_category_color = ['#82cfff','#4589ff','#0000c8','#5d5d66','#000000','#fcaf6d','#ffb3b8','#08bdba','#24a148','#9b82f3','#ee5396','#e3bc13','#fa4d56']
 
 
-cmp_bouts = colors.ListedColormap(list_color_w_CS)
+cmp_bouts = colors.ListedColormap(bouts_category_color)
 cmp_bouts.set_under(color='white')
 cmp_bouts.set_over(color='white')
 cmp_bouts.set_bad(color='grey', alpha=None)
