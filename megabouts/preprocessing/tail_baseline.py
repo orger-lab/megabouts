@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-#rom pybaselines.smooth import noise_median
+from pybaselines.smooth import noise_median
 from scipy import ndimage
 
 from pybaselines.misc import beads
@@ -31,10 +31,10 @@ def compute_baseline(x,method,params):
     elif method =='median':
         
         window_size = 2 * params['half_window'] + 1
-        #baseline = ndimage.median_filter(x, size=window_size,mode='constant',
-        #                cval=0)
-        #baseline = ndimage.gaussian_filter(baseline, sigma=window_size/6)
-        baseline = np.zeros_like(x)
+        baseline = ndimage.median_filter(x, size=window_size,mode='constant',
+                        cval=0)
+        baseline = ndimage.gaussian_filter(baseline, sigma=window_size/6)
+        #baseline = np.zeros_like(x)
         '''
         baseline = noise_median(x, 
                                 half_window=params['half_window'], 
