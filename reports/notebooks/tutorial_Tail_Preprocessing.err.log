@@ -1,4 +1,15 @@
 Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 782, in _async_poll_for_reply
+    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 198, in ensure_async
+    result = await obj
+  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/jupyter_client/channels.py", line 313, in get_msg
+    raise Empty
+_queue.Empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
   File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 1314, in execute
@@ -9,29 +20,18 @@ Traceback (most recent call last):
     return future.result()
   File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from megabouts.tracking_data import TrackingConfig, FullTrackingData, load_example_data
-from megabouts.config import TailPreprocessingConfig
-from megabouts.preprocessing import TailPreprocessing
-------------------
-
-
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn[1], line 6[0m
-[1;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
-[1;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtracking_data[39;00m [38;5;28;01mimport[39;00m TrackingConfig, FullTrackingData, load_example_data
-[0;32m----> 6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mconfig[39;00m [38;5;28;01mimport[39;00m TailPreprocessingConfig
-[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpreprocessing[39;00m [38;5;28;01mimport[39;00m TailPreprocessing
-
-[0;31mModuleNotFoundError[0m: No module named 'megabouts.config'
+  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 1005, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 806, in _async_poll_for_reply
+    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
+  File "/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/nbclient/client.py", line 856, in _async_handle_timeout
+    raise CellTimeoutError.error_from_timeout_and_cell(
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
+['# Load data and set tracking configuration', "df_recording, fps, mm_per_unit = load_example_data('SLEAP_fulltracking')", "tracking_cfg = TrackingConfig(fps=fps, tracking='full_tracking')", '', '# List of keypoints']
+...
+['# Create FullTrackingData object', 'tracking_data = FullTrackingData.from_keypoints(head_x=head_x.values,', '                                                head_y=head_y.values,', '                                                tail_x=tail_x,', '                                                tail_y=tail_y)']
+-------------------
 

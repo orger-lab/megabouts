@@ -475,6 +475,73 @@ registered hooks while the latter silently ignores them.</p>
 
 </dd></dl>
 
+<dl class="py class" id="module-megabouts.classification.classification">
+<dt class="sig sig-object py" id="megabouts.classification.classification.TailBouts">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.classification.classification.</span></span><span class="sig-name descname"><span class="pre">TailBouts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classif_results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#TailBouts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.TailBouts" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.TailBouts.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classif_results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#TailBouts.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.TailBouts.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.classification.classification.</span></span><span class="sig-name descname"><span class="pre">BoutClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig" title="megabouts.tracking_data.tracking_data.TrackingConfig"><span class="pre">TrackingConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmentation_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_CS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig" title="megabouts.tracking_data.tracking_data.TrackingConfig"><span class="pre">TrackingConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmentation_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_CS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.load_classifier">
+<span class="sig-name descname"><span class="pre">load_classifier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.load_classifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.load_classifier" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.prepare_tensor_input">
+<span class="sig-name descname"><span class="pre">prepare_tensor_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.prepare_tensor_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.prepare_tensor_input" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.extract_bouts">
+<span class="sig-name descname"><span class="pre">extract_bouts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.extract_bouts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.extract_bouts" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.extract_bouts_full_tracking">
+<span class="sig-name descname"><span class="pre">extract_bouts_full_tracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.extract_bouts_full_tracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.extract_bouts_full_tracking" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.extract_bouts_head_tracking">
+<span class="sig-name descname"><span class="pre">extract_bouts_head_tracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.extract_bouts_head_tracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.extract_bouts_head_tracking" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.compute_sampling_input">
+<span class="sig-name descname"><span class="pre">compute_sampling_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.compute_sampling_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.compute_sampling_input" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.run_classification">
+<span class="sig-name descname"><span class="pre">run_classification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.run_classification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.run_classification" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.process_results">
+<span class="sig-name descname"><span class="pre">process_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.process_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.process_results" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.classification.classification.BoutClassifier.filter_logit">
+<span class="sig-name descname"><span class="pre">filter_logit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logit_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logit_sublabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/classification/classification.html#BoutClassifier.filter_logit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.classification.classification.BoutClassifier.filter_logit" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -535,6 +602,23 @@ registered hooks while the latter silently ignores them.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.transformer_network.TransAm"><code class="docutils literal notranslate"><span class="pre">TransAm</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.transformer_network.TransAm.__init__"><code class="docutils literal notranslate"><span class="pre">TransAm.__init__()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.transformer_network.TransAm.forward"><code class="docutils literal notranslate"><span class="pre">TransAm.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.TailBouts"><code class="docutils literal notranslate"><span class="pre">TailBouts</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.TailBouts.__init__"><code class="docutils literal notranslate"><span class="pre">TailBouts.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier"><code class="docutils literal notranslate"><span class="pre">BoutClassifier</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.__init__"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.load_classifier"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.load_classifier()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.prepare_tensor_input"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.prepare_tensor_input()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.extract_bouts"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.extract_bouts()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.extract_bouts_full_tracking"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.extract_bouts_full_tracking()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.extract_bouts_head_tracking"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.extract_bouts_head_tracking()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.compute_sampling_input"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.compute_sampling_input()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.run_classification"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.run_classification()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.process_results"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.process_results()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.classification.classification.BoutClassifier.filter_logit"><code class="docutils literal notranslate"><span class="pre">BoutClassifier.filter_logit()</span></code></a></li>
 </ul>
 </li>
 </ul>
