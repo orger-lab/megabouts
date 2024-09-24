@@ -5,7 +5,7 @@ import pandas as pd
 from scipy.signal import find_peaks
 from ..utils.math_utils import find_onset_offset_numpy
 from typing import Tuple
-from ..config.segmentation import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
+from ..config.segmentation_config import SegmentationConfig,TailSegmentationConfig,TrajSegmentationConfig
 
 
 class SegmentationResult():

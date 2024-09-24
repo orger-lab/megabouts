@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Tuple,Dict
 
 from ..utils.math_utils import find_onset_offset_numpy
-from ..config.base import BaseConfig
+from .base_config import BaseConfig
 
 import numpy as np
 import pandas as pd

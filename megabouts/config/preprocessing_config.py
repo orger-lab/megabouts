@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Tuple, Dict
-from ..config.base import BaseConfig
+from .base_config import BaseConfig
 import numpy as np
 
 

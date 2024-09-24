@@ -3,11 +3,11 @@ import numpy as np
 import pandas as pd
 
 
-from ..config.preprocessing import TailPreprocessingConfig,TrajPreprocessingConfig
+from ..config.preprocessing_config import TailPreprocessingConfig,TrajPreprocessingConfig
 from ..preprocessing.traj_preprocessing import TrajPreprocessing
 from ..preprocessing.tail_preprocessing import TailPreprocessing
 
-from ..config.segmentation import TailSegmentationConfig,TrajSegmentationConfig
+from ..config.segmentation_config import TailSegmentationConfig,TrajSegmentationConfig
 from ..segmentation.segmentation_classes import TailSegmentation,TrajSegmentation
 from ..segmentation.segmentation_classes import Segmentation
 

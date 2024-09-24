@@ -5,7 +5,7 @@ from scipy.ndimage import shift
 from ..utils.data_utils import create_hierarchical_df
 from ..utils.math_utils import robust_diff
 from typing import Tuple
-from ..config.preprocessing import TrajPreprocessingConfig
+from ..config.preprocessing_config import TrajPreprocessingConfig
 
 
     

@@ -1,5 +1,5 @@
-from .preprocessing import TrajPreprocessingConfig,TailPreprocessingConfig
-from .segmentation import TailSegmentationConfig,TrajSegmentationConfig
+from .preprocessing_config import TrajPreprocessingConfig,TailPreprocessingConfig
+from .segmentation_config import TailSegmentationConfig,TrajSegmentationConfig
 
 __all__ = [
     'TrajPreprocessingConfig',

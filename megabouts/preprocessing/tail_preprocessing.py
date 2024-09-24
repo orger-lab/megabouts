@@ -7,7 +7,7 @@ from scipy.signal import savgol_filter, convolve
 from scipy.signal.windows import boxcar
 from sklearn.decomposition import PCA
 
-from ..config.preprocessing import TailPreprocessingConfig
+from ..config.preprocessing_config import TailPreprocessingConfig
 from ..preprocessing.tail_baseline import compute_baseline
 from ..utils.math_utils import robust_diff
 from ..utils.data_utils import create_hierarchical_df

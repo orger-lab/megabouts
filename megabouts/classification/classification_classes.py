@@ -9,7 +9,7 @@ from torch import nn
 
 from .transformer_network import BoutsDataset,TransAm, ContinuousPositionalEncoding 
 from ..tracking_data.tracking_data_classes import TrackingConfig
-from ..config.segmentation import SegmentationConfig
+from ..config.segmentation_config import SegmentationConfig
 
 
 class TailBouts:
