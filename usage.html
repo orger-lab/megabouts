@@ -415,7 +415,7 @@ document.write(`
 <li><p><strong>DeepLabCut</strong>: <a class="reference external" href="https://www.mackenziemathislab.org/deeplabcut">DeepLabCut Website</a> | <a class="reference external" href="https://www.nature.com/articles/s41593-018-0209-y">DeepLabCut Paper</a></p></li>
 <li><p><strong>SLEAP</strong>: <a class="reference external" href="https://sleap.ai/">SLEAP Website</a> | <a class="reference external" href="https://www.nature.com/articles/s41592-022-01426-1">SLEAP Paper</a></p></li>
 </ul>
-<p>Once you have tracking data, you are ready to use Megabouts!</p>
+<p>Once you have your zebrafish tracking data, you’re ready to analyze it with Megabouts!”</p>
 </section>
 <section id="installing-megabouts">
 <h2>Installing Megabouts<a class="headerlink" href="#installing-megabouts" title="Link to this heading">#</a></h2>
@@ -426,21 +426,21 @@ First, create a virtual environment with Python 3.11 using <cite>conda</cite>:</
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>megabouts<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
 </pre></div>
 </div>
-<p>Activate the environment:</p>
+<p>Then activate the environment:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>megabouts
 </pre></div>
 </div>
 </li>
 <li><p><strong>Install PyTorch [for GPU setup]</strong>:
-Megabouts depends on PyTorch, to get GPU support, install PyTorch by following the instruction on the <a class="reference external" href="https://pytorch.org/get-started/locally/">PyTorch website</a> to install the appropriate version for your system.</p>
+Megabouts depends on PyTorch. To enable GPU support, follow the instructions on the <a class="reference external" href="https://pytorch.org/get-started/locally/">PyTorch website</a> to install the appropriate version for your system.</p>
 <p>Example installation command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>pytorch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">11</span>.8<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia
 </pre></div>
 </div>
-<p><em>(Make sure to adjust the command based on your system and GPU/CPU configuration.)</em></p>
+<p><em>Make sure to adjust the command based on your system’s GPU or CPU configuration.</em></p>
 </li>
 <li><p><strong>Install Megabouts</strong>:
-After PyTorch is installed, you can install Megabouts from its GitHub repository:</p>
+Once PyTorch is installed, install Megabouts from its GitHub repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/orger-lab/megabouts.git
 </pre></div>
 </div>
@@ -452,7 +452,7 @@ After installation, you can verify that Megabouts is properly installed by runni
 </div>
 </li>
 </ol>
-<p>If no errors are raised, Megabouts has been successfully installed.</p>
+<p>If you see no errors, Megabouts has been successfully installed.</p>
 </section>
 <section id="usage-guide">
 <h2>Usage Guide<a class="headerlink" href="#usage-guide" title="Link to this heading">#</a></h2>

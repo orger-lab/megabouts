@@ -19,7 +19,7 @@ If you are working with video recordings of zebrafish larvae, you can also track
 
 - **SLEAP**: `SLEAP Website <https://sleap.ai/>`_ | `SLEAP Paper <https://www.nature.com/articles/s41592-022-01426-1>`_
 
-Once you have tracking data, you are ready to use Megabouts!
+Once you have your zebrafish tracking data, you're ready to analyze it with Megabouts!"
 
 Installing Megabouts
 --------------------
@@ -32,14 +32,14 @@ Megabouts is an open-source Python toolbox designed for zebrafish locomotion ana
 
       conda create --name megabouts python=3.11
 
-   Activate the environment:
+   Then activate the environment:
 
    .. code-block:: bash
 
       conda activate megabouts
 
 2. **Install PyTorch [for GPU setup]**:
-   Megabouts depends on PyTorch, to get GPU support, install PyTorch by following the instruction on the `PyTorch website <https://pytorch.org/get-started/locally/>`_ to install the appropriate version for your system.
+   Megabouts depends on PyTorch. To enable GPU support, follow the instructions on the `PyTorch website <https://pytorch.org/get-started/locally/>`_ to install the appropriate version for your system.
 
    Example installation command:
 
@@ -47,10 +47,10 @@ Megabouts is an open-source Python toolbox designed for zebrafish locomotion ana
 
       conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 
-   *(Make sure to adjust the command based on your system and GPU/CPU configuration.)*
+   *Make sure to adjust the command based on your system's GPU or CPU configuration.*
 
 3. **Install Megabouts**:
-   After PyTorch is installed, you can install Megabouts from its GitHub repository:
+   Once PyTorch is installed, install Megabouts from its GitHub repository:
 
    .. code-block:: bash
 
@@ -63,7 +63,7 @@ Megabouts is an open-source Python toolbox designed for zebrafish locomotion ana
 
       python -c "import megabouts"
 
-If no errors are raised, Megabouts has been successfully installed.
+If you see no errors, Megabouts has been successfully installed.
 
 Usage Guide
 -----------
