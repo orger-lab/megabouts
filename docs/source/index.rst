@@ -8,6 +8,8 @@
    :width: 640px
    :class: only-light
 
+
+
 .. rst-class:: heading-center
 
 Welcome to Megabouts' documentation!
@@ -92,5 +94,4 @@ References
 
    usage
    tutorials
-   segmentation
    api/index
