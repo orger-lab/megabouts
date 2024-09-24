@@ -53,6 +53,7 @@ Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [tool.setuptools]
 packages = ["megabouts",
+            "megabouts.config",
             "megabouts.tracking_data","megabouts.tracking_data.example_dataset",
             "megabouts.preprocessing",
             "megabouts.segmentation",

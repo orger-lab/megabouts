@@ -8,7 +8,7 @@ import torch.optim as optim
 from torch import nn
 
 from .transformer_network import BoutsDataset,TransAm, ContinuousPositionalEncoding 
-from ..tracking_data.tracking_data_classes import TrackingConfig
+from ..tracking_data.tracking_data import TrackingConfig
 from ..config.segmentation_config import SegmentationConfig
 
 

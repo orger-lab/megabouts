@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 import numpy as np
 import pandas as pd
-from ..tracking_data.convert_tracking import compute_angles_from_keypoints
-from ..tracking_data.convert_tracking import convert_tail_angle_to_keypoints
-from ..tracking_data.convert_tracking import interpolate_tail_keypoint,interpolate_tail_angle
+from .convert_tracking import compute_angles_from_keypoints
+from .convert_tracking import convert_tail_angle_to_keypoints
+from .convert_tracking import interpolate_tail_keypoint,interpolate_tail_angle
 
 class TrackingConfig:
     """Configuration for zebrafish tracking datasets.
