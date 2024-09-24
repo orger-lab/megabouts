@@ -14,18 +14,18 @@
 
 Welcome to Megabouts' documentation!
 ====================================
+Accurate measurements of animal behavior are crucial for neuroscience, as well as genetic and pharmacological screening. Megabouts is a Python toolbox designed to precisely quantify zebrafish larval locomotion.
+Our software supports locomotion analysis in both freely swimming and head-restrained conditions, 
+with the goal of promoting standardized zebrafish locomotion studies across neuroscience, pharmacology, and genetics.
 
-Accurate measurements of behavior are crucial to understanding animal physiology. 
-Megabouts allows to quantify zebrafish larvae locomotion. 
-This open-source Python toolbox handles locomotion in both freely swimming and head-restrained conditions and aims to promote standardized zebrafish locomotion analysis across neuroscience, pharmacology, and genetics.
-For more details, check `our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1>`_
+For more details, please check `our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1>`_.
 
 Please support the development of Megabouts by starring and/or watching the project on Github_!
 
 
 .. note::
    Megabouts is under active development and might include breaking changes
-   between versions. If you use Megabouts in your work, we recommend to double check
+   between versions. If you use Megabouts in your work, we recommend double-checking
    your current version.
 
 
@@ -39,7 +39,7 @@ Please head over to the :doc:`Usage </usage>` tab to find step-by-step instructi
 
 Publication:
 ------------
-The details for the underlying mathematics and methods can be found in our publication:
+The details for the method can be found in
 `our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1>`_:
 
    **Jouary, A et al.**  
@@ -55,19 +55,6 @@ You can find the software and source code on `GitHub <https://github.com/orger-l
 
 
 
-Usage
------
-
-Please head over to the :doc:`Usage </usage>` tab to find step-by-step instructions to use Megabouts on your data. For example use cases, see the :doc:`Demos </demos>` tab.
-
-**Installation**
-
-PyPI install, presuming you have pytorch and all its requirements installed:
-
-
-.. code:: bash
-
-    pip install megabouts
 
 References
 ----------
