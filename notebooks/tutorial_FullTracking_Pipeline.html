@@ -457,7 +457,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E:\Code\megabouts\megabouts\megabouts\classification\classification.py:74: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E:\Code\megabouts\megabouts\megabouts\classification\classification_classes.py:74: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   net.load_state_dict(torch.load(transformer_weights_path,map_location=torch.device(self.device)))
 c:\Users\adrien\anaconda3\envs\megabouts_dev\Lib\site-packages\torch\nn\functional.py:5560: UserWarning: 1Torch was not compiled with flash attention. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\transformers\cuda\sdp_utils.cpp:555.)
   attn_output = scaled_dot_product_attention(q, k, v, attn_mask, dropout_p, is_causal)
@@ -497,7 +497,7 @@ c:\Users\adrien\anaconda3\envs\megabouts_dev\Lib\site-packages\torch\nn\function
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3b3ca4ec0c9d402a7af708432153b6d2809003809ed40b295ae8eecef896ea55.png" src="../_images/3b3ca4ec0c9d402a7af708432153b6d2809003809ed40b295ae8eecef896ea55.png" />
+<img alt="../_images/5c111b9756ca345efa7837654b96e88f63e072abd8ab073699097712dcce3dd8.png" src="../_images/5c111b9756ca345efa7837654b96e88f63e072abd8ab073699097712dcce3dd8.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -540,7 +540,7 @@ c:\Users\adrien\anaconda3\envs\megabouts_dev\Lib\site-packages\torch\nn\function
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/05aaf60145714250e92b91cdb0c13d1432dfd1cf93b3cb15a1271e202a274bc3.png" src="../_images/05aaf60145714250e92b91cdb0c13d1432dfd1cf93b3cb15a1271e202a274bc3.png" />
+<img alt="../_images/623fc9fe499924cb65559b45d734d83a07b3b4ebd03dcd73db4a6713ce138a87.png" src="../_images/623fc9fe499924cb65559b45d734d83a07b3b4ebd03dcd73db4a6713ce138a87.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -599,13 +599,15 @@ c:\Users\adrien\anaconda3\envs\megabouts_dev\Lib\site-packages\torch\nn\function
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\adrien\AppData\Local\Temp\ipykernel_54388\3371695007.py:27: PerformanceWarning: indexing past lexsort depth may impact performance.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\adrien\AppData\Local\Temp\ipykernel_65564\1945488009.py:26: PerformanceWarning: indexing past lexsort depth may impact performance.
   ax.imshow(ethogram.df[(&#39;bout&#39;,&#39;cat&#39;)].values[IdSt:IdEd].T,cmap=cmp_bouts,aspect=&#39;auto&#39;,vmin=0,vmax=12,interpolation=&#39;nearest&#39;,extent=(0,T,0,1))
-C:\Users\adrien\AppData\Local\Temp\ipykernel_54388\3371695007.py:37: PerformanceWarning: indexing past lexsort depth may impact performance.
+C:\Users\adrien\AppData\Local\Temp\ipykernel_65564\1945488009.py:36: PerformanceWarning: indexing past lexsort depth may impact performance.
   id_b = np.unique(ethogram.df[(&#39;bout&#39;,&#39;id&#39;)].values[IdSt:IdEd]).astype(&#39;int&#39;)
+c:\Users\adrien\anaconda3\envs\megabouts_dev\Lib\site-packages\IPython\core\pylabtools.py:170: UserWarning: There are no gridspecs with layoutgrids. Possibly did not call parent GridSpec with the &quot;figure&quot; keyword
+  fig.canvas.print_figure(bytes_io, **kw)
 </pre></div>
 </div>
-<img alt="../_images/46c178c7c7b0be3941ec143dcc4987bd400bb3bcee07c9193d968b08757e7193.png" src="../_images/46c178c7c7b0be3941ec143dcc4987bd400bb3bcee07c9193d968b08757e7193.png" />
+<img alt="../_images/82f3263c9ec10c31a082d7488d24d420c7c2a921caeef5e94ad9826e37da093a.png" src="../_images/82f3263c9ec10c31a082d7488d24d420c7c2a921caeef5e94ad9826e37da093a.png" />
 </div>
 </div>
 
