@@ -31,9 +31,8 @@ Please support the development of Megabouts by starring and/or watching the proj
 Installation and Setup
 ----------------------
 
-Please see the dedicated :doc:`Installation Guide </installation>` for information on installation options using ``conda``, ``pip`` and ``docker``.
+Please head over to the :doc:`Usage </usage>` tab to find step-by-step instructions to use Megabouts on your data. For example use cases, see the :doc:`Tutorials </tutorials>` tab.
 
-Have fun! 😁
 ---
 
 Publication:
@@ -57,7 +56,7 @@ You can find the software and source code on `GitHub <https://github.com/orger-l
 Usage
 -----
 
-Please head over to the :doc:`Usage </usage>` tab to find step-by-step instructions to use CEBRA on your data. For example use cases, see the :doc:`Demos </demos>` tab.
+Please head over to the :doc:`Usage </usage>` tab to find step-by-step instructions to use Megabouts on your data. For example use cases, see the :doc:`Demos </demos>` tab.
 
 **Installation**
 
@@ -92,18 +91,6 @@ References
    :caption: User Guide / Tutorial:
 
    usage
-   preprocessing
+   tutorials
    segmentation
-   notebooks/tutorial_Tail_Classification
-   api/index
-
-
-.. toctree::
-   :maxdepth: 1
-   :caption: User Guide / Tutorial:
-
-   notebooks/Loading_Data
-   preprocessing
-   segmentation
-   notebooks/tutorial_Tail_Classification
    api/index

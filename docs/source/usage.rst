@@ -1,32 +1,25 @@
-Zebrafish Tracking and Installation Guide
-=========================================
+Usage
+=====
 
 This section provides instructions on how to obtain zebrafish tracking data and how to install and set up the Megabouts package for locomotion analysis.
 
 Obtaining Zebrafish Tracking Data
 ---------------------------------
-There are several tools and methods available for zebrafish tracking. Below are some popular options:
+There are several tools and methods available for tracking zebrafish. Below are some popular options:
 
-1. **BonZeb**:
-   - **GitHub**: `BonZeb GitHub <https://github.com/BonZeb/BonZeb>`_
-   - **Article**: You can read more about BonZeb in the following publication: `BonZeb Paper <https://doi.org/10.1038/s41598-020-72821-4>`_
+- **BonZeb**: `BonZeb Website <https://ncguilbeault.github.io/BonZeb/>`_ | `BonZeb Paper <https://www.nature.com/articles/s41598-021-85896-x>`_
 
-2. **Stytra**:
-   - **GitHub**: `Stytra GitHub <https://github.com/portugueslab/stytra>`_
-   - **Article**: Learn more about Stytra in its accompanying article: `Stytra Paper <https://doi.org/10.1038/s41467-019-12201-2>`_
+- **Stytra**: `Stytra Website <https://portugueslab.com/stytra/>`_ | `Stytra Paper <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006699>`_
 
-3. **ZebraZoom**:
-   - **GitHub**: `ZebraZoom GitHub <https://github.com/oliviermirat/ZebraZoom>`_
-   - **Article**: Detailed description of ZebraZoom can be found in its article: `ZebraZoom Paper <https://doi.org/10.1371/journal.pbio.2006950>`_
+- **ZebraZoom**: `ZebraZoom Website <https://zebrazoom.org/>`_ | `ZebraZoom Paper <https://www.frontiersin.org/journals/neural-circuits/articles/10.3389/fncir.2013.00107/full>`_
 
-4. **Deep Learning-Based Methods**:
-   - **DeepLabCut**:
-     - **GitHub**: `DeepLabCut GitHub <https://github.com/DeepLabCut/DeepLabCut>`_
-     - **Article**: Learn about DeepLabCut in its primary publication: `DeepLabCut Paper <https://doi.org/10.1038/s41592-018-0185-0>`_
+If you are working with video recordings of zebrafish larvae, you can also track them using deep learning-based methods:
 
-   - **SLEAP**:
-     - **GitHub**: `SLEAP GitHub <https://github.com/murthylab/sleap>`_
-     - **Article**: Find the research behind SLEAP: `SLEAP Paper <https://doi.org/10.1038/s41592-019-0471-7>`_
+- **DeepLabCut**: `DeepLabCut Website <https://www.mackenziemathislab.org/deeplabcut>`_ | `DeepLabCut Paper <https://www.nature.com/articles/s41593-018-0209-y>`_
+
+- **SLEAP**: `SLEAP Website <https://sleap.ai/>`_ | `SLEAP Paper <https://www.nature.com/articles/s41592-022-01426-1>`_
+
+Once you have tracking data, you are ready to use Megabouts!
 
 Installing Megabouts
 --------------------
@@ -45,14 +38,14 @@ Megabouts is an open-source Python toolbox designed for zebrafish locomotion ana
 
       conda activate megabouts
 
-2. **Install PyTorch**:
-   Since Megabouts depends on PyTorch, you need to install PyTorch first. Follow the instructions on the `PyTorch website <https://pytorch.org/get-started/locally/>`_ to install the appropriate version of PyTorch for your system.
+2. **Install PyTorch [for GPU setup]**:
+   Megabouts depends on PyTorch, to get GPU support, install PyTorch by following the instruction on the `PyTorch website <https://pytorch.org/get-started/locally/>`_ to install the appropriate version for your system.
 
    Example installation command:
 
    .. code-block:: bash
 
-      conda install pytorch torchvision torchaudio cpuonly -c pytorch
+      conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 
    *(Make sure to adjust the command based on your system and GPU/CPU configuration.)*
 
@@ -74,4 +67,4 @@ If no errors are raised, Megabouts has been successfully installed.
 
 Usage Guide
 -----------
-Now that you've installed Megabouts, you can begin analyzing zebrafish locomotion data. Please refer to the `User Guide <index.html>`_ for detailed tutorials and examples.
+Now that you've installed Megabouts, you can begin analyzing zebrafish locomotion data. Please refer to the :doc:`Tutorials </tutorials>` for detailed instructions and examples.
