@@ -87,6 +87,16 @@ References
 
    Home <self>
 
+.. toctree::
+   :maxdepth: 1
+   :caption: User Guide / Tutorial:
+
+   usage
+   preprocessing
+   segmentation
+   notebooks/tutorial_Tail_Classification
+   api/index
+
 
 .. toctree::
    :maxdepth: 1

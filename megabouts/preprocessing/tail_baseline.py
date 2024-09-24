@@ -2,7 +2,9 @@
 import numpy as np
 import pandas as pd
 
-from pybaselines.smooth import noise_median
+#rom pybaselines.smooth import noise_median
+from scipy import ndimage
+
 from pybaselines.misc import beads
 from pybaselines.whittaker import asls
 from scipy.signal import savgol_filter
@@ -27,12 +29,19 @@ def compute_baseline(x,method,params):
     if method =='None':
         baseline = np.zeros_like(x)
     elif method =='median':
+        
+        window_size = 2 * params['half_window'] + 1
+        #baseline = ndimage.median_filter(x, size=window_size,mode='constant',
+        #                cval=0)
+        #baseline = ndimage.gaussian_filter(baseline, sigma=window_size/6)
+        baseline = np.zeros_like(x)
+        '''
         baseline = noise_median(x, 
                                 half_window=params['half_window'], 
                                 smooth_half_window=None, 
                                 sigma=None,
                                 mode='constant',
-                                constant_values=0)[0]
+                                constant_values=0)[0]'''
     elif method =='whittaker':
         baseline_func = partial(compute_baseline_whittaker,
                         win_slow = params['half_window'],
