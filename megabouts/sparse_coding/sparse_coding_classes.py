@@ -2,9 +2,9 @@ import os
 from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
-from ..config.base_config import BaseConfig
-from ..utils.utils_downsampling import create_downsampling_function
-from ..utils.utils_dataframe import create_hierarchical_df
+from ..config import BaseConfig
+from ..utils import create_downsampling_function
+from ..utils import create_hierarchical_df
 from sporco.admm import cbpdnin
 
 

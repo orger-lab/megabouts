@@ -1,1 +1,1 @@
-from .classification import BoutClassifier,TailBouts
+from .classification_classes import BoutClassifier,TailBouts

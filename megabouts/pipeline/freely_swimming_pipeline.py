@@ -8,10 +8,10 @@ from ..preprocessing.traj_preprocessing import TrajPreprocessing
 from ..preprocessing.tail_preprocessing import TailPreprocessing
 
 from ..config.segmentation import TailSegmentationConfig,TrajSegmentationConfig
-from ..segmentation.segmentation import TailSegmentation,TrajSegmentation
-from ..segmentation.segmentation import Segmentation
+from ..segmentation.segmentation_classes import TailSegmentation,TrajSegmentation
+from ..segmentation.segmentation_classes import Segmentation
 
-from ..classification.classification import TailBouts,BoutClassifier
+from ..classification.classification_classes import TailBouts,BoutClassifier
 
 from ..utils.data_utils import create_hierarchical_df
 from ..pipeline.base_pipeline import Pipeline
