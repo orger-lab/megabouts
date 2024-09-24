@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" data-theme="dark">
+<html lang="en" data-content_root="../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -54,14 +54,12 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Preprocessing" href="../preprocessing.html" />
-    <link rel="prev" title="Welcome to Megabouts’ documentation!" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -152,48 +150,26 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    Loading Tracking Data
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../api/index.html">
+  <a class="nav-link nav-internal" href="../api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -229,6 +205,22 @@ document.write(`
 `);
 </script></div>
       
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
     </div>
     
   </div>
@@ -263,7 +255,9 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -285,30 +279,16 @@ document.write(`
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    Loading Tracking Data
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -341,18 +321,25 @@ document.write(`
 `);
 </script></div>
         
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
       </div>
     
   </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
-</nav></div>
-    </div>
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
@@ -412,18 +399,13 @@ into Megabouts.</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">FullTrackingData</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">HeadTrackingData</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TailTrackingData</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.load_example</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="p">(</span><span class="n">TrackingConfig</span><span class="p">,</span> 
+                                     <span class="n">FullTrackingData</span><span class="p">,</span> <span class="n">HeadTrackingData</span><span class="p">,</span><span class="n">TailTrackingData</span><span class="p">,</span>
+                                     <span class="n">load_example_data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -456,7 +438,8 @@ into Megabouts.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;megabouts_tracking_configuration.svg&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;megabouts_tracking_configuration.svg&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -703,67 +686,6 @@ into Megabouts.</p>
 <img alt="../_images/fe12fd77c90844880d746ce62b53a506090ea4a9452b194ad2d0cf73216a696a.png" src="../_images/fe12fd77c90844880d746ce62b53a506090ea4a9452b194ad2d0cf73216a696a.png" />
 </div>
 </div>
-<section id="plotly-version">
-<h3>Plotly version:<a class="headerlink" href="#plotly-version" title="Link to this heading">#</a></h3>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;import numpy as np</span>
-<span class="sd">import plotly.graph_objects as go</span>
-<span class="sd">import matplotlib.colors as mcolors</span>
-
-<span class="sd"># Define time based on tracking data</span>
-<span class="sd">t = np.arange(tracking_data.T) / tracking_cfg.fps</span>
-
-
-<span class="sd"># Create a figure in Plotly</span>
-<span class="sd">fig = go.Figure()</span>
-
-<span class="sd"># Define a custom color cycle (similar to blue_cycler in matplotlib)</span>
-<span class="sd">colors = plt.cm.Blues(np.linspace(.2, .9, num_colors))#[&#39;#1f77b4&#39;, &#39;#1f77b4&#39;, &#39;#1f77b4&#39;]  # You can add more colors if needed</span>
-<span class="sd">hex_colors = [mcolors.to_hex(c) for c in colors] </span>
-
-
-<span class="sd"># Add multiple lines (one for each column in tracking_data.tail_df)</span>
-<span class="sd">for i, column in enumerate(tracking_data.tail_df.columns):</span>
-<span class="sd">    fig.add_trace(go.Scatter(</span>
-<span class="sd">        x=t[:700*60*5],</span>
-<span class="sd">        y=tracking_data.tail_df.iloc[:700*60*5, i],</span>
-<span class="sd">        mode=&#39;lines&#39;,</span>
-<span class="sd">        name=f&#39;Tail Angle {i}&#39;,</span>
-<span class="sd">        line=dict(color=hex_colors[i % len(colors)])  # Apply color cycling</span>
-<span class="sd">    ))</span>
-
-<span class="sd"># Update the layout to match matplotlib style</span>
-<span class="sd">fig.update_layout(</span>
-<span class="sd">    title=&quot;Tail Angle&quot;,</span>
-<span class="sd">    xaxis_title=&quot;Time (s)&quot;,</span>
-<span class="sd">    yaxis_title=&quot;Angle (rad)&quot;,</span>
-<span class="sd">    yaxis=dict(range=[-4, 4]),  # Equivalent to ylim=(-4, 4)</span>
-<span class="sd">    width=1200,  # Equivalent to figsize=(20,5)</span>
-<span class="sd">    height=300</span>
-<span class="sd">)</span>
-<span class="sd">fig.update_xaxes(range=[10, 12])</span>
-<span class="sd">fig.update_yaxes(fixedrange=True)</span>
-
-<span class="sd"># Show the figure</span>
-<span class="sd">fig.show()</span>
-<span class="sd">&#39;&#39;&#39;</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;import numpy as np\nimport plotly.graph_objects as go\nimport matplotlib.colors as mcolors\n\n# Define time based on tracking data\nt = np.arange(tracking_data.T) / tracking_cfg.fps\n\n\n# Create a figure in Plotly\nfig = go.Figure()\n\n# Define a custom color cycle (similar to blue_cycler in matplotlib)\ncolors = plt.cm.Blues(np.linspace(.2, .9, num_colors))#[\&#39;#1f77b4\&#39;, \&#39;#1f77b4\&#39;, \&#39;#1f77b4\&#39;]  # You can add more colors if needed\nhex_colors = [mcolors.to_hex(c) for c in colors] \n\n\n# Add multiple lines (one for each column in tracking_data.tail_df)\nfor i, column in enumerate(tracking_data.tail_df.columns):\n    fig.add_trace(go.Scatter(\n        x=t[:700*60*5],\n        y=tracking_data.tail_df.iloc[:700*60*5, i],\n        mode=\&#39;lines\&#39;,\n        name=f\&#39;Tail Angle {i}\&#39;,\n        line=dict(color=hex_colors[i % len(colors)])  # Apply color cycling\n    ))\n\n# Update the layout to match matplotlib style\nfig.update_layout(\n    title=&quot;Tail Angle&quot;,\n    xaxis_title=&quot;Time (s)&quot;,\n    yaxis_title=&quot;Angle (rad)&quot;,\n    yaxis=dict(range=[-4, 4]),  # Equivalent to ylim=(-4, 4)\n    width=1200,  # Equivalent to figsize=(20,5)\n    height=300\n)\nfig.update_xaxes(range=[10, 12])\nfig.update_yaxes(fixedrange=True)\n\n# Show the figure\nfig.show()\n&#39;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 </section>
 <section id="tail-tracking-in-head-restrained-condition">
 <h2>Tail tracking in head-restrained condition<a class="headerlink" href="#tail-tracking-in-head-restrained-condition" title="Link to this heading">#</a></h2>
@@ -1213,9 +1135,6 @@ into Megabouts.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">mark_inset</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
-<span class="kn">from</span> <span class="nn">megabouts.utils.utils_plot</span> <span class="kn">import</span> <span class="n">cmp_bouts</span>
 
 <span class="n">num_colors</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">blue_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">)))</span>
@@ -1506,9 +1425,6 @@ into Megabouts.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">mark_inset</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
-<span class="kn">from</span> <span class="nn">megabouts.utils.utils_plot</span> <span class="kn">import</span> <span class="n">cmp_bouts</span>
 
 <span class="n">num_colors</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">blue_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">)))</span>
@@ -1575,24 +1491,6 @@ into Megabouts.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../index.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to Megabouts’ documentation!</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../preprocessing.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Preprocessing</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1619,10 +1517,7 @@ into Megabouts.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-example-data">Loading Example Data</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-resolution-tracking-for-freely-swimming-zebrafish">High-resolution tracking for freely-swimming zebrafish</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotly-version">Plotly version:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-resolution-tracking-for-freely-swimming-zebrafish">High-resolution tracking for freely-swimming zebrafish</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-tracking-in-head-restrained-condition">Tail tracking in head-restrained condition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#low-resolution-centroid-tracking-from-the-zebrabox-config">Low resolution centroid tracking from the Zebrabox config</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noisy-tracking-of-freely-swimming-zebrafish">Noisy tracking of freely-swimming zebrafish</a></li>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" data-theme="dark">
+<html lang="en" data-content_root="../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -55,13 +55,13 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="megabouts.tracking_data" href="tracking_data.html" />
-    <link rel="prev" title="Classification" href="../notebooks/tutorial_Tail_Classification.html" />
+    <link rel="prev" title="Tutorials" href="../tutorials.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -153,47 +153,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" current active">
-  <a class="nav-link dropdown-item nav-internal" href="#">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -228,6 +206,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -286,29 +280,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -340,6 +320,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -417,7 +413,6 @@ document.write(`
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tracking_data.html">megabouts.tracking_data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.convert_tracking.compute_angle_between_vectors"><code class="docutils literal notranslate"><span class="pre">compute_angle_between_vectors()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint"><code class="docutils literal notranslate"><span class="pre">interpolate_tail_keypoint()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.convert_tracking.compute_angles_from_keypoints"><code class="docutils literal notranslate"><span class="pre">compute_angles_from_keypoints()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracking_data.html#megabouts.tracking_data.convert_tracking.convert_tail_angle_to_keypoints"><code class="docutils literal notranslate"><span class="pre">convert_tail_angle_to_keypoints()</span></code></a></li>
@@ -431,24 +426,17 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="preprocessing.html">megabouts.preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing"><code class="docutils literal notranslate"><span class="pre">TailPreprocessing</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessing</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="segmentation.html">megabouts.segmentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig"><code class="docutils literal notranslate"><span class="pre">SegmentationConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig"><code class="docutils literal notranslate"><span class="pre">TailSegmentationConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig"><code class="docutils literal notranslate"><span class="pre">TrajSegmentationConfig</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationResult"><code class="docutils literal notranslate"><span class="pre">SegmentationResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.Segmentation"><code class="docutils literal notranslate"><span class="pre">Segmentation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.TailSegmentation"><code class="docutils literal notranslate"><span class="pre">TailSegmentation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationFactory"><code class="docutils literal notranslate"><span class="pre">SegmentationFactory</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="classification.html">megabouts.classification</a><ul>
@@ -459,11 +447,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="classification.html#megabouts.classification.classification.BoutClassifier"><code class="docutils literal notranslate"><span class="pre">BoutClassifier</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">megabouts.pipeline</a></li>
 </ul>
 </div>
 </section>
@@ -479,12 +463,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../notebooks/tutorial_Tail_Classification.html"
+       href="../tutorials.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Classification</p>
+        <p class="prev-next-title">Tutorials</p>
       </div>
     </a>
     <a class="right-next"

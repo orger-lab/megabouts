@@ -2,19 +2,19 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" data-theme="dark">
+<html lang="en" data-content_root="./" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Preprocessing &#8212; Megabouts 0.1 documentation</title>
+    <title>Tutorials &#8212; Megabouts 0.1 documentation</title>
   
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -49,19 +49,19 @@
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'preprocessing';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Segmentation" href="segmentation.html" />
-    <link rel="prev" title="Loading Tracking Data" href="notebooks/Loading_Data.html" />
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -153,47 +153,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="#">
-    Preprocessing
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="api/index.html">
+  <a class="nav-link nav-internal" href="api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -228,6 +206,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -286,29 +280,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="#">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/tutorial_Tail_Classification.html">
-    Classification
+    Tutorials
   </a>
 </li>
 
@@ -340,6 +320,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -386,7 +382,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Preprocessing</li>
+    <li class="breadcrumb-item active" aria-current="page">Tutorials</li>
   </ul>
 </nav>
 </div>
@@ -403,7 +399,27 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="preprocessing">
+  <section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading">#</a></h1>
+<p>This section contains a series of tutorials to help you use the Megabouts package for zebrafish locomotion analysis.</p>
+</section>
+<section id="loading-tracking-data">
+<h1>Loading tracking data<a class="headerlink" href="#loading-tracking-data" title="Link to this heading">#</a></h1>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+
+</div><img alt="Thumbnail for Loading Data Notebook" class="gallery-thumbnail" src="_images/thumbnail_loading_data.png" />
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/Loading_Data.html"><span class="doc">Loading Tracking Data</span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preprocessing">
 <h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h1>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
@@ -411,8 +427,8 @@ document.write(`
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
 <div class="sd-card-body docutils">
 <div class="example-img-plot-overlay">
-Tail angle preprocessing
-</div><img alt="Thumbnail for Notebook 1" class="gallery-thumbnail" src="_images/thumbnail_tail_preprocessing.png" />
+Tail Angle Preprocessing
+</div><img alt="Thumbnail for Tail Preprocessing Notebook" class="gallery-thumbnail" src="_images/thumbnail_tail_preprocessing.png" />
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/tutorial_Tail_Preprocessing.html"><span class="doc">Tutorial: Tail Preprocessing 	🐬</span></a></div>
 </div>
@@ -420,10 +436,92 @@ Tail angle preprocessing
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
 <div class="sd-card-body docutils">
 <div class="example-img-plot-overlay">
-Trajectory preprocessing
-</div><img alt="Thumbnail for Notebook 2" class="gallery-thumbnail" src="_images/thumbnail_traj_preprocessing.png" />
+Trajectory Preprocessing
+</div><img alt="Thumbnail for Trajectory Preprocessing Notebook" class="gallery-thumbnail" src="_images/thumbnail_traj_preprocessing.png" />
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/tutorial_Traj_Preprocessing.html"><span class="doc">Tutorial: Traj Preprocessing</span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="segmentation">
+<h1>Segmentation<a class="headerlink" href="#segmentation" title="Link to this heading">#</a></h1>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+Tail Segmentation
+</div><img alt="Thumbnail for Tail Segmentation Notebook" class="gallery-thumbnail" src="_images/thumbnail_tail_segmentation.png" />
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/tutorial_Tail_Segmentation.html"><span class="doc">Tutorial: Tail Segmentation</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+Trajectory Segmentation
+</div><img alt="Thumbnail for Trajectory Segmentation Notebook" class="gallery-thumbnail" src="_images/thumbnail_traj_segmentation.png" />
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/tutorial_Traj_Segmentation.html"><span class="doc">Tutorial: Traj Segmentation</span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="classification">
+<h1>Classification<a class="headerlink" href="#classification" title="Link to this heading">#</a></h1>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+
+</div><img alt="Thumbnail for Classification Notebook" class="gallery-thumbnail" src="_images/thumbnail_tail_classification.png" />
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/tutorial_Tail_Classification.html"><span class="doc">Classification</span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="freely-swimming-pipeline">
+<h1>Freely-swimming Pipeline<a class="headerlink" href="#freely-swimming-pipeline" title="Link to this heading">#</a></h1>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+High Resolution Full Tracking
+</div><img alt="Thumbnail for High Resolution Full Tracking Notebook" class="gallery-thumbnail" src="_images/thumbnail_high_res_full_tracking.png" />
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="notebooks/tutorial_FullTracking_Pipeline.html"><span class="doc">&lt;no title&gt;</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+Low Resolution Head Tracking
+</div><img alt="Thumbnail for Low Resolution Head Tracking Notebook" class="gallery-thumbnail" src="_static/images/thumbnail_low_res_head_tracking.png" />
+</div>
+<span class="sd-stretched-link sd-hide-link-text">notebooks/tutorial_Low_Res_Head_Tracking</span></div>
+</div>
+</div>
+</div>
+</section>
+<section id="head-restrained-pipeline">
+<h1>Head-restrained Pipeline<a class="headerlink" href="#head-restrained-pipeline" title="Link to this heading">#</a></h1>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-none sd-card-hover example-gallery docutils">
+<div class="sd-card-body docutils">
+<div class="example-img-plot-overlay">
+Head-restrained Pipeline
+</div><img alt="Thumbnail for Head-restrained Pipeline Notebook" class="gallery-thumbnail" src="_static/images/thumbnail_head_restrained_pipeline.png" />
+</div>
+<span class="sd-stretched-link sd-hide-link-text">notebooks/tutorial_Head_Restrained</span></div>
 </div>
 </div>
 </div>
@@ -440,20 +538,20 @@ Trajectory preprocessing
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="notebooks/Loading_Data.html"
+       href="usage.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Loading Tracking Data</p>
+        <p class="prev-next-title">Usage</p>
       </div>
     </a>
     <a class="right-next"
-       href="segmentation.html"
+       href="api/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Segmentation</p>
+        <p class="prev-next-title">API Reference</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -468,9 +566,28 @@ Trajectory preprocessing
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tutorials</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-tracking-data">Loading tracking data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">Segmentation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#freely-swimming-pipeline">Freely-swimming Pipeline</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#head-restrained-pipeline">Head-restrained Pipeline</a></li>
+</ul>
+
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="_sources/preprocessing.rst.txt">
+    <a href="_sources/tutorials.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

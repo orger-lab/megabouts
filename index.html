@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" data-theme="dark">
+<html lang="en" data-content_root="./" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -54,13 +54,13 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Loading Tracking Data" href="notebooks/Loading_Data.html" />
+    <link rel="next" title="Usage" href="usage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -152,47 +152,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="api/index.html">
+  <a class="nav-link nav-internal" href="api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -227,6 +205,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -287,29 +281,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -342,6 +322,22 @@ document.write(`
 `);
 </script></div>
         
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
       </div>
     
   </div>
@@ -369,10 +365,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div style="text-align: center; padding-top: 20px;">
-    <img src="_static/images/under_construction.png" alt="Under Construction" style="vertical-align: middle; height: 50px; margin-right: 10px;">
-    <span style="font-size: 24px; color: #FFA500; font-weight: bold; vertical-align: middle;">Website Under Construction</span>
-</div><a class="only-dark reference internal image-reference" href="_images/logo_color_dark.png"><img alt="_images/logo_color_dark.png" class="only-dark align-center" src="_images/logo_color_dark.png" style="width: 640px;" />
+  <a class="only-dark reference internal image-reference" href="_images/logo_color_dark.png"><img alt="_images/logo_color_dark.png" class="only-dark align-center" src="_images/logo_color_dark.png" style="width: 640px;" />
 </a>
 <a class="only-light reference internal image-reference" href="_images/logo_color_white.png"><img alt="_images/logo_color_white.png" class="only-light align-center" src="_images/logo_color_white.png" style="width: 640px;" />
 </a>
@@ -380,32 +373,73 @@ document.write(`
 <h1>Welcome to Megabouts’ documentation!<a class="headerlink" href="#welcome-to-megabouts-documentation" title="Link to this heading">#</a></h1>
 <p>Accurate measurements of behavior are crucial to understanding animal physiology.
 Megabouts allows to quantify zebrafish larvae locomotion.
-This open-source Python toolbox handles locomotion in both freely swimming and head-restrained conditions and aims to promote standardized zebrafish locomotion analysis across neuroscience, pharmacology, and genetics.</p>
-<p>The details for the underlying mathematics can be found in
-<a class="reference external" href="https://arxiv.org">our paper on ArXiv</a>:</p>
-<p>Jouary, A et al., <em>Megabouts: a toolbox for quantifying zebrafish locomotion</em>, ArXiv e-prints number, 2024</p>
-<p>You can find the software <a class="reference external" href="https://github.com/">on github</a>.</p>
+This open-source Python toolbox handles locomotion in both freely swimming and head-restrained conditions and aims to promote standardized zebrafish locomotion analysis across neuroscience, pharmacology, and genetics.
+For more details, check <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1">our paper on bioRxiv</a></p>
+<p>Please support the development of Megabouts by starring and/or watching the project on <a class="reference external" href="https://github.com/orger-lab/megabouts">Github</a>!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Megabouts is under active development and might include breaking changes
+between versions. If you use Megabouts in your work, we recommend to double check
+your current version.</p>
+</div>
+<section id="installation-and-setup">
+<h2>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Link to this heading">#</a></h2>
+<p>Please head over to the <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a> tab to find step-by-step instructions to use Megabouts on your data. For example use cases, see the <a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a> tab.</p>
+<p>—</p>
+</section>
+<section id="publication">
+<h2>Publication:<a class="headerlink" href="#publication" title="Link to this heading">#</a></h2>
+<p>The details for the underlying mathematics and methods can be found in our publication:
+<a class="reference external" href="https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1">our paper on bioRxiv</a>:</p>
+<blockquote>
+<div><p><strong>Jouary, A et al.</strong>
+<em>Megabouts: a flexible pipeline for zebrafish locomotion analysis</em>,
+<strong>bioRxiv</strong>, 2024.</p>
+</div></blockquote>
+<p>—</p>
+</section>
+<section id="find-the-software">
+<h2>Find the Software:<a class="headerlink" href="#find-the-software" title="Link to this heading">#</a></h2>
+<p>You can find the software and source code on <a class="reference external" href="https://github.com/orger-lab/megabouts">GitHub</a></p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<p>Please head over to the <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a> tab to find step-by-step instructions to use Megabouts on your data. For example use cases, see the <span class="xref std std-doc">Demos</span> tab.</p>
 <p><strong>Installation</strong></p>
 <p>PyPI install, presuming you have pytorch and all its requirements installed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>megabouts
 </pre></div>
 </div>
-<div class="toctree-wrapper compound">
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">jouary2024megabouts</span><span class="p">,</span>
+<span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Megabouts</span><span class="p">:</span> <span class="n">a</span> <span class="n">flexible</span> <span class="n">pipeline</span> <span class="k">for</span> <span class="n">zebrafish</span> <span class="n">locomotion</span> <span class="n">analysis</span><span class="p">},</span>
+<span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Jouary</span><span class="p">,</span> <span class="n">Adrien</span> <span class="ow">and</span> <span class="n">Laborde</span><span class="p">,</span> <span class="n">Alexandre</span> <span class="ow">and</span> <span class="n">Silva</span><span class="p">,</span> <span class="n">Pedro</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">Mata</span><span class="p">,</span> <span class="n">J</span> <span class="n">Miguel</span> <span class="ow">and</span> <span class="n">Marques</span><span class="p">,</span> <span class="n">Joao</span> <span class="n">C</span> <span class="ow">and</span> <span class="n">Collins</span><span class="p">,</span> <span class="n">Elena</span> <span class="ow">and</span> <span class="n">Peterson</span><span class="p">,</span> <span class="n">Randall</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">Machens</span><span class="p">,</span> <span class="n">Christian</span> <span class="n">K</span> <span class="ow">and</span> <span class="n">Orger</span><span class="p">,</span> <span class="n">Michael</span> <span class="n">B</span><span class="p">},</span>
+<span class="n">journal</span><span class="o">=</span><span class="p">{</span><span class="n">bioRxiv</span><span class="p">},</span>
+<span class="n">pages</span><span class="o">=</span><span class="p">{</span><span class="mi">2024</span><span class="o">--</span><span class="mi">09</span><span class="p">},</span>
+<span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2024</span><span class="p">},</span>
+<span class="n">publisher</span><span class="o">=</span><span class="p">{</span><span class="n">Cold</span> <span class="n">Spring</span> <span class="n">Harbor</span> <span class="n">Laboratory</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="dropdown admonition note">
-<p class="admonition-title">Note</p>
-<p>This is my note.</p>
+<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide / Tutorial:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/Loading_Data.html">Loading Tracking Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="segmentation.html">Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial_Tail_Classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#loading-tracking-data">Loading tracking data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#preprocessing">Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#segmentation">Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#freely-swimming-pipeline">Freely-swimming Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#head-restrained-pipeline">Head-restrained Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 </ul>
 </div>
+</section>
 </section>
 
 
@@ -419,11 +453,11 @@ This open-source Python toolbox handles locomotion in both freely swimming and h
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="notebooks/Loading_Data.html"
+       href="usage.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Loading Tracking Data</p>
+        <p class="prev-next-title">Usage</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -436,6 +470,24 @@ This open-source Python toolbox handles locomotion in both freely swimming and h
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-and-setup">Installation and Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publication">Publication:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-software">Find the Software:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 

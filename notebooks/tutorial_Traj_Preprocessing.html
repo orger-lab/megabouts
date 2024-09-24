@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" data-theme="dark">
+<html lang="en" data-content_root="../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -59,7 +59,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -151,47 +151,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../api/index.html">
+  <a class="nav-link nav-internal" href="../api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -226,6 +204,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -286,29 +280,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -340,6 +320,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -411,20 +407,27 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.load_example</span> <span class="kn">import</span> <span class="n">load_example_data</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">FullTrackingData</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessingResult</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">FullTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
+<span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
+<span class="kn">from</span> <span class="nn">megabouts.preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">FullTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">megabouts.preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;megabouts.config&#39;
 </pre></div>
 </div>
 </div>
@@ -436,53 +439,30 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data and set tracking configuration</span>
+<span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;SLEAP_fulltracking&#39;</span><span class="p">)</span>
 <span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
 
-<span class="n">head_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
-<span class="n">head_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
-<span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_angle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_angle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># List of keypoints</span>
+<span class="n">keypoints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;left_eye&#39;</span><span class="p">,</span> <span class="s1">&#39;right_eye&#39;</span><span class="p">,</span> <span class="s1">&#39;tail0&#39;</span><span class="p">,</span> <span class="s1">&#39;tail1&#39;</span><span class="p">,</span> <span class="s1">&#39;tail2&#39;</span><span class="p">,</span> <span class="s1">&#39;tail3&#39;</span><span class="p">,</span> <span class="s1">&#39;tail4&#39;</span><span class="p">]</span>
 
-<span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
-                                              <span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="p">,</span>
-                                              <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span><span class="p">,</span>
-                                              <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">megabouts.utils.utils_downsampling</span> <span class="kn">import</span> <span class="n">create_downsampling_function</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="c1"># Place NaN where the score is below a threshold</span>
+<span class="n">thresh_score</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="k">for</span> <span class="n">kps</span> <span class="ow">in</span> <span class="n">keypoints</span><span class="p">:</span>
+    <span class="n">score_below_thresh</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;instance.score&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thresh_score</span>
+    <span class="n">df_recording</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">score_below_thresh</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_recording</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">kps</span><span class="si">}</span><span class="s1">.score&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thresh_score</span><span class="p">),</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">kps</span><span class="si">}</span><span class="s1">.x&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">kps</span><span class="si">}</span><span class="s1">.y&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
+<span class="c1"># Compute head and tail coordinates and convert to mm</span>
+<span class="n">head_x</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;left_eye.x&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;right_eye.x&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="n">head_y</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;left_eye.y&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;right_eye.y&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="n">tail_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[[</span><span class="sa">f</span><span class="s1">&#39;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">.x&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="n">tail_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[[</span><span class="sa">f</span><span class="s1">&#39;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">.y&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
 
-<span class="n">head_x</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
-<span class="n">head_y</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">*</span><span class="n">mm_per_unit</span>
-<span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df_recording</span><span class="p">[</span><span class="s1">&#39;head_angle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df_recording</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_angle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-
-<span class="n">fps</span> <span class="o">=</span> <span class="mi">60</span>
-<span class="n">downsampling_f</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">create_downsampling_function</span><span class="p">(</span><span class="n">fps</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">head_x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">700</span><span class="p">)</span>
-<span class="n">head_x</span> <span class="o">=</span> <span class="n">downsampling_f</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">head_y</span> <span class="o">=</span> <span class="n">downsampling_f</span><span class="p">(</span><span class="n">head_y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">head_yaw</span> <span class="o">=</span> <span class="n">downsampling_f</span><span class="p">(</span><span class="n">head_yaw</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">tail_angle</span> <span class="o">=</span> <span class="n">downsampling_f</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
-
-<span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span><span class="n">head_x</span> <span class="o">=</span> <span class="n">head_x</span><span class="p">,</span>
-                                              <span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="p">,</span>
-                                              <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span><span class="p">,</span>
-                                              <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="p">)</span>
+<span class="c1"># Create FullTrackingData object</span>
+<span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="o">=</span><span class="n">head_x</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                                <span class="n">head_y</span><span class="o">=</span><span class="n">head_y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                                <span class="n">tail_x</span><span class="o">=</span><span class="n">tail_x</span><span class="p">,</span>
+                                                <span class="n">tail_y</span><span class="o">=</span><span class="n">tail_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -550,12 +530,12 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>-22.979468</td>
-      <td>3.989994</td>
-      <td>-2.218813</td>
-      <td>-22.979468</td>
-      <td>3.989994</td>
-      <td>-2.218813</td>
+      <td>20.381254</td>
+      <td>20.996582</td>
+      <td>1.491111</td>
+      <td>20.381254</td>
+      <td>20.996582</td>
+      <td>1.491111</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -564,12 +544,12 @@ document.write(`
     </tr>
     <tr>
       <th>1</th>
-      <td>-22.990228</td>
-      <td>3.989290</td>
-      <td>-2.228331</td>
-      <td>-22.986751</td>
-      <td>3.989518</td>
-      <td>-2.225255</td>
+      <td>20.381340</td>
+      <td>20.996807</td>
+      <td>1.491013</td>
+      <td>20.381277</td>
+      <td>20.996642</td>
+      <td>1.491085</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -578,43 +558,43 @@ document.write(`
     </tr>
     <tr>
       <th>2</th>
-      <td>-22.969361</td>
-      <td>3.994143</td>
-      <td>-2.216719</td>
-      <td>-22.974899</td>
-      <td>3.992649</td>
-      <td>-2.219442</td>
-      <td>-0.146637</td>
-      <td>0.060273</td>
-      <td>-0.018851</td>
+      <td>20.381337</td>
+      <td>20.997020</td>
+      <td>1.491086</td>
+      <td>20.381293</td>
+      <td>20.996742</td>
+      <td>1.491085</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-22.999877</td>
-      <td>3.953214</td>
-      <td>-2.221179</td>
-      <td>-22.991995</td>
-      <td>3.965878</td>
-      <td>-2.220624</td>
-      <td>0.660204</td>
-      <td>0.303063</td>
-      <td>0.138920</td>
+      <td>20.418551</td>
+      <td>20.997656</td>
+      <td>1.430916</td>
+      <td>20.391138</td>
+      <td>20.996983</td>
+      <td>1.475189</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-23.005045</td>
-      <td>3.927213</td>
-      <td>-2.209680</td>
-      <td>-23.000969</td>
-      <td>3.939064</td>
-      <td>-2.213209</td>
-      <td>1.753138</td>
-      <td>0.349947</td>
-      <td>0.186993</td>
+      <td>20.418671</td>
+      <td>20.997872</td>
+      <td>1.430749</td>
+      <td>20.399294</td>
+      <td>20.997219</td>
+      <td>1.461210</td>
+      <td>0.293531</td>
+      <td>-1.616157</td>
+      <td>-2.659344</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
@@ -632,15 +612,15 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
 <span class="n">IdSt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="n">Duration</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
-
 <span class="n">t_win</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">]</span>
+
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">traj</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;raw position&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">traj</span><span class="o">.</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;smooth position&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">traj</span><span class="o">.</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;smooth position&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">traj</span><span class="o">.</span><span class="n">vigor</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;trajectory vigor&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;x position (mm)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;vigor (A.U.)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;frame number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
     <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -650,7 +630,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/68a9b598d6e6d5af39327f4709f5d184aef61abd7a58fe766015ef46b9987a6d.png" src="../_images/68a9b598d6e6d5af39327f4709f5d184aef61abd7a58fe766015ef46b9987a6d.png" />
+<img alt="../_images/0a09e763b673eee4100b9182083e4a5343889401de11bb1f660fc36f4f182604.png" src="../_images/0a09e763b673eee4100b9182083e4a5343889401de11bb1f660fc36f4f182604.png" />
 </div>
 </div>
 </section>
@@ -667,6 +647,15 @@ The parameters are set using two-step procedure:</p>
 <h2><strong>Step 1</strong><a class="headerlink" href="#step-1" title="Link to this heading">#</a></h2>
 <p><strong><code class="docutils literal notranslate"><span class="pre">beta</span></code> is set to 0 and <code class="docutils literal notranslate"><span class="pre">freq_cutoff_min</span></code> to 10Hz. Focus on a part of the recording where the fish is not swimming or swimming at low speed.<br />
 <code class="docutils literal notranslate"><span class="pre">freq_cutoff_min</span></code> is adjusted to remove jitter and preserve an acceptable lag during these slow movements.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TrajPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
+                                                 <span class="n">freq_cutoff_min</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                                                 <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -674,25 +663,28 @@ The parameters are set using two-step procedure:</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IdSt</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">Duration</span> <span class="o">=</span> <span class="mi">100</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IdSt</span> <span class="o">=</span> <span class="mi">26800</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">t_win</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">]</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">x</span>
-<span class="n">x_smooth</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">one_euro_filter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">freq_cutoff_min</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rate</span> <span class="o">=</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">traj_df_input</span><span class="o">.</span><span class="n">x</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="p">(</span><span class="n">traj_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_traj_df</span><span class="p">(</span><span class="n">traj_df_input</span><span class="p">)</span>
+<span class="n">x_smooth</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x_smooth</span>
 
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Tuning &#39;</span><span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$\text</span><span class="si">{freq_cutoff_min}</span><span class="s1">$&#39;</span><span class="o">+</span> <span class="s1">&#39; during slow movement&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;raw position&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;smoothed position&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;frame number&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;x position (mm)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;raw position&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;smoothed position&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;time (s)&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;x position (mm)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="c1">#plt.savefig(&#39;traj_preprocessing.svg&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/c5e480eed043d8c8592605f8d14b2d5fadf94d4642eafacee1ff13aef17eda9e.png" src="../_images/c5e480eed043d8c8592605f8d14b2d5fadf94d4642eafacee1ff13aef17eda9e.png" />
+<img alt="../_images/7321dc60ee32bd96431b80879ddb4539d6b634443103c357936994a31f767b7b.png" src="../_images/7321dc60ee32bd96431b80879ddb4539d6b634443103c357936994a31f767b7b.png" />
 </div>
 </div>
 <p>✅	 Here a value close to 10Hz for <code class="docutils literal notranslate"><span class="pre">freq_cutoff_min</span></code> allows to smooth while keeping an acceptable lag*</p>
@@ -700,6 +692,15 @@ The parameters are set using two-step procedure:</p>
 <section id="step-2">
 <h2><strong>Step 2</strong><a class="headerlink" href="#step-2" title="Link to this heading">#</a></h2>
 <p><strong>Focus on a part of the recording where the fish is moving fast. Adjust <code class="docutils literal notranslate"><span class="pre">beta</span></code> with a focus on minimizing lag.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TrajPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
+                                                 <span class="n">freq_cutoff_min</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                                                 <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -707,17 +708,19 @@ The parameters are set using two-step procedure:</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IdSt</span> <span class="o">=</span> <span class="mi">2300</span>
-<span class="n">Duration</span> <span class="o">=</span> <span class="mi">100</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IdSt</span> <span class="o">=</span> <span class="mi">81600</span><span class="c1">#np.random.randint(x.shape[0])</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">t_win</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">]</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">x</span>
-<span class="n">x_smooth</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">one_euro_filter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">freq_cutoff_min</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">traj_df_input</span><span class="o">.</span><span class="n">x</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="p">(</span><span class="n">traj_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_traj_df</span><span class="p">(</span><span class="n">traj_df_input</span><span class="p">)</span>
+<span class="n">x_smooth</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">x_smooth</span>
 
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Tuning &#39;</span><span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$\text</span><span class="si">{beta}</span><span class="s1">$&#39;</span><span class="o">+</span> <span class="s1">&#39; during fast movement&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;raw position&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;smoothed position&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;frame number&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;x position (mm)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;raw position&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_win</span><span class="p">,</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">IdSt</span><span class="p">:</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;smoothed position&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;time (s)&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;x position (mm)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -725,7 +728,7 @@ The parameters are set using two-step procedure:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6f219c1331a7ad12f835cad8cf46b23ca5a0b25c383260ce999fab261c692c6a.png" src="../_images/6f219c1331a7ad12f835cad8cf46b23ca5a0b25c383260ce999fab261c692c6a.png" />
+<img alt="../_images/5efd4dcce492d55f2757a7ba9665df56c6a99147a72b814624dc049ec0535e38.png" src="../_images/5efd4dcce492d55f2757a7ba9665df56c6a99147a72b814624dc049ec0535e38.png" />
 </div>
 </div>
 <p>✅	<em>Here we selected <code class="docutils literal notranslate"><span class="pre">beta=1.4</span></code></em></p>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" data-theme="dark">
+<html lang="en" data-content_root="./" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -12,8 +12,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -58,7 +58,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -150,47 +150,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="api/index.html">
+  <a class="nav-link nav-internal" href="api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -225,6 +203,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -281,29 +275,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -335,6 +315,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -373,12 +369,10 @@ document.write(`
  | <a href="#C"><strong>C</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
@@ -400,21 +394,11 @@ document.write(`
 </li>
         <li><a href="api/classification.html#megabouts.classification.transformer_network.TransAm.__init__">(megabouts.classification.transformer_network.TransAm method)</a>
 </li>
-        <li><a href="api/pipeline.html#megabouts.pipeline.base_config.BaseConfig.__init__">(megabouts.pipeline.base_config.BaseConfig method)</a>
-</li>
-        <li><a href="api/pipeline.html#megabouts.pipeline.base_config.ConfigManager.__init__">(megabouts.pipeline.base_config.ConfigManager method)</a>
-</li>
-        <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.__init__">(megabouts.preprocessing.tail_preprocessing.PreprocessingConfig method)</a>
-</li>
         <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.__init__">(megabouts.preprocessing.tail_preprocessing.TailPreprocessing method)</a>
-</li>
-        <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.__init__">(megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig method)</a>
 </li>
         <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult.__init__">(megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult method)</a>
 </li>
         <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.__init__">(megabouts.preprocessing.traj_preprocessing.TrajPreprocessing method)</a>
-</li>
-        <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.__init__">(megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig method)</a>
 </li>
         <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult.__init__">(megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult method)</a>
 </li>
@@ -425,12 +409,6 @@ document.write(`
         <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.__init__">(megabouts.segmentation.segmentation.TailSegmentation method)</a>
 </li>
         <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.__init__">(megabouts.segmentation.segmentation.TrajSegmentation method)</a>
-</li>
-        <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig.__init__">(megabouts.segmentation.segmentation_config.SegmentationConfig method)</a>
-</li>
-        <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig.__init__">(megabouts.segmentation.segmentation_config.TailSegmentationConfig method)</a>
-</li>
-        <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.__init__">(megabouts.segmentation.segmentation_config.TrajSegmentationConfig method)</a>
 </li>
         <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.__init__">(megabouts.tracking_data.tracking_data.FullTrackingData method)</a>
 </li>
@@ -455,22 +433,10 @@ document.write(`
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.BaseConfig">BaseConfig (class in megabouts.pipeline.base_config)</a>
-</li>
-      <li><a href="api/preprocessing.html#id3">baseline_method (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_method">[1]</a>
-</li>
-      <li><a href="api/preprocessing.html#id4">baseline_params (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_params">[1]</a>
-</li>
-      <li><a href="api/preprocessing.html#id8">beta (megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.beta">[1]</a>
+      <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier">BoutClassifier (class in megabouts.classification.classification)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration">bout_duration (megabouts.segmentation.segmentation_config.SegmentationConfig property)</a>
-</li>
-      <li><a href="api/segmentation.html#id0">bout_duration_ms (megabouts.segmentation.segmentation_config.SegmentationConfig attribute)</a>, <a href="api/segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig.bout_duration_ms">[1]</a>
-</li>
-      <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier">BoutClassifier (class in megabouts.classification.classification)</a>
-</li>
       <li><a href="api/classification.html#megabouts.classification.transformer_network.BoutsDataset">BoutsDataset (class in megabouts.classification.transformer_network)</a>
 </li>
   </ul></td>
@@ -479,13 +445,7 @@ document.write(`
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.ConfigManager.check_configs">check_configs() (megabouts.pipeline.base_config.ConfigManager method)</a>
-</li>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.ConfigManager.check_fps_consistency">check_fps_consistency() (megabouts.pipeline.base_config.ConfigManager method)</a>
-</li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.clean_using_pca">clean_using_pca() (megabouts.preprocessing.tail_preprocessing.TailPreprocessing static method)</a>
-</li>
-      <li><a href="api/tracking_data.html#megabouts.tracking_data.convert_tracking.compute_angle_between_vectors">compute_angle_between_vectors() (in module megabouts.tracking_data.convert_tracking)</a>
 </li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.convert_tracking.compute_angles_from_keypoints">compute_angles_from_keypoints() (in module megabouts.tracking_data.convert_tracking)</a>
 </li>
@@ -501,13 +461,7 @@ document.write(`
 </li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_tail_speed">compute_tail_speed() (megabouts.preprocessing.tail_preprocessing.TailPreprocessing static method)</a>
 </li>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.ConfigManager">ConfigManager (class in megabouts.pipeline.base_config)</a>
-</li>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.ConfigManager.configs">configs (megabouts.pipeline.base_config.ConfigManager attribute)</a>
-</li>
       <li><a href="api/classification.html#megabouts.classification.transformer_network.ContinuousPositionalEncoding">ContinuousPositionalEncoding (class in megabouts.classification.transformer_network)</a>
-</li>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.BaseConfig.convert_ms_to_frames">convert_ms_to_frames() (megabouts.pipeline.base_config.BaseConfig method)</a>
 </li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.convert_tracking.convert_tail_angle_to_keypoints">convert_tail_angle_to_keypoints() (in module megabouts.tracking_data.convert_tracking)</a>
 </li>
@@ -541,25 +495,13 @@ document.write(`
 </li>
       <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak">find_onset_offset_around_peak() (megabouts.segmentation.segmentation.TrajSegmentation static method)</a>
 </li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc">first_half_beat_loc (megabouts.segmentation.segmentation_config.SegmentationConfig property)</a>
-</li>
-      <li><a href="api/segmentation.html#id1">first_half_beat_loc_ms (megabouts.segmentation.segmentation_config.SegmentationConfig attribute)</a>, <a href="api/segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig.first_half_beat_loc_ms">[1]</a>
-</li>
       <li><a href="api/classification.html#megabouts.classification.transformer_network.ContinuousPositionalEncoding.forward">forward() (megabouts.classification.transformer_network.ContinuousPositionalEncoding method)</a>
 
       <ul>
         <li><a href="api/classification.html#megabouts.classification.transformer_network.TransAm.forward">(megabouts.classification.transformer_network.TransAm method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pipeline.html#megabouts.pipeline.base_config.BaseConfig.fps">fps (megabouts.pipeline.base_config.BaseConfig attribute)</a>
-
-      <ul>
-        <li><a href="api/pipeline.html#id0">(megabouts.pipeline.base_config.BaseConfig property)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#id7">freq_cutoff_min (megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.freq_cutoff_min">[1]</a>
+      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.from_config">from_config() (megabouts.segmentation.segmentation.Segmentation class method)</a>
 </li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.from_keypoints">from_keypoints() (megabouts.tracking_data.tracking_data.FullTrackingData class method)</a>
 
@@ -571,6 +513,8 @@ document.write(`
         <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingData.from_keypoints">(megabouts.tracking_data.tracking_data.TrackingData class method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.from_posture">from_posture() (megabouts.tracking_data.tracking_data.FullTrackingData class method)</a>
 
       <ul>
@@ -582,14 +526,6 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData">FullTrackingData (class in megabouts.tracking_data.tracking_data)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.SegmentationFactory.get_segmenter">get_segmenter() (megabouts.segmentation.segmentation.SegmentationFactory static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -621,18 +557,10 @@ document.write(`
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity">lag_kinematic_activity (megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig property)</a>
-</li>
-      <li><a href="api/preprocessing.html#id10">lag_kinematic_activity_ms (megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity_ms">[1]</a>
-</li>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na">limit_na (megabouts.preprocessing.tail_preprocessing.PreprocessingConfig property)</a>
+      <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier.load_classifier">load_classifier() (megabouts.classification.classification.BoutClassifier method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#id0">limit_na_ms (megabouts.preprocessing.tail_preprocessing.PreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na_ms">[1]</a>
-</li>
-      <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier.load_classifier">load_classifier() (megabouts.classification.classification.BoutClassifier method)</a>
-</li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.load_example.load_example_data">load_example_data() (in module megabouts.tracking_data.load_example)</a>
 </li>
   </ul></td>
@@ -641,8 +569,6 @@ document.write(`
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.margin_before_peak_ms">margin_before_peak_ms (megabouts.segmentation.segmentation_config.TrajSegmentationConfig attribute)</a>
-</li>
       <li>
     megabouts
 
@@ -676,13 +602,6 @@ document.write(`
 
       <ul>
         <li><a href="api/pipeline.html#module-megabouts.pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
-    megabouts.pipeline.base_config
-
-      <ul>
-        <li><a href="api/pipeline.html#module-megabouts.pipeline.base_config">module</a>
 </li>
       </ul></li>
       <li>
@@ -721,13 +640,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    megabouts.segmentation.segmentation_config
-
-      <ul>
-        <li><a href="api/segmentation.html#module-megabouts.segmentation.segmentation_config">module</a>
-</li>
-      </ul></li>
-      <li>
     megabouts.tracking_data
 
       <ul>
@@ -757,10 +669,6 @@ document.write(`
         <li><a href="api/tracking_data.html#module-megabouts.tracking_data.tracking_data">module</a>
 </li>
       </ul></li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration">min_bout_duration (megabouts.segmentation.segmentation_config.TailSegmentationConfig property)</a>
-</li>
-      <li><a href="api/segmentation.html#id2">min_bout_duration_ms (megabouts.segmentation.segmentation_config.TailSegmentationConfig attribute)</a>, <a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig.min_bout_duration_ms">[1]</a>
-</li>
       <li>
     module
 
@@ -775,8 +683,6 @@ document.write(`
 </li>
         <li><a href="api/pipeline.html#module-megabouts.pipeline">megabouts.pipeline</a>
 </li>
-        <li><a href="api/pipeline.html#module-megabouts.pipeline.base_config">megabouts.pipeline.base_config</a>
-</li>
         <li><a href="api/preprocessing.html#module-megabouts.preprocessing">megabouts.preprocessing</a>
 </li>
         <li><a href="api/preprocessing.html#module-megabouts.preprocessing.tail_preprocessing">megabouts.preprocessing.tail_preprocessing</a>
@@ -787,8 +693,6 @@ document.write(`
 </li>
         <li><a href="api/segmentation.html#module-megabouts.segmentation.segmentation">megabouts.segmentation.segmentation</a>
 </li>
-        <li><a href="api/segmentation.html#module-megabouts.segmentation.segmentation_config">megabouts.segmentation.segmentation_config</a>
-</li>
         <li><a href="api/tracking_data.html#module-megabouts.tracking_data">megabouts.tracking_data</a>
 </li>
         <li><a href="api/tracking_data.html#module-megabouts.tracking_data.convert_tracking">megabouts.tracking_data.convert_tracking</a>
@@ -798,14 +702,6 @@ document.write(`
         <li><a href="api/tracking_data.html#module-megabouts.tracking_data.tracking_data">megabouts.tracking_data.tracking_data</a>
 </li>
       </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#id1">num_pcs (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.num_pcs">[1]</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -820,10 +716,6 @@ document.write(`
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_percentage">peak_percentage (megabouts.segmentation.segmentation_config.TrajSegmentationConfig attribute)</a>
-</li>
-      <li><a href="api/segmentation.html#id4">peak_prominence (megabouts.segmentation.segmentation_config.TrajSegmentationConfig attribute)</a>, <a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig.peak_prominence">[1]</a>
-</li>
       <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier.prepare_tensor_input">prepare_tensor_input() (megabouts.classification.classification.BoutClassifier method)</a>
 </li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.preprocess_tail_angle">preprocess_tail_angle() (megabouts.preprocessing.tail_preprocessing.TailPreprocessing method)</a>
@@ -834,8 +726,6 @@ document.write(`
 </li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.preprocess_traj_df">preprocess_traj_df() (megabouts.preprocessing.traj_preprocessing.TrajPreprocessing method)</a>
 </li>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig">PreprocessingConfig (class in megabouts.preprocessing.tail_preprocessing)</a>
-</li>
       <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier.process_results">process_results() (megabouts.classification.classification.BoutClassifier method)</a>
 </li>
   </ul></td>
@@ -844,12 +734,6 @@ document.write(`
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff">robust_diff (megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig property)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#id9">robust_diff_filt_ms (megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff_filt_ms">[1]</a>
-</li>
       <li><a href="api/classification.html#megabouts.classification.classification.BoutClassifier.run_classification">run_classification() (megabouts.classification.classification.BoutClassifier method)</a>
 </li>
   </ul></td>
@@ -858,21 +742,17 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window">savgol_window (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig property)</a>
+      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.segment">segment() (megabouts.segmentation.segmentation.Segmentation method)</a>
+
+      <ul>
+        <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.segment">(megabouts.segmentation.segmentation.TailSegmentation method)</a>
 </li>
-      <li><a href="api/preprocessing.html#id2">savgol_window_ms (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window_ms">[1]</a>
+        <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.segment">(megabouts.segmentation.segmentation.TrajSegmentation method)</a>
 </li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.segment_from_tail">segment_from_tail() (megabouts.segmentation.segmentation.TailSegmentation method)</a>
-</li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.segment_from_traj">segment_from_traj() (megabouts.segmentation.segmentation.TrajSegmentation method)</a>
-</li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.Segmentation">Segmentation (class in megabouts.segmentation.segmentation)</a>
-</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.SegmentationConfig">SegmentationConfig (class in megabouts.segmentation.segmentation_config)</a>
-</li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.SegmentationFactory">SegmentationFactory (class in megabouts.segmentation.segmentation)</a>
+      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.Segmentation">Segmentation (class in megabouts.segmentation.segmentation)</a>
 </li>
       <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult">SegmentationResult (class in megabouts.segmentation.segmentation)</a>
 </li>
@@ -892,32 +772,20 @@ document.write(`
         <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData.tail_df">(megabouts.tracking_data.tracking_data.TailTrackingData property)</a>
 </li>
       </ul></li>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter">tail_speed_boxcar_filter (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig property)</a>
-</li>
-      <li><a href="api/preprocessing.html#id6">tail_speed_boxcar_filter_ms (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter_ms">[1]</a>
-</li>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter">tail_speed_filter (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig property)</a>
-</li>
-      <li><a href="api/preprocessing.html#id5">tail_speed_filter_ms (megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig attribute)</a>, <a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter_ms">[1]</a>
+      <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.tail_keypoints_df">tail_keypoints_df (megabouts.tracking_data.tracking_data.FullTrackingData property)</a>
 </li>
       <li><a href="api/classification.html#megabouts.classification.classification.TailBouts">TailBouts (class in megabouts.classification.classification)</a>
 </li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing">TailPreprocessing (class in megabouts.preprocessing.tail_preprocessing)</a>
 </li>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig">TailPreprocessingConfig (class in megabouts.preprocessing.tail_preprocessing)</a>
-</li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">TailPreprocessingResult (class in megabouts.preprocessing.tail_preprocessing)</a>
 </li>
       <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation">TailSegmentation (class in megabouts.segmentation.segmentation)</a>
 </li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig">TailSegmentationConfig (class in megabouts.segmentation.segmentation_config)</a>
+      <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData">TailTrackingData (class in megabouts.tracking_data.tracking_data)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData">TailTrackingData (class in megabouts.tracking_data.tracking_data)</a>
-</li>
-      <li><a href="api/segmentation.html#id3">threshold (megabouts.segmentation.segmentation_config.TailSegmentationConfig attribute)</a>, <a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TailSegmentationConfig.threshold">[1]</a>
-</li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig">TrackingConfig (class in megabouts.tracking_data.tracking_data)</a>
 </li>
       <li><a href="api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingData">TrackingData (class in megabouts.tracking_data.tracking_data)</a>
@@ -930,13 +798,9 @@ document.write(`
       </ul></li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing">TrajPreprocessing (class in megabouts.preprocessing.traj_preprocessing)</a>
 </li>
-      <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig">TrajPreprocessingConfig (class in megabouts.preprocessing.traj_preprocessing)</a>
-</li>
       <li><a href="api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult">TrajPreprocessingResult (class in megabouts.preprocessing.traj_preprocessing)</a>
 </li>
       <li><a href="api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation">TrajSegmentation (class in megabouts.segmentation.segmentation)</a>
-</li>
-      <li><a href="api/segmentation.html#megabouts.segmentation.segmentation_config.TrajSegmentationConfig">TrajSegmentationConfig (class in megabouts.segmentation.segmentation_config)</a>
 </li>
       <li><a href="api/classification.html#megabouts.classification.transformer_network.TransAm">TransAm (class in megabouts.classification.transformer_network)</a>
 </li>

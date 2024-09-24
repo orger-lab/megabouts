@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" data-theme="dark">
+<html lang="en" data-content_root="../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -61,7 +61,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -153,47 +153,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" current active">
-  <a class="nav-link dropdown-item nav-internal" href="index.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -228,6 +206,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -286,29 +280,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -340,6 +320,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -417,163 +413,6 @@ document.write(`
   <section id="module-megabouts.preprocessing">
 <span id="megabouts-preprocessing"></span><h1>megabouts.preprocessing<a class="headerlink" href="#module-megabouts.preprocessing" title="Link to this heading">#</a></h1>
 <dl class="py class" id="module-megabouts.preprocessing.tail_preprocessing">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.PreprocessingConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.tail_preprocessing.</span></span><span class="sig-name descname"><span class="pre">PreprocessingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#PreprocessingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pipeline.html#megabouts.pipeline.base_config.BaseConfig" title="megabouts.pipeline.base_config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></p>
-<p>Configuration for generic preprocessing.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na_ms">
-<span class="sig-name descname"><span class="pre">limit_na_ms</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na_ms" title="Link to this definition">#</a></dt>
-<dd><p>Limit for consecutive NA values to interpolate in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">limit_na_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limit_na</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.__init__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.tail_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TailPreprocessingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pcs:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savgol_window_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_method:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_params:</span> <span class="pre">~typing.Dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_speed_filter_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_speed_boxcar_filter_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">14</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig" title="megabouts.preprocessing.tail_preprocessing.PreprocessingConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreprocessingConfig</span></code></a></p>
-<p>Configuration for tail preprocessing.</p>
-<p>All parameters values relative to time should be in ms.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.num_pcs">
-<span class="sig-name descname"><span class="pre">num_pcs</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.num_pcs" title="Link to this definition">#</a></dt>
-<dd><p>Number of principal components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window_ms">
-<span class="sig-name descname"><span class="pre">savgol_window_ms</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window_ms" title="Link to this definition">#</a></dt>
-<dd><p>Window size for Savitzky-Golay filter in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_method">
-<span class="sig-name descname"><span class="pre">baseline_method</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_method" title="Link to this definition">#</a></dt>
-<dd><p>Method for baseline computation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_params">
-<span class="sig-name descname"><span class="pre">baseline_params</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_params" title="Link to this definition">#</a></dt>
-<dd><p>Parameters for baseline computation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter_ms">
-<span class="sig-name descname"><span class="pre">tail_speed_filter_ms</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter_ms" title="Link to this definition">#</a></dt>
-<dd><p>Filter size for tail speed in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter_ms">
-<span class="sig-name descname"><span class="pre">tail_speed_boxcar_filter_ms</span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter_ms" title="Link to this definition">#</a></dt>
-<dd><p>Boxcar filter size for tail speed in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">num_pcs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">savgol_window_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">baseline_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'median'</span></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">baseline_params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">tail_speed_filter_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">tail_speed_boxcar_filter_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></em><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">savgol_window</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tail_speed_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tail_speed_boxcar_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pcs:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savgol_window_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_method:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_params:</span> <span class="pre">~typing.Dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_speed_filter_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_speed_boxcar_filter_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">14</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.__init__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.tail_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TailPreprocessingResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_tracking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessingResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -586,12 +425,12 @@ document.write(`
 
 <dl class="py class">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.tail_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TailPreprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig" title="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig"><span class="pre">TailPreprocessingConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.tail_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TailPreprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TailPreprocessingConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for preprocessing tail angle data.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig" title="megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig"><span class="pre">TailPreprocessingConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.__init__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TailPreprocessingConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.__init__" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -649,93 +488,6 @@ document.write(`
 </dd></dl>
 
 <dl class="py class" id="module-megabouts.preprocessing.traj_preprocessing">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.traj_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TrajPreprocessingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_cutoff_min:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust_diff_filt_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag_kinematic_activity_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">85</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig" title="megabouts.preprocessing.tail_preprocessing.PreprocessingConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreprocessingConfig</span></code></a></p>
-<p>Configuration for head trajectory preprocessing.</p>
-<p>All parameters values relative to time should be in ms.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.freq_cutoff_min">
-<span class="sig-name descname"><span class="pre">freq_cutoff_min</span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.freq_cutoff_min" title="Link to this definition">#</a></dt>
-<dd><p>Minimum frequency cutoff for 1euro filter in Hz.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.beta">
-<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.beta" title="Link to this definition">#</a></dt>
-<dd><p>Beta value for 1euro filter.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff_filt_ms">
-<span class="sig-name descname"><span class="pre">robust_diff_filt_ms</span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff_filt_ms" title="Link to this definition">#</a></dt>
-<dd><p>Filter size for robust difference in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity_ms">
-<span class="sig-name descname"><span class="pre">lag_kinematic_activity_ms</span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity_ms" title="Link to this definition">#</a></dt>
-<dd><p>Lag for kinematic activity in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id7">
-<span class="sig-name descname"><span class="pre">freq_cutoff_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id8">
-<span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id9">
-<span class="sig-name descname"><span class="pre">robust_diff_filt_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">21</span></em><a class="headerlink" href="#id9" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id10">
-<span class="sig-name descname"><span class="pre">lag_kinematic_activity_ms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">85</span></em><a class="headerlink" href="#id10" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">robust_diff</span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lag_kinematic_activity</span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_cutoff_min:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust_diff_filt_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag_kinematic_activity_ms:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">85</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.__init__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.traj_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TrajPreprocessingResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axial_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lateral_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_tracking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessingResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -748,12 +500,12 @@ document.write(`
 
 <dl class="py class">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessing">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.traj_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TrajPreprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig" title="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig"><span class="pre">TrajPreprocessingConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.traj_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TrajPreprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TrajPreprocessingConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for preprocessing trajectory data.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig" title="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig"><span class="pre">TrajPreprocessingConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.__init__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TrajPreprocessingConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.__init__" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -847,32 +599,6 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na_ms"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig.limit_na_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig.limit_na_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.limit_na"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig.limit_na</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig.__init__"><code class="docutils literal notranslate"><span class="pre">PreprocessingConfig.__init__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.num_pcs"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.num_pcs</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window_ms"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.savgol_window_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_method"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.baseline_method</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.baseline_params"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.baseline_params</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter_ms"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.tail_speed_filter_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter_ms"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.tail_speed_boxcar_filter_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.num_pcs</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.savgol_window_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.baseline_method</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.baseline_params</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.tail_speed_filter_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.tail_speed_boxcar_filter_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.savgol_window"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.savgol_window</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_filter"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.tail_speed_filter</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.tail_speed_boxcar_filter"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.tail_speed_boxcar_filter</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig.__init__"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingConfig.__init__()</span></code></a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingResult</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult.__init__"><code class="docutils literal notranslate"><span class="pre">TailPreprocessingResult.__init__()</span></code></a></li>
 </ul>
@@ -886,20 +612,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.smooth_tail_angle"><code class="docutils literal notranslate"><span class="pre">TailPreprocessing.smooth_tail_angle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_baseline"><code class="docutils literal notranslate"><span class="pre">TailPreprocessing.compute_baseline()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_tail_speed"><code class="docutils literal notranslate"><span class="pre">TailPreprocessing.compute_tail_speed()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.freq_cutoff_min"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.freq_cutoff_min</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.beta"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.beta</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff_filt_ms"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.robust_diff_filt_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity_ms"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.lag_kinematic_activity_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.freq_cutoff_min</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.beta</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.robust_diff_filt_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.lag_kinematic_activity_ms</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.robust_diff"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.robust_diff</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.lag_kinematic_activity"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.lag_kinematic_activity</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingConfig.__init__"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingConfig.__init__()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult"><code class="docutils literal notranslate"><span class="pre">TrajPreprocessingResult</span></code></a><ul class="nav section-nav flex-column">

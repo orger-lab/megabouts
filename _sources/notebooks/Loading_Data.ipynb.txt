@@ -19,22 +19,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [],
    "source": [
-    "from IPython.display import SVG, display\n",
-    "\n",
-    "import os\n",
     "import numpy as np\n",
     "import pandas as pd\n",
     "import matplotlib.pyplot as plt\n",
     "\n",
-    "from megabouts.tracking_data.tracking_data import TrackingConfig\n",
-    "from megabouts.tracking_data.tracking_data import FullTrackingData\n",
-    "from megabouts.tracking_data.tracking_data import HeadTrackingData\n",
-    "from megabouts.tracking_data.tracking_data import TailTrackingData\n",
-    "from megabouts.tracking_data.load_example import load_example_data"
+    "from megabouts.tracking_data import (TrackingConfig, \n",
+    "                                     FullTrackingData, HeadTrackingData,TailTrackingData,\n",
+    "                                     load_example_data)"
    ]
   },
   {
@@ -66,7 +61,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 9,
    "metadata": {
     "tags": [
      "hide-input"
@@ -572,6 +567,7 @@
     }
    ],
    "source": [
+    "from IPython.display import SVG, display\n",
     "display(SVG(filename='megabouts_tracking_configuration.svg'))"
    ]
   },
@@ -593,7 +589,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
@@ -740,7 +736,7 @@
        "4     -0.015487           NaN  "
       ]
      },
-     "execution_count": 9,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -759,7 +755,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -775,7 +771,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -794,7 +790,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -813,7 +809,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 14,
    "metadata": {
     "tags": [
      "hide-input"
@@ -881,77 +877,6 @@
     "\n",
     "\n",
     "plt.show()\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "#### Plotly version:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 14,
-   "metadata": {
-    "tags": [
-     "hide-input"
-    ]
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "'import numpy as np\\nimport plotly.graph_objects as go\\nimport matplotlib.colors as mcolors\\n\\n# Define time based on tracking data\\nt = np.arange(tracking_data.T) / tracking_cfg.fps\\n\\n\\n# Create a figure in Plotly\\nfig = go.Figure()\\n\\n# Define a custom color cycle (similar to blue_cycler in matplotlib)\\ncolors = plt.cm.Blues(np.linspace(.2, .9, num_colors))#[\\'#1f77b4\\', \\'#1f77b4\\', \\'#1f77b4\\']  # You can add more colors if needed\\nhex_colors = [mcolors.to_hex(c) for c in colors] \\n\\n\\n# Add multiple lines (one for each column in tracking_data.tail_df)\\nfor i, column in enumerate(tracking_data.tail_df.columns):\\n    fig.add_trace(go.Scatter(\\n        x=t[:700*60*5],\\n        y=tracking_data.tail_df.iloc[:700*60*5, i],\\n        mode=\\'lines\\',\\n        name=f\\'Tail Angle {i}\\',\\n        line=dict(color=hex_colors[i % len(colors)])  # Apply color cycling\\n    ))\\n\\n# Update the layout to match matplotlib style\\nfig.update_layout(\\n    title=\"Tail Angle\",\\n    xaxis_title=\"Time (s)\",\\n    yaxis_title=\"Angle (rad)\",\\n    yaxis=dict(range=[-4, 4]),  # Equivalent to ylim=(-4, 4)\\n    width=1200,  # Equivalent to figsize=(20,5)\\n    height=300\\n)\\nfig.update_xaxes(range=[10, 12])\\nfig.update_yaxes(fixedrange=True)\\n\\n# Show the figure\\nfig.show()\\n'"
-      ]
-     },
-     "execution_count": 14,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "'''import numpy as np\n",
-    "import plotly.graph_objects as go\n",
-    "import matplotlib.colors as mcolors\n",
-    "\n",
-    "# Define time based on tracking data\n",
-    "t = np.arange(tracking_data.T) / tracking_cfg.fps\n",
-    "\n",
-    "\n",
-    "# Create a figure in Plotly\n",
-    "fig = go.Figure()\n",
-    "\n",
-    "# Define a custom color cycle (similar to blue_cycler in matplotlib)\n",
-    "colors = plt.cm.Blues(np.linspace(.2, .9, num_colors))#['#1f77b4', '#1f77b4', '#1f77b4']  # You can add more colors if needed\n",
-    "hex_colors = [mcolors.to_hex(c) for c in colors] \n",
-    "\n",
-    "\n",
-    "# Add multiple lines (one for each column in tracking_data.tail_df)\n",
-    "for i, column in enumerate(tracking_data.tail_df.columns):\n",
-    "    fig.add_trace(go.Scatter(\n",
-    "        x=t[:700*60*5],\n",
-    "        y=tracking_data.tail_df.iloc[:700*60*5, i],\n",
-    "        mode='lines',\n",
-    "        name=f'Tail Angle {i}',\n",
-    "        line=dict(color=hex_colors[i % len(colors)])  # Apply color cycling\n",
-    "    ))\n",
-    "\n",
-    "# Update the layout to match matplotlib style\n",
-    "fig.update_layout(\n",
-    "    title=\"Tail Angle\",\n",
-    "    xaxis_title=\"Time (s)\",\n",
-    "    yaxis_title=\"Angle (rad)\",\n",
-    "    yaxis=dict(range=[-4, 4]),  # Equivalent to ylim=(-4, 4)\n",
-    "    width=1200,  # Equivalent to figsize=(20,5)\n",
-    "    height=300\n",
-    ")\n",
-    "fig.update_xaxes(range=[10, 12])\n",
-    "fig.update_yaxes(fixedrange=True)\n",
-    "\n",
-    "# Show the figure\n",
-    "fig.show()\n",
-    "'''"
    ]
   },
   {
@@ -1548,7 +1473,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 28,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1569,9 +1494,6 @@
    "source": [
     "from mpl_toolkits.axes_grid1.inset_locator import mark_inset\n",
     "import matplotlib.patches as patches\n",
-    "import matplotlib as mpl\n",
-    "from cycler import cycler\n",
-    "from megabouts.utils.utils_plot import cmp_bouts\n",
     "\n",
     "num_colors = 10\n",
     "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(.2, .9, num_colors)))\n",
@@ -1620,7 +1542,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 29,
    "metadata": {},
    "outputs": [
     {
@@ -1825,7 +1747,7 @@
        "[5 rows x 24 columns]"
       ]
      },
-     "execution_count": 27,
+     "execution_count": 29,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1844,7 +1766,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 30,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1860,7 +1782,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 31,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1883,7 +1805,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 32,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1908,7 +1830,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 33,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1927,7 +1849,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 32,
+   "execution_count": 34,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1948,9 +1870,6 @@
    "source": [
     "from mpl_toolkits.axes_grid1.inset_locator import mark_inset\n",
     "import matplotlib.patches as patches\n",
-    "import matplotlib as mpl\n",
-    "from cycler import cycler\n",
-    "from megabouts.utils.utils_plot import cmp_bouts\n",
     "\n",
     "num_colors = 10\n",
     "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(.2, .9, num_colors)))\n",
@@ -1998,6 +1917,13 @@
     "plt.show()\n",
     "\n"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {

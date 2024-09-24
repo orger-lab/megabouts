@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" data-theme="dark">
+<html lang="en" data-content_root="../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -59,7 +59,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -151,47 +151,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../api/index.html">
+  <a class="nav-link nav-internal" href="../api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -226,6 +204,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -286,29 +280,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -340,6 +320,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -402,34 +398,29 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.load_example</span> <span class="kn">import</span> <span class="n">load_example_data</span>
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data.tracking_data</span> <span class="kn">import</span> <span class="n">FullTrackingData</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessingResult</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+<span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span><span class="n">load_example_data</span><span class="p">,</span><span class="n">FullTrackingData</span>
+<span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span><span class="p">,</span><span class="n">TrajSegmentationConfig</span>
+<span class="kn">from</span> <span class="nn">megabouts.preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+<span class="kn">from</span> <span class="nn">megabouts.segmentation</span> <span class="kn">import</span> <span class="n">Segmentation</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span><span class="n">load_example_data</span><span class="p">,</span><span class="n">FullTrackingData</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span><span class="p">,</span><span class="n">TrajSegmentationConfig</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">megabouts.preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">megabouts.segmentation</span> <span class="kn">import</span> <span class="n">Segmentation</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessingConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessingResult</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessing</span>
-
-
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation_config</span> <span class="kn">import</span> <span class="n">TailSegmentationConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation_config</span> <span class="kn">import</span> <span class="n">TrajSegmentationConfig</span>
-
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">TailSegmentation</span>
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">TrajSegmentation</span>
-
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">SegmentationFactory</span>
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation</span> <span class="kn">import</span> <span class="n">SegmentationResult</span>
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;megabouts.config&#39;
 </pre></div>
 </div>
 </div>
@@ -454,18 +445,7 @@ document.write(`
                                               <span class="n">head_y</span> <span class="o">=</span> <span class="n">head_y</span><span class="p">,</span>
                                               <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span><span class="p">,</span>
                                               <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="p">)</span>
-
-<span class="n">tail_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TailPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
-
-<span class="n">tail_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TailPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
-                                                 <span class="n">num_pcs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                                                 <span class="n">savgol_window_ms</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                                                 <span class="n">tail_speed_filter_ms</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-                                                 <span class="n">tail_speed_boxcar_filter_ms</span> <span class="o">=</span> <span class="mi">14</span>
-                                                 <span class="p">)</span>
-<span class="n">tail_df_input</span> <span class="o">=</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span>
-<span class="n">tail</span> <span class="o">=</span> <span class="n">TailPreprocessing</span><span class="p">(</span><span class="n">tail_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_tail_df</span><span class="p">(</span><span class="n">tail_df_input</span><span class="p">)</span>
-
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
 
 <span class="n">traj_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TrajPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
 <span class="n">traj_df_input</span> <span class="o">=</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span>
@@ -478,25 +458,31 @@ document.write(`
 </section>
 <section id="segmentation-using-kinematic-vigor">
 <h1>Segmentation using kinematic vigor<a class="headerlink" href="#segmentation-using-kinematic-vigor" title="Link to this heading">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kinematic_vigor</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">vigor</span>
-</pre></div>
-</div>
-</div>
-</div>
+<ul class="simple">
+<li><p>Set the threshold to 0.5:</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj_segmentation_cfg</span> <span class="o">=</span> <span class="n">TrajSegmentationConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
-                                               <span class="n">peak_prominence</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
-                                               <span class="n">peak_percentage</span><span class="o">=</span><span class="mf">0.1</span>
-                                               <span class="p">)</span>
-<span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">SegmentationFactory</span><span class="o">.</span><span class="n">get_segmenter</span><span class="p">(</span><span class="n">traj_segmentation_cfg</span><span class="p">)</span>
-<span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment_from_traj</span><span class="p">(</span><span class="n">kinematic_vigor</span><span class="p">)</span>
+                                               <span class="n">peak_prominence</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Apply segmentation to <code class="docutils literal notranslate"><span class="pre">traj.vigor</span></code>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">Segmentation</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">traj_segmentation_cfg</span><span class="p">)</span>
+<span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">vigor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can visualize the results of the segmentation:</p></li>
+</ul>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -504,56 +490,69 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_bouts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="c1"># Set to True for the indices within the bouts</span>
+<span class="k">for</span> <span class="n">on_</span><span class="p">,</span> <span class="n">off_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span> <span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">):</span>
+    <span class="n">is_bouts</span><span class="p">[</span><span class="n">on_</span><span class="p">:</span><span class="n">off_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;onset&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;offset&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;trajectory segmentation&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;angle (rad)&#39;</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">IdSt</span> <span class="o">=</span> <span class="mi">139000</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">kinematic_vigor</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;vigor (A.U)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Trajectory Segmentation&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="n">traj_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">,</span><span class="n">traj</span><span class="o">.</span><span class="n">vigor</span><span class="p">]</span>
+<span class="n">traj_name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x (mm)&#39;</span><span class="p">,</span><span class="s1">&#39;y (mm)&#39;</span><span class="p">,</span><span class="s1">&#39;yaw (rad)&#39;</span><span class="p">,</span><span class="s1">&#39;vigor (A.U.)&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">label_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">traj_list</span><span class="p">,</span><span class="n">traj_name</span><span class="p">)):</span>
+    
+    <span class="n">x_bouts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_bouts</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">x_nobouts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_bouts</span><span class="o">==</span><span class="kc">False</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x_nobouts</span><span class="p">,</span><span class="s1">&#39;tab:gray&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x_bouts</span><span class="p">,</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">label_</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:green&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;onset&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;offset&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
 
 
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
-<span class="n">IdSt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="n">Duration</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">IdSt</span><span class="p">,</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">)</span>
 
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="o">+</span><span class="n">Duration</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;traj_segmentation.svg&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/2a831570cfc77dce0232739ff2ccb33d6d7802efaa5f2262b5b40d049e331fed.png" src="../_images/2a831570cfc77dce0232739ff2ccb33d6d7802efaa5f2262b5b40d049e331fed.png" />
+<img alt="../_images/2ed8058606011277d2331e38882f2af9ed2d86b9364a3768a9c76ecf7db11c7f.png" src="../_images/2ed8058606011277d2331e38882f2af9ed2d86b9364a3768a9c76ecf7db11c7f.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>To find the ideal segmentation threshold for your dataset, it is useful to compute the number of bouts detected as a function of the threshold:</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of bouts as function of threshold:</span>
 <span class="n">thresh_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">num_peaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">thresh_list</span><span class="p">)</span>
-<span class="n">kinematic_vigor</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">vigor</span>
+<span class="n">num_bouts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">thresh_list</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">thresh</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">thresh_list</span><span class="p">):</span>
     <span class="n">traj_segmentation_cfg</span> <span class="o">=</span> <span class="n">TrajSegmentationConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
-                                                   <span class="n">peak_prominence</span><span class="o">=</span><span class="n">thresh</span><span class="p">,</span>
-                                                   <span class="n">peak_percentage</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-    <span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">SegmentationFactory</span><span class="o">.</span><span class="n">get_segmenter</span><span class="p">(</span><span class="n">traj_segmentation_cfg</span><span class="p">)</span>
-    <span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment_from_traj</span><span class="p">(</span><span class="n">kinematic_vigor</span><span class="p">)</span>
-
-    <span class="n">num_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">)</span>
+                                                   <span class="n">peak_prominence</span><span class="o">=</span><span class="n">thresh</span><span class="p">)</span>
+    <span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">Segmentation</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">traj_segmentation_cfg</span><span class="p">)</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">vigor</span><span class="p">)</span>
+    <span class="n">num_bouts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>For very small threshold values, too many bouts are detected, while for large threshold values, no bouts are detected. There is an optimal range between these extremes where a suitable threshold can be found:</p></li>
+</ul>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -561,15 +560,21 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_list</span><span class="p">,</span><span class="n">num_peaks</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_list</span><span class="p">,</span><span class="n">num_bouts</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">thresh_list</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">num_bouts</span> <span class="o">&lt;</span> <span class="mi">767</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">num_bouts</span> <span class="o">&gt;</span> <span class="mi">755</span><span class="p">),</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;good range for choice of threshold&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;number of swim bouts detected&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;segmentation threshold&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6e18f5ae346ebe53f1d3403fcdf3ae8e26324ef118daf29a8b724914c2f84ba9.png" src="../_images/6e18f5ae346ebe53f1d3403fcdf3ae8e26324ef118daf29a8b724914c2f84ba9.png" />
+<img alt="../_images/c9413d6f1e9a6e0a6e6f70eff60abd44459f7a40db1cc98c81629bc2513cd1a0.png" src="../_images/c9413d6f1e9a6e0a6e6f70eff60abd44459f7a40db1cc98c81629bc2513cd1a0.png" />
 </div>
 </div>
 </section>

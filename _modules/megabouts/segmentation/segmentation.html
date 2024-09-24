@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../../" data-theme="dark">
+<html lang="en" data-content_root="../../../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -12,8 +12,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -58,7 +58,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -150,47 +150,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../../../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../../../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../../api/index.html">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -225,6 +203,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -281,29 +275,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../../../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../../../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -335,6 +315,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -398,9 +394,9 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">find_peaks</span>
-<span class="kn">from</span> <span class="nn">megabouts.utils.utils_math</span> <span class="kn">import</span> <span class="n">find_onset_offset_numpy</span>
+<span class="kn">from</span> <span class="nn">..utils.math_utils</span> <span class="kn">import</span> <span class="n">find_onset_offset_numpy</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
-<span class="kn">from</span> <span class="nn">megabouts.segmentation.segmentation_config</span> <span class="kn">import</span> <span class="n">SegmentationConfig</span><span class="p">,</span><span class="n">TailSegmentationConfig</span><span class="p">,</span><span class="n">TrajSegmentationConfig</span>
+<span class="kn">from</span> <span class="nn">..config.segmentation</span> <span class="kn">import</span> <span class="n">SegmentationConfig</span><span class="p">,</span><span class="n">TailSegmentationConfig</span><span class="p">,</span><span class="n">TrajSegmentationConfig</span>
 
 
 <div class="viewcode-block" id="SegmentationResult">
@@ -500,17 +496,49 @@ document.write(`
             
             
             
+
 <div class="viewcode-block" id="Segmentation">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation">[docs]</a>
 <span class="k">class</span> <span class="nc">Segmentation</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <div class="viewcode-block" id="Segmentation.__init__">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="Segmentation.segment">
+<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.segment">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform segmentation on the provided data.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Segmentation.from_config">
+<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.from_config">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Segmentation&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Factory method to create appropriate segmentation instances based on configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config (SegmentationConfig): Configuration object for segmentation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Segmentation: An instance of a subclass of Segmentation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">TailSegmentationConfig</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TailSegmentation</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">TrajSegmentationConfig</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TrajSegmentation</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown segmentation config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </div>
 
+ 
         
-        
+
+
 <div class="viewcode-block" id="TailSegmentation">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation">[docs]</a>
 <span class="k">class</span> <span class="nc">TailSegmentation</span><span class="p">(</span><span class="n">Segmentation</span><span class="p">):</span>
@@ -521,9 +549,9 @@ document.write(`
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="TailSegmentation.segment_from_tail">
-<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.segment_from_tail">[docs]</a>
-    <span class="k">def</span> <span class="nf">segment_from_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_vigor</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
+<div class="viewcode-block" id="TailSegmentation.segment">
+<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.segment">[docs]</a>
+    <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_vigor</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Segment data based on tail vigor.</span>
 
@@ -558,9 +586,9 @@ document.write(`
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
         
-<div class="viewcode-block" id="TrajSegmentation.segment_from_traj">
-<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.segment_from_traj">[docs]</a>
-    <span class="k">def</span> <span class="nf">segment_from_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kinematic_activity</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
+<div class="viewcode-block" id="TrajSegmentation.segment">
+<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.segment">[docs]</a>
+    <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kinematic_activity</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Segment data based on kinematic activity.</span>
 
@@ -629,21 +657,6 @@ document.write(`
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">onset</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span></div>
 </div>
 
-
-<div class="viewcode-block" id="SegmentationFactory">
-<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">SegmentationFactory</span><span class="p">:</span>
-<div class="viewcode-block" id="SegmentationFactory.get_segmenter">
-<a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationFactory.get_segmenter">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_segmenter</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Segmentation</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">TailSegmentationConfig</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">TailSegmentation</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">TrajSegmentationConfig</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">TrajSegmentation</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown segmentation config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-</div>
 
 </pre></div>
 

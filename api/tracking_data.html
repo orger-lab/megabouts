@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" data-theme="dark">
+<html lang="en" data-content_root="../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -61,7 +61,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -153,47 +153,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" current active">
-  <a class="nav-link dropdown-item nav-internal" href="index.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -228,6 +206,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -286,29 +280,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -340,6 +320,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -417,26 +413,6 @@ document.write(`
   <section id="module-megabouts.tracking_data">
 <span id="megabouts-tracking-data"></span><h1>megabouts.tracking_data<a class="headerlink" href="#module-megabouts.tracking_data" title="Link to this heading">#</a></h1>
 <dl class="py function" id="module-megabouts.tracking_data.convert_tracking">
-<dt class="sig sig-object py" id="megabouts.tracking_data.convert_tracking.compute_angle_between_vectors">
-<span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.convert_tracking.</span></span><span class="sig-name descname"><span class="pre">compute_angle_between_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/convert_tracking.html#compute_angle_between_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.convert_tracking.compute_angle_between_vectors" title="Link to this definition">#</a></dt>
-<dd><p>Computes the angle between two vectors.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>v1</strong> (<em>ndarray</em>) – First set of vectors with shape (num_vectors, num_dimensions).</p></li>
-<li><p><strong>v2</strong> (<em>ndarray</em>) – Second set of vectors with shape (num_vectors, num_dimensions).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Array of angles between the vectors.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint">
 <span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.convert_tracking.</span></span><span class="sig-name descname"><span class="pre">interpolate_tail_keypoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_segments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/convert_tracking.html#interpolate_tail_keypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint" title="Link to this definition">#</a></dt>
 <dd><p>Interpolates the tail keypoints to create a curve with a specified number of segments.</p>
@@ -634,6 +610,11 @@ document.write(`
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">traj_df</span></span><a class="headerlink" href="#megabouts.tracking_data.tracking_data.FullTrackingData.traj_df" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.FullTrackingData.tail_keypoints_df">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tail_keypoints_df</span></span><a class="headerlink" href="#megabouts.tracking_data.tracking_data.FullTrackingData.tail_keypoints_df" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -736,7 +717,6 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.convert_tracking.compute_angle_between_vectors"><code class="docutils literal notranslate"><span class="pre">compute_angle_between_vectors()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint"><code class="docutils literal notranslate"><span class="pre">interpolate_tail_keypoint()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.convert_tracking.compute_angles_from_keypoints"><code class="docutils literal notranslate"><span class="pre">compute_angles_from_keypoints()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.convert_tracking.convert_tail_angle_to_keypoints"><code class="docutils literal notranslate"><span class="pre">convert_tail_angle_to_keypoints()</span></code></a></li>
@@ -757,6 +737,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.tracking_data.FullTrackingData.from_posture"><code class="docutils literal notranslate"><span class="pre">FullTrackingData.from_posture()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.tracking_data.FullTrackingData.tail_df"><code class="docutils literal notranslate"><span class="pre">FullTrackingData.tail_df</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.tracking_data.FullTrackingData.traj_df"><code class="docutils literal notranslate"><span class="pre">FullTrackingData.traj_df</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.tracking_data.FullTrackingData.tail_keypoints_df"><code class="docutils literal notranslate"><span class="pre">FullTrackingData.tail_keypoints_df</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.tracking_data.tracking_data.HeadTrackingData"><code class="docutils literal notranslate"><span class="pre">HeadTrackingData</span></code></a><ul class="nav section-nav flex-column">

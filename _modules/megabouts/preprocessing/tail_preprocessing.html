@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../../" data-theme="dark">
+<html lang="en" data-content_root="../../../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -12,8 +12,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=9bde0e37" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -58,7 +58,7 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
@@ -150,47 +150,25 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../../../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../preprocessing.html">
-    Preprocessing
+  <a class="nav-link nav-internal" href="../../../tutorials.html">
+    Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/tutorial_Tail_Classification.html">
-    Classification
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../../api/index.html">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
     API Reference
   </a>
 </li>
 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -225,6 +203,22 @@ document.write(`
   </button>
 `);
 </script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -281,29 +275,15 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/Loading_Data.html">
-    Loading Tracking Data
+  <a class="nav-link nav-internal" href="../../../usage.html">
+    Usage
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../preprocessing.html">
-    Preprocessing
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../segmentation.html">
-    Segmentation
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notebooks/tutorial_Tail_Classification.html">
-    Classification
+  <a class="nav-link nav-internal" href="../../../tutorials.html">
+    Tutorials
   </a>
 </li>
 
@@ -335,6 +315,22 @@ document.write(`
   </button>
 `);
 </script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/arviz-devs/arviz" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -402,77 +398,10 @@ document.write(`
 <span class="kn">from</span> <span class="nn">scipy.signal.windows</span> <span class="kn">import</span> <span class="n">boxcar</span>
 <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.pipeline.base_config</span> <span class="kn">import</span> <span class="n">BaseConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.preprocessing.baseline</span> <span class="kn">import</span> <span class="n">compute_baseline</span>
-<span class="kn">from</span> <span class="nn">megabouts.utils.utils_math</span> <span class="kn">import</span> <span class="n">robust_diff</span>
-<span class="kn">from</span> <span class="nn">megabouts.utils.utils_df</span> <span class="kn">import</span> <span class="n">create_hierarchical_df</span>
-
-<div class="viewcode-block" id="PreprocessingConfig">
-<a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.PreprocessingConfig">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">PreprocessingConfig</span><span class="p">(</span><span class="n">BaseConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for generic preprocessing.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        limit_na_ms (float): Limit for consecutive NA values to interpolate in milliseconds.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">limit_na_ms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">100</span>
-    
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">limit_na</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_ms_to_frames</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">limit_na_ms</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="TailPreprocessingConfig">
-<a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingConfig">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">TailPreprocessingConfig</span><span class="p">(</span><span class="n">PreprocessingConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for tail preprocessing.</span>
-
-<span class="sd">    All parameters values relative to time should be in ms.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        num_pcs (int): Number of principal components.</span>
-<span class="sd">        savgol_window_ms (float): Window size for Savitzky-Golay filter in milliseconds.</span>
-<span class="sd">        baseline_method (str): Method for baseline computation.</span>
-<span class="sd">        baseline_params (Dict): Parameters for baseline computation.</span>
-<span class="sd">        tail_speed_filter_ms (float): Filter size for tail speed in milliseconds.</span>
-<span class="sd">        tail_speed_boxcar_filter_ms (float): Boxcar filter size for tail speed in milliseconds.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">num_pcs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">savgol_window_ms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">15</span>
-    <span class="n">baseline_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;median&quot;</span>
-    <span class="n">baseline_params</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-    <span class="n">tail_speed_filter_ms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="n">tail_speed_boxcar_filter_ms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">14</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">baseline_params</span><span class="p">[</span><span class="s1">&#39;fps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fps</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">baseline_params</span><span class="p">[</span><span class="s1">&#39;half_window&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fps</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-        
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">savgol_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_ms_to_frames</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savgol_window_ms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">res</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Ensure savgol_window is odd</span>
-        <span class="k">return</span> <span class="n">res</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">tail_speed_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_ms_to_frames</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail_speed_filter_ms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">n</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">tail_speed_boxcar_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_ms_to_frames</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail_speed_boxcar_filter_ms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">n</span></div>
-
+<span class="kn">from</span> <span class="nn">..config.preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessingConfig</span>
+<span class="kn">from</span> <span class="nn">..preprocessing.tail_baseline</span> <span class="kn">import</span> <span class="n">compute_baseline</span>
+<span class="kn">from</span> <span class="nn">..utils.math_utils</span> <span class="kn">import</span> <span class="n">robust_diff</span>
+<span class="kn">from</span> <span class="nn">..utils.data_utils</span> <span class="kn">import</span> <span class="n">create_hierarchical_df</span>
 
 
 <div class="viewcode-block" id="TailPreprocessingResult">
