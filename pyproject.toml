@@ -28,8 +28,21 @@ dependencies = ['ipykernel',
                 'scikit-learn',
                 'torch']
 
+
 [project.optional-dependencies]
-doc = ['build',
+test = [
+    'pytest,
+    'nbval',
+]
+dev = [
+    'black>=22.0',
+    'isort>=5.0',
+    'flake8>=4.0',
+    'mypy>=0.9',
+    'pre-commit>=2.17',
+]
+docs = [
+      'build',
       'twine',
       'setuptools',
       'sphinx',
@@ -43,6 +56,11 @@ doc = ['build',
       'sphinx-togglebutton',
       'sphinx-gallery'
 ]
+
+
+
+
+
 
 [project.urls]
 Homepage = "https://example.com"

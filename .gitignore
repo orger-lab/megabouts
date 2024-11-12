@@ -1,6 +1,6 @@
 # Editors
 .vscode/
-
+.cursorignore
 
 # Distribution / packaging
 .Python
