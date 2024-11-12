@@ -2,7 +2,10 @@ import numpy as np
 import pandas as pd
 from typing import List, Tuple
 
-def create_hierarchical_df(data_info: List[Tuple[str, str, np.ndarray]]) -> pd.DataFrame:
+
+def create_hierarchical_df(
+    data_info: List[Tuple[str, str, np.ndarray]],
+) -> pd.DataFrame:
     """
     Create a hierarchical DataFrame from multiple data arrays, handling both one-dimensional and
     multi-dimensional arrays by reshaping one-dimensional arrays to two-dimensional if needed.
@@ -41,7 +44,9 @@ def create_hierarchical_df(data_info: List[Tuple[str, str, np.ndarray]]) -> pd.D
     >>> print(df.head())
     """
     if not data_info:
-        raise ValueError("data_info is empty. Please provide at least one data array with its metadata.")
+        raise ValueError(
+            "data_info is empty. Please provide at least one data array with its metadata."
+        )
 
     frames = []
 
@@ -54,16 +59,22 @@ def create_hierarchical_df(data_info: List[Tuple[str, str, np.ndarray]]) -> pd.D
 
         num_samples = data_array.shape[0]
 
-        if sub_label == 'None':
-            columns = pd.MultiIndex.from_product([[main_label], [''], ['']])
+        if sub_label == "None":
+            columns = pd.MultiIndex.from_product([[main_label], [""], [""]])
         else:
-            columns = pd.MultiIndex.from_product([[main_label], [sub_label], [str(i) for i in range(data_array.shape[1])]])
+            columns = pd.MultiIndex.from_product(
+                [
+                    [main_label],
+                    [sub_label],
+                    [str(i) for i in range(data_array.shape[1])],
+                ]
+            )
 
         frame = pd.DataFrame(data_array, index=range(num_samples), columns=columns)
         frames.append(frame)
 
     df = pd.concat(frames, axis=1)
-    
+
     # Remove names from the MultiIndex levels
     df.columns.names = [None, None, None]
 

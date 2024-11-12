@@ -1,4 +1,5 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+
 
 @dataclass
 class BaseConfig:
@@ -7,7 +8,8 @@ class BaseConfig:
     Attributes:
         fps (int): frames per second.
     """
-    fps: int = field(init=True, repr=True)
+
+    # fps: int = field(init=True, repr=True)
 
     def __post_init__(self):
         """Initialize the fps attribute and ensure it cannot be modified later."""
@@ -37,6 +39,7 @@ class BaseConfig:
         """
         return int(milliseconds / 1000 * self.fps)
 
+
 class ConfigManager:
     """Manager for handling multiple configuration instances.
     Args:
@@ -44,13 +47,16 @@ class ConfigManager:
     Attributes:
         configs (dict): Dictionary storing configuration instances categorized by their class type.
     """
+
     def __init__(self, *configs):
         """Initialize ConfigManager by categorizing configuration instances by their class type."""
         self.configs = {}
         for config in configs:
             config_class_name = config.__class__.__name__.lower()
             if config_class_name.endswith("config"):
-                config_class_name = config_class_name[:-6]  # Remove 'config' from the name if present
+                config_class_name = config_class_name[
+                    :-6
+                ]  # Remove 'config' from the name if present
             self.configs[config_class_name] = config
 
         self.check_fps_consistency()
@@ -72,11 +78,15 @@ class ConfigManager:
             Consistent FPS across all configurations: 40
             True
         """
-        fps_values = [config.fps for config in self.configs.values() if hasattr(config, "fps")]
+        fps_values = [
+            config.fps for config in self.configs.values() if hasattr(config, "fps")
+        ]
         if len(set(fps_values)) > 1:
             print(f"Inconsistent FPS across configurations: {fps_values}")
             return False
-        print(f"Consistent FPS across all configurations: {fps_values[0] if fps_values else 'No FPS set'}")
+        print(
+            f"Consistent FPS across all configurations: {fps_values[0] if fps_values else 'No FPS set'}"
+        )
         return True
 
     def check_configs(self, *required_configs):
@@ -97,8 +107,12 @@ class ConfigManager:
             >>> cfg_manager.check_configs('tailpreprocessing')
             True
         """
-        adjusted_required_configs = [config.replace("_config", "") for config in required_configs]
-        missing_configs = [cfg for cfg in adjusted_required_configs if cfg not in self.configs]
+        adjusted_required_configs = [
+            config.replace("_config", "") for config in required_configs
+        ]
+        missing_configs = [
+            cfg for cfg in adjusted_required_configs if cfg not in self.configs
+        ]
         if missing_configs:
             print(f"Missing configurations: {', '.join(missing_configs)}")
             return False

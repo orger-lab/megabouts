@@ -31,15 +31,12 @@ dependencies = ['ipykernel',
 
 [project.optional-dependencies]
 test = [
-    'pytest,
-    'nbval',
+    "pytest",
+    "nbval",
 ]
 dev = [
-    'black>=22.0',
-    'isort>=5.0',
-    'flake8>=4.0',
-    'mypy>=0.9',
-    'pre-commit>=2.17',
+"pre-commit",
+    "ruff"
 ]
 docs = [
       'build',
@@ -58,16 +55,11 @@ docs = [
 ]
 
 
-
-
-
-
 [project.urls]
-Homepage = "https://example.com"
-Documentation = "https://readthedocs.org"
-Repository = "https://github.com/me/spam.git"
-Issues = "https://github.com/me/spam/issues"
-Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+Homepage = "https://megabouts.ai"
+Documentation = "https://megabouts.ai"
+Repository = "https://github.com/orger-lab/megabouts.git"
+Issues = "https://github.com/orger-lab/megabouts/issues"
 
 [tool.setuptools]
 packages = ["megabouts",

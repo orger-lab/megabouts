@@ -1,8 +1,8 @@
 import pytest
-import glob
 from pathlib import Path
 
 NOTEBOOKS = list(Path(".").glob("tutorial_*.ipynb"))
+
 
 @pytest.mark.parametrize("notebook", NOTEBOOKS)
 def test_notebook_runs_without_errors(notebook):
