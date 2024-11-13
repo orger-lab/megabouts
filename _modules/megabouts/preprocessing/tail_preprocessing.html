@@ -15,17 +15,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -33,13 +35,14 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -55,6 +58,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,19 +74,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -90,7 +83,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -98,8 +90,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -180,29 +172,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -227,15 +211,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -252,7 +232,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -306,15 +287,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -358,8 +335,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -371,7 +346,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">megabouts.pr...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">megabouts.preprocessing.tail_preprocessing</span></li>
   </ul>
 </nav>
 </div>
@@ -389,8 +364,7 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for megabouts.preprocessing.tail_preprocessing</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -406,7 +380,7 @@ document.write(`
 
 <div class="viewcode-block" id="TailPreprocessingResult">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">[docs]</a>
-<span class="k">class</span> <span class="nc">TailPreprocessingResult</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">TailPreprocessingResult</span><span class="p">:</span>
 <div class="viewcode-block" id="TailPreprocessingResult.__init__">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">angle_baseline</span><span class="p">,</span> <span class="n">angle_smooth</span><span class="p">,</span> <span class="n">vigor</span><span class="p">,</span> <span class="n">no_tracking</span><span class="p">):</span>
@@ -420,20 +394,22 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_to_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">df_info</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="s1">&#39;angle&#39;</span><span class="p">,</span><span class="s1">&#39;segments&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;angle_baseline&#39;</span><span class="p">,</span><span class="s1">&#39;segments&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">angle_baseline</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;angle_smooth&#39;</span><span class="p">,</span><span class="s1">&#39;segments&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;vigor&#39;</span><span class="p">,</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">vigor</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;no_tracking&#39;</span><span class="p">,</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">no_tracking</span><span class="p">)</span>
+            <span class="p">(</span><span class="s2">&quot;angle&quot;</span><span class="p">,</span> <span class="s2">&quot;segments&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;angle_baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;segments&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_baseline</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;angle_smooth&quot;</span><span class="p">,</span> <span class="s2">&quot;segments&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;vigor&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vigor</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;no_tracking&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_tracking</span><span class="p">),</span>
         <span class="p">]</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">create_hierarchical_df</span><span class="p">(</span><span class="n">df_info</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df</span></div>
 
-    
+
+
 <div class="viewcode-block" id="TailPreprocessing">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing">[docs]</a>
-<span class="k">class</span> <span class="nc">TailPreprocessing</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">TailPreprocessing</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for preprocessing tail angle data.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TailPreprocessing.__init__">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TailPreprocessingConfig</span><span class="p">):</span>
@@ -453,64 +429,67 @@ document.write(`
 <span class="sd">            TailPreprocessingResult: Preprocessed Tail</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Extract Tail Angle</span>
-        <span class="n">angle_input</span> <span class="o">=</span> <span class="n">tail_df</span><span class="p">[[</span><span class="s1">&#39;angle_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> 
+        <span class="n">angle_input</span> <span class="o">=</span> <span class="n">tail_df</span><span class="p">[[</span><span class="s2">&quot;angle_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span>
         <span class="c1"># Smoothing</span>
-        <span class="n">angle</span><span class="p">,</span><span class="n">angle_baseline</span><span class="p">,</span><span class="n">no_tracking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_tail_angle</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">angle_input</span><span class="p">)</span>
+        <span class="n">angle</span><span class="p">,</span> <span class="n">angle_baseline</span><span class="p">,</span> <span class="n">no_tracking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_tail_angle</span><span class="p">(</span>
+            <span class="n">angle</span><span class="o">=</span><span class="n">angle_input</span>
+        <span class="p">)</span>
         <span class="n">angle</span> <span class="o">-=</span> <span class="n">angle_baseline</span>
-        
-        <span class="n">vigor</span> <span class="o">=</span> <span class="n">TailPreprocessing</span><span class="o">.</span><span class="n">compute_tail_speed</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span> <span class="n">angle</span><span class="p">,</span>
-                                                     <span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
-                                                     <span class="n">tail_speed_filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tail_speed_filter</span><span class="p">,</span>
-                                                     <span class="n">tail_speed_boxcar_filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tail_speed_boxcar_filter</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">TailPreprocessingResult</span><span class="p">(</span><span class="n">angle_input</span><span class="p">,</span> 
-                                       <span class="n">angle_baseline</span><span class="p">,</span> 
-                                       <span class="n">angle</span><span class="p">,</span> 
-                                       <span class="n">vigor</span><span class="p">,</span> 
-                                       <span class="n">no_tracking</span><span class="p">)</span></div>
+        <span class="n">vigor</span> <span class="o">=</span> <span class="n">TailPreprocessing</span><span class="o">.</span><span class="n">compute_tail_speed</span><span class="p">(</span>
+            <span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span>
+            <span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
+            <span class="n">tail_speed_filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tail_speed_filter</span><span class="p">,</span>
+            <span class="n">tail_speed_boxcar_filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tail_speed_boxcar_filter</span><span class="p">,</span>
+        <span class="p">)</span>
 
-        
+        <span class="k">return</span> <span class="n">TailPreprocessingResult</span><span class="p">(</span>
+            <span class="n">angle_input</span><span class="p">,</span> <span class="n">angle_baseline</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">vigor</span><span class="p">,</span> <span class="n">no_tracking</span>
+        <span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="TailPreprocessing.preprocess_tail_angle">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.preprocess_tail_angle">[docs]</a>
     <span class="k">def</span> <span class="nf">preprocess_tail_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="n">angle</span><span class="p">,</span> <span class="n">no_tracking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp_tail_nan</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> 
-                                                  <span class="n">limit_na</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">limit_na</span><span class="p">)</span>
-        
-        <span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_using_pca</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span>
-                                     <span class="n">num_pcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">num_pcs</span><span class="p">)</span>
-        
-        <span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smooth_tail_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span>
-                                       <span class="n">savgol_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">savgol_window</span><span class="p">)</span>
-        
-        <span class="n">angle_baseline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_baseline</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span>
-                                               <span class="n">baseline_method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">baseline_method</span><span class="p">,</span> 
-                                               <span class="n">baseline_params</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">baseline_params</span><span class="p">)</span>
-        
+        <span class="n">angle</span><span class="p">,</span> <span class="n">no_tracking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp_tail_nan</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">limit_na</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">limit_na</span><span class="p">)</span>
+
+        <span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_using_pca</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">num_pcs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">num_pcs</span><span class="p">)</span>
+
+        <span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smooth_tail_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">savgol_window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">savgol_window</span><span class="p">)</span>
+
+        <span class="n">angle_baseline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_baseline</span><span class="p">(</span>
+            <span class="n">angle</span><span class="p">,</span>
+            <span class="n">baseline_method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">baseline_method</span><span class="p">,</span>
+            <span class="n">baseline_params</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">baseline_params</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="k">return</span> <span class="n">angle</span><span class="p">,</span> <span class="n">angle_baseline</span><span class="p">,</span> <span class="n">no_tracking</span></div>
 
 
 <div class="viewcode-block" id="TailPreprocessing.interp_tail_nan">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.interp_tail_nan">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">interp_tail_nan</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">limit_na</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">interp_tail_nan</span><span class="p">(</span>
+        <span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">limit_na</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolates missing values in tail angle.&quot;&quot;&quot;</span>
         <span class="c1"># Interpolate NaN timestep:</span>
         <span class="n">angle_no_nan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-            <span class="n">ds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">angle</span><span class="p">[:,</span><span class="n">s</span><span class="p">])</span>
-            <span class="n">ds</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span><span class="n">limit</span><span class="o">=</span><span class="n">limit_na</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">angle_no_nan</span><span class="p">[:,</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">values</span>
-        
-        <span class="n">no_tracking</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">angle_no_nan</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">angle_no_nan</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">angle_no_nan</span><span class="p">)]</span><span class="o">=</span><span class="mi">0</span>
-    
-        <span class="k">return</span> <span class="n">angle_no_nan</span><span class="p">,</span><span class="n">no_tracking</span></div>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">angle</span><span class="p">[:,</span> <span class="n">s</span><span class="p">])</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit_na</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">angle_no_nan</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">values</span>
 
-    
+        <span class="n">no_tracking</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">angle_no_nan</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">angle_no_nan</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">angle_no_nan</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">angle_no_nan</span><span class="p">,</span> <span class="n">no_tracking</span></div>
+
+
 <div class="viewcode-block" id="TailPreprocessing.clean_using_pca">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.clean_using_pca">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">clean_using_pca</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="n">num_pcs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">clean_using_pca</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_pcs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply PCA autoencoding to clean up a multidimensional time series.&quot;&quot;&quot;</span>
         <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">num_pcs</span><span class="p">)</span>
         <span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
@@ -518,7 +497,7 @@ document.write(`
         <span class="n">angle_hat</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">low_D</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">angle_hat</span></div>
 
-    
+
 <div class="viewcode-block" id="TailPreprocessing.smooth_tail_angle">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.smooth_tail_angle">[docs]</a>
     <span class="nd">@staticmethod</span>
@@ -528,43 +507,54 @@ document.write(`
         <span class="k">if</span> <span class="n">savgol_window</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="n">angle_smooth</span><span class="p">[:,</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span>
-                    <span class="n">angle</span><span class="p">[:,</span> <span class="n">n</span><span class="p">],</span> 
-                    <span class="n">savgol_window</span><span class="p">,</span> 
-                    <span class="mi">2</span><span class="p">,</span> 
-                    <span class="n">deriv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-                    <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> 
-                    <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> 
-                    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;interp&#39;</span><span class="p">,</span> 
-                    <span class="n">cval</span><span class="o">=</span><span class="mf">0.0</span>
+                    <span class="n">angle</span><span class="p">[:,</span> <span class="n">n</span><span class="p">],</span>
+                    <span class="n">savgol_window</span><span class="p">,</span>
+                    <span class="mi">2</span><span class="p">,</span>
+                    <span class="n">deriv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                    <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;interp&quot;</span><span class="p">,</span>
+                    <span class="n">cval</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">angle_smooth</span></div>
 
-    
+
 <div class="viewcode-block" id="TailPreprocessing.compute_baseline">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_baseline">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">compute_baseline</span><span class="p">(</span><span class="n">angle_smooth</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">baseline_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">baseline_params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">compute_baseline</span><span class="p">(</span>
+        <span class="n">angle_smooth</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">baseline_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">baseline_params</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the baseline for the smoothed tail angle data.&quot;&quot;&quot;</span>
         <span class="n">angle_baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle_smooth</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle_smooth</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-            <span class="n">angle_baseline</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute_baseline</span><span class="p">(</span><span class="n">angle_smooth</span><span class="p">[:,</span> <span class="n">s</span><span class="p">],</span> 
-                                                    <span class="n">baseline_method</span><span class="p">,</span> 
-                                                    <span class="n">baseline_params</span><span class="p">)</span>
+            <span class="n">angle_baseline</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute_baseline</span><span class="p">(</span>
+                <span class="n">angle_smooth</span><span class="p">[:,</span> <span class="n">s</span><span class="p">],</span> <span class="n">baseline_method</span><span class="p">,</span> <span class="n">baseline_params</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">angle_baseline</span></div>
 
-    
+
 <div class="viewcode-block" id="TailPreprocessing.compute_tail_speed">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_tail_speed">[docs]</a>
-    <span class="nd">@staticmethod</span>    
-    <span class="k">def</span> <span class="nf">compute_tail_speed</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="n">fps</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">tail_speed_filter</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">tail_speed_boxcar_filter</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Smooth trajectory using 1€ filter and compute derivative&quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">compute_tail_speed</span><span class="p">(</span>
+        <span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">tail_speed_filter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">tail_speed_boxcar_filter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Smooth trajectory using 1€ filter and compute derivative&quot;&quot;&quot;</span>
         <span class="n">angle_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-            <span class="n">angle_speed</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">angle</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> 
-                                      <span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">,</span> 
-                                      <span class="n">filter_length</span><span class="o">=</span><span class="n">tail_speed_filter</span><span class="p">)</span>
+            <span class="n">angle_speed</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span>
+                <span class="n">angle</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">tail_speed_filter</span>
+            <span class="p">)</span>
         <span class="n">cumul_filtered_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">angle_speed</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">vigor</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">cumul_filtered_speed</span><span class="p">,</span> <span class="n">boxcar</span><span class="p">(</span><span class="n">tail_speed_boxcar_filter</span><span class="p">)</span><span class="o">/</span><span class="n">tail_speed_boxcar_filter</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+        <span class="n">vigor</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span>
+            <span class="n">cumul_filtered_speed</span><span class="p">,</span>
+            <span class="n">boxcar</span><span class="p">(</span><span class="n">tail_speed_boxcar_filter</span><span class="p">)</span> <span class="o">/</span> <span class="n">tail_speed_boxcar_filter</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">vigor</span></div>
 </div>
 
@@ -597,8 +587,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -618,7 +608,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -631,7 +621,7 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
 </p></div>
       
     </div>

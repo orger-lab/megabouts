@@ -19,17 +19,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
     "import numpy as np\n",
-    "import pandas as pd\n",
     "import matplotlib.pyplot as plt\n",
     "\n",
-    "from megabouts.tracking_data import (TrackingConfig, \n",
-    "                                     FullTrackingData, HeadTrackingData,TailTrackingData,\n",
-    "                                     load_example_data)"
+    "from megabouts.tracking_data import (\n",
+    "    TrackingConfig,\n",
+    "    FullTrackingData,\n",
+    "    HeadTrackingData,\n",
+    "    TailTrackingData,\n",
+    "    load_example_data,\n",
+    ")"
    ]
   },
   {
@@ -61,7 +64,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 2,
    "metadata": {
     "tags": [
      "hide-input"
@@ -568,7 +571,8 @@
    ],
    "source": [
     "from IPython.display import SVG, display\n",
-    "display(SVG(filename='megabouts_tracking_configuration.svg'))"
+    "\n",
+    "display(SVG(filename=\"megabouts_tracking_configuration.svg\"))"
    ]
   },
   {
@@ -589,7 +593,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -736,13 +740,13 @@
        "4     -0.015487           NaN  "
       ]
      },
-     "execution_count": 10,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "df_recording, fps, mm_per_unit = load_example_data('fulltracking_posture')\n",
+    "df_recording, fps, mm_per_unit = load_example_data(\"fulltracking_posture\")\n",
     "df_recording.head(5)"
    ]
   },
@@ -755,11 +759,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_cfg = TrackingConfig(fps=fps, tracking='full_tracking')"
+    "tracking_cfg = TrackingConfig(fps=fps, tracking=\"full_tracking\")"
    ]
   },
   {
@@ -771,14 +775,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
-    "head_x = df_recording['head_x'].values*mm_per_unit\n",
-    "head_y = df_recording['head_y'].values*mm_per_unit\n",
-    "head_yaw = df_recording['head_angle'].values\n",
-    "tail_angle = df_recording.filter(like='tail_angle').values"
+    "head_x = df_recording[\"head_x\"].values * mm_per_unit\n",
+    "head_y = df_recording[\"head_y\"].values * mm_per_unit\n",
+    "head_yaw = df_recording[\"head_angle\"].values\n",
+    "tail_angle = df_recording.filter(like=\"tail_angle\").values"
    ]
   },
   {
@@ -790,14 +794,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_data = FullTrackingData.from_posture(head_x = head_x,\n",
-    "                                              head_y = head_y,\n",
-    "                                              head_yaw = head_yaw,\n",
-    "                                              tail_angle = tail_angle)"
+    "tracking_data = FullTrackingData.from_posture(\n",
+    "    head_x=head_x, head_y=head_y, head_yaw=head_yaw, tail_angle=tail_angle\n",
+    ")"
    ]
   },
   {
@@ -809,7 +812,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 7,
    "metadata": {
     "tags": [
      "hide-input"
@@ -830,53 +833,93 @@
    "source": [
     "from mpl_toolkits.axes_grid1.inset_locator import mark_inset\n",
     "import matplotlib.patches as patches\n",
-    "import matplotlib as mpl\n",
     "from cycler import cycler\n",
     "\n",
     "num_colors = 10\n",
-    "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(.2, .9, num_colors)))\n",
+    "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(0.2, 0.9, num_colors)))\n",
     "\n",
     "# Generate time and data for plotting\n",
     "t = np.arange(tracking_data.T) / tracking_cfg.fps\n",
-    "IdSt = 0#np.random.randint(tracking_data.T)\n",
+    "IdSt = 0  # np.random.randint(tracking_data.T)\n",
     "Duration = 30 * tracking_cfg.fps\n",
-    "short_interval = slice(IdSt+10*tracking_cfg.fps, IdSt+12*tracking_cfg.fps)  # 10-second interval\n",
+    "short_interval = slice(\n",
+    "    IdSt + 10 * tracking_cfg.fps, IdSt + 12 * tracking_cfg.fps\n",
+    ")  # 10-second interval\n",
     "\n",
     "# Create figure and subplots\n",
     "fig, ax = plt.subplots(3, 1, figsize=(15, 10), height_ratios=[0.5, 0.5, 1])\n",
     "\n",
     "# Main plot for tail angle with zoom box (ax[0])\n",
     "ax[0].set_prop_cycle(blue_cycler)\n",
-    "ax[0].plot(t[IdSt:IdSt + Duration], tracking_data.tail_df.iloc[IdSt:IdSt + Duration])\n",
-    "ax[0].set(**{'title': 'tail angle', 'xlabel': 'time (s)', 'ylabel': 'angle (rad)', 'ylim': (-4, 4)})\n",
-    "ax[0].add_patch(patches.Rectangle((t[short_interval.start], -4), 2, 8, linewidth=1.5, edgecolor='red', facecolor='none'))\n",
+    "ax[0].plot(\n",
+    "    t[IdSt : IdSt + Duration], tracking_data.tail_df.iloc[IdSt : IdSt + Duration]\n",
+    ")\n",
+    "ax[0].set(\n",
+    "    **{\n",
+    "        \"title\": \"tail angle\",\n",
+    "        \"xlabel\": \"time (s)\",\n",
+    "        \"ylabel\": \"angle (rad)\",\n",
+    "        \"ylim\": (-4, 4),\n",
+    "    }\n",
+    ")\n",
+    "ax[0].add_patch(\n",
+    "    patches.Rectangle(\n",
+    "        (t[short_interval.start], -4),\n",
+    "        2,\n",
+    "        8,\n",
+    "        linewidth=1.5,\n",
+    "        edgecolor=\"red\",\n",
+    "        facecolor=\"none\",\n",
+    "    )\n",
+    ")\n",
     "\n",
     "# Hide ax[1]\n",
-    "ax[1].axis('off')\n",
+    "ax[1].axis(\"off\")\n",
     "\n",
     "# Trajectory plot with circle (ax[2])\n",
-    "ax[2].plot(tracking_data.traj_df.x.iloc[IdSt:IdSt + Duration], tracking_data.traj_df.y.iloc[IdSt:IdSt + Duration])\n",
-    "ax[2].add_artist(plt.Circle((0., 0.), 25, color='red', fill=False))\n",
-    "ax[2].set(**{'xlim': (-27, 27), 'ylim': (-27, 27), 'title': 'head trajectory', 'aspect': 'equal', 'xlabel': 'x (mm)', 'ylabel': ' y (mm)'})\n",
+    "ax[2].plot(\n",
+    "    tracking_data.traj_df.x.iloc[IdSt : IdSt + Duration],\n",
+    "    tracking_data.traj_df.y.iloc[IdSt : IdSt + Duration],\n",
+    ")\n",
+    "ax[2].add_artist(plt.Circle((0.0, 0.0), 25, color=\"red\", fill=False))\n",
+    "ax[2].set(\n",
+    "    **{\n",
+    "        \"xlim\": (-27, 27),\n",
+    "        \"ylim\": (-27, 27),\n",
+    "        \"title\": \"head trajectory\",\n",
+    "        \"aspect\": \"equal\",\n",
+    "        \"xlabel\": \"x (mm)\",\n",
+    "        \"ylabel\": \" y (mm)\",\n",
+    "    }\n",
+    ")\n",
     "\n",
     "# Inset axis for zoomed tail angle (above ax[1])\n",
     "inset_ax = fig.add_axes([0.2, 0.55, 0.5, 0.1])\n",
     "inset_ax.set_prop_cycle(blue_cycler)\n",
     "inset_ax.plot(t[short_interval], tracking_data.tail_df.iloc[short_interval])\n",
-    "inset_ax.set(**{'xlim': (t[short_interval.start], t[short_interval.stop]), 'ylim': (-4, 4)})\n",
-    "inset_ax.tick_params(which='both', bottom=False, left=False, labelbottom=False, labelleft=False)\n",
+    "inset_ax.set(\n",
+    "    **{\"xlim\": (t[short_interval.start], t[short_interval.stop]), \"ylim\": (-4, 4)}\n",
+    ")\n",
+    "inset_ax.tick_params(\n",
+    "    which=\"both\", bottom=False, left=False, labelbottom=False, labelleft=False\n",
+    ")\n",
     "mark_inset(ax[0], inset_ax, loc1=1, loc2=2, fc=\"none\", ec=\"0.5\")\n",
-    "[axis.spines[['right', 'top']].set_visible(False) for axis in [ax[0], ax[2]]]\n",
-    "for i in range(IdSt,IdSt+Duration,350):\n",
-    "    ax[2].arrow(tracking_data.traj_df['x'][i],\n",
-    "                 tracking_data.traj_df['y'][i],\n",
-    "                 np.cos(tracking_data.traj_df['yaw'][i]),\n",
-    "                 np.sin(tracking_data.traj_df['yaw'][i]),\n",
-    "                 head_width=.5, head_length=.5,fc='k',ec='k')\n",
-    "[axis.spines[['right', 'top']].set_visible(False) for axis in [ax[0], ax[1]]]\n",
+    "[axis.spines[[\"right\", \"top\"]].set_visible(False) for axis in [ax[0], ax[2]]]\n",
+    "for i in range(IdSt, IdSt + Duration, 350):\n",
+    "    ax[2].arrow(\n",
+    "        tracking_data.traj_df[\"x\"][i],\n",
+    "        tracking_data.traj_df[\"y\"][i],\n",
+    "        np.cos(tracking_data.traj_df[\"yaw\"][i]),\n",
+    "        np.sin(tracking_data.traj_df[\"yaw\"][i]),\n",
+    "        head_width=0.5,\n",
+    "        head_length=0.5,\n",
+    "        fc=\"k\",\n",
+    "        ec=\"k\",\n",
+    "    )\n",
+    "[axis.spines[[\"right\", \"top\"]].set_visible(False) for axis in [ax[0], ax[1]]]\n",
     "\n",
     "\n",
-    "plt.show()\n"
+    "plt.show()"
    ]
   },
   {
@@ -895,7 +938,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -1116,14 +1159,14 @@
        "[5 rows x 39 columns]"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "df_recording, fps, mm_per_unit = load_example_data('HR_DLC')\n",
-    "df_recording = df_recording['DLC_resnet50_Zebrafish']\n",
+    "df_recording, fps, mm_per_unit = load_example_data(\"HR_DLC\")\n",
+    "df_recording = df_recording[\"DLC_resnet50_Zebrafish\"]\n",
     "df_recording.head(5)"
    ]
   },
@@ -1136,11 +1179,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_cfg = TrackingConfig(fps=fps, tracking='tail_tracking')"
+    "tracking_cfg = TrackingConfig(fps=fps, tracking=\"tail_tracking\")"
    ]
   },
   {
@@ -1152,15 +1195,19 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [],
    "source": [
-    "kpts_list = [f'tail{i}' for i in range(11)]\n",
+    "kpts_list = [f\"tail{i}\" for i in range(11)]\n",
     "thresh_score = 0.99\n",
     "for kps in kpts_list:\n",
-    "    df_recording.loc[df_recording[(kps,'likelihood')] < thresh_score, (kps, 'x')] = np.nan\n",
-    "    df_recording.loc[df_recording[(kps,'likelihood')] < thresh_score, (kps, 'y')] = np.nan"
+    "    df_recording.loc[df_recording[(kps, \"likelihood\")] < thresh_score, (kps, \"x\")] = (\n",
+    "        np.nan\n",
+    "    )\n",
+    "    df_recording.loc[df_recording[(kps, \"likelihood\")] < thresh_score, (kps, \"y\")] = (\n",
+    "        np.nan\n",
+    "    )"
    ]
   },
   {
@@ -1172,15 +1219,29 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tail_x = df_recording.loc[:, [(segment, 'x') for segment, coord in df_recording.columns if segment in kpts_list and coord == 'x']].values\n",
-    "tail_y = df_recording.loc[:, [(segment, 'y') for segment, coord in df_recording.columns if segment in kpts_list and coord == 'y']].values\n",
+    "tail_x = df_recording.loc[\n",
+    "    :,\n",
+    "    [\n",
+    "        (segment, \"x\")\n",
+    "        for segment, coord in df_recording.columns\n",
+    "        if segment in kpts_list and coord == \"x\"\n",
+    "    ],\n",
+    "].values\n",
+    "tail_y = df_recording.loc[\n",
+    "    :,\n",
+    "    [\n",
+    "        (segment, \"y\")\n",
+    "        for segment, coord in df_recording.columns\n",
+    "        if segment in kpts_list and coord == \"y\"\n",
+    "    ],\n",
+    "].values\n",
     "\n",
-    "tail_x = tail_x*mm_per_unit\n",
-    "tail_y = tail_y*mm_per_unit"
+    "tail_x = tail_x * mm_per_unit\n",
+    "tail_y = tail_y * mm_per_unit"
    ]
   },
   {
@@ -1192,12 +1253,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_data = TailTrackingData.from_keypoints(tail_x = tail_x,                                                \n",
-    "                                                tail_y = tail_y)"
+    "tracking_data = TailTrackingData.from_keypoints(tail_x=tail_x, tail_y=tail_y)"
    ]
   },
   {
@@ -1209,7 +1269,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 13,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1228,21 +1288,30 @@
     }
    ],
    "source": [
-    "t = np.arange(tracking_data.T)/tracking_cfg.fps\n",
-    "IdSt = 33000#np.random.randint(tracking_data.T)\n",
-    "Duration = 6*tracking_cfg.fps\n",
+    "t = np.arange(tracking_data.T) / tracking_cfg.fps\n",
+    "IdSt = 33000  # np.random.randint(tracking_data.T)\n",
+    "Duration = 6 * tracking_cfg.fps\n",
     "\n",
-    "fig,ax = plt.subplots(2,1,figsize=(10,8),height_ratios=[1,1])\n",
+    "fig, ax = plt.subplots(2, 1, figsize=(10, 8), height_ratios=[1, 1])\n",
     "ax[0].set_prop_cycle(blue_cycler)\n",
-    "ax[0].plot(t[IdSt:IdSt+Duration],tracking_data.tail_df.iloc[IdSt:IdSt+Duration,:])\n",
-    "ax[0].set(title='tail angle', ylim=[-4,4], xlabel='time (s)',ylabel ='angle (rad)')\n",
+    "ax[0].plot(\n",
+    "    t[IdSt : IdSt + Duration], tracking_data.tail_df.iloc[IdSt : IdSt + Duration, :]\n",
+    ")\n",
+    "ax[0].set(title=\"tail angle\", ylim=[-4, 4], xlabel=\"time (s)\", ylabel=\"angle (rad)\")\n",
     "\n",
-    "cmap = plt.get_cmap('cividis')\n",
-    "for i in range(IdSt,IdSt+Duration):\n",
-    "    ax[1].plot(tracking_data._tail_y[i,:],tracking_data._tail_x[i,:],'.-',color = cmap((i-IdSt)/Duration))\n",
-    "ax[1].set(title='tail posture',aspect='equal')\n",
-    "ax[1].tick_params(which='both', bottom=False, left=False, labelbottom=False, labelleft=False)\n",
-    "[axis.spines[['right', 'top']].set_visible(False) for axis in [ax[0], ax[1]]]\n",
+    "cmap = plt.get_cmap(\"cividis\")\n",
+    "for i in range(IdSt, IdSt + Duration):\n",
+    "    ax[1].plot(\n",
+    "        tracking_data._tail_y[i, :],\n",
+    "        tracking_data._tail_x[i, :],\n",
+    "        \".-\",\n",
+    "        color=cmap((i - IdSt) / Duration),\n",
+    "    )\n",
+    "ax[1].set(title=\"tail posture\", aspect=\"equal\")\n",
+    "ax[1].tick_params(\n",
+    "    which=\"both\", bottom=False, left=False, labelbottom=False, labelleft=False\n",
+    ")\n",
+    "[axis.spines[[\"right\", \"top\"]].set_visible(False) for axis in [ax[0], ax[1]]]\n",
     "\n",
     "plt.show()"
    ]
@@ -1263,7 +1332,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
@@ -1379,13 +1448,13 @@
        "4            0.832367  120.054565  118.565849       0.820087  "
       ]
      },
-     "execution_count": 21,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "df_recording, fps, mm_per_unit = load_example_data('zebrabox_SLEAP')\n",
+    "df_recording, fps, mm_per_unit = load_example_data(\"zebrabox_SLEAP\")\n",
     "df_recording.head(5)"
    ]
   },
@@ -1398,11 +1467,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_cfg = TrackingConfig(fps=fps, tracking='head_tracking')"
+    "tracking_cfg = TrackingConfig(fps=fps, tracking=\"head_tracking\")"
    ]
   },
   {
@@ -1414,16 +1483,18 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
     "thresh_score = 0.75\n",
-    "is_tracking_bad = (df_recording['swim_bladder.score'] < thresh_score) | (df_recording['mid_eye.score'] < thresh_score)\n",
-    "df_recording.loc[is_tracking_bad,'mid_eye.x'] = np.nan\n",
-    "df_recording.loc[is_tracking_bad,'mid_eye.y'] = np.nan\n",
-    "df_recording.loc[is_tracking_bad,'swim_bladder.x'] = np.nan\n",
-    "df_recording.loc[is_tracking_bad,'swim_bladder.y'] = np.nan"
+    "is_tracking_bad = (df_recording[\"swim_bladder.score\"] < thresh_score) | (\n",
+    "    df_recording[\"mid_eye.score\"] < thresh_score\n",
+    ")\n",
+    "df_recording.loc[is_tracking_bad, \"mid_eye.x\"] = np.nan\n",
+    "df_recording.loc[is_tracking_bad, \"mid_eye.y\"] = np.nan\n",
+    "df_recording.loc[is_tracking_bad, \"swim_bladder.x\"] = np.nan\n",
+    "df_recording.loc[is_tracking_bad, \"swim_bladder.y\"] = np.nan"
    ]
   },
   {
@@ -1435,14 +1506,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [],
    "source": [
-    "head_x = df_recording['mid_eye.x'].values*mm_per_unit\n",
-    "head_y = df_recording['mid_eye.y'].values*mm_per_unit\n",
-    "swimbladder_x = df_recording['swim_bladder.x'].values*mm_per_unit\n",
-    "swimbladder_y = df_recording['swim_bladder.y'].values*mm_per_unit"
+    "head_x = df_recording[\"mid_eye.x\"].values * mm_per_unit\n",
+    "head_y = df_recording[\"mid_eye.y\"].values * mm_per_unit\n",
+    "swimbladder_x = df_recording[\"swim_bladder.x\"].values * mm_per_unit\n",
+    "swimbladder_y = df_recording[\"swim_bladder.y\"].values * mm_per_unit"
    ]
   },
   {
@@ -1454,14 +1525,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_data = HeadTrackingData.from_keypoints(head_x = head_x,  \n",
-    "                                                head_y = head_y,  \n",
-    "                                                swimbladder_x = swimbladder_x,                                                \n",
-    "                                                swimbladder_y = swimbladder_y)"
+    "tracking_data = HeadTrackingData.from_keypoints(\n",
+    "    head_x=head_x,\n",
+    "    head_y=head_y,\n",
+    "    swimbladder_x=swimbladder_x,\n",
+    "    swimbladder_y=swimbladder_y,\n",
+    ")"
    ]
   },
   {
@@ -1473,7 +1546,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 19,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1496,34 +1569,62 @@
     "import matplotlib.patches as patches\n",
     "\n",
     "num_colors = 10\n",
-    "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(.2, .9, num_colors)))\n",
+    "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(0.2, 0.9, num_colors)))\n",
     "\n",
     "# Generate time and data for plotting\n",
     "t = np.arange(tracking_data.T) / tracking_cfg.fps\n",
-    "IdSt = 25365#np.random.randint(tracking_data.T)\n",
+    "IdSt = 25365  # np.random.randint(tracking_data.T)\n",
     "Duration = 20 * tracking_cfg.fps\n",
-    "short_interval = slice(IdSt+10*tracking_cfg.fps, IdSt+12*tracking_cfg.fps)  # 10-second interval\n",
+    "short_interval = slice(\n",
+    "    IdSt + 10 * tracking_cfg.fps, IdSt + 12 * tracking_cfg.fps\n",
+    ")  # 10-second interval\n",
     "\n",
     "# Create figure and subplots\n",
     "fig, ax = plt.subplots(2, 1, figsize=(15, 10), height_ratios=[0.5, 1])\n",
     "\n",
     "# Main plot for tail angle with zoom box (ax[0])\n",
-    "ax[0].plot(t[IdSt:IdSt + Duration], tracking_data.traj_df['yaw'].iloc[IdSt:IdSt + Duration])\n",
-    "ax[0].set(**{'title': 'yaw angle', 'xlabel': 'time (s)', 'ylabel': 'angle (rad)', 'ylim': (-4, 4)})\n",
+    "ax[0].plot(\n",
+    "    t[IdSt : IdSt + Duration], tracking_data.traj_df[\"yaw\"].iloc[IdSt : IdSt + Duration]\n",
+    ")\n",
+    "ax[0].set(\n",
+    "    **{\n",
+    "        \"title\": \"yaw angle\",\n",
+    "        \"xlabel\": \"time (s)\",\n",
+    "        \"ylabel\": \"angle (rad)\",\n",
+    "        \"ylim\": (-4, 4),\n",
+    "    }\n",
+    ")\n",
     "\n",
     "# Trajectory plot with circle (ax[2])\n",
-    "ax[1].plot(tracking_data.traj_df.x.iloc[IdSt:IdSt + Duration], tracking_data.traj_df.y.iloc[IdSt:IdSt + Duration])\n",
-    "ax[1].add_artist(plt.Circle((13.5,13), 12, color='red', fill=False))\n",
-    "ax[1].set(**{'xlim': (0.5, 26.5), 'ylim': (0., 26.), 'title': 'head trajectory', 'aspect': 'equal', 'xlabel': 'x (mm)', 'ylabel': ' y (mm)'})\n",
-    "for i in range(IdSt,IdSt+Duration,10):\n",
-    "    ax[1].arrow(tracking_data.traj_df['x'][i],\n",
-    "                 tracking_data.traj_df['y'][i],\n",
-    "                 np.cos(tracking_data.traj_df['yaw'][i]),\n",
-    "                 np.sin(tracking_data.traj_df['yaw'][i]),\n",
-    "                 head_width=.5, head_length=.5,fc='k',ec='k')\n",
-    "[axis.spines[['right', 'top']].set_visible(False) for axis in [ax[0], ax[1]]]\n",
+    "ax[1].plot(\n",
+    "    tracking_data.traj_df.x.iloc[IdSt : IdSt + Duration],\n",
+    "    tracking_data.traj_df.y.iloc[IdSt : IdSt + Duration],\n",
+    ")\n",
+    "ax[1].add_artist(plt.Circle((13.5, 13), 12, color=\"red\", fill=False))\n",
+    "ax[1].set(\n",
+    "    **{\n",
+    "        \"xlim\": (0.5, 26.5),\n",
+    "        \"ylim\": (0.0, 26.0),\n",
+    "        \"title\": \"head trajectory\",\n",
+    "        \"aspect\": \"equal\",\n",
+    "        \"xlabel\": \"x (mm)\",\n",
+    "        \"ylabel\": \" y (mm)\",\n",
+    "    }\n",
+    ")\n",
+    "for i in range(IdSt, IdSt + Duration, 10):\n",
+    "    ax[1].arrow(\n",
+    "        tracking_data.traj_df[\"x\"][i],\n",
+    "        tracking_data.traj_df[\"y\"][i],\n",
+    "        np.cos(tracking_data.traj_df[\"yaw\"][i]),\n",
+    "        np.sin(tracking_data.traj_df[\"yaw\"][i]),\n",
+    "        head_width=0.5,\n",
+    "        head_length=0.5,\n",
+    "        fc=\"k\",\n",
+    "        ec=\"k\",\n",
+    "    )\n",
+    "[axis.spines[[\"right\", \"top\"]].set_visible(False) for axis in [ax[0], ax[1]]]\n",
     "\n",
-    "plt.show()\n"
+    "plt.show()"
    ]
   },
   {
@@ -1542,7 +1643,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [
     {
@@ -1747,13 +1848,13 @@
        "[5 rows x 24 columns]"
       ]
      },
-     "execution_count": 29,
+     "execution_count": 20,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "df_recording, fps, mm_per_unit = load_example_data('SLEAP_fulltracking')\n",
+    "df_recording, fps, mm_per_unit = load_example_data(\"SLEAP_fulltracking\")\n",
     "df_recording.head(5)"
    ]
   },
@@ -1766,11 +1867,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_cfg = TrackingConfig(fps=fps, tracking='full_tracking')"
+    "tracking_cfg = TrackingConfig(fps=fps, tracking=\"full_tracking\")"
    ]
   },
   {
@@ -1782,18 +1883,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
     "# Place nan where the score is below a threshold:\n",
-    "thresh_score = 0.\n",
-    "for kps in ['left_eye','right_eye','tail0','tail1','tail2','tail3','tail4']:\n",
-    "    df_recording.loc[df_recording['instance.score']<thresh_score,kps+'.x'] = np.nan\n",
-    "    df_recording.loc[df_recording['instance.score']<thresh_score,kps+'.y'] = np.nan\n",
-    "    df_recording.loc[df_recording[kps+'.score']<thresh_score,kps+'.x'] = np.nan\n",
-    "    df_recording.loc[df_recording[kps+'.score']<thresh_score,kps+'.y'] = np.nan\n",
-    "    "
+    "thresh_score = 0.0\n",
+    "for kps in [\"left_eye\", \"right_eye\", \"tail0\", \"tail1\", \"tail2\", \"tail3\", \"tail4\"]:\n",
+    "    df_recording.loc[df_recording[\"instance.score\"] < thresh_score, kps + \".x\"] = np.nan\n",
+    "    df_recording.loc[df_recording[\"instance.score\"] < thresh_score, kps + \".y\"] = np.nan\n",
+    "    df_recording.loc[df_recording[kps + \".score\"] < thresh_score, kps + \".x\"] = np.nan\n",
+    "    df_recording.loc[df_recording[kps + \".score\"] < thresh_score, kps + \".y\"] = np.nan"
    ]
   },
   {
@@ -1805,20 +1905,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 32,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [],
    "source": [
-    "head_x = (df_recording['left_eye.x'].values+df_recording['right_eye.x'].values)/2\n",
-    "head_y = (df_recording['left_eye.y'].values+df_recording['right_eye.y'].values)/2\n",
+    "head_x = (df_recording[\"left_eye.x\"].values + df_recording[\"right_eye.x\"].values) / 2\n",
+    "head_y = (df_recording[\"left_eye.y\"].values + df_recording[\"right_eye.y\"].values) / 2\n",
     "\n",
-    "tail_x = df_recording[['tail0.x','tail1.x','tail2.x','tail3.x','tail4.x']].values\n",
-    "tail_y = df_recording[['tail0.y','tail1.y','tail2.y','tail3.y','tail4.y']].values\n",
+    "tail_x = df_recording[[\"tail0.x\", \"tail1.x\", \"tail2.x\", \"tail3.x\", \"tail4.x\"]].values\n",
+    "tail_y = df_recording[[\"tail0.y\", \"tail1.y\", \"tail2.y\", \"tail3.y\", \"tail4.y\"]].values\n",
     "\n",
-    "head_x = head_x*mm_per_unit\n",
-    "head_y = head_y*mm_per_unit\n",
-    "tail_x = tail_x*mm_per_unit\n",
-    "tail_y = tail_y*mm_per_unit"
+    "head_x = head_x * mm_per_unit\n",
+    "head_y = head_y * mm_per_unit\n",
+    "tail_x = tail_x * mm_per_unit\n",
+    "tail_y = tail_y * mm_per_unit"
    ]
   },
   {
@@ -1830,14 +1930,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 33,
+   "execution_count": 24,
    "metadata": {},
    "outputs": [],
    "source": [
-    "tracking_data = FullTrackingData.from_keypoints(head_x = head_x,\n",
-    "                                                head_y = head_y,\n",
-    "                                                tail_x = tail_x,                                                \n",
-    "                                                tail_y = tail_y)"
+    "tracking_data = FullTrackingData.from_keypoints(\n",
+    "    head_x=head_x, head_y=head_y, tail_x=tail_x, tail_y=tail_y\n",
+    ")"
    ]
   },
   {
@@ -1849,7 +1948,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 34,
+   "execution_count": 25,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1872,58 +1971,91 @@
     "import matplotlib.patches as patches\n",
     "\n",
     "num_colors = 10\n",
-    "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(.2, .9, num_colors)))\n",
+    "blue_cycler = cycler(color=plt.cm.Blues(np.linspace(0.2, 0.9, num_colors)))\n",
     "\n",
     "# Generate time and data for plotting\n",
     "t = np.arange(tracking_data.T) / tracking_cfg.fps\n",
-    "IdSt = 100000#np.random.randint(tracking_data.T)\n",
+    "IdSt = 100000  # np.random.randint(tracking_data.T)\n",
     "Duration = 20 * tracking_cfg.fps\n",
-    "short_interval = slice(IdSt+10*tracking_cfg.fps, IdSt+12*tracking_cfg.fps)  # 10-second interval\n",
+    "short_interval = slice(\n",
+    "    IdSt + 10 * tracking_cfg.fps, IdSt + 12 * tracking_cfg.fps\n",
+    ")  # 10-second interval\n",
     "\n",
     "# Create figure and subplots\n",
     "fig, ax = plt.subplots(3, 1, figsize=(15, 10), height_ratios=[0.5, 0.5, 1])\n",
     "\n",
     "# Main plot for tail angle with zoom box (ax[0])\n",
     "ax[0].set_prop_cycle(blue_cycler)\n",
-    "ax[0].plot(t[IdSt:IdSt + Duration], tracking_data.tail_df.iloc[IdSt:IdSt + Duration])\n",
-    "ax[0].set(**{'title': 'tail angle', 'xlabel': 'time (s)', 'ylabel': 'angle (rad)', 'ylim': (-4, 4)})\n",
-    "ax[0].add_patch(patches.Rectangle((t[short_interval.start], -4), 2, 8, linewidth=1.5, edgecolor='red', facecolor='none'))\n",
+    "ax[0].plot(\n",
+    "    t[IdSt : IdSt + Duration], tracking_data.tail_df.iloc[IdSt : IdSt + Duration]\n",
+    ")\n",
+    "ax[0].set(\n",
+    "    **{\n",
+    "        \"title\": \"tail angle\",\n",
+    "        \"xlabel\": \"time (s)\",\n",
+    "        \"ylabel\": \"angle (rad)\",\n",
+    "        \"ylim\": (-4, 4),\n",
+    "    }\n",
+    ")\n",
+    "ax[0].add_patch(\n",
+    "    patches.Rectangle(\n",
+    "        (t[short_interval.start], -4),\n",
+    "        2,\n",
+    "        8,\n",
+    "        linewidth=1.5,\n",
+    "        edgecolor=\"red\",\n",
+    "        facecolor=\"none\",\n",
+    "    )\n",
+    ")\n",
     "\n",
     "# Hide ax[1]\n",
-    "ax[1].axis('off')\n",
+    "ax[1].axis(\"off\")\n",
     "\n",
     "# Trajectory plot with circle (ax[2])\n",
-    "ax[2].plot(tracking_data.traj_df.x.iloc[IdSt:IdSt + Duration], tracking_data.traj_df.y.iloc[IdSt:IdSt + Duration])\n",
-    "ax[2].add_artist(plt.Rectangle((1.5, .5), 21.5,21.5, color='red', fill=False))\n",
-    "ax[2].set(**{'xlim': (0, 25), 'ylim': (0, 25), 'title': 'head trajectory', 'aspect': 'equal', 'xlabel': 'x (mm)', 'ylabel': ' y (mm)'})\n",
+    "ax[2].plot(\n",
+    "    tracking_data.traj_df.x.iloc[IdSt : IdSt + Duration],\n",
+    "    tracking_data.traj_df.y.iloc[IdSt : IdSt + Duration],\n",
+    ")\n",
+    "ax[2].add_artist(plt.Rectangle((1.5, 0.5), 21.5, 21.5, color=\"red\", fill=False))\n",
+    "ax[2].set(\n",
+    "    **{\n",
+    "        \"xlim\": (0, 25),\n",
+    "        \"ylim\": (0, 25),\n",
+    "        \"title\": \"head trajectory\",\n",
+    "        \"aspect\": \"equal\",\n",
+    "        \"xlabel\": \"x (mm)\",\n",
+    "        \"ylabel\": \" y (mm)\",\n",
+    "    }\n",
+    ")\n",
     "\n",
     "# Inset axis for zoomed tail angle (above ax[1])\n",
     "inset_ax = fig.add_axes([0.2, 0.55, 0.5, 0.1])\n",
     "inset_ax.set_prop_cycle(blue_cycler)\n",
     "inset_ax.plot(t[short_interval], tracking_data.tail_df.iloc[short_interval])\n",
-    "inset_ax.set(**{'xlim': (t[short_interval.start], t[short_interval.stop]), 'ylim': (-4, 4)})\n",
-    "inset_ax.tick_params(which='both', bottom=False, left=False, labelbottom=False, labelleft=False)\n",
+    "inset_ax.set(\n",
+    "    **{\"xlim\": (t[short_interval.start], t[short_interval.stop]), \"ylim\": (-4, 4)}\n",
+    ")\n",
+    "inset_ax.tick_params(\n",
+    "    which=\"both\", bottom=False, left=False, labelbottom=False, labelleft=False\n",
+    ")\n",
     "mark_inset(ax[0], inset_ax, loc1=1, loc2=2, fc=\"none\", ec=\"0.5\")\n",
-    "[axis.spines[['right', 'top']].set_visible(False) for axis in [ax[0], ax[2]]]\n",
-    "for i in range(IdSt,IdSt+Duration,350):\n",
-    "    ax[2].arrow(tracking_data.traj_df['x'][i],\n",
-    "                 tracking_data.traj_df['y'][i],\n",
-    "                 np.cos(tracking_data.traj_df['yaw'][i]),\n",
-    "                 np.sin(tracking_data.traj_df['yaw'][i]),\n",
-    "                 head_width=.5, head_length=.5,fc='k',ec='k')\n",
-    "[axis.spines[['right', 'top']].set_visible(False) for axis in [ax[0], ax[1]]]\n",
+    "[axis.spines[[\"right\", \"top\"]].set_visible(False) for axis in [ax[0], ax[2]]]\n",
+    "for i in range(IdSt, IdSt + Duration, 350):\n",
+    "    ax[2].arrow(\n",
+    "        tracking_data.traj_df[\"x\"][i],\n",
+    "        tracking_data.traj_df[\"y\"][i],\n",
+    "        np.cos(tracking_data.traj_df[\"yaw\"][i]),\n",
+    "        np.sin(tracking_data.traj_df[\"yaw\"][i]),\n",
+    "        head_width=0.5,\n",
+    "        head_length=0.5,\n",
+    "        fc=\"k\",\n",
+    "        ec=\"k\",\n",
+    "    )\n",
+    "[axis.spines[[\"right\", \"top\"]].set_visible(False) for axis in [ax[0], ax[1]]]\n",
     "\n",
     "\n",
-    "plt.show()\n",
-    "\n"
+    "plt.show()"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

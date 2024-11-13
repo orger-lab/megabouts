@@ -15,17 +15,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -33,13 +35,14 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -55,6 +58,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,19 +74,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -90,7 +83,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -98,8 +90,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -180,29 +172,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -227,15 +211,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -252,7 +232,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -306,15 +287,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -358,8 +335,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -371,7 +346,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">megabouts.se...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">megabouts.segmentation.segmentation</span></li>
   </ul>
 </nav>
 </div>
@@ -390,112 +365,142 @@ document.write(`
                   
   <h1>Source code for megabouts.segmentation.segmentation</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">find_peaks</span>
 <span class="kn">from</span> <span class="nn">..utils.math_utils</span> <span class="kn">import</span> <span class="n">find_onset_offset_numpy</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
-<span class="kn">from</span> <span class="nn">..config.segmentation_config</span> <span class="kn">import</span> <span class="n">SegmentationConfig</span><span class="p">,</span><span class="n">TailSegmentationConfig</span><span class="p">,</span><span class="n">TrajSegmentationConfig</span>
+<span class="kn">from</span> <span class="nn">..config.segmentation_config</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SegmentationConfig</span><span class="p">,</span>
+    <span class="n">TailSegmentationConfig</span><span class="p">,</span>
+    <span class="n">TrajSegmentationConfig</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="SegmentationResult">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult">[docs]</a>
-<span class="k">class</span> <span class="nc">SegmentationResult</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">SegmentationResult</span><span class="p">:</span>
 <div class="viewcode-block" id="SegmentationResult.__init__">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">config</span><span class="p">:</span><span class="n">SegmentationConfig</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="n">T</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">=</span><span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">=</span> <span class="n">onset</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">=</span> <span class="n">onset</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">T</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-    
+
 <div class="viewcode-block" id="SegmentationResult.set_HB1">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.set_HB1">[docs]</a>
     <span class="k">def</span> <span class="nf">set_HB1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_half_beat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_half_beat</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Length of first_half_beat must be equal to the length of onset&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">+</span> <span class="n">first_half_beat</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Length of first_half_beat must be equal to the length of onset&quot;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">+</span> <span class="n">first_half_beat</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
         <span class="c1"># Make sure onset-offset include HB1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">]</span></div>
 
-        
+
 <div class="viewcode-block" id="SegmentationResult.extract_tail_array">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.extract_tail_array">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_tail_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="n">align_to_onset</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        
+    <span class="k">def</span> <span class="nf">extract_tail_array</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">align_to_onset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">align_to_onset</span><span class="p">:</span>
             <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">first_half_beat_loc</span>
-        
-        <span class="n">tail_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">onset</span><span class="p">),</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">))</span>
+            <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">first_half_beat_loc</span>
+
+        <span class="n">tail_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">onset</span><span class="p">),</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">id_st</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">onset</span><span class="p">):</span>
             <span class="n">id_ed</span> <span class="o">=</span> <span class="n">id_st</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span>
-            <span class="n">id_ed</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">id_ed</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">dur</span> <span class="o">=</span> <span class="n">id_ed</span><span class="o">-</span><span class="n">id_st</span>
+            <span class="n">id_ed</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">id_ed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">dur</span> <span class="o">=</span> <span class="n">id_ed</span> <span class="o">-</span> <span class="n">id_st</span>
             <span class="n">tail_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">dur</span><span class="p">]</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">tail_array</span></div>
 
-    
+
 <div class="viewcode-block" id="SegmentationResult.extract_traj_array">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.extract_traj_array">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_traj_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">head_x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                           <span class="n">head_y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                           <span class="n">head_angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                           <span class="n">align_to_onset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                           <span class="n">align</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
-                           <span class="n">idx_ref</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        
+    <span class="k">def</span> <span class="nf">extract_traj_array</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">head_x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">head_y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">head_angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">align_to_onset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">idx_ref</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">align_to_onset</span><span class="p">:</span>
             <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">first_half_beat_loc</span>
-        
+            <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HB1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">first_half_beat_loc</span>
+
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">head_angle</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">,</span> <span class="p">[</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_angle</span><span class="p">])</span>
-        
+
         <span class="n">traj_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">onset</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">id_st</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">onset</span><span class="p">):</span>
             <span class="n">id_ed</span> <span class="o">=</span> <span class="n">id_st</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span>
-            <span class="n">id_ed</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">id_ed</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">dur</span> <span class="o">=</span> <span class="n">id_ed</span><span class="o">-</span><span class="n">id_st</span>
-            <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">],</span> <span class="n">head_angle</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">]</span>
-            <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="n">dur</span><span class="p">],</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">dur</span><span class="p">],</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="n">dur</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span>
+            <span class="n">id_ed</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">id_ed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">dur</span> <span class="o">=</span> <span class="n">id_ed</span> <span class="o">-</span> <span class="n">id_st</span>
+            <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">x</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">],</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">],</span>
+                <span class="n">head_angle</span><span class="p">[</span><span class="n">id_st</span><span class="p">:</span><span class="n">id_ed</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="n">dur</span><span class="p">],</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">dur</span><span class="p">],</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="n">dur</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">sub_x</span><span class="p">,</span>
+                <span class="n">sub_y</span><span class="p">,</span>
+                <span class="n">sub_head_angle</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">align</span><span class="p">:</span>
-            <span class="n">traj_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_traj_array</span><span class="p">(</span><span class="n">traj_array</span><span class="o">=</span><span class="n">traj_array</span><span class="p">,</span><span class="n">idx_ref</span><span class="o">=</span><span class="n">idx_ref</span><span class="p">)</span>
-            
+            <span class="n">traj_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_traj_array</span><span class="p">(</span><span class="n">traj_array</span><span class="o">=</span><span class="n">traj_array</span><span class="p">,</span> <span class="n">idx_ref</span><span class="o">=</span><span class="n">idx_ref</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">traj_array</span></div>
 
-    
+
 <div class="viewcode-block" id="SegmentationResult.align_traj_array">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.align_traj_array">[docs]</a>
-    <span class="k">def</span> <span class="nf">align_traj_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">traj_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                         <span class="n">idx_ref</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        
+    <span class="k">def</span> <span class="nf">align_traj_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">idx_ref</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">traj_array_aligned</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">traj_array</span><span class="p">)</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">traj_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-            <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span> <span class="o">=</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">traj_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:],</span>
+            <span class="p">)</span>
             <span class="n">Pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">))</span>
             <span class="n">Pos</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">sub_x</span> <span class="o">-</span> <span class="n">sub_x</span><span class="p">[</span><span class="n">idx_ref</span><span class="p">]</span>
             <span class="n">Pos</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">sub_y</span> <span class="o">-</span> <span class="n">sub_y</span><span class="p">[</span><span class="n">idx_ref</span><span class="p">]</span>
             <span class="n">theta</span> <span class="o">=</span> <span class="o">-</span><span class="n">sub_head_angle</span><span class="p">[</span><span class="n">idx_ref</span><span class="p">]</span>
             <span class="n">head_angle_rotated</span> <span class="o">=</span> <span class="n">sub_head_angle</span> <span class="o">-</span> <span class="n">sub_head_angle</span><span class="p">[</span><span class="n">idx_ref</span><span class="p">]</span>
-            <span class="n">RotMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]])</span>
+            <span class="n">RotMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]]</span>
+            <span class="p">)</span>
             <span class="n">PosRot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">RotMat</span><span class="p">,</span> <span class="n">Pos</span><span class="p">)</span>
-            <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span> <span class="o">=</span> <span class="n">PosRot</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">PosRot</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">head_angle_rotated</span>
-            <span class="n">traj_array_aligned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">traj_array_aligned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">traj_array_aligned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span>
-        
+            <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">PosRot</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">PosRot</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">head_angle_rotated</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="p">(</span>
+                <span class="n">traj_array_aligned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">traj_array_aligned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">traj_array_aligned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:],</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">,</span> <span class="n">sub_head_angle</span>
+
         <span class="k">return</span> <span class="n">traj_array_aligned</span></div>
 </div>
 
-            
-            
-            
+
 
 <div class="viewcode-block" id="Segmentation">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation">[docs]</a>
@@ -517,7 +522,7 @@ document.write(`
 <div class="viewcode-block" id="Segmentation.from_config">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.from_config">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Segmentation&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Segmentation&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Factory method to create appropriate segmentation instances based on configuration.</span>
 
@@ -535,14 +540,13 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown segmentation config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </div>
 
- 
-        
 
 
 <div class="viewcode-block" id="TailSegmentation">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation">[docs]</a>
 <span class="k">class</span> <span class="nc">TailSegmentation</span><span class="p">(</span><span class="n">Segmentation</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for segmenting data based on tail movement.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TailSegmentation.__init__">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TailSegmentationConfig</span><span class="p">):</span>
@@ -561,8 +565,7 @@ document.write(`
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[np.ndarray, np.ndarray, float]: Onset and offset indices, and threshold value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">missed_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">tail_vigor</span><span class="p">)</span>
-        
+
         <span class="n">Thresh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">threshold</span>
 
         <span class="n">tail_active</span> <span class="o">=</span> <span class="n">tail_vigor</span> <span class="o">&gt;</span> <span class="n">Thresh</span>
@@ -571,21 +574,23 @@ document.write(`
         <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">duration</span> <span class="o">=</span> <span class="n">find_onset_offset_numpy</span><span class="p">(</span><span class="n">tail_active</span><span class="p">)</span>
         <span class="n">onset</span> <span class="o">=</span> <span class="n">onset</span><span class="p">[</span><span class="n">duration</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">min_bout_duration</span><span class="p">]</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span><span class="p">[</span><span class="n">duration</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">min_bout_duration</span><span class="p">]</span>
-        <span class="n">segments</span> <span class="o">=</span> <span class="n">SegmentationResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span><span class="n">onset</span><span class="p">,</span><span class="n">offset</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">tail_vigor</span><span class="p">))</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">SegmentationResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tail_vigor</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">segments</span></div>
 </div>
 
-            
+
+
 <div class="viewcode-block" id="TrajSegmentation">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation">[docs]</a>
 <span class="k">class</span> <span class="nc">TrajSegmentation</span><span class="p">(</span><span class="n">Segmentation</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for segmenting data based on trajectory movement.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TrajSegmentation.__init__">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TrajSegmentationConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
-        
+
 <div class="viewcode-block" id="TrajSegmentation.segment">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.segment">[docs]</a>
     <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kinematic_activity</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
@@ -599,31 +604,43 @@ document.write(`
 <span class="sd">            Tuple[np.ndarray, np.ndarray]: Onset and offset indices.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">peaks</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">kinematic_activity</span><span class="p">,</span> 
-                                       <span class="n">distance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">,</span>
-                                       <span class="n">prominence</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">peak_prominence</span><span class="p">)</span>
+        <span class="n">peaks</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span>
+            <span class="n">kinematic_activity</span><span class="p">,</span>
+            <span class="n">distance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">,</span>
+            <span class="n">prominence</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">peak_prominence</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">inter_peak_min</span> <span class="o">=</span> <span class="n">TrajSegmentation</span><span class="o">.</span><span class="n">find_inter_peak_min</span><span class="p">(</span><span class="n">kinematic_activity</span><span class="p">,</span> <span class="n">peaks</span><span class="p">)</span>
-        <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">TrajSegmentation</span><span class="o">.</span><span class="n">find_onset_offset_around_peak</span><span class="p">(</span><span class="n">kinematic_activity</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">inter_peak_min</span><span class="p">,</span>
-                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">peak_percentage</span><span class="p">)</span>
+        <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">TrajSegmentation</span><span class="o">.</span><span class="n">find_onset_offset_around_peak</span><span class="p">(</span>
+            <span class="n">kinematic_activity</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">inter_peak_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">peak_percentage</span>
+        <span class="p">)</span>
 
-        <span class="n">segments</span> <span class="o">=</span> <span class="n">SegmentationResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span><span class="n">onset</span><span class="p">,</span><span class="n">offset</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">kinematic_activity</span><span class="p">))</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">SegmentationResult</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kinematic_activity</span><span class="p">)</span>
+        <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">segments</span>    </div>
+        <span class="k">return</span> <span class="n">segments</span></div>
 
-    
+
 <div class="viewcode-block" id="TrajSegmentation.find_inter_peak_min">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">find_inter_peak_min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">peaks</span><span class="p">):</span>
         <span class="n">peaks_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">peaks</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
-        <span class="n">inter_peak_min</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">p1</span><span class="p">:</span><span class="n">p2</span><span class="p">])</span> <span class="k">for</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">peaks_list</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">peaks_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+        <span class="n">inter_peak_min</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">p1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">p1</span><span class="p">:</span><span class="n">p2</span><span class="p">])</span> <span class="k">for</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">peaks_list</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">peaks_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="p">]</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">inter_peak_min</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TrajSegmentation.find_onset_offset_around_peak">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">find_onset_offset_around_peak</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">peaks</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">inter_peak_min</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">peak_percentage</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">find_onset_offset_around_peak</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">peaks</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">inter_peak_min</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">peak_percentage</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find the onset and offset around each peak where the signal goes below a certain percentage of the peak value.</span>
 <span class="sd">        Ensure that segments do not overlap and that the duration is non-negative.</span>
@@ -643,20 +660,19 @@ document.write(`
         <span class="k">for</span> <span class="n">p_before</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">p_after</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inter_peak_min</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">inter_peak_min</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
             <span class="c1"># Find onset</span>
             <span class="n">on_</span> <span class="o">=</span> <span class="n">p</span>
-            <span class="k">while</span> <span class="n">on_</span> <span class="o">&gt;</span> <span class="n">p_before</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="n">on_</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">.25</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">]:</span>
+            <span class="k">while</span> <span class="n">on_</span> <span class="o">&gt;</span> <span class="n">p_before</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="n">on_</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">]:</span>
                 <span class="n">on_</span> <span class="o">-=</span> <span class="mi">1</span>
-            
+
             <span class="c1"># Find offset</span>
             <span class="n">off_</span> <span class="o">=</span> <span class="n">p</span>
             <span class="k">while</span> <span class="n">off_</span> <span class="o">&lt;</span> <span class="n">p_after</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="n">off_</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">peak_percentage</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">]:</span>
                 <span class="n">off_</span> <span class="o">+=</span> <span class="mi">1</span>
-            
+
             <span class="n">onset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">on_</span><span class="p">)</span>
             <span class="n">offset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">off_</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">onset</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span></div>
 </div>
-
 
 </pre></div>
 
@@ -687,8 +703,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -708,7 +724,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -721,7 +737,7 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
 </p></div>
       
     </div>

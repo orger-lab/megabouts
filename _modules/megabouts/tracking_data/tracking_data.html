@@ -15,17 +15,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -33,13 +35,14 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -55,6 +58,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,19 +74,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -90,7 +83,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -98,8 +90,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -180,29 +172,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -227,15 +211,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -252,7 +232,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -306,15 +287,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -358,8 +335,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -371,7 +346,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">megabouts.tr...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">megabouts.tracking_data.tracking_data</span></li>
   </ul>
 </nav>
 </div>
@@ -394,7 +369,8 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">.convert_tracking</span> <span class="kn">import</span> <span class="n">compute_angles_from_keypoints</span>
 <span class="kn">from</span> <span class="nn">.convert_tracking</span> <span class="kn">import</span> <span class="n">convert_tail_angle_to_keypoints</span>
-<span class="kn">from</span> <span class="nn">.convert_tracking</span> <span class="kn">import</span> <span class="n">interpolate_tail_keypoint</span><span class="p">,</span><span class="n">interpolate_tail_angle</span>
+<span class="kn">from</span> <span class="nn">.convert_tracking</span> <span class="kn">import</span> <span class="n">interpolate_tail_keypoint</span><span class="p">,</span> <span class="n">interpolate_tail_angle</span>
+
 
 <div class="viewcode-block" id="TrackingConfig">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig">[docs]</a>
@@ -407,7 +383,7 @@ document.write(`
 
 <span class="sd">    Raises:</span>
 <span class="sd">        AttributeError: If invalid tracking type or input type is provided.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; from megabouts.tracking_data.data_loader import TrackingConfig</span>
 <span class="sd">        &gt;&gt;&gt; tracking_config = TrackingConfig(fps=30, tracking=&#39;full_tracking&#39;)</span>
@@ -420,10 +396,10 @@ document.write(`
 <div class="viewcode-block" id="TrackingConfig.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="p">):</span>
-        <span class="n">tracking_options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">,</span> <span class="s1">&#39;head_tracking&#39;</span><span class="p">,</span> <span class="s1">&#39;tail_tracking&#39;</span><span class="p">]</span>
+        <span class="n">tracking_options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;full_tracking&quot;</span><span class="p">,</span> <span class="s2">&quot;head_tracking&quot;</span><span class="p">,</span> <span class="s2">&quot;tail_tracking&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">tracking</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tracking_options</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tracking should be among </span><span class="si">{</span><span class="n">tracking_options</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">20</span> <span class="o">&lt;=</span> <span class="n">fps</span> <span class="o">&lt;=</span> <span class="mi">700</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="n">fps</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">fps</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;fps should be an integer between 20 and 700&quot;</span><span class="p">)</span>
 
@@ -431,12 +407,11 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">tracking</span> <span class="o">=</span> <span class="n">tracking</span></div>
 </div>
 
-        
+
 
 <div class="viewcode-block" id="TrackingData">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingData">[docs]</a>
 <span class="k">class</span> <span class="nc">TrackingData</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    
 <div class="viewcode-block" id="TrackingData.from_keypoints">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingData.from_keypoints">[docs]</a>
     <span class="nd">@classmethod</span>
@@ -447,18 +422,18 @@ document.write(`
 
 <div class="viewcode-block" id="TrackingData.from_posture">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TrackingData.from_posture">[docs]</a>
-    <span class="nd">@classmethod</span>    
+    <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This method should be overridden by subclasses&quot;</span><span class="p">)</span></div>
 
-    
-    <span class="nd">@staticmethod</span>    
+
+    <span class="nd">@staticmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This method should be overridden by subclasses&quot;</span><span class="p">)</span>
-    
-    <span class="nd">@staticmethod</span>    
+
+    <span class="nd">@staticmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_validate_posture</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This method should be overridden by subclasses&quot;</span><span class="p">)</span></div>
@@ -470,77 +445,98 @@ document.write(`
 <span class="k">class</span> <span class="nc">FullTrackingData</span><span class="p">(</span><span class="n">TrackingData</span><span class="p">):</span>
 <div class="viewcode-block" id="FullTrackingData.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span> <span class="o">=</span> <span class="n">tail_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span> <span class="o">=</span> <span class="n">tail_y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span> <span class="o">=</span> <span class="n">head_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span> <span class="o">=</span> <span class="n">head_y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">)</span></div>
 
-        
+
 <div class="viewcode-block" id="FullTrackingData.from_keypoints">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.from_keypoints">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">11</span><span class="p">:</span>
             <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span> <span class="o">=</span> <span class="n">interpolate_tail_keypoint</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-        <span class="n">tail_angle</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">)</span></div>
+        <span class="n">tail_angle</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span>
+            <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FullTrackingData.from_posture">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.from_posture">[docs]</a>
-    <span class="nd">@classmethod</span>   
-    <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">interpolate_tail_angle</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="c1">#</span>
         <span class="c1">#</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tail_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tail_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;angle_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+        <span class="n">tail_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;angle_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">tail_df</span>
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">traj_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">traj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span> <span class="s1">&#39;yaw&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">})</span>
+        <span class="n">traj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span> <span class="s2">&quot;yaw&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">}</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">traj_df</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tail_keypoints_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span> <span class="o">=</span> <span class="n">convert_tail_angle_to_keypoints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">,</span> <span class="n">body_to_tail_mm</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tail_to_tail_mm</span><span class="o">=</span><span class="mf">0.32</span><span class="p">)</span>
-        <span class="n">tail_keypoints_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;tail_x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span><span class="p">,</span> <span class="s1">&#39;tail_y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span><span class="p">})</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span> <span class="o">=</span> <span class="n">convert_tail_angle_to_keypoints</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">,</span>
+                <span class="n">body_to_tail_mm</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                <span class="n">tail_to_tail_mm</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">tail_keypoints_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;tail_x&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span><span class="p">,</span> <span class="s2">&quot;tail_y&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span><span class="p">}</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">tail_keypoints_df</span>
-        
-        
-        
+
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">):</span>
         <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">head_x</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">tail_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inputs must have the same number of time points (T).&quot;</span><span class="p">)</span>
         <span class="n">N_keypoints</span> <span class="o">=</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">N_keypoints</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least 4 points from swim bladder to tail tips are required for full tracking&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">N_keypoints</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;At least 4 points from swim bladder to tail tips are required for full tracking&quot;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">tail_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;tail_x and tail_y must have the same number of keypoints (N).&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;tail_x and tail_y must have the same number of keypoints (N).&quot;</span>
+            <span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
         <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">head_x</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">head_yaw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">head_yaw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span>
+        <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inputs must have the same number of time points (T).&quot;</span><span class="p">)</span>
-        <span class="n">N_keypoints</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
-        <span class="k">if</span> <span class="n">N_keypoints</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least 4 points from swim bladder to tail tips are required for full tracking&#39;</span><span class="p">)</span></div>
+        <span class="n">N_keypoints</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">N_keypoints</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;At least 4 points from swim bladder to tail tips are required for full tracking&quot;</span>
+            <span class="p">)</span></div>
 
 
 
@@ -549,10 +545,10 @@ document.write(`
 <span class="k">class</span> <span class="nc">HeadTrackingData</span><span class="p">(</span><span class="n">TrackingData</span><span class="p">):</span>
 <div class="viewcode-block" id="HeadTrackingData.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.HeadTrackingData.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">swimbladder_x</span><span class="p">,</span><span class="n">swimbladder_y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span> <span class="o">=</span> <span class="n">head_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span> <span class="o">=</span> <span class="n">head_y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span> <span class="o">=</span> <span class="n">head_yaw</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_swimbladder_x</span> <span class="o">=</span> <span class="n">swimbladder_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_swimbladder_y</span> <span class="o">=</span> <span class="n">swimbladder_y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">)</span></div>
@@ -561,104 +557,123 @@ document.write(`
 <div class="viewcode-block" id="HeadTrackingData.from_keypoints">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.HeadTrackingData.from_keypoints">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">swimbladder_x</span><span class="p">,</span><span class="n">swimbladder_y</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">swimbladder_x</span><span class="p">,</span><span class="n">swimbladder_y</span><span class="p">)</span>
-        <span class="n">tail_angle</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span>
-                                                               <span class="n">swimbladder_x</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
-                                                               <span class="n">swimbladder_y</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="n">swimbladder_x</span><span class="p">,</span><span class="n">swimbladder_y</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="p">)</span>
+        <span class="n">tail_angle</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span>
+            <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">swimbladder_y</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="HeadTrackingData.from_posture">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.HeadTrackingData.from_posture">[docs]</a>
-    <span class="nd">@classmethod</span>   
-    <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">)</span>
-        <span class="c1">#tail_angle = np.zeros((len(head_x),10))</span>
-        <span class="c1">#tail_x,tail_y = convert_tail_angle_to_keypoints(head_x, head_y, head_yaw, tail_angle, body_to_tail_mm=0.5, tail_to_tail_mm=0.32)</span>
-        <span class="c1">#swimbladder_x,swimbladder_y = tail_x[:,0],tail_y[:,0]</span>
-        <span class="c1">#return cls(head_x,head_y,head_yaw,swimbladder_x,swimbladder_y)</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span></div>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">)</span>
+        <span class="c1"># tail_angle = np.zeros((len(head_x),10))</span>
+        <span class="c1"># tail_x,tail_y = convert_tail_angle_to_keypoints(head_x, head_y, head_yaw, tail_angle, body_to_tail_mm=0.5, tail_to_tail_mm=0.32)</span>
+        <span class="c1"># swimbladder_x,swimbladder_y = tail_x[:,0],tail_y[:,0]</span>
+        <span class="c1"># return cls(head_x,head_y,head_yaw,swimbladder_x,swimbladder_y)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
 
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">traj_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">traj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span> <span class="s1">&#39;yaw&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">})</span>
+        <span class="n">traj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_x</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_y</span><span class="p">,</span> <span class="s2">&quot;yaw&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_yaw</span><span class="p">}</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">traj_df</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">swimbladder_x</span><span class="p">,</span><span class="n">swimbladder_y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="p">):</span>
         <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">head_x</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">swimbladder_x</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">swimbladder_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">swimbladder_x</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">swimbladder_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span>
+        <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inputs must have the same number of time points (T).&quot;</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">):</span>
         <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">head_x</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">head_yaw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">head_y</span><span class="p">)</span> <span class="o">==</span> <span class="n">T</span> <span class="ow">and</span> <span class="n">head_yaw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">T</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inputs must have the same number of time points (T).&quot;</span><span class="p">)</span></div>
 
 
 
-  
 <div class="viewcode-block" id="TailTrackingData">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData">[docs]</a>
 <span class="k">class</span> <span class="nc">TailTrackingData</span><span class="p">(</span><span class="n">TrackingData</span><span class="p">):</span>
 <div class="viewcode-block" id="TailTrackingData.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span> <span class="o">=</span> <span class="n">tail_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail_y</span> <span class="o">=</span> <span class="n">tail_y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span> <span class="o">=</span> <span class="n">tail_angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail_x</span><span class="p">)</span></div>
 
-        
+
 <div class="viewcode-block" id="TailTrackingData.from_keypoints">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData.from_keypoints">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">11</span><span class="p">:</span>
             <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span> <span class="o">=</span> <span class="n">interpolate_tail_keypoint</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-        <span class="n">tail_angle</span><span class="p">,</span><span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span><span class="n">tail_y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">)</span></div>
+        <span class="n">tail_angle</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span>
+            <span class="n">tail_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TailTrackingData.from_posture">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData.from_posture">[docs]</a>
-    <span class="nd">@classmethod</span>   
-    <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_posture</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">interpolate_tail_angle</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="n">T</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">head_x</span><span class="p">,</span><span class="n">head_y</span><span class="p">,</span><span class="n">head_yaw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-        <span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span> <span class="o">=</span> <span class="n">convert_tail_angle_to_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">,</span> <span class="n">body_to_tail_mm</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">tail_to_tail_mm</span><span class="o">=</span><span class="mf">0.32</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">,</span><span class="n">tail_angle</span><span class="p">)</span></div>
+        <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span> <span class="o">=</span> <span class="n">convert_tail_angle_to_keypoints</span><span class="p">(</span>
+            <span class="n">head_x</span><span class="p">,</span>
+            <span class="n">head_y</span><span class="p">,</span>
+            <span class="n">head_yaw</span><span class="p">,</span>
+            <span class="n">tail_angle</span><span class="p">,</span>
+            <span class="n">body_to_tail_mm</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">tail_to_tail_mm</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tail_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tail_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;angle_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+        <span class="n">tail_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tail_angle</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;angle_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">tail_df</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span><span class="n">tail_y</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="n">tail_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_validate_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">tail_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inputs must have the same number of time points (T).&quot;</span><span class="p">)</span>
         <span class="n">N_keypoints</span> <span class="o">=</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">N_keypoints</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least 4 points from swim bladder to tail tips are required for tail tracking&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">N_keypoints</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;At least 4 points from swim bladder to tail tips are required for tail tracking&quot;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">tail_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;tail_x and tail_y must have the same number of keypoints (N).&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;tail_x and tail_y must have the same number of keypoints (N).&quot;</span>
+            <span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_validate_posture</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">):</span>
-        <span class="n">N_keypoints</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
-        <span class="k">if</span> <span class="n">N_keypoints</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least 4 points from swim bladder to tail tips are required for full tracking&#39;</span><span class="p">)</span></div>
+        <span class="n">N_keypoints</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">N_keypoints</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;At least 4 points from swim bladder to tail tips are required for full tracking&quot;</span>
+            <span class="p">)</span></div>
 
-    
 </pre></div>
 
                 </article>
@@ -688,8 +703,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -709,7 +724,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -722,7 +737,7 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
 </p></div>
       
     </div>

@@ -15,17 +15,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -33,13 +35,14 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -55,6 +58,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,19 +74,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -90,7 +83,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -98,8 +90,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -180,29 +172,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -227,15 +211,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -252,7 +232,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -306,15 +287,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -358,8 +335,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -371,7 +346,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">megabouts.pr...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">megabouts.preprocessing.traj_preprocessing</span></li>
   </ul>
 </nav>
 </div>
@@ -389,27 +364,33 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for megabouts.preprocessing.traj_preprocessing</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">shift</span>
-<span class="kn">from</span> <span class="nn">..utils.data_utils</span> <span class="kn">import</span> <span class="n">create_hierarchical_df</span>
 <span class="kn">from</span> <span class="nn">..utils.math_utils</span> <span class="kn">import</span> <span class="n">robust_diff</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">..config.preprocessing_config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
 
 
-    
 <div class="viewcode-block" id="TrajPreprocessingResult">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult">[docs]</a>
 <span class="k">class</span> <span class="nc">TrajPreprocessingResult</span><span class="p">:</span>
 <div class="viewcode-block" id="TrajPreprocessingResult.__init__">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> 
-                 <span class="n">x_smooth</span><span class="p">,</span> <span class="n">y_smooth</span><span class="p">,</span> <span class="n">yaw_smooth</span><span class="p">,</span> 
-                 <span class="n">axial_speed</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">,</span> <span class="n">yaw_speed</span><span class="p">,</span> 
-                 <span class="n">vigor</span><span class="p">,</span> <span class="n">no_tracking</span><span class="p">):</span>
-        
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">yaw</span><span class="p">,</span>
+        <span class="n">x_smooth</span><span class="p">,</span>
+        <span class="n">y_smooth</span><span class="p">,</span>
+        <span class="n">yaw_smooth</span><span class="p">,</span>
+        <span class="n">axial_speed</span><span class="p">,</span>
+        <span class="n">lateral_speed</span><span class="p">,</span>
+        <span class="n">yaw_speed</span><span class="p">,</span>
+        <span class="n">vigor</span><span class="p">,</span>
+        <span class="n">no_tracking</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yaw</span> <span class="o">=</span> <span class="n">yaw</span>
@@ -425,25 +406,45 @@ document.write(`
 
 
     <span class="k">def</span> <span class="nf">_to_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;yaw&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;x_smooth&#39;</span><span class="p">,</span><span class="s1">&#39;y_smooth&#39;</span><span class="p">,</span><span class="s1">&#39;yaw_smooth&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;axial_speed&#39;</span><span class="p">,</span><span class="s1">&#39;lateral_speed&#39;</span><span class="p">,</span><span class="s1">&#39;yaw_speed&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;vigor&#39;</span><span class="p">,</span><span class="s1">&#39;no_tracking&#39;</span><span class="p">]</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;yaw&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;x_smooth&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;y_smooth&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;yaw_smooth&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;axial_speed&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lateral_speed&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;yaw_speed&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;vigor&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_tracking&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">x_smooth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_smooth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_smooth</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axial_speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lateral_speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_speed</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vigor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_tracking</span>
-        <span class="p">))</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">yaw</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x_smooth</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y_smooth</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">yaw_smooth</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axial_speed</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lateral_speed</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">yaw_speed</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vigor</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">no_tracking</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span></div>
 
 
+
 <div class="viewcode-block" id="TrajPreprocessing">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing">[docs]</a>
-<span class="k">class</span> <span class="nc">TrajPreprocessing</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">TrajPreprocessing</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for preprocessing trajectory data.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TrajPreprocessing.__init__">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TrajPreprocessingConfig</span><span class="p">):</span>
@@ -462,128 +463,161 @@ document.write(`
 <span class="sd">        Returns:</span>
 <span class="sd">            pd.DataFrame: Preprocessed DataFrame with hierarchical structure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">x_input</span><span class="p">,</span><span class="n">y_input</span><span class="p">,</span><span class="n">yaw_input</span> <span class="o">=</span> <span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">traj_df</span><span class="p">[</span><span class="s1">&#39;yaw&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-        
-        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">,</span><span class="n">no_tracking</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">interp_traj_nan</span><span class="p">(</span><span class="n">x_input</span><span class="p">,</span><span class="n">y_input</span><span class="p">,</span><span class="n">yaw_input</span><span class="p">,</span>
-                                                                <span class="n">limit_na</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">limit_na</span><span class="p">)</span>    
-        <span class="n">smooth_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">one_euro_filter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
-                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">freq_cutoff_min</span><span class="p">,</span>
-                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span>
-                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
-        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span>  <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">smooth_func</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">])</span>
+        <span class="n">x_input</span><span class="p">,</span> <span class="n">y_input</span><span class="p">,</span> <span class="n">yaw_input</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">traj_df</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">traj_df</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">traj_df</span><span class="p">[</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="p">)</span>
 
-        <span class="n">axial_speed</span><span class="p">,</span><span class="n">lateral_speed</span><span class="p">,</span><span class="n">yaw_speed</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">compute_speed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">,</span>
-                                                                              <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
-                                                                              <span class="n">n_diff</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">robust_diff</span><span class="p">)</span>
-        <span class="n">vigor</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">compute_kinematic_activity</span><span class="p">(</span><span class="n">axial_speed</span><span class="p">,</span><span class="n">lateral_speed</span><span class="p">,</span><span class="n">yaw_speed</span><span class="p">,</span>
-                                                                          <span class="n">lag</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">lag_kinematic_activity</span><span class="p">,</span>
-                                                                          <span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
-        
-        <span class="k">return</span> <span class="n">TrajPreprocessingResult</span><span class="p">(</span><span class="n">x_input</span><span class="p">,</span><span class="n">y_input</span><span class="p">,</span><span class="n">yaw_input</span><span class="p">,</span>
-                                        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">,</span>
-                                        <span class="n">axial_speed</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">,</span> <span class="n">yaw_speed</span><span class="p">,</span>
-                                        <span class="n">vigor</span><span class="p">,</span> <span class="n">no_tracking</span><span class="p">)</span></div>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> <span class="n">no_tracking</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">interp_traj_nan</span><span class="p">(</span>
+            <span class="n">x_input</span><span class="p">,</span> <span class="n">y_input</span><span class="p">,</span> <span class="n">yaw_input</span><span class="p">,</span> <span class="n">limit_na</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">limit_na</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">smooth_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">one_euro_filter</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">freq_cutoff_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span>
+            <span class="p">)</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">smooth_func</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">])</span>
+
+        <span class="n">axial_speed</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">,</span> <span class="n">yaw_speed</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">compute_speed</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span> <span class="n">n_diff</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">robust_diff</span>
+        <span class="p">)</span>
+        <span class="n">vigor</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">compute_kinematic_activity</span><span class="p">(</span>
+            <span class="n">axial_speed</span><span class="p">,</span>
+            <span class="n">lateral_speed</span><span class="p">,</span>
+            <span class="n">yaw_speed</span><span class="p">,</span>
+            <span class="n">lag</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">lag_kinematic_activity</span><span class="p">,</span>
+            <span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">TrajPreprocessingResult</span><span class="p">(</span>
+            <span class="n">x_input</span><span class="p">,</span>
+            <span class="n">y_input</span><span class="p">,</span>
+            <span class="n">yaw_input</span><span class="p">,</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">yaw</span><span class="p">,</span>
+            <span class="n">axial_speed</span><span class="p">,</span>
+            <span class="n">lateral_speed</span><span class="p">,</span>
+            <span class="n">yaw_speed</span><span class="p">,</span>
+            <span class="n">vigor</span><span class="p">,</span>
+            <span class="n">no_tracking</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
-    
 <div class="viewcode-block" id="TrajPreprocessing.interp_traj_nan">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.interp_traj_nan">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">interp_traj_nan</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">limit_na</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">interp_traj_nan</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">limit_na</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolates missing values in trajectory data.&quot;&quot;&quot;</span>
         <span class="c1"># Interpolate within limit na:</span>
-        <span class="n">yaw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw</span><span class="p">))</span>
+        <span class="n">yaw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw</span><span class="p">))</span>
         <span class="n">yaw</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yaw</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">yaw</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yaw</span><span class="p">)])</span>
-        <span class="n">linear_fill_na</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span><span class="n">limit</span><span class="o">=</span><span class="n">limit_na</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span>  <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">linear_fill_na</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">])</span>
-        <span class="n">no_tracking</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="o">.</span><span class="n">reduce</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yaw</span><span class="p">)))</span>
+
+        <span class="k">def</span> <span class="nf">linear_fill_na</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit_na</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">linear_fill_na</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">])</span>
+        <span class="n">no_tracking</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="o">.</span><span class="n">reduce</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yaw</span><span class="p">)))</span>
 
         <span class="c1"># Interpolate remaining values:</span>
-        <span class="n">linear_fill_na_no_limit</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span><span class="o">.</span><span class="n">bfill</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
-        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span>  <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">linear_fill_na_no_limit</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">])</span>
-    
-        <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yaw</span><span class="p">,</span><span class="n">no_tracking</span></div>
+        <span class="k">def</span> <span class="nf">linear_fill_na_no_limit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span><span class="o">.</span><span class="n">bfill</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+            <span class="p">)</span>
 
-    
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">linear_fill_na_no_limit</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> <span class="n">no_tracking</span></div>
+
+
 <div class="viewcode-block" id="TrajPreprocessing.one_euro_filter">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.one_euro_filter">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">one_euro_filter</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">freq_cutoff_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">one_euro_filter</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">freq_cutoff_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rate</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply 1€ filter over x.&quot;&quot;&quot;</span>
         <span class="n">n_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">dx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">x_smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x_smooth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        
+
         <span class="n">fc</span> <span class="o">=</span> <span class="n">freq_cutoff_min</span>
-        <span class="n">tau</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fc</span><span class="p">)</span>
-        <span class="n">te</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">rate</span>
-        <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tau</span><span class="o">/</span><span class="n">te</span><span class="p">)</span>
-        
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n_frames</span><span class="p">):</span>
-                    
-            <span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            
-            <span class="n">x_dot</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">rate</span>
-            <span class="n">fc</span> <span class="o">=</span> <span class="n">freq_cutoff_min</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_dot</span><span class="p">)</span>
-            <span class="n">tau</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fc</span><span class="p">)</span>
-            <span class="n">te</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">rate</span>
-            <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tau</span><span class="o">/</span><span class="n">te</span><span class="p">)</span>
+        <span class="n">tau</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fc</span><span class="p">)</span>
+        <span class="n">te</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">rate</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tau</span> <span class="o">/</span> <span class="n">te</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">):</span>
+            <span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">x_dot</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_smooth</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">rate</span>
+            <span class="n">fc</span> <span class="o">=</span> <span class="n">freq_cutoff_min</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_dot</span><span class="p">)</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fc</span><span class="p">)</span>
+            <span class="n">te</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">rate</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tau</span> <span class="o">/</span> <span class="n">te</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">x_smooth</span></div>
 
 
-
 <div class="viewcode-block" id="TrajPreprocessing.compute_speed">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.compute_speed">[docs]</a>
-    <span class="nd">@staticmethod</span>        
-    <span class="k">def</span> <span class="nf">compute_speed</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_diff</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">compute_speed</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_diff</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the axial, lateral, and yaw speed of a body.&quot;&quot;&quot;</span>
-        <span class="n">body_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">)])[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">body_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">)])[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">position_change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">body_vector</span><span class="p">)</span>
-        <span class="n">position_change</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">position_change</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
-        <span class="n">rotMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)]])</span>
-        <span class="n">body_vector_orth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rotMat</span><span class="p">,</span><span class="n">body_vector</span><span class="p">)</span>
+        <span class="n">position_change</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">position_change</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">rotMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)]]</span>
+        <span class="p">)</span>
+        <span class="n">body_vector_orth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rotMat</span><span class="p">,</span> <span class="n">body_vector</span><span class="p">)</span>
 
-        <span class="n">axial_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ij-&gt;j&#39;</span><span class="p">,</span><span class="n">body_vector</span><span class="p">,</span><span class="n">position_change</span><span class="p">)</span>
-        <span class="n">lateral_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ij-&gt;j&#39;</span><span class="p">,</span><span class="n">body_vector_orth</span><span class="p">,</span><span class="n">position_change</span><span class="p">)</span>
-        <span class="n">yaw_speed</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span><span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">axial_speed</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]),</span><span class="n">axial_speed</span><span class="p">))</span>
-        <span class="n">lateral_speed</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]),</span><span class="n">lateral_speed</span><span class="p">))</span>
-        <span class="n">yaw_speed</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]),</span><span class="n">yaw_speed</span><span class="p">))</span>        
-        <span class="k">return</span> <span class="n">axial_speed</span><span class="p">,</span><span class="n">lateral_speed</span><span class="p">,</span><span class="n">yaw_speed</span></div>
-
+        <span class="n">axial_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij,ij-&gt;j&quot;</span><span class="p">,</span> <span class="n">body_vector</span><span class="p">,</span> <span class="n">position_change</span><span class="p">)</span>
+        <span class="n">lateral_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij,ij-&gt;j&quot;</span><span class="p">,</span> <span class="n">body_vector_orth</span><span class="p">,</span> <span class="n">position_change</span><span class="p">)</span>
+        <span class="n">yaw_speed</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">axial_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]),</span> <span class="n">axial_speed</span><span class="p">))</span>
+        <span class="n">lateral_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]),</span> <span class="n">lateral_speed</span><span class="p">))</span>
+        <span class="n">yaw_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]),</span> <span class="n">yaw_speed</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">axial_speed</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">,</span> <span class="n">yaw_speed</span></div>
 
 
 <div class="viewcode-block" id="TrajPreprocessing.compute_kinematic_activity">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.compute_kinematic_activity">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">compute_kinematic_activity</span><span class="p">(</span><span class="n">axial_speed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw_speed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">lag</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">compute_kinematic_activity</span><span class="p">(</span>
+        <span class="n">axial_speed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">lateral_speed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">yaw_speed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">lag</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the kinematic activity of a body.&quot;&quot;&quot;</span>
-        <span class="n">traj_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">axial_speed</span><span class="p">,</span><span class="n">lateral_speed</span><span class="p">,</span><span class="n">yaw_speed</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">traj_speed</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">traj_speed</span><span class="p">)]</span><span class="o">=</span><span class="mi">0</span>
-        <span class="n">traj_cumul</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">traj_speed</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">traj_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">axial_speed</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">,</span> <span class="n">yaw_speed</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">traj_speed</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">traj_speed</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">traj_cumul</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">traj_speed</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="n">dt</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">/</span><span class="n">fps</span><span class="o">*</span><span class="n">lag</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">/</span> <span class="n">fps</span> <span class="o">*</span> <span class="n">lag</span>
         <span class="n">displacement</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">traj_cumul</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-            <span class="n">tmp</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">traj_cumul</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
-            <span class="n">tmp_future_lag</span><span class="o">=</span><span class="n">shift</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="o">-</span><span class="n">lag</span><span class="p">,</span> <span class="n">cval</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">displacement</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">tmp_future_lag</span><span class="o">-</span><span class="n">tmp</span><span class="p">)</span><span class="o">/</span><span class="n">dt</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">traj_cumul</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+            <span class="n">tmp_future_lag</span> <span class="o">=</span> <span class="n">shift</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="o">-</span><span class="n">lag</span><span class="p">,</span> <span class="n">cval</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">displacement</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tmp_future_lag</span> <span class="o">-</span> <span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt</span>
 
-        <span class="n">displacement</span><span class="p">[:</span><span class="n">lag</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">displacement</span><span class="p">[</span><span class="o">-</span><span class="n">lag</span><span class="p">:,:]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">displacement</span><span class="p">[:</span><span class="n">lag</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">displacement</span><span class="p">[</span><span class="o">-</span><span class="n">lag</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="n">kinematic_activity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">displacement</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">kinematic_activity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">displacement</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">kinematic_activity</span></div>
 </div>
 
-
-    
-    
 </pre></div>
 
                 </article>
@@ -613,8 +647,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -634,7 +668,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -647,7 +681,7 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
 </p></div>
       
     </div>
