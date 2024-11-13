@@ -32,7 +32,9 @@ class SparseCodingConfig(BaseConfig):
         self.load_dictionary()
 
     def load_dictionary(self):
-        filename = os.path.join(os.path.dirname(__file__), "4atomsDictHR_allTensor.npy")
+        config_dir = os.path.dirname(__file__)
+        sparse_coding_dir = os.path.join(os.path.dirname(config_dir), "sparse_coding")
+        filename = os.path.join(sparse_coding_dir, "4atomsDictHR_allTensor.npy")
         if not os.path.exists(filename):
             raise FileNotFoundError(f"Dictionary file not found: {filename}")
 

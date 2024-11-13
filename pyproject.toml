@@ -26,7 +26,8 @@ dependencies = ['ipykernel',
                 'scikit-image',
                 'pybaselines',
                 'scikit-learn',
-                'torch']
+                'torch',
+                'sporco']
 
 
 [project.optional-dependencies]

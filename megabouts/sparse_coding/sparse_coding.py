@@ -1,14 +1,20 @@
 import numpy as np
 import pandas as pd
-from ..utils import create_hierarchical_df
+from ..utils.data_utils import create_hierarchical_df
+
 from sporco.admm import cbpdnin
 from ..config.sparse_coding_config import SparseCodingConfig
 
 
 class SparseCodingResult:
     def __init__(
-        self, tail_angle, sparse_code, decomposition, tail_angle_hat, regressor
-    ):
+        self,
+        tail_angle: np.ndarray,
+        sparse_code: np.ndarray,
+        decomposition: np.ndarray,
+        tail_angle_hat: np.ndarray,
+        regressor: np.ndarray,
+    ) -> None:
         self.tail_angle = tail_angle
         self.sparse_code = sparse_code
         self.decomposition = decomposition
@@ -16,7 +22,12 @@ class SparseCodingResult:
         self.regressor = regressor
         self.df = self._to_dataframe()
 
-    def _to_dataframe(self):
+    def _to_dataframe(self) -> pd.DataFrame:
+        """Convert results to a hierarchical DataFrame.
+
+        Returns:
+            pd.DataFrame: Hierarchical DataFrame containing all results
+        """
         df_info = [
             ("tail_angle", "segments", self.tail_angle),
             ("sparse_code", "atoms", self.sparse_code),
@@ -34,15 +45,6 @@ class SparseCoding:
         self.config = config
 
     def sparse_code_tail_angle(self, tail_angle: np.ndarray) -> SparseCodingResult:
-        """
-        Sparse coding of tail angle data.
-
-        Args:
-            tail_angle (np.ndarray): array containing tail angle data.
-
-        Returns:
-            SparseCodingResult: Sparse Code
-        """
         N_Seg = self.config.Dict.shape[1]
         T = tail_angle.shape[0]
         N_atoms = self.config.N_atoms
@@ -85,16 +87,17 @@ class SparseCoding:
         )
 
     @staticmethod
-    def batch_tail_angle(tail_angle, batch_duration=20000):
-        """
-        Split a given tail angle sequence into batches of a given duration.
+    def batch_tail_angle(
+        tail_angle: np.ndarray, batch_duration: int = 20000
+    ) -> np.ndarray:
+        """Split a given tail angle sequence into batches.
 
-        Parameters:
-        - tail_angle: 2D numpy array of tail angle values.
-        - batch_duration: int, duration of each batch in number of time steps.
+        Args:
+            tail_angle (np.ndarray): 2D array of tail angle values, shape (time_steps, n_segments)
+            batch_duration (int, optional): Duration of each batch. Defaults to 20000.
 
         Returns:
-        - tail_angle_batch: 3D numpy array of tail angle values split into batches of the specified duration.
+            np.ndarray: 3D array of batched tail angles, shape (batch_duration, n_segments, n_batches)
         """
         N = int(np.ceil(tail_angle.shape[0] / batch_duration))
         Nseg = tail_angle.shape[1]
@@ -104,16 +107,15 @@ class SparseCoding:
         return tail_angle_batch.swapaxes(0, 1).swapaxes(1, 2)
 
     @staticmethod
-    def unbatch_result(result, original_length):
-        """
-        Unbatch the result back to its original shape.
+    def unbatch_result(result: np.ndarray, original_length: int) -> np.ndarray:
+        """Unbatch the result back to its original shape.
 
-        Parameters:
-        - result: batched result array.
-        - original_length: original length of the array.
+        Args:
+            result (np.ndarray): Batched array of shape (time_steps, batch_size, n_features)
+            original_length (int): Original sequence length to truncate to
 
         Returns:
-        - Unbatched result array.
+            np.ndarray: Unbatched array of shape (original_length, n_features)
         """
         result_flat = np.zeros((result.shape[0] * result.shape[1], result.shape[2]))
         for i in range(result.shape[2]):
@@ -121,13 +123,12 @@ class SparseCoding:
 
         return result_flat[:original_length, :]
 
-    def compute_decomposition(self, z, original_length):
-        """
-        Compute the decomposition from the sparse codes.
+    def compute_decomposition(self, z: np.ndarray, original_length: int) -> np.ndarray:
+        """Compute the decomposition from the sparse codes.
 
-        Parameters:
-        - z: sparse codes array.
-        - original_length: original length of the array.
+        Args:
+            z (np.ndarray): Sparse codes array of shape (time_steps, n_atoms)
+            original_length (int): Original sequence length to truncate to
 
         Returns:
         - Decomposition array.
