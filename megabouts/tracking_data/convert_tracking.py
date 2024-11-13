@@ -23,27 +23,33 @@ def interpolate_tail_keypoint(tail_x, tail_y, n_segments=10):
     tail_y_interp = np.full((T, n_segments + 1), np.nan)
 
     for i in range(T):
-        points = np.array([tail_x[i, :], tail_y[i, :]]).T
-        is_nan = np.any(np.isnan(points))
-        if not is_nan:
-            id_first_nan = points.shape[0]
-            N_seg = n_segments + 1
-        else:
-            id_first_nan = np.where(np.any(np.isnan(points), axis=1))[0][0]
-            N_seg = int(np.round(id_first_nan / n_segments_init * (n_segments + 1)))
+        try:
+            points = np.array([tail_x[i, :], tail_y[i, :]]).T
+            is_nan = np.any(np.isnan(points))
+            if not is_nan:
+                id_first_nan = points.shape[0]
+                N_seg = n_segments + 1
+            else:
+                id_first_nan = np.where(np.any(np.isnan(points), axis=1))[0][0]
+                N_seg = int(np.round(id_first_nan / n_segments_init * (n_segments + 1)))
 
-        alpha = np.linspace(0, 1, N_seg)
-        distance = np.cumsum(
-            np.sqrt(np.sum(np.diff(points[:id_first_nan, :], axis=0) ** 2, axis=1))
-        )
-        distance = np.insert(distance, 0, 0) / distance[-1]
+            alpha = np.linspace(0, 1, N_seg)
+            distance = np.cumsum(
+                np.sqrt(np.sum(np.diff(points[:id_first_nan, :], axis=0) ** 2, axis=1))
+            )
+            distance = np.insert(distance, 0, 0) / distance[-1]
 
-        kind = "cubic" if len(distance) > 3 else "linear"
-        interpolator = interp1d(distance, points[:id_first_nan, :], kind=kind, axis=0)
+            kind = "cubic" if len(distance) > 3 else "linear"
+            interpolator = interp1d(
+                distance, points[:id_first_nan, :], kind=kind, axis=0
+            )
 
-        curve = interpolator(alpha)
-        tail_x_interp[i, :N_seg] = curve[:, 0]
-        tail_y_interp[i, :N_seg] = curve[:, 1]
+            curve = interpolator(alpha)
+            tail_x_interp[i, :N_seg] = curve[:, 0]
+            tail_y_interp[i, :N_seg] = curve[:, 1]
+        except IndexError:
+            # If interpolation fails, keep NaN values for this frame
+            continue
 
     return tail_x_interp, tail_y_interp
 

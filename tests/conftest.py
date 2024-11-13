@@ -1,22 +1,18 @@
 import pytest
-import numpy as np
+from pathlib import Path
 
 
-@pytest.fixture
-def sample_tail_points():
-    """Provide minimal sample tail tracking points."""
-    return np.array([[0, 0], [1, 0], [2, 1], [3, 2]])
+def pytest_collect_file(parent, file_path: Path):
+    """Add notebook files to pytest collection."""
+    if file_path.suffix == ".ipynb":
+        return pytest.Module.from_parent(parent, path=file_path)
 
 
-@pytest.fixture
-def sample_trajectory():
-    """Provide minimal sample trajectory."""
-    return np.array([[0, 0], [1, 1], [2, 2]])
+def pytest_configure(config):
+    """Configure pytest to include both tests and notebooks."""
+    # Add nbmake option if not already present
+    if "--nbmake" not in config.invocation_params.args:
+        config.option.nbmake = True
 
-
-@pytest.fixture(scope="session")
-def test_data_path():
-    """Return path to test data directory."""
-    from pathlib import Path
-
-    return Path(__file__).parent / "data"
+    # Ensure verbose output
+    config.option.verbose = True

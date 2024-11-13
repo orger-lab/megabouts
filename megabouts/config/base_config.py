@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -9,14 +9,14 @@ class BaseConfig:
         fps (int): frames per second.
     """
 
-    # fps: int = field(init=True, repr=True)
+    fps: int = field(init=True, repr=True)
 
     def __post_init__(self):
         """Initialize the fps attribute and ensure it cannot be modified later."""
         self._fps = self.fps
 
     @property
-    def fps(self):
+    def fps(self):  # noqa: RUF100, F811
         return self._fps
 
     @fps.setter

@@ -1,18 +1,22 @@
-import pytest
 import numpy as np
-from megabouts.tracking import (
-    compute_tail_angles,
-    # Add other tracking functions you want to test
-)
+from megabouts.utils.math_utils import compute_angle_between_vectors
 
 
-def test_compute_tail_angles(sample_tail_points):
-    """Test basic tail angle computation."""
-    angles = compute_tail_angles(sample_tail_points)
-    np.testing.assert_almost_equal(angles, [0.0, 0.46, 0.46], decimal=2)
+def test_compute_angle_between_vectors():
+    # Test case 1: Perpendicular vectors (90 degrees)
+    v1 = np.array([[1, 0]])
+    v2 = np.array([[0, 1]])
+    angle = compute_angle_between_vectors(v1, v2)
+    assert np.isclose(angle, np.pi / 2)
 
+    # Test case 2: Same direction (0 degrees)
+    v1 = np.array([[1, 0]])
+    v2 = np.array([[1, 0]])
+    angle = compute_angle_between_vectors(v1, v2)
+    assert np.isclose(angle, 0)
 
-def test_invalid_input():
-    """Test error handling for invalid inputs."""
-    with pytest.raises(ValueError):
-        compute_tail_angles(np.array([[0, 0]]))  # Too few points
+    # Test case 3: Opposite direction (180 degrees)
+    v1 = np.array([[1, 0]])
+    v2 = np.array([[-1, 0]])
+    angle = compute_angle_between_vectors(v1, v2)
+    assert np.isclose(abs(angle), np.pi)

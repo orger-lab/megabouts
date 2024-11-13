@@ -32,26 +32,26 @@ dependencies = ['ipykernel',
 [project.optional-dependencies]
 test = [
     "pytest",
-    "nbval",
+    "nbmake",
 ]
 dev = [
-"pre-commit",
+    "pre-commit",
     "ruff"
 ]
 docs = [
-      'build',
-      'twine',
-      'setuptools',
-      'sphinx',
-      'sphinx_design',
-      'pydata-sphinx-theme',
-      'sphinx-autobuild',
-      'myst-nb',
-      'sphinx-autoapi',
-      'sphinxcontrib-video',
-      'sphinxcontrib-jupyter',
-      'sphinx-togglebutton',
-      'sphinx-gallery'
+      "build",
+      "twine",
+      "setuptools",
+      "sphinx",
+      "sphinx_design",
+      "pydata-sphinx-theme",
+      "sphinx-autobuild",
+      "myst-nb",
+      "sphinx-autoapi",
+      "sphinxcontrib-video",
+      "sphinxcontrib-jupyter",
+      "sphinx-togglebutton",
+      "sphinx-gallery"
 ]
 
 
