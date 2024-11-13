@@ -28,28 +28,38 @@ dependencies = ['ipykernel',
                 'scikit-learn',
                 'torch']
 
+
 [project.optional-dependencies]
-doc = ['build',
-      'twine',
-      'setuptools',
-      'sphinx',
-      'sphinx_design',
-      'pydata-sphinx-theme',
-      'sphinx-autobuild',
-      'myst-nb',
-      'sphinx-autoapi',
-      'sphinxcontrib-video',
-      'sphinxcontrib-jupyter',
-      'sphinx-togglebutton',
-      'sphinx-gallery'
+test = [
+    "pytest",
+    "nbmake",
+]
+dev = [
+    "pre-commit",
+    "ruff"
+]
+docs = [
+      "build",
+      "twine",
+      "setuptools",
+      "sphinx",
+      "sphinx_design",
+      "pydata-sphinx-theme",
+      "sphinx-autobuild",
+      "myst-nb",
+      "sphinx-autoapi",
+      "sphinxcontrib-video",
+      "sphinxcontrib-jupyter",
+      "sphinx-togglebutton",
+      "sphinx-gallery"
 ]
 
+
 [project.urls]
-Homepage = "https://example.com"
-Documentation = "https://readthedocs.org"
-Repository = "https://github.com/me/spam.git"
-Issues = "https://github.com/me/spam/issues"
-Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+Homepage = "https://megabouts.ai"
+Documentation = "https://megabouts.ai"
+Repository = "https://github.com/orger-lab/megabouts.git"
+Issues = "https://github.com/orger-lab/megabouts/issues"
 
 [tool.setuptools]
 packages = ["megabouts",

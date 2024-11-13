@@ -1,6 +1,3 @@
-from .classification import BoutClassifier,TailBouts
+from .classification import BoutClassifier, TailBouts
 
-__all__ = [
-    'BoutClassifier',
-    'TailBouts'
-]
+__all__ = ["BoutClassifier", "TailBouts"]

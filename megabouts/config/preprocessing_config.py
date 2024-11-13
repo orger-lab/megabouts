@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
-from typing import Tuple, Dict
+from typing import Dict
 from .base_config import BaseConfig
 import numpy as np
-
 
 
 @dataclass
@@ -12,8 +11,9 @@ class PreprocessingConfig(BaseConfig):
     Attributes:
         limit_na_ms (float): Limit for consecutive NA values to interpolate in milliseconds.
     """
+
     limit_na_ms: float = 100
-    
+
     @property
     def limit_na(self) -> int:
         return self.convert_ms_to_frames(self.limit_na_ms)
@@ -31,6 +31,7 @@ class TrajPreprocessingConfig(PreprocessingConfig):
         robust_diff_filt_ms (float): Filter size for robust difference in milliseconds.
         lag_kinematic_activity_ms (float): Lag for kinematic activity in milliseconds.
     """
+
     freq_cutoff_min: float = 20
     beta: float = 1
     robust_diff_filt_ms: float = 21
@@ -46,8 +47,8 @@ class TrajPreprocessingConfig(PreprocessingConfig):
     @property
     def lag_kinematic_activity(self):
         return self.convert_ms_to_frames(self.lag_kinematic_activity_ms)
-    
-    
+
+
 @dataclass
 class TailPreprocessingConfig(PreprocessingConfig):
     """Configuration for tail preprocessing.
@@ -62,6 +63,7 @@ class TailPreprocessingConfig(PreprocessingConfig):
         tail_speed_filter_ms (float): Filter size for tail speed in milliseconds.
         tail_speed_boxcar_filter_ms (float): Boxcar filter size for tail speed in milliseconds.
     """
+
     num_pcs: int = 4
     savgol_window_ms: float = 15
     baseline_method: str = "median"
@@ -71,9 +73,9 @@ class TailPreprocessingConfig(PreprocessingConfig):
 
     def __post_init__(self):
         super().__post_init__()
-        self.baseline_params['fps'] = self.fps
-        self.baseline_params['half_window'] = int(np.round(self.fps/2))
-        
+        self.baseline_params["fps"] = self.fps
+        self.baseline_params["half_window"] = int(np.round(self.fps / 2))
+
     @property
     def savgol_window(self) -> int:
         res = self.convert_ms_to_frames(self.savgol_window_ms)
@@ -91,7 +93,7 @@ class TailPreprocessingConfig(PreprocessingConfig):
     @property
     def tail_speed_boxcar_filter(self) -> int:
         n = self.convert_ms_to_frames(self.tail_speed_boxcar_filter_ms)
-        if n==0:
+        if n == 0:
             return 1
         else:
             return n
