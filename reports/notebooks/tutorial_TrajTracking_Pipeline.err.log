@@ -20,10 +20,10 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-from cycler import cycler
 
-from megabouts.tracking_data import TrackingConfig, FullTrackingData, load_example_data
-from megabouts.pipeline import FullTrackingPipeline
+from megabouts.tracking_data import TrackingConfig, HeadTrackingData, load_example_data
+from megabouts.pipeline import HeadTrackingPipeline
+from megabouts.config import TrajSegmentationConfig
 from megabouts.utils import (
     bouts_category_name,
     bouts_category_name_short,
@@ -34,10 +34,11 @@ from megabouts.utils import (
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn[1], line 7[0m
-[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcycler[39;00m [38;5;28;01mimport[39;00m cycler
-[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtracking_data[39;00m [38;5;28;01mimport[39;00m TrackingConfig, FullTrackingData, load_example_data
-[0;32m----> 7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpipeline[39;00m [38;5;28;01mimport[39;00m FullTrackingPipeline
+Cell [0;32mIn[1], line 6[0m
+[1;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mgridspec[39;00m [38;5;28;01mas[39;00m [38;5;21;01mgridspec[39;00m
+[1;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtracking_data[39;00m [38;5;28;01mimport[39;00m TrackingConfig, HeadTrackingData, load_example_data
+[0;32m----> 6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpipeline[39;00m [38;5;28;01mimport[39;00m HeadTrackingPipeline
+[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mconfig[39;00m [38;5;28;01mimport[39;00m TrajSegmentationConfig
 [1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m (
 [1;32m      9[0m     bouts_category_name,
 [1;32m     10[0m     bouts_category_name_short,

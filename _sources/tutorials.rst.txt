@@ -168,7 +168,7 @@ Head-restrained Pipeline
    :gutter: 3
 
    .. grid-item-card::
-      :link: notebooks/tutorial_Head_Restrained
+      :link: notebooks/tutorial_HeadRestrained_Pipeline
       :link-type: doc
       :shadow: none
       :class-card: example-gallery
@@ -179,6 +179,6 @@ Head-restrained Pipeline
          Head-restrained Pipeline
          </div>
 
-      .. image:: _static/images/thumbnail_head_restrained_pipeline.png
+      .. image:: _static/images/sparse_coding.png
          :alt: Thumbnail for Head-restrained Pipeline Notebook
          :class: gallery-thumbnail

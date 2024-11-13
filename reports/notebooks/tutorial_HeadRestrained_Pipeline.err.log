@@ -22,28 +22,16 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from cycler import cycler
 
-from megabouts.tracking_data import TrackingConfig, FullTrackingData, load_example_data
-from megabouts.pipeline import FullTrackingPipeline
-from megabouts.utils import (
-    bouts_category_name,
-    bouts_category_name_short,
-    bouts_category_color,
-    cmp_bouts,
-)
+from megabouts.tracking_data import TrackingConfig, TailTrackingData, load_example_data
+from megabouts.pipeline import HeadRestrainedPipeline
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn[1], line 7[0m
+Cell [0;32mIn[2], line 7[0m
 [1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcycler[39;00m [38;5;28;01mimport[39;00m cycler
-[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtracking_data[39;00m [38;5;28;01mimport[39;00m TrackingConfig, FullTrackingData, load_example_data
-[0;32m----> 7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpipeline[39;00m [38;5;28;01mimport[39;00m FullTrackingPipeline
-[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m (
-[1;32m      9[0m     bouts_category_name,
-[1;32m     10[0m     bouts_category_name_short,
-[1;32m     11[0m     bouts_category_color,
-[1;32m     12[0m     cmp_bouts,
-[1;32m     13[0m )
+[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtracking_data[39;00m [38;5;28;01mimport[39;00m TrackingConfig, TailTrackingData, load_example_data
+[0;32m----> 7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmegabouts[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpipeline[39;00m [38;5;28;01mimport[39;00m HeadRestrainedPipeline
 
 File [0;32m/opt/hostedtoolcache/Python/3.10.15/x64/lib/python3.10/site-packages/megabouts/pipeline/__init__.py:3[0m
 [1;32m      1[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mfreely_swimming_pipeline[39;00m [38;5;28;01mimport[39;00m EthogramHeadTracking, HeadTrackingPipeline
