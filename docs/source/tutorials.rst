@@ -146,7 +146,7 @@ Freely-swimming Pipeline
          :class: gallery-thumbnail
 
    .. grid-item-card::
-      :link: notebooks/tutorial_Low_Res_Head_Tracking
+      :link: notebooks/tutorial_TrajTracking_Pipeline
       :link-type: doc
       :shadow: none
       :class-card: example-gallery
@@ -157,7 +157,7 @@ Freely-swimming Pipeline
          Low Resolution Head Tracking
          </div>
 
-      .. image:: _static/images/thumbnail_low_res_head_tracking.png
+      .. image:: _static/images/thumbnail_low_res_traj_tracking.png
          :alt: Thumbnail for Low Resolution Head Tracking Notebook
          :class: gallery-thumbnail
 
