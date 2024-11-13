@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import os
 import numpy as np
 from megabouts.config.base_config import BaseConfig
-from megabouts.utils.downsampling import create_downsampling_function
+from megabouts.utils.time_utils import create_downsampling_function
 
 
 @dataclass
