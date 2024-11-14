@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Sphinx documentation
         run: |
-          sphinx-build -b html -v docs/source docs/build/html
+          sphinx-build -b html -D jupyter_execute_notebooks=off docs/source docs/build/html
           cp docs/source/CNAME docs/build/html/
 
       - name: Deploy to GitHub Pages
