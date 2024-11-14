@@ -11,7 +11,7 @@
 
 ## Overview
 
-Megabouts is a Python toolbox designed to precisely quantify zebrafish larval locomotion. Our software supports locomotion analysis in both freely swimming and head-restrained conditions, adapting to various experimental setups and recording speeds.
+Megabouts is a Python toolbox designed to quantify zebrafish larval locomotion. It supports in both freely swimming and head-restrained conditions, adapting to various experimental setups and recording framerate.
 
 **📚 Full documentation and tutorials available at: [megabouts.ai](https://megabouts.ai)**
 
