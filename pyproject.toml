@@ -69,6 +69,7 @@ packages = ["megabouts",
             "megabouts.preprocessing",
             "megabouts.segmentation",
             "megabouts.pipeline",
+            "megabouts.sparse_coding",
             "megabouts.classification",
             "megabouts.utils"]
 

@@ -70,7 +70,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/arviz-devs/arviz",
+            "url": "https://github.com/orger-lab/megabouts",
             "icon": "fa-brands fa-github",
         }
     ],

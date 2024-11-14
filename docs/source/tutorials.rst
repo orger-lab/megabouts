@@ -18,7 +18,7 @@ Loading tracking data
       .. raw:: html
 
          <div class="example-img-plot-overlay">
-         
+         Loading Data
          </div>
 
       .. image:: _static/images/thumbnail_loading_data.png
@@ -116,7 +116,7 @@ Classification
       .. raw:: html
 
          <div class="example-img-plot-overlay">
-
+         Tail Movement Classification
          </div>
 
       .. image:: _static/images/thumbnail_tail_classification.png
@@ -179,6 +179,6 @@ Head-restrained Pipeline
          Head-restrained Pipeline
          </div>
 
-      .. image:: _static/images/sparse_coding.png
+      .. image:: _static/images/thumbnail_head_restrained.png
          :alt: Thumbnail for Head-restrained Pipeline Notebook
          :class: gallery-thumbnail
