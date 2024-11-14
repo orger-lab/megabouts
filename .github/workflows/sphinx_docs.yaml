@@ -29,14 +29,10 @@ jobs:
         run: |
           pip list
 
-      # - name: Changing directory to docs
-      #   run: |
-      #     cd docs
-      #     ls -lha
-
       - name: Build Sphinx documentation
         run: |
           sphinx-build -b html -v docs/source docs/build/html
+          cp docs/source/CNAME docs/build/html/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
