@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Head-restrained pipeline\n",
+    "# Sparse-coding pipeline\n",
     "\n",
     "**The following notebook illustrate the `HeadRestrainedPipeline` class.**\n",
     "- **Several preprocessing steps are used for head-restrained recording of the tail angle**:\n",
