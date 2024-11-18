@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>megabouts.segmentation &#8212; Megabouts 0.1 documentation</title>
+    <title>megabouts.segmentation &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,7 +53,6 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/segmentation';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -61,7 +60,7 @@
     <link rel="prev" title="megabouts.preprocessing" href="preprocessing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -123,7 +122,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -414,7 +413,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.align_traj_array">
 <span class="sig-name descname"><span class="pre">align_traj_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_ref</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.align_traj_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.align_traj_array" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Wrapper around the standalone align_traj_array function.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -538,6 +538,33 @@ np.ndarray: Offset indices</p>
 
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.align_traj_array">
+<span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">align_traj_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bout_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#align_traj_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.align_traj_array" title="Link to this definition">#</a></dt>
+<dd><p>Align trajectory arrays to a reference point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traj_array</strong> (<em>np.ndarray</em>) – Array of shape (N, 3, bout_duration) containing x, y, and heading</p></li>
+<li><p><strong>idx_ref</strong> (<em>int</em>) – Reference index for alignment</p></li>
+<li><p><strong>bout_duration</strong> (<em>int</em>) – Duration of bout</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Aligned trajectory array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If idx_ref is negative or greater than bout_duration</p></li>
+<li><p><strong>ValueError</strong> – If traj_array does not have the expected shape</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -613,6 +640,7 @@ np.ndarray: Offset indices</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak"><code class="docutils literal notranslate"><span class="pre">TrajSegmentation.find_onset_offset_around_peak()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.segmentation.segmentation.align_traj_array"><code class="docutils literal notranslate"><span class="pre">align_traj_array()</span></code></a></li>
 </ul>
   </nav></div>
 

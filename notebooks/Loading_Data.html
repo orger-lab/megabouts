@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Loading Tracking Data &#8212; Megabouts 0.1 documentation</title>
+    <title>Loading Tracking Data &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,13 +53,12 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Loading_Data';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -121,7 +120,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -367,8 +366,8 @@
                   
   <section id="loading-tracking-data">
 <h1>Loading Tracking Data<a class="headerlink" href="#loading-tracking-data" title="Link to this heading">#</a></h1>
-<p>In this tutorial, we will walk through the process of loading tracking data from different format
-into Megabouts.</p>
+<p><strong>In this notebook, we will walk through the process of loading tracking data from different format
+into Megabouts.</strong></p>
 <ul class="simple">
 <li><p>Loading dependencies</p></li>
 </ul>
@@ -399,6 +398,7 @@ into Megabouts.</p>
 </ul>
 </li>
 <li><p><strong>Different Input Formats</strong>: the tracking data can be loaded using two format, the <code class="docutils literal notranslate"><span class="pre">keypoint</span></code> or <code class="docutils literal notranslate"><span class="pre">posture</span></code> format.</p></li>
+<li><p><strong>Units</strong>: position should be provided in mm and angle in radian.</p></li>
 </ul>
 <section id="trackingdata-class">
 <h3>TrackingData Class<a class="headerlink" href="#trackingdata-class" title="Link to this heading">#</a></h3>
@@ -407,7 +407,7 @@ into Megabouts.</p>
 <h4>Tail Tracking Requirements<a class="headerlink" href="#tail-tracking-requirements" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>At least 4 keypoints from the swim bladder to the tail tip are required to load tail tracking data.</p></li>
-<li><p>The tail posture will be interpolated to 10 equidistant points.</p></li>
+<li><p>The tail posture will be interpolated to 11 equidistant points.</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -424,7 +424,7 @@ into Megabouts.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/8fea557b5417fff7afc54e92e8d0e5d50cff2497c9c3e83c6ab32714919fa430.svg" src="../_images/8fea557b5417fff7afc54e92e8d0e5d50cff2497c9c3e83c6ab32714919fa430.svg" />
+<img alt="../_images/a13e49f559f896b04836a7467715b132f746e256e50f352e1e74593e70ea4b0e.svg" src="../_images/a13e49f559f896b04836a7467715b132f746e256e50f352e1e74593e70ea4b0e.svg" />
 </div>
 </div>
 </section>

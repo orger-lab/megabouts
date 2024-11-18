@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tutorial: Tail Preprocessing 🐬 &#8212; Megabouts 0.1 documentation</title>
+    <title>Tail Preprocessing &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,13 +53,12 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/tutorial_Tail_Preprocessing';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -121,7 +120,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -348,7 +347,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Tutorial: Tail Preprocessing 	🐬</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Tail Preprocessing</span></li>
   </ul>
 </nav>
 </div>
@@ -365,8 +364,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tutorial-tail-preprocessing">
-<h1>Tutorial: Tail Preprocessing 	🐬<a class="headerlink" href="#tutorial-tail-preprocessing" title="Link to this heading">#</a></h1>
+  <section id="tail-preprocessing">
+<h1>Tail Preprocessing<a class="headerlink" href="#tail-preprocessing" title="Link to this heading">#</a></h1>
 <p><strong>The following notebook illustrate the <code class="docutils literal notranslate"><span class="pre">TailPreprocessing</span></code> class how to run the different preprocessing steps.</strong></p>
 <ul class="simple">
 <li><p><strong>Several preprocessing steps are used for the tail angle</strong>:</p>
@@ -377,7 +376,7 @@
 <li><p>Baseline correction</p></li>
 </ul>
 </li>
-<li><p><strong>The tail vigor is also computed and will also be useful for segmentation tail bouts</strong>:</p></li>
+<li><p><strong>The tail vigor is also computed and will also be useful for detecting tail bouts</strong>:</p></li>
 </ul>
 <ul class="simple">
 <li><p>Loading dependencies</p></li>
@@ -440,12 +439,18 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TailPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tail_preprocessing_cfg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TailPreprocessingConfig(fps=350, limit_na_ms=100, num_pcs=4, savgol_window_ms=15, baseline_method=&#39;median&#39;, baseline_params={&#39;fps&#39;: 350, &#39;half_window&#39;: 175}, tail_speed_filter_ms=100, tail_speed_boxcar_filter_ms=14)
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Alternatively the tail preprocessing parameters can be adjusted using:</p></li>
+<li><p>Alternatively the tail preprocessing parameters can be set to custom values using:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -461,7 +466,7 @@
 </div>
 </div>
 <ul class="simple">
-<li><p>Here we change the media filter for computing the tail baseline to 200 frame width:</p></li>
+<li><p>Here we change the median filter for computing the tail baseline to 200 frame width:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -471,7 +476,7 @@
 </div>
 </div>
 <ul class="simple">
-<li><p>Let’s run the preprocessing:</p></li>
+<li><p>Let’s run the preprocessing pipeline:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -562,14 +567,14 @@
       <td>-0.035583</td>
       <td>-0.215341</td>
       <td>...</td>
-      <td>-0.103697</td>
-      <td>-0.100077</td>
-      <td>-0.069647</td>
-      <td>-0.020243</td>
-      <td>0.057969</td>
-      <td>0.061299</td>
-      <td>-0.090701</td>
-      <td>-0.173166</td>
+      <td>-0.100224</td>
+      <td>-0.096774</td>
+      <td>-0.067329</td>
+      <td>-0.018151</td>
+      <td>0.056155</td>
+      <td>0.058781</td>
+      <td>-0.090561</td>
+      <td>-0.172721</td>
       <td>NaN</td>
       <td>False</td>
     </tr>
@@ -586,14 +591,14 @@
       <td>-0.035308</td>
       <td>-0.214723</td>
       <td>...</td>
-      <td>-0.089520</td>
-      <td>-0.084504</td>
-      <td>-0.053630</td>
-      <td>-0.004097</td>
-      <td>0.071639</td>
-      <td>0.073541</td>
-      <td>-0.076892</td>
-      <td>-0.157914</td>
+      <td>-0.086259</td>
+      <td>-0.081402</td>
+      <td>-0.051451</td>
+      <td>-0.002093</td>
+      <td>0.069939</td>
+      <td>0.071179</td>
+      <td>-0.076765</td>
+      <td>-0.157507</td>
       <td>NaN</td>
       <td>False</td>
     </tr>
@@ -610,14 +615,14 @@
       <td>-0.035575</td>
       <td>-0.215469</td>
       <td>...</td>
-      <td>-0.080425</td>
-      <td>-0.074525</td>
-      <td>-0.043393</td>
-      <td>0.006204</td>
-      <td>0.080289</td>
-      <td>0.081271</td>
-      <td>-0.068089</td>
-      <td>-0.148180</td>
+      <td>-0.077366</td>
+      <td>-0.071614</td>
+      <td>-0.041347</td>
+      <td>0.008123</td>
+      <td>0.078698</td>
+      <td>0.079057</td>
+      <td>-0.067974</td>
+      <td>-0.147809</td>
       <td>NaN</td>
       <td>False</td>
     </tr>
@@ -634,14 +639,14 @@
       <td>0.024690</td>
       <td>-0.155223</td>
       <td>...</td>
-      <td>-0.076411</td>
-      <td>-0.070140</td>
-      <td>-0.038937</td>
-      <td>0.010658</td>
-      <td>0.083920</td>
-      <td>0.084489</td>
-      <td>-0.064291</td>
-      <td>-0.143965</td>
+      <td>-0.073543</td>
+      <td>-0.067412</td>
+      <td>-0.037017</td>
+      <td>0.012494</td>
+      <td>0.082430</td>
+      <td>0.082415</td>
+      <td>-0.064188</td>
+      <td>-0.143629</td>
       <td>NaN</td>
       <td>False</td>
     </tr>
@@ -658,14 +663,14 @@
       <td>0.024859</td>
       <td>-0.154890</td>
       <td>...</td>
-      <td>-0.077478</td>
-      <td>-0.071350</td>
-      <td>-0.040262</td>
-      <td>0.009267</td>
-      <td>0.082530</td>
-      <td>0.083194</td>
-      <td>-0.065499</td>
-      <td>-0.145269</td>
+      <td>-0.074792</td>
+      <td>-0.068794</td>
+      <td>-0.038462</td>
+      <td>0.011022</td>
+      <td>0.081137</td>
+      <td>0.081254</td>
+      <td>-0.065407</td>
+      <td>-0.144965</td>
       <td>NaN</td>
       <td>False</td>
     </tr>
@@ -722,9 +727,10 @@
 <img alt="../_images/02642d11ff43c8a6c330f9b41fe03ded74f4223f09c35f4f8e3b54e090335f54.png" src="../_images/02642d11ff43c8a6c330f9b41fe03ded74f4223f09c35f4f8e3b54e090335f54.png" />
 </div>
 </div>
-<ul class="simple">
-<li><p>Keep in mind that smoothing the data is optional since the classifier was also trained on raw tracking</p></li>
-</ul>
+<blockquote>
+<div><p class="rubric" id="note">📝 Note</p>
+<p>Smoothing the tail tracking data is optional for classifying tail bouts. The transformer model was trained on raw tracking data, so it can handle unsmoothed input just as well.</p>
+</div></blockquote>
 </section>
 </section>
 

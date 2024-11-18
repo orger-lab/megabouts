@@ -5,11 +5,9 @@
    "id": "5a232aef",
    "metadata": {},
    "source": [
+    "# Trajectory Segmentation \n",
     "\n",
-    "# Tutorial: Traj Segmentation \n",
-    "\n",
-    "**The following notebook illustrate the `TrajSegmentation` class.**\n",
-    "\n"
+    "**The following notebook illustrate the `TrajSegmentation` class.**"
    ]
   },
   {

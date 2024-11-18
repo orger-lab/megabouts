@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Megabouts 0.1 documentation</title>
+    <title>Head-restrained pipeline &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,13 +53,12 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/tutorial_HeadRestrained_Pipeline';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -121,7 +120,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -348,7 +347,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">&lt;no title&gt;</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Head-restrained pipeline</span></li>
   </ul>
 </nav>
 </div>
@@ -365,14 +364,21 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</div>
+  <section id="head-restrained-pipeline">
+<h1>Head-restrained pipeline<a class="headerlink" href="#head-restrained-pipeline" title="Link to this heading">#</a></h1>
+<p><strong>The following notebook illustrate the <code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline</span></code> class.</strong></p>
+<ul class="simple">
+<li><p><strong>Several preprocessing steps are used for head-restrained recording of the tail angle</strong>:</p>
+<ul>
+<li><p>Preprocessing of the tail angle. In contrast with freely-swimming, more emphasis should be put on adjusting the baseline substraction.</p></li>
+<li><p>Sparse coding of the tail angle.</p></li>
+<li><p>Computation of the tail vigor associated to each atom of the sparse coding.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Loading dependencies</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -386,6 +392,9 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Loading tracking data</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_recording</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s2">&quot;HR_DLC&quot;</span><span class="p">)</span>
@@ -426,6 +435,9 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Defining the pipeline</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">HeadRestrainedPipeline</span><span class="p">(</span><span class="n">tracking_cfg</span><span class="p">)</span>
@@ -433,360 +445,83 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>In contrast with freely-swimming where the default baseline method is <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code>, the default baseline method for head-restrained pipeline is set to <code class="docutils literal notranslate"><span class="pre">&quot;whittaker&quot;</span></code> for head-restrained recordings.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">preprocess_tail</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span><span class="o">.</span><span class="n">baseline_method</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(69997, 10)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;whittaker&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<ul class="simple">
+<li><p>Baseline Computation in Sparse Coding</p></li>
+</ul>
+<p>Sparse coding is designed to capture high-frequency components in the signal. To handle low-frequency components effectively:</p>
+<ol class="arabic simple">
+<li><p>We first compute and subtract a baseline</p></li>
+<li><p>The baseline smoothness is controlled by λ (lambda parameter):</p>
+<ul class="simple">
+<li><p><strong>Higher λ values</strong> → smoother baseline</p></li>
+<li><p><strong>Lower λ values</strong> → baseline follows signal more closely</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tail</span><span class="o">.</span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span>
+<span class="n">IdSt</span> <span class="o">=</span> <span class="mi">20612</span>
+<span class="n">Duration</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="n">t_win</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">IdSt</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Effect of Lambda Parameter on Baseline&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lmbda</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1e4</span><span class="p">]):</span>
+    <span class="n">pipeline</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span><span class="o">.</span><span class="n">baseline_params</span><span class="p">[</span><span class="s2">&quot;lmbda&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lmbda</span>
+    <span class="n">tail</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">preprocess_tail</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">t_win</span><span class="p">,</span> <span class="n">tail</span><span class="o">.</span><span class="n">angle</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="s2">&quot;tab:gray&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tail angle&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">t_win</span><span class="p">,</span>
+        <span class="n">tail</span><span class="o">.</span><span class="n">angle_baseline</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+        <span class="s2">&quot;tab:red&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;λ = </span><span class="si">{</span><span class="n">lmbda</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="10" halign="left">angle</th>
-      <th>...</th>
-      <th colspan="8" halign="left">angle_smooth</th>
-      <th>vigor</th>
-      <th>no_tracking</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th colspan="10" halign="left">segments</th>
-      <th>...</th>
-      <th colspan="8" halign="left">segments</th>
-      <th></th>
-      <th></th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>...</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-1.593780</td>
-      <td>-1.568089</td>
-      <td>-1.530709</td>
-      <td>-1.495834</td>
-      <td>-1.535778</td>
-      <td>-1.561335</td>
-      <td>-1.570016</td>
-      <td>-1.542794</td>
-      <td>-1.590044</td>
-      <td>-1.845688</td>
-      <td>...</td>
-      <td>-0.019920</td>
-      <td>-0.018788</td>
-      <td>-0.025091</td>
-      <td>-0.024680</td>
-      <td>-0.024461</td>
-      <td>-0.015693</td>
-      <td>-0.060730</td>
-      <td>-0.162884</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-1.605604</td>
-      <td>-1.571542</td>
-      <td>-1.526480</td>
-      <td>-1.489052</td>
-      <td>-1.530341</td>
-      <td>-1.564532</td>
-      <td>-1.583597</td>
-      <td>-1.534330</td>
-      <td>-1.586708</td>
-      <td>-1.793293</td>
-      <td>...</td>
-      <td>-0.016926</td>
-      <td>-0.017747</td>
-      <td>-0.021643</td>
-      <td>-0.029122</td>
-      <td>-0.024312</td>
-      <td>-0.020969</td>
-      <td>-0.048719</td>
-      <td>-0.114415</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-1.610752</td>
-      <td>-1.567944</td>
-      <td>-1.533597</td>
-      <td>-1.493306</td>
-      <td>-1.531023</td>
-      <td>-1.556587</td>
-      <td>-1.582286</td>
-      <td>-1.544526</td>
-      <td>-1.581794</td>
-      <td>-1.803312</td>
-      <td>...</td>
-      <td>-0.017876</td>
-      <td>-0.018538</td>
-      <td>-0.022782</td>
-      <td>-0.029019</td>
-      <td>-0.024678</td>
-      <td>-0.020618</td>
-      <td>-0.051195</td>
-      <td>-0.122257</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-1.608677</td>
-      <td>-1.570458</td>
-      <td>-1.530129</td>
-      <td>-1.493380</td>
-      <td>-1.488635</td>
-      <td>-1.596988</td>
-      <td>-1.586967</td>
-      <td>-1.540502</td>
-      <td>-1.579036</td>
-      <td>-1.771075</td>
-      <td>...</td>
-      <td>-0.012643</td>
-      <td>-0.014796</td>
-      <td>-0.018671</td>
-      <td>-0.033725</td>
-      <td>-0.029629</td>
-      <td>-0.030660</td>
-      <td>-0.045235</td>
-      <td>-0.086734</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-1.609270</td>
-      <td>-1.569176</td>
-      <td>-1.530705</td>
-      <td>-1.498431</td>
-      <td>-1.536395</td>
-      <td>-1.553538</td>
-      <td>-1.579963</td>
-      <td>-1.538078</td>
-      <td>-1.582147</td>
-      <td>-1.779043</td>
-      <td>...</td>
-      <td>-0.020066</td>
-      <td>-0.021864</td>
-      <td>-0.022437</td>
-      <td>-0.029516</td>
-      <td>-0.018789</td>
-      <td>-0.019134</td>
-      <td>-0.046984</td>
-      <td>-0.099571</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>69992</th>
-      <td>-1.596768</td>
-      <td>-1.567162</td>
-      <td>-1.534361</td>
-      <td>-1.507691</td>
-      <td>-1.551978</td>
-      <td>-1.564608</td>
-      <td>-1.582628</td>
-      <td>-1.563136</td>
-      <td>-1.604771</td>
-      <td>-1.873192</td>
-      <td>...</td>
-      <td>-0.000065</td>
-      <td>0.002175</td>
-      <td>0.001811</td>
-      <td>0.006580</td>
-      <td>-0.002728</td>
-      <td>-0.008970</td>
-      <td>-0.068177</td>
-      <td>-0.166427</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>69993</th>
-      <td>-1.600411</td>
-      <td>-1.565543</td>
-      <td>-1.530869</td>
-      <td>-1.509381</td>
-      <td>-1.550250</td>
-      <td>-1.563592</td>
-      <td>-1.585686</td>
-      <td>-1.553040</td>
-      <td>-1.603318</td>
-      <td>-1.861212</td>
-      <td>...</td>
-      <td>0.000263</td>
-      <td>0.002462</td>
-      <td>0.002764</td>
-      <td>0.007294</td>
-      <td>-0.000236</td>
-      <td>-0.005995</td>
-      <td>-0.062282</td>
-      <td>-0.156202</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>69994</th>
-      <td>-1.600256</td>
-      <td>-1.571034</td>
-      <td>-1.531447</td>
-      <td>-1.503754</td>
-      <td>-1.552670</td>
-      <td>-1.562476</td>
-      <td>-1.582733</td>
-      <td>-1.558143</td>
-      <td>-1.602216</td>
-      <td>-1.864465</td>
-      <td>...</td>
-      <td>0.000546</td>
-      <td>0.002881</td>
-      <td>0.003148</td>
-      <td>0.007805</td>
-      <td>-0.000323</td>
-      <td>-0.006426</td>
-      <td>-0.063774</td>
-      <td>-0.158878</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>69995</th>
-      <td>-1.603002</td>
-      <td>-1.563868</td>
-      <td>-1.534452</td>
-      <td>-1.505841</td>
-      <td>-1.548606</td>
-      <td>-1.563429</td>
-      <td>-1.581956</td>
-      <td>-1.568404</td>
-      <td>-1.608382</td>
-      <td>-1.886405</td>
-      <td>...</td>
-      <td>0.001283</td>
-      <td>0.004120</td>
-      <td>0.003281</td>
-      <td>0.008480</td>
-      <td>-0.003791</td>
-      <td>-0.011117</td>
-      <td>-0.074538</td>
-      <td>-0.178609</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>69996</th>
-      <td>-1.599015</td>
-      <td>-1.556858</td>
-      <td>-1.547860</td>
-      <td>-1.498510</td>
-      <td>-1.540778</td>
-      <td>-1.560287</td>
-      <td>-1.586371</td>
-      <td>-1.569548</td>
-      <td>-1.601050</td>
-      <td>-1.874752</td>
-      <td>...</td>
-      <td>0.004561</td>
-      <td>0.007551</td>
-      <td>0.005944</td>
-      <td>0.008712</td>
-      <td>-0.004816</td>
-      <td>-0.011237</td>
-      <td>-0.068135</td>
-      <td>-0.167194</td>
-      <td>NaN</td>
-      <td>False</td>
-    </tr>
-  </tbody>
-</table>
-<p>69997 rows × 32 columns</p>
-</div></div></div>
+<img alt="../_images/52e1ac1dbd10d4a5b9687c232c8691e009f2de90552a4a7921bc637e0f47760e.png" src="../_images/52e1ac1dbd10d4a5b9687c232c8691e009f2de90552a4a7921bc637e0f47760e.png" />
 </div>
-<div class="cell docutils container">
+</div>
+<ul class="simple">
+<li><p>Once the baseline is computed, it is substracted from the tail angle.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blue_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
 
@@ -797,7 +532,7 @@
 
 <span class="c1"># Prepare the data, titles, and subtitles</span>
 <span class="n">angle_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">tail</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">]</span>
-<span class="n">subtitles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Raw Data&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothed Data&quot;</span><span class="p">]</span>
+<span class="n">subtitles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Raw tail angle&quot;</span><span class="p">,</span> <span class="s2">&quot;Preprocessed tail angle&quot;</span><span class="p">]</span>
 
 <span class="c1"># Create subplots</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -817,10 +552,14 @@
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/bfd2b10a174d6d593d39af65e1b3e4dedc5b6fc75716bdd6df91820986ce07fa.png" src="../_images/bfd2b10a174d6d593d39af65e1b3e4dedc5b6fc75716bdd6df91820986ce07fa.png" />
+<img alt="../_images/4d5fbf36ea42082257f737cd9bb48e18aeed9d0f695e2bec3138da3ea4b3fe4b.png" src="../_images/4d5fbf36ea42082257f737cd9bb48e18aeed9d0f695e2bec3138da3ea4b3fe4b.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>Finally, sparse coding is applied to the preprocessed tail angle.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">sparse_coding_cfg</span>
@@ -833,444 +572,9 @@
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">sparse_coding_cfg</span><span class="o">.</span><span class="n">Dict</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 7, 4)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sparse_coding_result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">compute_sparse_coding</span><span class="p">(</span><span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Itn   Fnc       DFid      Regℓ1     RegLat    RegSelf   r         s         ρ       
-------------------------------------------------------------------------------------
-   0  3.37e+02  2.56e+02  1.28e+03  1.24e+03  6.43e+02  4.41e-01  1.96e+01  1.50e+00
-   1  3.91e+02  1.17e+02  1.54e+03  4.69e+03  2.40e+03  2.08e-01  3.08e+00  1.50e+00
-   2  4.49e+02  1.05e+02  1.71e+03  5.86e+03  3.31e+03  3.18e-01  5.01e-01  3.80e-01
-   3  5.14e+02  1.28e+02  1.57e+03  6.58e+03  4.21e+03  2.73e-01  2.85e-01  2.95e-01
-   4  5.09e+02  1.26e+02  1.35e+03  6.43e+03  4.74e+03  2.26e-01  1.87e-01  2.95e-01
-   5  5.10e+02  1.39e+02  1.21e+03  6.11e+03  5.26e+03  1.65e-01  1.40e-01  2.95e-01
-   6  5.01e+02  1.41e+02  1.13e+03  5.78e+03  6.01e+03  1.30e-01  1.06e-01  2.95e-01
-   7  4.93e+02  1.46e+02  1.06e+03  5.42e+03  6.49e+03  1.07e-01  9.05e-02  2.95e-01
-   8  4.80e+02  1.49e+02  1.03e+03  5.02e+03  7.03e+03  8.63e-02  7.90e-02  2.95e-01
-   9  4.73e+02  1.52e+02  1.00e+03  4.70e+03  7.65e+03  7.28e-02  7.27e-02  2.95e-01
-  10  4.63e+02  1.52e+02  9.77e+02  4.38e+03  8.21e+03  5.94e-02  6.33e-02  2.95e-01
-  11  4.54e+02  1.53e+02  9.61e+02  4.11e+03  8.69e+03  5.03e-02  5.60e-02  2.95e-01
-  12  4.43e+02  1.52e+02  9.54e+02  3.81e+03  9.14e+03  4.25e-02  5.17e-02  2.95e-01
-  13  4.33e+02  1.51e+02  9.48e+02  3.54e+03  9.51e+03  4.06e-02  4.80e-02  2.60e-01
-  14  4.27e+02  1.51e+02  9.46e+02  3.37e+03  9.89e+03  4.14e-02  4.58e-02  2.33e-01
-  15  4.22e+02  1.50e+02  9.49e+02  3.19e+03  1.03e+04  3.93e-02  4.40e-02  2.33e-01
-  16  4.15e+02  1.49e+02  9.47e+02  3.02e+03  1.06e+04  3.63e-02  4.18e-02  2.33e-01
-  17  4.08e+02  1.49e+02  9.45e+02  2.85e+03  1.08e+04  3.57e-02  3.89e-02  2.11e-01
-  18  4.04e+02  1.48e+02  9.46e+02  2.73e+03  1.10e+04  3.42e-02  3.68e-02  2.11e-01
-  19  3.98e+02  1.48e+02  9.46e+02  2.57e+03  1.12e+04  3.23e-02  3.64e-02  2.11e-01
-  20  3.91e+02  1.47e+02  9.44e+02  2.41e+03  1.14e+04  2.97e-02  3.35e-02  2.11e-01
-  21  3.87e+02  1.47e+02  9.43e+02  2.31e+03  1.15e+04  2.70e-02  3.19e-02  2.11e-01
-  22  3.81e+02  1.47e+02  9.44e+02  2.18e+03  1.16e+04  2.70e-02  3.06e-02  1.89e-01
-  23  3.78e+02  1.46e+02  9.47e+02  2.09e+03  1.18e+04  2.59e-02  2.94e-02  1.89e-01
-  24  3.72e+02  1.46e+02  9.47e+02  1.97e+03  1.19e+04  2.42e-02  2.88e-02  1.89e-01
-  25  3.68e+02  1.46e+02  9.47e+02  1.87e+03  1.19e+04  2.50e-02  2.84e-02  1.69e-01
-  26  3.63e+02  1.45e+02  9.49e+02  1.77e+03  1.20e+04  2.42e-02  2.77e-02  1.69e-01
-  27  3.61e+02  1.45e+02  9.52e+02  1.72e+03  1.21e+04  2.51e-02  2.80e-02  1.54e-01
-  28  3.59e+02  1.45e+02  9.54e+02  1.66e+03  1.21e+04  2.44e-02  2.82e-02  1.54e-01
-  29  3.55e+02  1.44e+02  9.57e+02  1.59e+03  1.22e+04  2.54e-02  2.82e-02  1.39e-01
-  30  3.55e+02  1.44e+02  9.62e+02  1.59e+03  1.22e+04  2.50e-02  2.74e-02  1.39e-01
-  31  3.53e+02  1.44e+02  9.65e+02  1.55e+03  1.22e+04  2.44e-02  2.69e-02  1.39e-01
-  32  3.51e+02  1.44e+02  9.63e+02  1.53e+03  1.21e+04  2.29e-02  2.54e-02  1.39e-01
-  33  3.49e+02  1.43e+02  9.64e+02  1.49e+03  1.21e+04  2.28e-02  2.40e-02  1.39e-01
-  34  3.48e+02  1.43e+02  9.65e+02  1.48e+03  1.21e+04  2.21e-02  2.42e-02  1.39e-01
-  35  3.43e+02  1.43e+02  9.62e+02  1.42e+03  1.20e+04  2.08e-02  2.31e-02  1.39e-01
-  36  3.42e+02  1.43e+02  9.62e+02  1.40e+03  1.19e+04  2.04e-02  2.16e-02  1.39e-01
-  37  3.41e+02  1.43e+02  9.65e+02  1.39e+03  1.19e+04  1.98e-02  1.99e-02  1.39e-01
-  38  3.40e+02  1.43e+02  9.67e+02  1.36e+03  1.19e+04  1.90e-02  1.93e-02  1.39e-01
-  39  3.37e+02  1.43e+02  9.66e+02  1.32e+03  1.18e+04  1.81e-02  1.99e-02  1.39e-01
-  40  3.33e+02  1.43e+02  9.62e+02  1.26e+03  1.17e+04  1.67e-02  1.93e-02  1.39e-01
-  41  3.31e+02  1.43e+02  9.63e+02  1.24e+03  1.17e+04  1.72e-02  1.67e-02  1.26e-01
-  42  3.31e+02  1.43e+02  9.66e+02  1.25e+03  1.17e+04  1.66e-02  1.42e-02  1.26e-01
-  43  3.30e+02  1.43e+02  9.66e+02  1.23e+03  1.16e+04  1.57e-02  1.37e-02  1.26e-01
-  44  3.27e+02  1.43e+02  9.66e+02  1.20e+03  1.15e+04  1.49e-02  1.36e-02  1.26e-01
-  45  3.27e+02  1.43e+02  9.66e+02  1.19e+03  1.15e+04  1.44e-02  1.27e-02  1.26e-01
-  46  3.24e+02  1.43e+02  9.65e+02  1.14e+03  1.15e+04  1.37e-02  1.25e-02  1.26e-01
-  47  3.23e+02  1.43e+02  9.65e+02  1.12e+03  1.15e+04  1.29e-02  1.15e-02  1.26e-01
-  48  3.21e+02  1.43e+02  9.64e+02  1.09e+03  1.14e+04  1.24e-02  1.09e-02  1.26e-01
-  49  3.17e+02  1.43e+02  9.63e+02  1.04e+03  1.13e+04  1.19e-02  1.11e-02  1.26e-01
-  50  3.15e+02  1.43e+02  9.63e+02  1.00e+03  1.13e+04  1.15e-02  1.09e-02  1.26e-01
-  51  3.14e+02  1.43e+02  9.63e+02  9.84e+02  1.13e+04  1.12e-02  1.03e-02  1.26e-01
-  52  3.12e+02  1.43e+02  9.63e+02  9.49e+02  1.13e+04  1.07e-02  1.00e-02  1.26e-01
-  53  3.10e+02  1.43e+02  9.62e+02  9.00e+02  1.13e+04  1.03e-02  9.68e-03  1.26e-01
-  54  3.08e+02  1.43e+02  9.61e+02  8.66e+02  1.12e+04  9.76e-03  9.42e-03  1.26e-01
-  55  3.06e+02  1.42e+02  9.60e+02  8.36e+02  1.12e+04  9.41e-03  9.29e-03  1.26e-01
-  56  3.05e+02  1.42e+02  9.60e+02  8.20e+02  1.12e+04  9.15e-03  9.24e-03  1.26e-01
-  57  3.03e+02  1.42e+02  9.60e+02  7.99e+02  1.12e+04  9.05e-03  8.89e-03  1.26e-01
-  58  3.02e+02  1.42e+02  9.61e+02  7.81e+02  1.12e+04  8.65e-03  8.45e-03  1.26e-01
-  59  3.01e+02  1.42e+02  9.60e+02  7.48e+02  1.11e+04  8.48e-03  8.20e-03  1.26e-01
-  60  2.99e+02  1.42e+02  9.59e+02  7.31e+02  1.11e+04  8.09e-03  7.76e-03  1.26e-01
-  61  2.97e+02  1.42e+02  9.58e+02  6.93e+02  1.11e+04  7.68e-03  7.38e-03  1.26e-01
-  62  2.96e+02  1.42e+02  9.58e+02  6.71e+02  1.10e+04  7.38e-03  7.12e-03  1.26e-01
-  63  2.94e+02  1.42e+02  9.59e+02  6.48e+02  1.10e+04  7.19e-03  6.97e-03  1.26e-01
-  64  2.94e+02  1.42e+02  9.58e+02  6.34e+02  1.10e+04  7.04e-03  7.00e-03  1.26e-01
-  65  2.93e+02  1.42e+02  9.58e+02  6.17e+02  1.10e+04  6.73e-03  6.40e-03  1.26e-01
-  66  2.92e+02  1.42e+02  9.58e+02  6.05e+02  1.10e+04  6.45e-03  6.07e-03  1.26e-01
-  67  2.90e+02  1.42e+02  9.58e+02  5.82e+02  1.10e+04  6.16e-03  5.98e-03  1.26e-01
-  68  2.89e+02  1.42e+02  9.58e+02  5.64e+02  1.09e+04  5.94e-03  5.75e-03  1.26e-01
-  69  2.88e+02  1.42e+02  9.57e+02  5.49e+02  1.09e+04  5.76e-03  5.60e-03  1.26e-01
-  70  2.87e+02  1.42e+02  9.56e+02  5.28e+02  1.09e+04  5.58e-03  5.67e-03  1.26e-01
-  71  2.86e+02  1.42e+02  9.56e+02  5.09e+02  1.09e+04  5.44e-03  5.47e-03  1.26e-01
-  72  2.86e+02  1.42e+02  9.56e+02  4.98e+02  1.09e+04  5.26e-03  5.08e-03  1.26e-01
-  73  2.85e+02  1.42e+02  9.56e+02  4.88e+02  1.09e+04  5.15e-03  4.98e-03  1.26e-01
-  74  2.84e+02  1.42e+02  9.57e+02  4.76e+02  1.09e+04  5.07e-03  4.82e-03  1.26e-01
-  75  2.84e+02  1.42e+02  9.57e+02  4.68e+02  1.09e+04  4.96e-03  4.68e-03  1.26e-01
-------------------------------------------------------------------------------------
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">df</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="7" halign="left">tail_angle</th>
-      <th colspan="3" halign="left">sparse_code</th>
-      <th>...</th>
-      <th colspan="2" halign="left">tail_angle_hat</th>
-      <th colspan="4" halign="left">decomposition</th>
-      <th colspan="4" halign="left">regressor</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th colspan="7" halign="left">segments</th>
-      <th colspan="3" halign="left">atoms</th>
-      <th>...</th>
-      <th colspan="2" halign="left">segments</th>
-      <th colspan="4" halign="left">atoms</th>
-      <th colspan="4" halign="left">atoms</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>...</th>
-      <th>5</th>
-      <th>6</th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.006323</td>
-      <td>-0.015340</td>
-      <td>-0.019920</td>
-      <td>-0.018788</td>
-      <td>-0.025091</td>
-      <td>-0.024680</td>
-      <td>-0.024461</td>
-      <td>-0.0</td>
-      <td>-0.0</td>
-      <td>-0.000000</td>
-      <td>...</td>
-      <td>-0.011432</td>
-      <td>-0.010848</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-0.005684</td>
-      <td>-0.012486</td>
-      <td>-0.016926</td>
-      <td>-0.017747</td>
-      <td>-0.021643</td>
-      <td>-0.029122</td>
-      <td>-0.024312</td>
-      <td>-0.0</td>
-      <td>-0.0</td>
-      <td>-0.000000</td>
-      <td>...</td>
-      <td>-0.022528</td>
-      <td>-0.020856</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-0.005940</td>
-      <td>-0.013239</td>
-      <td>-0.017876</td>
-      <td>-0.018538</td>
-      <td>-0.022782</td>
-      <td>-0.029019</td>
-      <td>-0.024678</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.117597</td>
-      <td>...</td>
-      <td>-0.023834</td>
-      <td>-0.021831</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000738</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-0.004198</td>
-      <td>-0.008695</td>
-      <td>-0.012643</td>
-      <td>-0.014796</td>
-      <td>-0.018671</td>
-      <td>-0.033725</td>
-      <td>-0.029629</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.000000</td>
-      <td>...</td>
-      <td>-0.023436</td>
-      <td>-0.021045</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000910</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.004001</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-0.007372</td>
-      <td>-0.014885</td>
-      <td>-0.020066</td>
-      <td>-0.021864</td>
-      <td>-0.022437</td>
-      <td>-0.029516</td>
-      <td>-0.018789</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.011923</td>
-      <td>...</td>
-      <td>-0.022182</td>
-      <td>-0.019362</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.000373</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.006911</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>69992</th>
-      <td>-0.000400</td>
-      <td>-0.001988</td>
-      <td>-0.000065</td>
-      <td>0.002175</td>
-      <td>0.001811</td>
-      <td>0.006580</td>
-      <td>-0.002728</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>-0.000722</td>
-      <td>-0.000931</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.000931</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.001124</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>69993</th>
-      <td>-0.000393</td>
-      <td>-0.001746</td>
-      <td>0.000263</td>
-      <td>0.002462</td>
-      <td>0.002764</td>
-      <td>0.007294</td>
-      <td>-0.000236</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>-0.000319</td>
-      <td>-0.000469</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.000469</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000899</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>69994</th>
-      <td>-0.000315</td>
-      <td>-0.001611</td>
-      <td>0.000546</td>
-      <td>0.002881</td>
-      <td>0.003148</td>
-      <td>0.007805</td>
-      <td>-0.000323</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.000000</td>
-      <td>...</td>
-      <td>-0.000317</td>
-      <td>-0.000381</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.000381</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>69995</th>
-      <td>0.000048</td>
-      <td>-0.001269</td>
-      <td>0.001283</td>
-      <td>0.004120</td>
-      <td>0.003281</td>
-      <td>0.008480</td>
-      <td>-0.003791</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.000000</td>
-      <td>...</td>
-      <td>-0.000294</td>
-      <td>-0.000361</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.000361</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>69996</th>
-      <td>0.001322</td>
-      <td>0.001305</td>
-      <td>0.004561</td>
-      <td>0.007551</td>
-      <td>0.005944</td>
-      <td>0.008712</td>
-      <td>-0.004816</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.000000</td>
-      <td>...</td>
-      <td>0.000096</td>
-      <td>-0.000102</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.000102</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>69997 rows × 26 columns</p>
-</div></div></div>
-</div>
+<ul class="simple">
+<li><p>Here is the dictionary of atoms used for sparse coding:</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot dictionary atoms</span>
@@ -1288,89 +592,189 @@
         <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span>
         <span class="n">vmax</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">with_extremes</span><span class="p">(</span><span class="n">bad</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span>
         <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;tail segment&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="c1"># Add colored border around subplot</span>
+
     <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="n">spine</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="n">spine</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">atom_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-<span class="c1"># Add colorbar below the plots</span>
 <span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">)</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;Angle&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># Plot sparse coding analysis</span>
-<span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Duration</span> <span class="o">/</span> <span class="mi">700</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
-<span class="n">IdSt</span> <span class="o">=</span> <span class="mi">36000</span>
-<span class="n">Duration</span> <span class="o">=</span> <span class="mi">1500</span>
-<span class="n">IdEd</span> <span class="o">=</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span>
-
-<span class="n">lim_ampl</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">tail_angle</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tail angle&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">tail_angle_hat</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:gray&quot;</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;reconstructed tail angle&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">lim_ampl</span><span class="p">,</span> <span class="n">lim_ampl</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original vs Reconstructed Tail Angle&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;tail angle (rad)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">decomposition</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="p">:],</span>
-    <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> atom contribution&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">atom_names</span><span class="p">],</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">lim_ampl</span><span class="p">,</span> <span class="n">lim_ampl</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Decomposition&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;tail angle (rad)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">regressor</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="p">:],</span>
-    <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> regressor&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">atom_names</span><span class="p">],</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Temporal Regressors&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time Steps&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;vigor (A.U.)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;Angle&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6131f31b8a7f2f501902db56c5fa550b441cdfd554bdbd59ed2fb0e06dedd56b.png" src="../_images/6131f31b8a7f2f501902db56c5fa550b441cdfd554bdbd59ed2fb0e06dedd56b.png" />
-<img alt="../_images/612dfe81a299e7e03628f443a41db620a824b9ab83a1d7b02768385dc125595b.png" src="../_images/612dfe81a299e7e03628f443a41db620a824b9ab83a1d7b02768385dc125595b.png" />
+<img alt="../_images/43756613c5cb8c36f9f29c4705a4971e1559cde462087c817974bd7ead669a62.png" src="../_images/43756613c5cb8c36f9f29c4705a4971e1559cde462087c817974bd7ead669a62.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>Running the sparse coding:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sparse_coding_result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">compute_sparse_coding</span><span class="p">(</span><span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Itn   Fnc       DFid      Regℓ1     RegLat    RegSelf   r         s         ρ       
+------------------------------------------------------------------------------------
+   0  2.64e+02  2.03e+02  1.07e+03  9.03e+02  4.51e+02  4.41e-01  1.80e+01  1.50e+00
+   1  2.98e+02  9.28e+01  1.25e+03  3.50e+03  1.72e+03  1.94e-01  2.83e+00  1.50e+00
+   2  3.49e+02  8.36e+01  1.42e+03  4.56e+03  2.35e+03  3.16e-01  4.72e-01  3.83e-01
+   3  3.92e+02  1.01e+02  1.25e+03  5.01e+03  2.84e+03  2.70e-01  2.91e-01  3.05e-01
+   4  3.90e+02  1.01e+02  1.08e+03  4.92e+03  3.27e+03  2.12e-01  1.86e-01  3.05e-01
+   5  3.92e+02  1.12e+02  9.48e+02  4.69e+03  3.66e+03  1.66e-01  1.32e-01  3.05e-01
+   6  3.86e+02  1.15e+02  9.05e+02  4.42e+03  4.06e+03  1.29e-01  1.05e-01  3.05e-01
+   7  3.82e+02  1.20e+02  8.46e+02  4.17e+03  4.45e+03  1.01e-01  8.38e-02  3.05e-01
+   8  3.72e+02  1.22e+02  8.13e+02  3.88e+03  4.83e+03  8.28e-02  7.27e-02  3.05e-01
+   9  3.64e+02  1.24e+02  7.90e+02  3.61e+03  5.20e+03  6.86e-02  6.67e-02  3.05e-01
+  10  3.58e+02  1.25e+02  7.81e+02  3.38e+03  5.60e+03  5.69e-02  6.02e-02  3.05e-01
+  11  3.49e+02  1.25e+02  7.61e+02  3.13e+03  5.94e+03  4.77e-02  5.66e-02  3.05e-01
+  12  3.45e+02  1.25e+02  7.56e+02  2.99e+03  6.27e+03  4.57e-02  5.02e-02  2.73e-01
+  13  3.38e+02  1.25e+02  7.53e+02  2.80e+03  6.59e+03  4.09e-02  4.73e-02  2.73e-01
+  14  3.33e+02  1.24e+02  7.55e+02  2.66e+03  6.84e+03  4.00e-02  4.58e-02  2.47e-01
+  15  3.29e+02  1.23e+02  7.54e+02  2.54e+03  7.10e+03  4.00e-02  4.36e-02  2.25e-01
+  16  3.25e+02  1.22e+02  7.54e+02  2.44e+03  7.33e+03  3.76e-02  4.15e-02  2.25e-01
+  17  3.19e+02  1.22e+02  7.53e+02  2.30e+03  7.51e+03  3.47e-02  3.92e-02  2.25e-01
+  18  3.13e+02  1.21e+02  7.50e+02  2.16e+03  7.63e+03  3.27e-02  3.88e-02  2.25e-01
+  19  3.09e+02  1.21e+02  7.50e+02  2.05e+03  7.78e+03  3.25e-02  3.72e-02  2.01e-01
+  20  3.09e+02  1.21e+02  7.55e+02  2.01e+03  7.99e+03  3.37e-02  3.52e-02  1.83e-01
+  21  3.08e+02  1.21e+02  7.61e+02  1.97e+03  8.15e+03  3.20e-02  3.32e-02  1.83e-01
+  22  3.04e+02  1.20e+02  7.60e+02  1.89e+03  8.21e+03  2.95e-02  3.03e-02  1.83e-01
+  23  2.99e+02  1.20e+02  7.57e+02  1.80e+03  8.20e+03  2.70e-02  2.93e-02  1.83e-01
+  24  2.94e+02  1.20e+02  7.54e+02  1.68e+03  8.24e+03  2.60e-02  2.94e-02  1.83e-01
+  25  2.90e+02  1.19e+02  7.55e+02  1.61e+03  8.29e+03  2.47e-02  2.93e-02  1.83e-01
+  26  2.86e+02  1.19e+02  7.54e+02  1.51e+03  8.34e+03  2.54e-02  2.86e-02  1.63e-01
+  27  2.85e+02  1.19e+02  7.57e+02  1.49e+03  8.40e+03  2.52e-02  2.65e-02  1.63e-01
+  28  2.83e+02  1.19e+02  7.59e+02  1.44e+03  8.44e+03  2.41e-02  2.69e-02  1.63e-01
+  29  2.80e+02  1.19e+02  7.59e+02  1.38e+03  8.45e+03  2.26e-02  2.55e-02  1.63e-01
+  30  2.78e+02  1.18e+02  7.59e+02  1.35e+03  8.45e+03  2.18e-02  2.48e-02  1.63e-01
+  31  2.76e+02  1.18e+02  7.61e+02  1.31e+03  8.47e+03  2.09e-02  2.33e-02  1.63e-01
+  32  2.74e+02  1.18e+02  7.62e+02  1.28e+03  8.49e+03  2.00e-02  2.23e-02  1.63e-01
+  33  2.72e+02  1.18e+02  7.61e+02  1.24e+03  8.46e+03  1.90e-02  2.24e-02  1.63e-01
+  34  2.69e+02  1.18e+02  7.60e+02  1.19e+03  8.42e+03  1.94e-02  2.23e-02  1.47e-01
+  35  2.67e+02  1.17e+02  7.61e+02  1.17e+03  8.38e+03  1.97e-02  2.17e-02  1.33e-01
+  36  2.67e+02  1.17e+02  7.64e+02  1.16e+03  8.39e+03  1.98e-02  2.03e-02  1.33e-01
+  37  2.66e+02  1.17e+02  7.66e+02  1.15e+03  8.39e+03  1.95e-02  1.99e-02  1.33e-01
+  38  2.63e+02  1.17e+02  7.64e+02  1.10e+03  8.34e+03  1.92e-02  2.05e-02  1.33e-01
+  39  2.62e+02  1.17e+02  7.64e+02  1.08e+03  8.27e+03  1.85e-02  2.02e-02  1.33e-01
+  40  2.61e+02  1.17e+02  7.64e+02  1.07e+03  8.26e+03  1.78e-02  1.85e-02  1.33e-01
+  41  2.61e+02  1.17e+02  7.65e+02  1.07e+03  8.25e+03  1.71e-02  1.55e-02  1.33e-01
+  42  2.60e+02  1.17e+02  7.65e+02  1.04e+03  8.25e+03  1.63e-02  1.34e-02  1.33e-01
+  43  2.59e+02  1.17e+02  7.65e+02  1.04e+03  8.21e+03  1.55e-02  1.32e-02  1.33e-01
+  44  2.56e+02  1.17e+02  7.63e+02  9.97e+02  8.14e+03  1.45e-02  1.42e-02  1.33e-01
+  45  2.53e+02  1.17e+02  7.60e+02  9.55e+02  8.08e+03  1.34e-02  1.34e-02  1.33e-01
+  46  2.52e+02  1.17e+02  7.60e+02  9.26e+02  8.07e+03  1.29e-02  1.18e-02  1.33e-01
+  47  2.51e+02  1.17e+02  7.61e+02  9.08e+02  8.08e+03  1.24e-02  9.87e-03  1.33e-01
+  48  2.51e+02  1.17e+02  7.63e+02  9.03e+02  8.09e+03  1.18e-02  9.50e-03  1.33e-01
+  49  2.49e+02  1.17e+02  7.63e+02  8.73e+02  8.07e+03  1.10e-02  9.71e-03  1.33e-01
+  50  2.47e+02  1.17e+02  7.61e+02  8.40e+02  8.04e+03  1.04e-02  9.60e-03  1.33e-01
+  51  2.45e+02  1.17e+02  7.60e+02  8.12e+02  8.00e+03  9.92e-03  9.11e-03  1.33e-01
+  52  2.44e+02  1.17e+02  7.59e+02  7.87e+02  7.98e+03  9.61e-03  8.98e-03  1.33e-01
+  53  2.43e+02  1.17e+02  7.59e+02  7.68e+02  7.97e+03  9.27e-03  8.80e-03  1.33e-01
+  54  2.41e+02  1.17e+02  7.59e+02  7.44e+02  7.97e+03  9.03e-03  8.54e-03  1.33e-01
+  55  2.41e+02  1.17e+02  7.59e+02  7.30e+02  7.97e+03  8.92e-03  8.34e-03  1.33e-01
+  56  2.40e+02  1.17e+02  7.59e+02  7.08e+02  7.96e+03  8.79e-03  8.66e-03  1.33e-01
+  57  2.38e+02  1.17e+02  7.59e+02  6.83e+02  7.94e+03  8.77e-03  9.23e-03  1.33e-01
+  58  2.37e+02  1.17e+02  7.59e+02  6.71e+02  7.93e+03  8.71e-03  9.41e-03  1.33e-01
+  59  2.37e+02  1.17e+02  7.59e+02  6.57e+02  7.92e+03  8.69e-03  8.89e-03  1.33e-01
+  60  2.37e+02  1.17e+02  7.60e+02  6.56e+02  7.92e+03  8.59e-03  8.22e-03  1.33e-01
+  61  2.36e+02  1.17e+02  7.59e+02  6.48e+02  7.91e+03  8.42e-03  7.81e-03  1.33e-01
+  62  2.35e+02  1.17e+02  7.58e+02  6.35e+02  7.88e+03  8.09e-03  7.59e-03  1.33e-01
+  63  2.35e+02  1.17e+02  7.58e+02  6.27e+02  7.86e+03  7.81e-03  7.24e-03  1.33e-01
+  64  2.34e+02  1.17e+02  7.58e+02  6.14e+02  7.86e+03  7.57e-03  6.28e-03  1.33e-01
+  65  2.33e+02  1.17e+02  7.58e+02  5.99e+02  7.86e+03  7.15e-03  6.12e-03  1.33e-01
+  66  2.32e+02  1.17e+02  7.58e+02  5.77e+02  7.85e+03  6.69e-03  6.32e-03  1.33e-01
+  67  2.31e+02  1.17e+02  7.58e+02  5.60e+02  7.84e+03  6.31e-03  6.34e-03  1.33e-01
+  68  2.30e+02  1.17e+02  7.57e+02  5.40e+02  7.84e+03  5.94e-03  6.11e-03  1.33e-01
+  69  2.29e+02  1.17e+02  7.57e+02  5.31e+02  7.85e+03  5.81e-03  6.03e-03  1.33e-01
+  70  2.29e+02  1.17e+02  7.57e+02  5.21e+02  7.85e+03  5.78e-03  5.87e-03  1.33e-01
+  71  2.28e+02  1.17e+02  7.57e+02  5.09e+02  7.85e+03  5.76e-03  5.84e-03  1.33e-01
+  72  2.28e+02  1.17e+02  7.57e+02  4.98e+02  7.85e+03  5.76e-03  5.78e-03  1.33e-01
+  73  2.27e+02  1.17e+02  7.57e+02  4.85e+02  7.85e+03  5.70e-03  5.94e-03  1.33e-01
+  74  2.26e+02  1.17e+02  7.57e+02  4.75e+02  7.84e+03  5.08e-03  5.36e-03  1.33e-01
+  75  2.26e+02  1.16e+02  7.57e+02  4.69e+02  7.85e+03  4.96e-03  4.66e-03  1.33e-01
+------------------------------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can now plot the results of the sparse coding. The color code of the atoms is the same as in the dictionary plot above.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Duration</span> <span class="o">/</span> <span class="mi">700</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
+<span class="n">IdSt</span><span class="p">,</span> <span class="n">Duration</span> <span class="o">=</span> <span class="mi">36000</span><span class="p">,</span> <span class="mi">1500</span>
+<span class="n">IdEd</span> <span class="o">=</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span>
+<span class="n">lim_ampl</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">tail_angle</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tail angle&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">tail_angle_hat</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:gray&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;reconstructed tail angle&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">lim_ampl</span><span class="p">,</span> <span class="n">lim_ampl</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original vs Reconstructed Tail Angle&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;tail angle (rad)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">decomposition</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="p">:],</span>
+    <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> atom contribution&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">atom_names</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">lim_ampl</span><span class="p">,</span> <span class="n">lim_ampl</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Decomposition&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;tail angle (rad)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">regressor</span><span class="p">[</span><span class="n">IdSt</span> <span class="p">:</span> <span class="n">IdSt</span> <span class="o">+</span> <span class="n">Duration</span><span class="p">,</span> <span class="p">:],</span>
+    <span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> regressor&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">atom_names</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Temporal Regressors&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time Steps&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;vigor (A.U.)&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/491b88cd275cbec8322bb046576b2ecc9e0706370a09ec3c7d551b6dd8e58aba.png" src="../_images/491b88cd275cbec8322bb046576b2ecc9e0706370a09ec3c7d551b6dd8e58aba.png" />
+</div>
+</div>
+</section>
 
 
                 </article>
@@ -1392,18 +796,6 @@
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-  </nav></div>
 
   <div class="sidebar-secondary-item">
 

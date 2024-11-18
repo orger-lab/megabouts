@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Classification &#8212; Megabouts 0.1 documentation</title>
+    <title>Tail Bout Classification &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,13 +53,12 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/tutorial_Tail_Classification';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -121,7 +120,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -348,7 +347,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Classification</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Tail Bout Classification</span></li>
   </ul>
 </nav>
 </div>
@@ -365,8 +364,12 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="classification">
-<h1>Classification<a class="headerlink" href="#classification" title="Link to this heading">#</a></h1>
+  <section id="tail-bout-classification">
+<h1>Tail Bout Classification<a class="headerlink" href="#tail-bout-classification" title="Link to this heading">#</a></h1>
+<p><strong>In this notebook, we will walk through the process of classifying tail bouts.</strong></p>
+<ul class="simple">
+<li><p>Loading dependencies</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -377,7 +380,7 @@
 <span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TailPreprocessingConfig</span><span class="p">,</span> <span class="n">TrajPreprocessingConfig</span>
 <span class="kn">from</span> <span class="nn">megabouts.preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessing</span><span class="p">,</span> <span class="n">TrajPreprocessing</span>
 <span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TailSegmentationConfig</span>
-<span class="kn">from</span> <span class="nn">megabouts.segmentation</span> <span class="kn">import</span> <span class="n">Segmentation</span>
+<span class="kn">from</span> <span class="nn">megabouts.segmentation</span> <span class="kn">import</span> <span class="n">Segmentation</span><span class="p">,</span> <span class="n">align_traj_array</span>
 <span class="kn">from</span> <span class="nn">megabouts.classification</span> <span class="kn">import</span> <span class="n">TailBouts</span><span class="p">,</span> <span class="n">BoutClassifier</span>
 <span class="kn">from</span> <span class="nn">megabouts.utils</span> <span class="kn">import</span> <span class="n">bouts_category_color</span><span class="p">,</span> <span class="n">bouts_category_name_short</span>
 </pre></div>
@@ -396,8 +399,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
-<span class="c1"># Force cpu use:</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">False</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 </pre></div>
@@ -411,7 +412,7 @@
 </div>
 </div>
 <ul class="simple">
-<li><p>TrackingConfig and TrackingData similar to <a class="reference internal" href="tutorial_Tail_Preprocessing.html"><span class="std std-doc">tutorial_Tail_Preprocessing</span></a></p></li>
+<li><p>Loading tracking data and preprocessing similar to <a class="reference internal" href="tutorial_Tail_Preprocessing.html"><span class="std std-doc">tutorial_Tail_Preprocessing</span></a> and <a class="reference internal" href="tutorial_Traj_Preprocessing.html"><span class="std std-doc">tutorial_Traj_Preprocessing</span></a></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -517,14 +518,14 @@
       <td>-0.128705</td>
       <td>NaN</td>
       <td>...</td>
-      <td>-0.086812</td>
-      <td>-0.085880</td>
-      <td>-0.077907</td>
-      <td>-0.083591</td>
-      <td>-0.072974</td>
-      <td>-0.078165</td>
-      <td>-0.129616</td>
-      <td>0.000359</td>
+      <td>-0.051057</td>
+      <td>-0.055168</td>
+      <td>-0.055898</td>
+      <td>-0.061701</td>
+      <td>-0.061091</td>
+      <td>-0.069420</td>
+      <td>-0.115014</td>
+      <td>0.000183</td>
       <td>NaN</td>
       <td>True</td>
     </tr>
@@ -541,14 +542,14 @@
       <td>-0.171555</td>
       <td>NaN</td>
       <td>...</td>
-      <td>-0.081511</td>
-      <td>-0.083338</td>
-      <td>-0.078373</td>
-      <td>-0.085253</td>
-      <td>-0.074040</td>
-      <td>-0.073428</td>
-      <td>-0.106065</td>
-      <td>0.000494</td>
+      <td>-0.046070</td>
+      <td>-0.052906</td>
+      <td>-0.056578</td>
+      <td>-0.063577</td>
+      <td>-0.062286</td>
+      <td>-0.064780</td>
+      <td>-0.091617</td>
+      <td>0.000321</td>
       <td>NaN</td>
       <td>True</td>
     </tr>
@@ -565,14 +566,14 @@
       <td>-0.042585</td>
       <td>NaN</td>
       <td>...</td>
-      <td>-0.077037</td>
-      <td>-0.081058</td>
-      <td>-0.078500</td>
-      <td>-0.086296</td>
-      <td>-0.074570</td>
-      <td>-0.069208</td>
-      <td>-0.086540</td>
-      <td>0.000602</td>
+      <td>-0.041909</td>
+      <td>-0.050905</td>
+      <td>-0.056916</td>
+      <td>-0.064832</td>
+      <td>-0.062943</td>
+      <td>-0.060658</td>
+      <td>-0.072246</td>
+      <td>0.000430</td>
       <td>NaN</td>
       <td>True</td>
     </tr>
@@ -589,14 +590,14 @@
       <td>-0.021459</td>
       <td>NaN</td>
       <td>...</td>
-      <td>-0.073390</td>
-      <td>-0.079040</td>
-      <td>-0.078286</td>
-      <td>-0.086720</td>
-      <td>-0.074562</td>
-      <td>-0.065506</td>
-      <td>-0.071041</td>
-      <td>0.000682</td>
+      <td>-0.038574</td>
+      <td>-0.049166</td>
+      <td>-0.056913</td>
+      <td>-0.065467</td>
+      <td>-0.063063</td>
+      <td>-0.057053</td>
+      <td>-0.056900</td>
+      <td>0.000512</td>
       <td>NaN</td>
       <td>True</td>
     </tr>
@@ -613,14 +614,14 @@
       <td>-0.015487</td>
       <td>NaN</td>
       <td>...</td>
-      <td>-0.070570</td>
-      <td>-0.077285</td>
-      <td>-0.077732</td>
-      <td>-0.086525</td>
-      <td>-0.074018</td>
-      <td>-0.062321</td>
-      <td>-0.059569</td>
-      <td>0.000734</td>
+      <td>-0.036064</td>
+      <td>-0.047688</td>
+      <td>-0.056569</td>
+      <td>-0.065483</td>
+      <td>-0.062646</td>
+      <td>-0.053965</td>
+      <td>-0.045579</td>
+      <td>0.000565</td>
       <td>NaN</td>
       <td>True</td>
     </tr>
@@ -632,7 +633,7 @@
 <section id="segmentation-using-tail-vigor">
 <h2>Segmentation using tail vigor<a class="headerlink" href="#segmentation-using-tail-vigor" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Set the threshold to 20 &amp; apply segmentation to <code class="docutils literal notranslate"><span class="pre">tail.vigor</span></code>:</p></li>
+<li><p>Set the threshold to 20 and apply segmentation to <code class="docutils literal notranslate"><span class="pre">tail.vigor</span></code>:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -656,26 +657,59 @@
 </div>
 </div>
 </div>
+<p>The arrays contain tail and trajectory data aligned to bout onset:</p>
 <ul class="simple">
-<li><p>The array contains tail as well as trajectory aligned on the bouts onset</p></li>
-</ul>
-</section>
-<section id="running-classifier-on-the-segmented-bouts">
-<h2>Running classifier on the segmented bouts<a class="headerlink" href="#running-classifier-on-the-segmented-bouts" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Load the classfier, we recommend using <code class="docutils literal notranslate"><span class="pre">exclude_CS=True</span></code> if there was no prey during the experiments:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tail_array</span></code>: Tail angles for each bout (shape: n_bouts × n_segments × n_timepoints)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">traj_array</span></code>: Trajectory data for each bout (shape: n_bouts × 3 × n_timepoints). The 3 dimensions are: x position, y position, and heading angle</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier</span> <span class="o">=</span> <span class="n">BoutClassifier</span><span class="p">(</span>
-    <span class="n">tracking_cfg</span><span class="p">,</span> <span class="n">tail_segmentation_cfg</span><span class="p">,</span> <span class="n">exclude_CS</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tail_array</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">traj_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E:\Code\megabouts\megabouts\megabouts\classification\classification.py:74: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  net.load_state_dict(torch.load(transformer_weights_path,map_location=torch.device(self.device)))
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(766, 10, 140) (766, 3, 140)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Optional: Align trajectory data for pre-segmented bouts:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">If you&#39;re loading pre-segmented data instead of using the segmentation pipeline above,</span>
+<span class="sd">you&#39;ll need to align the trajectory data to the bout onset. This ensures all bouts</span>
+<span class="sd">are properly oriented relative to their starting position and heading.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Align trajectory data relative to bout onset</span>
+<span class="n">traj_array</span> <span class="o">=</span> <span class="n">align_traj_array</span><span class="p">(</span>
+    <span class="n">traj_array</span><span class="o">=</span><span class="n">traj_array</span><span class="p">,</span>
+    <span class="n">idx_ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Align to bout onset</span>
+    <span class="n">bout_duration</span><span class="o">=</span><span class="n">tail_segmentation_cfg</span><span class="o">.</span><span class="n">bout_duration</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="running-classifier-on-the-segmented-bouts">
+<h2>Running classifier on the segmented bouts<a class="headerlink" href="#running-classifier-on-the-segmented-bouts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Load the classifier, we recommend using <code class="docutils literal notranslate"><span class="pre">exclude_CS=True</span></code>. This will avoid assigning bouts to Capture Swim categories if there was no prey during the recording:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier</span> <span class="o">=</span> <span class="n">BoutClassifier</span><span class="p">(</span><span class="n">tracking_cfg</span><span class="p">,</span> <span class="n">tail_segmentation_cfg</span><span class="p">,</span> <span class="n">exclude_CS</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E:\Code\megabouts\megabouts\megabouts\classification\classification.py:111: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  torch.load(transformer_weights_path, map_location=torch.device(self.device))
 </pre></div>
 </div>
 </div>
@@ -693,7 +727,7 @@
 </div>
 </div>
 <ul class="simple">
-<li><p>Now we re-segment the bouts using the first half beat as a reference, this improves the alignement of the tail bouts:</p></li>
+<li><p>Now we re-segment the bouts using the first half beat as a reference, this improves the alignement of the tail bouts, for this we use the <code class="docutils literal notranslate"><span class="pre">align_to_onset=False</span></code> option:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -730,7 +764,7 @@
 </div>
 </div>
 <ul class="simple">
-<li><p>Let’s display the bouts classified:</p></li>
+<li><p>Let’s display the bouts classified, we only display bouts with a classification probability greater than 0.5:</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -755,7 +789,6 @@
     <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">bouts_category_name_short</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i_sg</span><span class="p">,</span> <span class="n">sg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
-        <span class="c1"># ax0.set_title(NameCat[b%11])</span>
         <span class="nb">id</span> <span class="o">=</span> <span class="n">bouts</span><span class="o">.</span><span class="n">df</span><span class="p">[</span>
             <span class="p">(</span><span class="n">bouts</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
             <span class="o">&amp;</span> <span class="p">(</span><span class="n">bouts</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">sign</span> <span class="o">==</span> <span class="n">sg</span><span class="p">)</span>
@@ -776,7 +809,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/f4bb584bf3967d13f2b94ae28caacd2ec9180f4b534607a52e2ade0e77b82fbb.png" src="../_images/f4bb584bf3967d13f2b94ae28caacd2ec9180f4b534607a52e2ade0e77b82fbb.png" />
+<img alt="../_images/a49ef964070f49daf89c9697d748bb63c826bf9f2d74efd981bbce431c0725d3.png" src="../_images/a49ef964070f49daf89c9697d748bb63c826bf9f2d74efd981bbce431c0725d3.png" />
 </div>
 </div>
 </section>

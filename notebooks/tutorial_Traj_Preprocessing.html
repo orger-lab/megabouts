@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tutorial: Traj Preprocessing &#8212; Megabouts 0.1 documentation</title>
+    <title>Trajectory Preprocessing &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,13 +53,12 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/tutorial_Traj_Preprocessing';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -121,7 +120,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -348,7 +347,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Tutorial: Traj Preprocessing</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Trajectory Preprocessing</span></li>
   </ul>
 </nav>
 </div>
@@ -365,8 +364,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tutorial-traj-preprocessing">
-<h1>Tutorial: Traj Preprocessing<a class="headerlink" href="#tutorial-traj-preprocessing" title="Link to this heading">#</a></h1>
+  <section id="trajectory-preprocessing">
+<h1>Trajectory Preprocessing<a class="headerlink" href="#trajectory-preprocessing" title="Link to this heading">#</a></h1>
 <p><strong>The following notebook illustrate the <code class="docutils literal notranslate"><span class="pre">TrajPreprocessing</span></code> class how to run the preprocessing steps.</strong></p>
 <ul class="simple">
 <li><p><strong>Several preprocessing steps are available for the tail angle</strong>:</p>
@@ -384,7 +383,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
 
 <span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">FullTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
 <span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
@@ -443,15 +441,20 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Apply the trajectory preprocessing</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj_df_input</span> <span class="o">=</span> <span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span>
-
 <span class="n">traj</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="p">(</span><span class="n">traj_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_traj_df</span><span class="p">(</span><span class="n">traj_df_input</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>traj.df contains information about the trajectory, the smooth values as well as the kinematic vigor:</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -565,6 +568,9 @@
 </table>
 </div></div></div>
 </div>
+<ul class="simple">
+<li><p>We can visualize the result of preprocessing:</p></li>
+</ul>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -598,7 +604,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/0a09e763b673eee4100b9182083e4a5343889401de11bb1f660fc36f4f182604.png" src="../_images/0a09e763b673eee4100b9182083e4a5343889401de11bb1f660fc36f4f182604.png" />
+<img alt="../_images/2a8ad2548825e99ae5f21006415e4444c60c306d6251f77bed0f6821f848a5ea.png" src="../_images/2a8ad2548825e99ae5f21006415e4444c60c306d6251f77bed0f6821f848a5ea.png" />
 </div>
 </div>
 </section>
@@ -657,7 +663,7 @@ The parameters are set using two-step procedure:</p>
 <img alt="../_images/7321dc60ee32bd96431b80879ddb4539d6b634443103c357936994a31f767b7b.png" src="../_images/7321dc60ee32bd96431b80879ddb4539d6b634443103c357936994a31f767b7b.png" />
 </div>
 </div>
-<p>✅	 Here a value close to 10Hz for <code class="docutils literal notranslate"><span class="pre">freq_cutoff_min</span></code> allows to smooth while keeping an acceptable lag*</p>
+<p>✅	 Here a value close to 10Hz for <code class="docutils literal notranslate"><span class="pre">freq_cutoff_min</span></code> allows to smooth while keeping an acceptable lag</p>
 </section>
 <section id="step-2">
 <h2><strong>Step 2</strong><a class="headerlink" href="#step-2" title="Link to this heading">#</a></h2>
@@ -704,6 +710,10 @@ The parameters are set using two-step procedure:</p>
 </div>
 </div>
 <p>✅	<em>Here we selected <code class="docutils literal notranslate"><span class="pre">beta=1.4</span></code></em></p>
+<blockquote>
+<div><p class="rubric" id="note">📝 Note</p>
+<p>Smoothing the trajectory data is optional for classifying tail bouts. The transformer model was trained on raw tracking data, so it can handle unsmoothed input just as well.</p>
+</div></blockquote>
 </section>
 </section>
 
@@ -736,7 +746,7 @@ The parameters are set using two-step procedure:</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tutorial: Traj Preprocessing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Trajectory Preprocessing</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data">Loading Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-preprocessing">Run Preprocessing</a></li>
 </ul>

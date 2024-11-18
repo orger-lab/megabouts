@@ -5,8 +5,7 @@
    "id": "5a232aef",
    "metadata": {},
    "source": [
-    "\n",
-    "# Tutorial: Tail Preprocessing \t&#x1F42C;\n",
+    "# Tail Preprocessing\n",
     "\n",
     "**The following notebook illustrate the `TailPreprocessing` class how to run the different preprocessing steps.**\n",
     "- **Several preprocessing steps are used for the tail angle**:\n",
@@ -15,7 +14,7 @@
     "  - Savgol filter for time series smoothing\n",
     "  - Baseline correction\n",
     "\n",
-    "- **The tail vigor is also computed and will also be useful for segmentation tail bouts**:\n",
+    "- **The tail vigor is also computed and will also be useful for detecting tail bouts**:\n",
     "\n"
    ]
   },
@@ -56,7 +55,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 97,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -104,23 +103,32 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 11,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "TailPreprocessingConfig(fps=350, limit_na_ms=100, num_pcs=4, savgol_window_ms=15, baseline_method='median', baseline_params={'fps': 350, 'half_window': 175}, tail_speed_filter_ms=100, tail_speed_boxcar_filter_ms=14)\n"
+     ]
+    }
+   ],
    "source": [
-    "tail_preprocessing_cfg = TailPreprocessingConfig(fps=tracking_cfg.fps)"
+    "tail_preprocessing_cfg = TailPreprocessingConfig(fps=tracking_cfg.fps)\n",
+    "print(tail_preprocessing_cfg)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Alternatively the tail preprocessing parameters can be adjusted using:"
+    "* Alternatively the tail preprocessing parameters can be set to custom values using:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -137,12 +145,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Here we change the media filter for computing the tail baseline to 200 frame width:"
+    "* Here we change the median filter for computing the tail baseline to 200 frame width:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -153,12 +161,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Let's run the preprocessing:"
+    "* Let's run the preprocessing pipeline:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -175,7 +183,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
@@ -252,14 +260,14 @@
        "      <td>-0.035583</td>\n",
        "      <td>-0.215341</td>\n",
        "      <td>...</td>\n",
-       "      <td>-0.103697</td>\n",
-       "      <td>-0.100077</td>\n",
-       "      <td>-0.069647</td>\n",
-       "      <td>-0.020243</td>\n",
-       "      <td>0.057969</td>\n",
-       "      <td>0.061299</td>\n",
-       "      <td>-0.090701</td>\n",
-       "      <td>-0.173166</td>\n",
+       "      <td>-0.100224</td>\n",
+       "      <td>-0.096774</td>\n",
+       "      <td>-0.067329</td>\n",
+       "      <td>-0.018151</td>\n",
+       "      <td>0.056155</td>\n",
+       "      <td>0.058781</td>\n",
+       "      <td>-0.090561</td>\n",
+       "      <td>-0.172721</td>\n",
        "      <td>NaN</td>\n",
        "      <td>False</td>\n",
        "    </tr>\n",
@@ -276,14 +284,14 @@
        "      <td>-0.035308</td>\n",
        "      <td>-0.214723</td>\n",
        "      <td>...</td>\n",
-       "      <td>-0.089520</td>\n",
-       "      <td>-0.084504</td>\n",
-       "      <td>-0.053630</td>\n",
-       "      <td>-0.004097</td>\n",
-       "      <td>0.071639</td>\n",
-       "      <td>0.073541</td>\n",
-       "      <td>-0.076892</td>\n",
-       "      <td>-0.157914</td>\n",
+       "      <td>-0.086259</td>\n",
+       "      <td>-0.081402</td>\n",
+       "      <td>-0.051451</td>\n",
+       "      <td>-0.002093</td>\n",
+       "      <td>0.069939</td>\n",
+       "      <td>0.071179</td>\n",
+       "      <td>-0.076765</td>\n",
+       "      <td>-0.157507</td>\n",
        "      <td>NaN</td>\n",
        "      <td>False</td>\n",
        "    </tr>\n",
@@ -300,14 +308,14 @@
        "      <td>-0.035575</td>\n",
        "      <td>-0.215469</td>\n",
        "      <td>...</td>\n",
-       "      <td>-0.080425</td>\n",
-       "      <td>-0.074525</td>\n",
-       "      <td>-0.043393</td>\n",
-       "      <td>0.006204</td>\n",
-       "      <td>0.080289</td>\n",
-       "      <td>0.081271</td>\n",
-       "      <td>-0.068089</td>\n",
-       "      <td>-0.148180</td>\n",
+       "      <td>-0.077366</td>\n",
+       "      <td>-0.071614</td>\n",
+       "      <td>-0.041347</td>\n",
+       "      <td>0.008123</td>\n",
+       "      <td>0.078698</td>\n",
+       "      <td>0.079057</td>\n",
+       "      <td>-0.067974</td>\n",
+       "      <td>-0.147809</td>\n",
        "      <td>NaN</td>\n",
        "      <td>False</td>\n",
        "    </tr>\n",
@@ -324,14 +332,14 @@
        "      <td>0.024690</td>\n",
        "      <td>-0.155223</td>\n",
        "      <td>...</td>\n",
-       "      <td>-0.076411</td>\n",
-       "      <td>-0.070140</td>\n",
-       "      <td>-0.038937</td>\n",
-       "      <td>0.010658</td>\n",
-       "      <td>0.083920</td>\n",
-       "      <td>0.084489</td>\n",
-       "      <td>-0.064291</td>\n",
-       "      <td>-0.143965</td>\n",
+       "      <td>-0.073543</td>\n",
+       "      <td>-0.067412</td>\n",
+       "      <td>-0.037017</td>\n",
+       "      <td>0.012494</td>\n",
+       "      <td>0.082430</td>\n",
+       "      <td>0.082415</td>\n",
+       "      <td>-0.064188</td>\n",
+       "      <td>-0.143629</td>\n",
        "      <td>NaN</td>\n",
        "      <td>False</td>\n",
        "    </tr>\n",
@@ -348,14 +356,14 @@
        "      <td>0.024859</td>\n",
        "      <td>-0.154890</td>\n",
        "      <td>...</td>\n",
-       "      <td>-0.077478</td>\n",
-       "      <td>-0.071350</td>\n",
-       "      <td>-0.040262</td>\n",
-       "      <td>0.009267</td>\n",
-       "      <td>0.082530</td>\n",
-       "      <td>0.083194</td>\n",
-       "      <td>-0.065499</td>\n",
-       "      <td>-0.145269</td>\n",
+       "      <td>-0.074792</td>\n",
+       "      <td>-0.068794</td>\n",
+       "      <td>-0.038462</td>\n",
+       "      <td>0.011022</td>\n",
+       "      <td>0.081137</td>\n",
+       "      <td>0.081254</td>\n",
+       "      <td>-0.065407</td>\n",
+       "      <td>-0.144965</td>\n",
        "      <td>NaN</td>\n",
        "      <td>False</td>\n",
        "    </tr>\n",
@@ -377,25 +385,25 @@
        "                                 ... angle_smooth                      \\\n",
        "                                 ...     segments                       \n",
        "          7         8         9  ...            2         3         4   \n",
-       "0  0.057392 -0.035583 -0.215341  ...    -0.103697 -0.100077 -0.069647   \n",
-       "1  0.057438 -0.035308 -0.214723  ...    -0.089520 -0.084504 -0.053630   \n",
-       "2  0.057466 -0.035575 -0.215469  ...    -0.080425 -0.074525 -0.043393   \n",
-       "3  0.117708  0.024690 -0.155223  ...    -0.076411 -0.070140 -0.038937   \n",
-       "4  0.117786  0.024859 -0.154890  ...    -0.077478 -0.071350 -0.040262   \n",
+       "0  0.057392 -0.035583 -0.215341  ...    -0.100224 -0.096774 -0.067329   \n",
+       "1  0.057438 -0.035308 -0.214723  ...    -0.086259 -0.081402 -0.051451   \n",
+       "2  0.057466 -0.035575 -0.215469  ...    -0.077366 -0.071614 -0.041347   \n",
+       "3  0.117708  0.024690 -0.155223  ...    -0.073543 -0.067412 -0.037017   \n",
+       "4  0.117786  0.024859 -0.154890  ...    -0.074792 -0.068794 -0.038462   \n",
        "\n",
        "                                                    vigor no_tracking  \n",
        "                                                                       \n",
        "          5         6         7         8         9                    \n",
-       "0 -0.020243  0.057969  0.061299 -0.090701 -0.173166   NaN       False  \n",
-       "1 -0.004097  0.071639  0.073541 -0.076892 -0.157914   NaN       False  \n",
-       "2  0.006204  0.080289  0.081271 -0.068089 -0.148180   NaN       False  \n",
-       "3  0.010658  0.083920  0.084489 -0.064291 -0.143965   NaN       False  \n",
-       "4  0.009267  0.082530  0.083194 -0.065499 -0.145269   NaN       False  \n",
+       "0 -0.018151  0.056155  0.058781 -0.090561 -0.172721   NaN       False  \n",
+       "1 -0.002093  0.069939  0.071179 -0.076765 -0.157507   NaN       False  \n",
+       "2  0.008123  0.078698  0.079057 -0.067974 -0.147809   NaN       False  \n",
+       "3  0.012494  0.082430  0.082415 -0.064188 -0.143629   NaN       False  \n",
+       "4  0.011022  0.081137  0.081254 -0.065407 -0.144965   NaN       False  \n",
        "\n",
        "[5 rows x 32 columns]"
       ]
      },
-     "execution_count": 92,
+     "execution_count": 17,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -468,7 +476,8 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Keep in mind that smoothing the data is optional since the classifier was also trained on raw tracking"
+    "> ### 📝 Note\n",
+    "> Smoothing the tail tracking data is optional for classifying tail bouts. The transformer model was trained on raw tracking data, so it can handle unsmoothed input just as well."
    ]
   }
  ],

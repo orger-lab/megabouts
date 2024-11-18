@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Usage &#8212; Megabouts 0.1 documentation</title>
+    <title>Usage &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/documentation_options.js?v=a58bc63e"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -53,7 +53,6 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'usage';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -61,7 +60,7 @@
     <link rel="prev" title="Welcome to Megabouts’ documentation!" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.1.1" />
   </head>
   
   
@@ -123,7 +122,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
   
 </a></div>
     
@@ -414,20 +413,25 @@ Megabouts depends on PyTorch. To enable GPU support, follow the instructions on 
 </div>
 <p><em>Make sure to adjust the command based on your system’s GPU or CPU configuration.</em></p>
 </li>
-<li><p><strong>Install Megabouts</strong>:
-Once PyTorch is installed, install Megabouts from its GitHub repository:</p>
+<li><p><strong>Once PyTorch is installed, you can install Megabouts</strong>:
+Choose one of the following installation methods:</p>
+<p>From PyPI (stable version):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>megabouts
+</pre></div>
+</div>
+<p>From GitHub (latest development version):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/orger-lab/megabouts.git
 </pre></div>
 </div>
 </li>
 <li><p><strong>Verify the Installation</strong>:
-After installation, you can verify that Megabouts is properly installed by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import megabouts&quot;</span>
+After installation, you can verify that Megabouts is properly installed by checking its version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import megabouts; print(megabouts.__version__)&quot;</span>
 </pre></div>
 </div>
 </li>
 </ol>
-<p>If you see no errors, Megabouts has been successfully installed.</p>
+<p>If you see the version number printed without errors, Megabouts has been successfully installed.</p>
 </section>
 <section id="usage-guide">
 <h2>Usage Guide<a class="headerlink" href="#usage-guide" title="Link to this heading">#</a></h2>
