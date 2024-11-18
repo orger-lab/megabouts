@@ -108,7 +108,11 @@ class BoutClassifier:
             os.path.dirname(__file__), "transformer_weights.pt"
         )
         net.load_state_dict(
-            torch.load(transformer_weights_path, map_location=torch.device(self.device))
+            torch.load(
+                transformer_weights_path,
+                map_location=torch.device(self.device),
+                weights_only=True,
+            )
         )
         return net
 

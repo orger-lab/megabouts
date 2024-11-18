@@ -78,4 +78,6 @@ def create_hierarchical_df(
     # Remove names from the MultiIndex levels
     df.columns.names = [None, None, None]
 
+    df = df.sort_index(axis=1)
+
     return df

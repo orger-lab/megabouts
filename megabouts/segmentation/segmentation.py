@@ -87,35 +87,8 @@ class SegmentationResult:
         return traj_array
 
     def align_traj_array(self, traj_array: np.ndarray, idx_ref) -> np.ndarray:
-        traj_array_aligned = np.zeros_like(traj_array)
-        N = traj_array.shape[0]
-        for i in range(N):
-            sub_x, sub_y, sub_head_angle = (
-                traj_array[i, 0, :],
-                traj_array[i, 1, :],
-                traj_array[i, 2, :],
-            )
-            Pos = np.zeros((2, self.config.bout_duration))
-            Pos[0, :] = sub_x - sub_x[idx_ref]
-            Pos[1, :] = sub_y - sub_y[idx_ref]
-            theta = -sub_head_angle[idx_ref]
-            head_angle_rotated = sub_head_angle - sub_head_angle[idx_ref]
-            RotMat = np.array(
-                [[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]]
-            )
-            PosRot = np.dot(RotMat, Pos)
-            sub_x, sub_y, sub_head_angle = (
-                PosRot[0, :],
-                PosRot[1, :],
-                head_angle_rotated,
-            )
-            (
-                traj_array_aligned[i, 0, :],
-                traj_array_aligned[i, 1, :],
-                traj_array_aligned[i, 2, :],
-            ) = sub_x, sub_y, sub_head_angle
-
-        return traj_array_aligned
+        """Wrapper around the standalone align_traj_array function."""
+        return align_traj_array(traj_array, idx_ref, self.config.bout_duration)
 
 
 class Segmentation(ABC):
@@ -254,3 +227,71 @@ class TrajSegmentation(Segmentation):
             offset.append(off_)
 
         return np.array(onset), np.array(offset)
+
+
+def align_traj_array(
+    traj_array: np.ndarray, idx_ref: int, bout_duration: int
+) -> np.ndarray:
+    """
+    Align trajectory arrays to a reference point.
+
+    Args:
+        traj_array (np.ndarray): Array of shape (N, 3, bout_duration) containing x, y, and heading
+        idx_ref (int): Reference index for alignment
+        bout_duration (int): Duration of bout
+
+    Returns:
+        np.ndarray: Aligned trajectory array
+
+    Raises:
+        ValueError: If idx_ref is negative or greater than bout_duration
+        ValueError: If traj_array does not have the expected shape
+    """
+    if (
+        not isinstance(traj_array, np.ndarray)
+        or len(traj_array.shape) != 3
+        or traj_array.shape[1] != 3
+    ):
+        raise ValueError(
+            f"traj_array must be a numpy array of shape (N, 3, bout_duration), got shape {traj_array.shape}"
+        )
+
+    if idx_ref < 0 or idx_ref >= bout_duration:
+        raise ValueError(
+            f"idx_ref must be between 0 and {bout_duration-1}, got {idx_ref}"
+        )
+
+    if traj_array.shape[2] != bout_duration:
+        raise ValueError(
+            f"traj_array must have shape (N, 3, {bout_duration}), got shape {traj_array.shape}"
+        )
+
+    traj_array_aligned = np.zeros_like(traj_array)
+    N = traj_array.shape[0]
+    for i in range(N):
+        sub_x, sub_y, sub_head_angle = (
+            traj_array[i, 0, :],
+            traj_array[i, 1, :],
+            traj_array[i, 2, :],
+        )
+        Pos = np.zeros((2, bout_duration))
+        Pos[0, :] = sub_x - sub_x[idx_ref]
+        Pos[1, :] = sub_y - sub_y[idx_ref]
+        theta = -sub_head_angle[idx_ref]
+        head_angle_rotated = sub_head_angle - sub_head_angle[idx_ref]
+        RotMat = np.array(
+            [[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]]
+        )
+        PosRot = np.dot(RotMat, Pos)
+        sub_x, sub_y, sub_head_angle = (
+            PosRot[0, :],
+            PosRot[1, :],
+            head_angle_rotated,
+        )
+        (
+            traj_array_aligned[i, 0, :],
+            traj_array_aligned[i, 1, :],
+            traj_array_aligned[i, 2, :],
+        ) = sub_x, sub_y, sub_head_angle
+
+    return traj_array_aligned

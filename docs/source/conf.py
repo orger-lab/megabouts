@@ -1,46 +1,40 @@
 import os
 import sys
 
+# Add the project root to the Python path
 sys.path.insert(0, os.path.abspath("../.."))
-
-#  Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+from megabouts import __version__
 
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
 project = "Megabouts"
 copyright = "2024, Adrien Jouary"
 author = "Adrien Jouary"
-release = "0.1"
+release = __version__
+version = __version__
 
-
-# -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-# "nbsphinx",
+# -- Extensions configuration -----------------------------------------------
 extensions = [
-    "sphinx.ext.autosectionlabel",
-    "myst_nb",
-    "sphinx_design",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
-    "sphinxcontrib.video",
-    "sphinx_togglebutton",
+    "sphinx.ext.autosectionlabel",  # Allows referencing sections using labels
+    "myst_nb",  # Jupyter notebook support
+    "sphinx_design",  # Enhanced web components
+    "sphinx.ext.viewcode",  # Links to source code
+    "sphinx.ext.autodoc",  # API documentation from docstrings
+    "sphinx.ext.napoleon",  # Support for NumPy and Google style docstrings
+    "sphinxcontrib.video",  # Video embedding support
+    "sphinx_togglebutton",  # Collapsible content
 ]
 
+# -- Path setup -----------------------------------------------------------
+templates_path = ["_static"]
+exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 
-templates_path = ["_templates"]
-exclude_patterns = []
-
+# -- Napoleon Settings ----------------------------------------------------
 napoleon_google_docstring = True
 napoleon_numpy_docstring = True
-napoleon_use_ivar = False
 napoleon_use_param = True
 napoleon_attr_annotations = True
 
+# -- AutoDoc Settings ----------------------------------------------------
 autodoc_default_options = {
     "members": True,
     "member-order": "bysource",
@@ -49,24 +43,16 @@ autodoc_default_options = {
     "exclude-members": "__weakref__",
 }
 
-
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
+# -- HTML Theme Settings ------------------------------------------------
 html_theme = "pydata_sphinx_theme"
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
 html_favicon = "_static/favicon.ico"
 html_context = {"default_mode": "light"}
 
-# For plotly
-html_js_files = [
-    "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"
-]
-
-
+# Theme customization
 html_theme_options = {
-    # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html#fontawesome-icons
+    # GitHub link in header
     "icon_links": [
         {
             "name": "GitHub",
@@ -74,17 +60,30 @@ html_theme_options = {
             "icon": "fa-brands fa-github",
         }
     ],
+    # Navigation bar links
+    "navbar_links": [
+        {"name": "Installation", "url": "usage"},
+        {"name": "Tutorials", "url": "tutorials"},
+        {"name": "API", "url": "api/index"},
+    ],
 }
 
-"""
-# Removes sidebars for all pages
-html_sidebars = {"**":[]} 
-html_theme_options = {
-    "navbar_start": [],  # Empty the navbar start section if needed
-    "navbar_end": [],    # Empty the navbar end section if needed
-    "footer_items": [],  # Empty the footer section if needed
-    "secondary_sidebar_items": [],  # Remove secondary sidebar items
-    "left_sidebar": False,  # Explicitly disable the left sidebar
-    "right_sidebar": False, # Explicitly disable the right sidebar
-    "navigation_depth": 1,  # Set navigation depth to minimal if needed
-}"""
+# -- Notebook Settings -------------------------------------------------
+# Disable notebook execution during build
+nb_execution_mode = "off"
+jupyter_execute_notebooks = "off"
+
+# Configure notebook output priority
+nb_render_priority = {
+    "html": (
+        "application/vnd.jupyter.widget-view+json",
+        "application/javascript",
+        "text/html",
+        "image/svg+xml",
+        "image/png",
+        "image/jpeg",
+        "text/markdown",
+        "text/latex",
+        "text/plain",
+    )
+}

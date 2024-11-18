@@ -49,21 +49,29 @@ Megabouts is an open-source Python toolbox designed for zebrafish locomotion ana
 
    *Make sure to adjust the command based on your system's GPU or CPU configuration.*
 
-3. **Install Megabouts**:
-   Once PyTorch is installed, install Megabouts from its GitHub repository:
+3. **Once PyTorch is installed, you can install Megabouts**:
+   Choose one of the following installation methods:
+
+   From PyPI (stable version):
+
+   .. code-block:: bash
+
+      pip install megabouts
+
+   From GitHub (latest development version):
 
    .. code-block:: bash
 
       pip install git+https://github.com/orger-lab/megabouts.git
 
 4. **Verify the Installation**:
-   After installation, you can verify that Megabouts is properly installed by running:
+   After installation, you can verify that Megabouts is properly installed by checking its version:
 
    .. code-block:: bash
 
-      python -c "import megabouts"
+      python -c "import megabouts; print(megabouts.__version__)"
 
-If you see no errors, Megabouts has been successfully installed.
+If you see the version number printed without errors, Megabouts has been successfully installed.
 
 Usage Guide
 -----------

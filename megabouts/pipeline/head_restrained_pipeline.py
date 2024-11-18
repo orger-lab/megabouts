@@ -17,7 +17,11 @@ class HeadRestrainedPipeline(Pipeline):
         self.initialize_parameters_for_pipeline()
 
     def initialize_parameters_for_pipeline(self):
-        self.tail_preprocessing_cfg = TailPreprocessingConfig(fps=self.tracking_cfg.fps)
+        self.tail_preprocessing_cfg = TailPreprocessingConfig(
+            fps=self.tracking_cfg.fps,
+            baseline_method="whittaker",
+            baseline_params={"lmbda": 1e5, "half_window": 200},
+        )
         self.tail_segmentation_cfg = TailSegmentationConfig(fps=self.tracking_cfg.fps)
         self.sparse_coding_cfg = SparseCodingConfig(fps=self.tracking_cfg.fps)
 

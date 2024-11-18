@@ -3,6 +3,13 @@ from .segmentation import (
     TrajSegmentation,
     Segmentation,
     SegmentationResult,
+    align_traj_array,
 )
 
-__all__ = ["TailSegmentation", "TrajSegmentation", "Segmentation", "SegmentationResult"]
+__all__ = [
+    "TailSegmentation",
+    "TrajSegmentation",
+    "Segmentation",
+    "SegmentationResult",
+    "align_traj_array",
+]

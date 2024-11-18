@@ -18,10 +18,18 @@ Accurate measurements of animal behavior are crucial for neuroscience, as well a
 Our software supports locomotion analysis in both freely swimming and head-restrained conditions, 
 with the goal of promoting standardized zebrafish locomotion studies across neuroscience, pharmacology, and genetics.
 
-For more details, please check `our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1>`_.
-
 Please support the development of Megabouts by starring and/or watching the project on Github_!
 
+
+.. figure:: _static/images/VideoPreyCapture.gif
+   :align: center
+   :width: 800px
+   :alt: High resolution ethogram analysis
+
+
+Installation and Setup
+----------------------
+The software is available on `GitHub <https://github.com/orger-lab/megabouts>`_. Please head over to the :doc:`Usage </usage>` tab to find step-by-step installation instructions and example use cases in the :doc:`Tutorials </tutorials>` tab.
 
 .. note::
    Megabouts is under active development and might include breaking changes
@@ -29,40 +37,18 @@ Please support the development of Megabouts by starring and/or watching the proj
    your current version.
 
 
-
-Installation and Setup
-----------------------
-
-Please head over to the :doc:`Usage </usage>` tab to find step-by-step instructions to use Megabouts on your data. For example use cases, see the :doc:`Tutorials </tutorials>` tab.
-
----
-
-Publication:
+Publication
 ------------
 The details for the method can be found in
 `our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1>`_:
 
-   **Jouary, A et al.**  
-   *Megabouts: a flexible pipeline for zebrafish locomotion analysis*,  
-   **bioRxiv**, 2024.
-
----
-
-Find the Software:
-------------------
-You can find the software and source code on `GitHub <https://github.com/orger-lab/megabouts>`_
-
-
-
-
-
-References
-----------
-.. code::
+.. code-block:: bibtex
 
    @article{jouary2024megabouts,
    title={Megabouts: a flexible pipeline for zebrafish locomotion analysis},
-   author={Jouary, Adrien and Laborde, Alexandre and Silva, Pedro T and Mata, J Miguel and Marques, Joao C and Collins, Elena and Peterson, Randall T and Machens, Christian K and Orger, Michael B},
+   author={Jouary, Adrien and Laborde, Alexandre and Silva, Pedro T and Mata, J Miguel 
+           and Marques, Joao C and Collins, Elena and Peterson, Randall T 
+           and Machens, Christian K and Orger, Michael B},
    journal={bioRxiv},
    pages={2024--09},
    year={2024},
@@ -75,10 +61,11 @@ References
 
    Home <self>
 
+Getting Started
+------------
 .. toctree::
    :maxdepth: 1
-   :caption: User Guide / Tutorial:
-
+   
    usage
    tutorials
    api/index

@@ -77,7 +77,7 @@ class EthogramFullTracking:
 
         data_info = [
             ("tail_angle", "segment", tail_angle),
-            ("tail_angle", "None", vigor),
+            ("tail_angle", "vigor", vigor),
             ("trajectory", "x", head_x),
             ("trajectory", "y", head_y),
             ("trajectory", "angle", head_angle),

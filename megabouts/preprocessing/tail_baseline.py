@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 
 from pybaselines.smooth import noise_median
 from scipy import ndimage
@@ -97,19 +96,9 @@ def compute_baseline_whittaker(
 
     x_centered = x - slow_baseline
 
-    # Clipping values using std:
-
-    sig = np.copy(x_centered)
-    std_ = pd.Series(x_centered).rolling(win_std).std().values
-    mean_ = pd.Series(x_centered).rolling(win_std).mean().values
-    upper_bound = mean_ + thresh_sigma * std_
-    lower_bound = mean_ - thresh_sigma * std_
-    sig[sig > upper_bound] = upper_bound[upper_bound < sig]
-    sig[sig < lower_bound] = lower_bound[lower_bound > sig]
-
-    # Compute baseline of clipped signal:
+    # Compute baseline of signal directly without clipping:
     fast_baseline = asls(
-        sig, lam=lmbda, p=0.5, diff_order=2, max_iter=50, tol=0.001, weights=None
+        x_centered, lam=lmbda, p=0.5, diff_order=2, max_iter=50, tol=0.001, weights=None
     )[0]
 
     return slow_baseline + fast_baseline
@@ -180,58 +169,55 @@ def compute_batch(x, L_center, L_edge):
 
 
 def merge_batch(y_batch, T_padded, T, left_edge, center, right_edge, L_center, L_edge):
-    """Unbatch input signal into a times series.
-    To avoid discontinuity, the overlapping segments of consecutive batches are smoothly averaged using a sigmoid weight.
+    """Unbatch input signal into a time series.
+    Uses sigmoid weighting to smoothly merge overlapping segments.
 
     Args:
-        y_batch (np.ndarray): list of batched input including padding
-        T_padded (_type_): lenght of padded input
-        T (_type_): lenght of input before padding
-        left_edge (_type_): list of interval for the left side overlapping segments of each batch
-        center (_type_): list of interval for the center of each batch
-        right_edge (_type_): list of interval for the right side overlapping segments of each batch
-        L_center (_type_): lenght of batch non overlapping
-        L_edge (_type_): lenght of overlap between batch
+        y_batch (list): list of batched input including padding
+        T_padded (int): length of padded input
+        T (int): length of input before padding
+        left_edge (list): list of intervals for left overlapping segments
+        center (list): list of intervals for center segments
+        right_edge (list): list of intervals for right overlapping segments
+        L_center (int): length of non-overlapping batch segment
+        L_edge (int): length of overlap between batches
 
     Returns:
-        y: merged signal
+        np.ndarray: merged signal of length T
     """
+    # Pre-compute sigmoid weights
     x = np.linspace(-L_edge / 2, L_edge / 2, L_edge)
     sigma = L_edge / 7
-    z = 1 / (1 + np.exp(-x / sigma))
+    weights = 1 / (1 + np.exp(-x / sigma))
+    inv_weights = 1 - weights
 
     y = np.zeros(T_padded)
-    # Center:
+    n_batches = len(y_batch)
+
+    # Handle first batch
     y[center[0][0] : center[0][1]] = y_batch[0][0:L_center]
-    # Right edge:
-    val_1 = y_batch[0][L_center:]
-    val_2 = y_batch[1][0:L_edge]
-    val_merge = val_1 * (1 - z) + val_2 * (z)
-    y[right_edge[0][0] : right_edge[0][1]] = val_merge
+    y[right_edge[0][0] : right_edge[0][1]] = (
+        y_batch[0][L_center:] * inv_weights + y_batch[1][0:L_edge] * weights
+    )
 
-    n = int(T_padded / (L_center + L_edge))
-    for i in range(1, n - 1):
-        # Left:
-        val_1 = y_batch[i - 1][-L_edge:]
-        val_2 = y_batch[i][0:L_edge]
-        val_merge = val_1 * (1 - z) + val_2 * (z)
-        y[left_edge[i][0] : left_edge[i][1]] = val_merge
-        # Center:
+    # Handle middle batches
+    for i in range(1, n_batches - 1):
+        # Merge left edge
+        y[left_edge[i][0] : left_edge[i][1]] = (
+            y_batch[i - 1][-L_edge:] * inv_weights + y_batch[i][0:L_edge] * weights
+        )
+        # Copy center directly
         y[center[i][0] : center[i][1]] = y_batch[i][L_edge : L_edge + L_center]
-        # Right:
-        val_1 = y_batch[i][L_center + L_edge :]
-        val_2 = y_batch[i + 1][0:L_edge]
-        val_merge = val_1 * (1 - z) + val_2 * (z)
-        y[right_edge[i][0] : right_edge[i][1]] = val_merge
+        # Merge right edge
+        y[right_edge[i][0] : right_edge[i][1]] = (
+            y_batch[i][L_center + L_edge :] * inv_weights
+            + y_batch[i + 1][0:L_edge] * weights
+        )
 
-    # Left:
-    val_1 = y_batch[-2][L_center + L_edge :]
-    val_2 = y_batch[-1][:L_edge]
-    val_merge = val_1 * (1 - z) + val_2 * (z)
-    y[left_edge[-1][0] : left_edge[-1][1]] = val_merge
-    # Center
+    # Handle last batch
+    y[left_edge[-1][0] : left_edge[-1][1]] = (
+        y_batch[-2][L_center + L_edge :] * inv_weights + y_batch[-1][:L_edge] * weights
+    )
     y[center[-1][0] : right_edge[-1][1]] = y_batch[-1][L_edge:]
 
-    y = y[0:T]
-
-    return y
+    return y[:T]
