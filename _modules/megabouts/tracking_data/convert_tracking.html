@@ -371,16 +371,32 @@
 <div class="viewcode-block" id="interpolate_tail_keypoint">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint">[docs]</a>
 <span class="k">def</span> <span class="nf">interpolate_tail_keypoint</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">n_segments</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Interpolates the tail keypoints to create a curve with a specified number of segments.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interpolate tail keypoints to create a smooth curve.</span>
 
-<span class="sd">    Parameters:</span>
-<span class="sd">        tail_x (numpy.ndarray): The x-coordinates of the tail keypoints. Shape: (T, n_segments_input).</span>
-<span class="sd">        tail_y (numpy.ndarray): The y-coordinates of the tail keypoints. Shape: (T, n_segments_input).</span>
-<span class="sd">        n_segments (int, optional): The number of segments to interpolate. Default: 10.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tail_x : np.ndarray</span>
+<span class="sd">        X-coordinates of tail keypoints, shape (T, n_segments_input)</span>
+<span class="sd">    tail_y : np.ndarray</span>
+<span class="sd">        Y-coordinates of tail keypoints, shape (T, n_segments_input)</span>
+<span class="sd">    n_segments : int, optional</span>
+<span class="sd">        Number of segments in output curve, by default 10</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        tuple: Interpolated x-coordinates and y-coordinates of the tail keypoints. Shape: (T, n_segments+1).</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        (tail_x_interp, tail_y_interp) : Interpolated coordinates</span>
+<span class="sd">        Each array has shape (T, n_segments+1)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;fulltracking_posture&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; tail_x = df.filter(like=&#39;tail_x&#39;).values</span>
+<span class="sd">    &gt;&gt;&gt; tail_y = df.filter(like=&#39;tail_y&#39;).values</span>
+<span class="sd">    &gt;&gt;&gt; x_interp, y_interp = interpolate_tail_keypoint(tail_x, tail_y, n_segments=8)</span>
+<span class="sd">    &gt;&gt;&gt; x_interp.shape[1] == 9  # n_segments + 1 points</span>
+<span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">n_segments</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;There should be more than 3 keypoints.&quot;</span><span class="p">)</span>
@@ -425,17 +441,38 @@
 <div class="viewcode-block" id="compute_angles_from_keypoints">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.convert_tracking.compute_angles_from_keypoints">[docs]</a>
 <span class="k">def</span> <span class="nf">compute_angles_from_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the tail angles and body angle based on keypoints.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute tail angles and body orientation from keypoints.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        head_x (ndarray): X-coordinates of the head keypoints.</span>
-<span class="sd">        head_y (ndarray): Y-coordinates of the head keypoints.</span>
-<span class="sd">        tail_x (ndarray): X-coordinates of the tail keypoints.</span>
-<span class="sd">        tail_y (ndarray): Y-coordinates of the tail keypoints.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    head_x : np.ndarray</span>
+<span class="sd">        X-coordinates of head, shape (T,)</span>
+<span class="sd">    head_y : np.ndarray</span>
+<span class="sd">        Y-coordinates of head, shape (T,)</span>
+<span class="sd">    tail_x : np.ndarray</span>
+<span class="sd">        X-coordinates of tail points, shape (T, N_keypoints)</span>
+<span class="sd">    tail_y : np.ndarray</span>
+<span class="sd">        Y-coordinates of tail points, shape (T, N_keypoints)</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        tuple: A tuple containing the tail angles (tail_angle) and the body angle (head_yaw).</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tail_angle : np.ndarray or None</span>
+<span class="sd">        Cumulative angles between tail segments, shape (T, N_keypoints-1)</span>
+<span class="sd">        None if only one tail point</span>
+<span class="sd">    head_yaw : np.ndarray</span>
+<span class="sd">        Body orientation angle, shape (T,)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;SLEAP_fulltracking&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; head_x = ((df[&quot;left_eye.x&quot;] + df[&quot;right_eye.x&quot;]) / 2) * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; head_y = ((df[&quot;left_eye.y&quot;] + df[&quot;right_eye.y&quot;]) / 2) * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tail_x = df[[f&quot;tail{i}.x&quot; for i in range(5)]].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tail_y = df[[f&quot;tail{i}.y&quot; for i in range(5)]].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; angles, yaw = compute_angles_from_keypoints(head_x, head_y, tail_x, tail_y)</span>
+<span class="sd">    &gt;&gt;&gt; angles.shape[1] == tail_x.shape[1] - 1  # one angle between each segment</span>
+<span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -473,19 +510,40 @@
 <span class="k">def</span> <span class="nf">convert_tail_angle_to_keypoints</span><span class="p">(</span>
     <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">,</span> <span class="n">body_to_tail_mm</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tail_to_tail_mm</span><span class="o">=</span><span class="mf">0.32</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Converts tail angles back to keypoints.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert tail angles back to keypoint coordinates.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        head_x (ndarray): X-coordinates of the head.</span>
-<span class="sd">        head_y (ndarray): Y-coordinates of the head.</span>
-<span class="sd">        head_yaw (ndarray): Body angle.</span>
-<span class="sd">        tail_angle (ndarray): Tail angles.</span>
-<span class="sd">        body_to_tail_mm (float): Distance from body to first tail keypoint in mm. Default: 0.5.</span>
-<span class="sd">        tail_to_tail_mm (float): Distance between consecutive tail keypoints in mm. Default: 0.32.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    head_x : np.ndarray</span>
+<span class="sd">        X-coordinates of head, shape (T,)</span>
+<span class="sd">    head_y : np.ndarray</span>
+<span class="sd">        Y-coordinates of head, shape (T,)</span>
+<span class="sd">    head_yaw : np.ndarray</span>
+<span class="sd">        Body orientation angles, shape (T,)</span>
+<span class="sd">    tail_angle : np.ndarray</span>
+<span class="sd">        Tail segment angles, shape (T, N_segments)</span>
+<span class="sd">    body_to_tail_mm : float, optional</span>
+<span class="sd">        Distance from body to first tail point, by default 0.5</span>
+<span class="sd">    tail_to_tail_mm : float, optional</span>
+<span class="sd">        Distance between consecutive tail points, by default 0.32</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        tuple: Tail keypoints (tail_x, tail_y).</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        (tail_x, tail_y) : Tail keypoint coordinates</span>
+<span class="sd">        Each array has shape (T, N_segments+1)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;fulltracking_posture&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; head_x = df[&#39;head_x&#39;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; head_y = df[&#39;head_y&#39;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; head_yaw = df[&#39;head_angle&#39;].values</span>
+<span class="sd">    &gt;&gt;&gt; tail_angle = df.filter(like=&#39;tail_angle&#39;).values</span>
+<span class="sd">    &gt;&gt;&gt; tail_x, tail_y = convert_tail_angle_to_keypoints(head_x, head_y, head_yaw, tail_angle)</span>
+<span class="sd">    &gt;&gt;&gt; tail_x.shape == (len(head_x), tail_angle.shape[1] + 1)</span>
+<span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">T</span><span class="p">,</span> <span class="n">num_segments</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">tail_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="p">,</span> <span class="n">num_segments</span><span class="p">))</span>
@@ -513,15 +571,28 @@
 <div class="viewcode-block" id="interpolate_tail_angle">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.convert_tracking.interpolate_tail_angle">[docs]</a>
 <span class="k">def</span> <span class="nf">interpolate_tail_angle</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">,</span> <span class="n">n_segments</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Interpolates tail angles.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interpolate tail angles to a different number of segments.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        tail_angle (ndarray): Tail angles.</span>
-<span class="sd">        n_segments (int, optional): Number of segments. Default: 10.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tail_angle : np.ndarray</span>
+<span class="sd">        Tail angles, shape (T, N_segments)</span>
+<span class="sd">    n_segments : int, optional</span>
+<span class="sd">        Number of segments in output, by default 10</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        ndarray: Interpolated tail angles.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Interpolated tail angles, shape (T, n_segments)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;fulltracking_posture&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; tail_angle = df.filter(like=&#39;tail_angle&#39;).values</span>
+<span class="sd">    &gt;&gt;&gt; interp_angles = interpolate_tail_angle(tail_angle, n_segments=8)</span>
+<span class="sd">    &gt;&gt;&gt; interp_angles.shape == (len(tail_angle), 8)</span>
+<span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">body_x</span><span class="p">,</span> <span class="n">body_y</span><span class="p">,</span> <span class="n">body_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
@@ -535,7 +606,7 @@
     <span class="n">tail_angle_interp</span><span class="p">,</span> <span class="n">head_yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span>
         <span class="n">body_x</span><span class="p">,</span> <span class="n">body_y</span><span class="p">,</span> <span class="n">tail_x_interp</span><span class="p">,</span> <span class="n">tail_y_interp</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">tail_angle_interp</span>  <span class="c1"># ,tail_x,tail_y,tail_x_interp, tail_y_interp</span></div>
+    <span class="k">return</span> <span class="n">tail_angle_interp</span></div>
 
 </pre></div>
 

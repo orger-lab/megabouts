@@ -414,7 +414,6 @@
     "t = np.arange(tracking_data.T) / tracking_cfg.fps\n",
     "\n",
     "ax[1].set_xlim(t[IdSt], t[IdSt + Duration])\n",
-    "plt.savefig(\"tail_segmentation.svg\")\n",
     "plt.show()"
    ]
   },

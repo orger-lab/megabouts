@@ -390,6 +390,17 @@
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">SegmentationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for segmentation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>SegmentationConfig</em>) – Configuration used for segmentation</p></li>
+<li><p><strong>onset</strong> (<em>np.ndarray</em>) – Start frames of detected segments</p></li>
+<li><p><strong>offset</strong> (<em>np.ndarray</em>) – End frames of detected segments</p></li>
+<li><p><strong>T</strong> (<em>int</em>) – Total number of frames in recording</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.__init__" title="Link to this definition">#</a></dt>
@@ -398,17 +409,58 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.set_HB1">
 <span class="sig-name descname"><span class="pre">set_HB1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first_half_beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.set_HB1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.set_HB1" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Set the first half-beat frames for each segment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>first_half_beat</strong> (<em>np.ndarray</em>) – Frame indices of first half-beats, must match length of onset</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.extract_tail_array">
 <span class="sig-name descname"><span class="pre">extract_tail_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_to_onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.extract_tail_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.extract_tail_array" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Extract tail angles for each detected segment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tail_angle</strong> (<em>np.ndarray</em>) – Full tail angle array, shape (T, n_segments)</p></li>
+<li><p><strong>align_to_onset</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, align to bout onset, else to HB1, by default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of tail angles for each bout, shape (n_bouts, n_segments, bout_duration)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.extract_traj_array">
 <span class="sig-name descname"><span class="pre">extract_traj_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_to_onset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#SegmentationResult.extract_traj_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.SegmentationResult.extract_traj_array" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Extract trajectory data for each detected segment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>head_x</strong> (<em>np.ndarray</em>) – Head position coordinates</p></li>
+<li><p><strong>head_y</strong> (<em>np.ndarray</em>) – Head position coordinates</p></li>
+<li><p><strong>head_angle</strong> (<em>np.ndarray</em>) – Head orientation angles</p></li>
+<li><p><strong>align_to_onset</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, align to bout onset, else to HB1, by default True</p></li>
+<li><p><strong>align</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to align trajectories, by default True</p></li>
+<li><p><strong>idx_ref</strong> (<em>int</em><em>, </em><em>optional</em>) – Reference frame for alignment, by default 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of trajectory data for each bout, shape (n_bouts, 3, bout_duration)
+Channels are [x, y, angle]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.SegmentationResult.align_traj_array">
@@ -422,6 +474,7 @@
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.Segmentation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.segmentation.segmentation.</span></span><span class="sig-name descname"><span class="pre">Segmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#Segmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.Segmentation" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for segmentation algorithms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.Segmentation.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#Segmentation.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.Segmentation.__init__" title="Link to this definition">#</a></dt>
@@ -431,18 +484,29 @@
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.Segmentation.segment">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult"><span class="pre">SegmentationResult</span></a></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#Segmentation.segment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.Segmentation.segment" title="Link to this definition">#</a></dt>
 <dd><p>Perform segmentation on the provided data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>np.ndarray</em>) – Data to segment</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Detected segments</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult">SegmentationResult</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.Segmentation.from_config">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SegmentationConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#megabouts.segmentation.segmentation.Segmentation" title="megabouts.segmentation.segmentation.Segmentation"><span class="pre">Segmentation</span></a></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#Segmentation.from_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.Segmentation.from_config" title="Link to this definition">#</a></dt>
-<dd><p>Factory method to create appropriate segmentation instances based on configuration.</p>
+<dd><p>Factory method to create appropriate segmentation instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>SegmentationConfig</em>) – Configuration object for segmentation.</p>
+<dd class="field-odd"><p><strong>config</strong> (<em>SegmentationConfig</em>) – Configuration for segmentation</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of a subclass of Segmentation.</p>
+<dd class="field-even"><p>Instance of appropriate segmentation subclass</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#megabouts.segmentation.segmentation.Segmentation" title="megabouts.segmentation.segmentation.Segmentation">Segmentation</a></p>
@@ -468,13 +532,13 @@
 <dd><p>Segment data based on tail vigor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tail_speed</strong> (<em>np.ndarray</em>) – 1D Array of tail vigor.</p>
+<dd class="field-odd"><p><strong>tail_vigor</strong> (<em>np.ndarray</em>) – 1D Array of tail vigor</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Onset and offset indices, and threshold value.</p>
+<dd class="field-even"><p>Detected segments</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray, float]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult">SegmentationResult</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -497,41 +561,56 @@
 <dd><p>Segment data based on kinematic activity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kinematic_activity</strong> (<em>np.ndarray</em>) – Array of kinematic activity values.</p>
+<dd class="field-odd"><p><strong>kinematic_activity</strong> (<em>np.ndarray</em>) – Array of kinematic activity values</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Onset and offset indices.</p>
+<dd class="field-even"><p>Detected segments</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult">SegmentationResult</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_inter_peak_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.find_inter_peak_min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_onset_offset_around_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter_peak_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.find_onset_offset_around_peak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak" title="Link to this definition">#</a></dt>
-<dd><p>Find the onset and offset around each peak where the signal goes below a certain percentage of the peak value.
-Ensure that segments do not overlap and that the duration is non-negative.</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_inter_peak_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.find_inter_peak_min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min" title="Link to this definition">#</a></dt>
+<dd><p>Find minima between peaks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>np.ndarray</em>) – Input signal</p></li>
-<li><p><strong>peaks</strong> (<em>np.ndarray</em>) – Indices of peaks in the signal</p></li>
-<li><p><strong>peak_percentage</strong> (<em>float</em>) – Percentage of the peak value to determine onset and offset</p></li>
+<li><p><strong>peaks</strong> (<em>np.ndarray</em>) – Indices of peaks</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Onset indices
-np.ndarray: Offset indices</p>
+<dd class="field-even"><p>Indices of minima between peaks</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_onset_offset_around_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter_peak_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/segmentation/segmentation.html#TrajSegmentation.find_onset_offset_around_peak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.segmentation.segmentation.TrajSegmentation.find_onset_offset_around_peak" title="Link to this definition">#</a></dt>
+<dd><p>Find onset and offset around each peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Input signal</p></li>
+<li><p><strong>peaks</strong> (<em>np.ndarray</em>) – Indices of peaks</p></li>
+<li><p><strong>inter_peak_min</strong> (<em>np.ndarray</em>) – Indices of minima between peaks</p></li>
+<li><p><strong>peak_percentage</strong> (<em>float</em>) – Percentage of peak value to determine onset/offset</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>onset</strong> (<em>np.ndarray</em>) – Onset indices</p></li>
+<li><p><strong>offset</strong> (<em>np.ndarray</em>) – Offset indices</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -557,12 +636,19 @@ np.ndarray: Offset indices</p>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ValueError</strong> – If idx_ref is negative or greater than bout_duration</p></li>
-<li><p><strong>ValueError</strong> – If traj_array does not have the expected shape</p></li>
-</ul>
+<dd class="field-even"><p><strong>ValueError</strong> – If idx_ref is negative or greater than bout_duration
+    If traj_array does not have the expected shape</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="p">,</span> <span class="n">duration</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span>  <span class="c1"># 10 bouts, 100 frames each</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">duration</span><span class="p">))</span>  <span class="c1"># x, y, heading</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>  <span class="c1"># x increases linearly</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligned</span> <span class="o">=</span> <span class="n">align_traj_array</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">idx_ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bout_duration</span><span class="o">=</span><span class="n">duration</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">aligned</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># all trajectories start at x=0</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

@@ -380,6 +380,22 @@
 <div class="viewcode-block" id="TailPreprocessingResult">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">[docs]</a>
 <span class="k">class</span> <span class="nc">TailPreprocessingResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for tail preprocessing results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    angle : np.ndarray</span>
+<span class="sd">        Raw tail angles</span>
+<span class="sd">    angle_baseline : np.ndarray</span>
+<span class="sd">        Computed baseline of tail angles</span>
+<span class="sd">    angle_smooth : np.ndarray</span>
+<span class="sd">        Smoothed and baseline-substracted tail angles</span>
+<span class="sd">    vigor : np.ndarray</span>
+<span class="sd">        Computed tail vigor</span>
+<span class="sd">    no_tracking : np.ndarray</span>
+<span class="sd">        Boolean mask indicating frames with no tracking</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TailPreprocessingResult.__init__">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">angle_baseline</span><span class="p">,</span> <span class="n">angle_smooth</span><span class="p">,</span> <span class="n">vigor</span><span class="p">,</span> <span class="n">no_tracking</span><span class="p">):</span>
@@ -418,14 +434,36 @@
 <div class="viewcode-block" id="TailPreprocessing.preprocess_tail_df">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.preprocess_tail_df">[docs]</a>
     <span class="k">def</span> <span class="nf">preprocess_tail_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TailPreprocessingResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Preprocess tail angle data from a DataFrame.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess tail angle data from a DataFrame.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            tail_df (pd.DataFrame): DataFrame containing tail angle data.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tail_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing tail angle data</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            TailPreprocessingResult: Preprocessed Tail</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        TailPreprocessingResult</span>
+<span class="sd">            Preprocessed tail data</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; from megabouts.config import TailPreprocessingConfig</span>
+<span class="sd">        &gt;&gt;&gt; # Create sample tail angles (100 timepoints, 10 segments)</span>
+<span class="sd">        &gt;&gt;&gt; tail_df = pd.DataFrame(</span>
+<span class="sd">        ...     np.sin(np.linspace(0, 2*np.pi, 100))[:, None] * np.ones((100, 10)),</span>
+<span class="sd">        ...     columns=[f&#39;angle_{i}&#39; for i in range(10)]</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; config = TailPreprocessingConfig(fps=100)</span>
+<span class="sd">        &gt;&gt;&gt; result = TailPreprocessing(config).preprocess_tail_df(tail_df)</span>
+<span class="sd">        &gt;&gt;&gt; result.angle.shape == (100, 10)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; result.angle.shape == result.angle_smooth.shape</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; result.vigor.ndim == 1  # vigor is 1D time series</span>
+<span class="sd">        True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Extract Tail Angle</span>
         <span class="n">angle_input</span> <span class="o">=</span> <span class="n">tail_df</span><span class="p">[[</span><span class="s2">&quot;angle_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span>
@@ -450,6 +488,22 @@
 <div class="viewcode-block" id="TailPreprocessing.preprocess_tail_angle">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.preprocess_tail_angle">[docs]</a>
     <span class="k">def</span> <span class="nf">preprocess_tail_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess raw tail angle data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        angle : np.ndarray</span>
+<span class="sd">            Raw tail angles, shape (T, n_segments)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        angle : np.ndarray</span>
+<span class="sd">            Preprocessed angles</span>
+<span class="sd">        angle_baseline : np.ndarray</span>
+<span class="sd">            Computed baseline</span>
+<span class="sd">        no_tracking : np.ndarray</span>
+<span class="sd">            Boolean mask for frames with no tracking</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">angle</span><span class="p">,</span> <span class="n">no_tracking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp_tail_nan</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">limit_na</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">limit_na</span><span class="p">)</span>
 
         <span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_using_pca</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">num_pcs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">num_pcs</span><span class="p">)</span>
@@ -471,7 +525,22 @@
     <span class="k">def</span> <span class="nf">interp_tail_nan</span><span class="p">(</span>
         <span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">limit_na</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolates missing values in tail angle.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolates missing values in tail angle.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        angle : np.ndarray</span>
+<span class="sd">            Tail angles with potential NaN values, shape (T, n_segments)</span>
+<span class="sd">        limit_na : int, optional</span>
+<span class="sd">            Maximum number of consecutive NaN values to interpolate, by default 5</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        angle_no_nan : np.ndarray</span>
+<span class="sd">            Interpolated angles</span>
+<span class="sd">        no_tracking : np.ndarray</span>
+<span class="sd">            Boolean mask indicating frames with no tracking</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Interpolate NaN timestep:</span>
         <span class="n">angle_no_nan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
@@ -489,7 +558,20 @@
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.clean_using_pca">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">clean_using_pca</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_pcs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply PCA autoencoding to clean up a multidimensional time series.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply PCA autoencoding to clean up a multidimensional time series.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        angle : np.ndarray</span>
+<span class="sd">            Input angles, shape (T, n_segments)</span>
+<span class="sd">        num_pcs : int, optional</span>
+<span class="sd">            Number of principal components to use, by default 4</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            PCA-cleaned angles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">num_pcs</span><span class="p">)</span>
         <span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="n">low_D</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
@@ -501,7 +583,20 @@
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.smooth_tail_angle">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">smooth_tail_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">savgol_window</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Smooth the tail angle data using Savitzky-Golay filter.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Smooth the tail angle data using Savitzky-Golay filter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        angle : np.ndarray</span>
+<span class="sd">            Input angles, shape (T, n_segments)</span>
+<span class="sd">        savgol_window : int</span>
+<span class="sd">            Window length for Savitzky-Golay filter (must be odd)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Smoothed angles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">angle_smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">savgol_window</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
@@ -524,7 +619,22 @@
     <span class="k">def</span> <span class="nf">compute_baseline</span><span class="p">(</span>
         <span class="n">angle_smooth</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">baseline_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">baseline_params</span><span class="p">:</span> <span class="nb">dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the baseline for the smoothed tail angle data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the baseline for the smoothed tail angle data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        angle_smooth : np.ndarray</span>
+<span class="sd">            Smoothed angles, shape (T, n_segments)</span>
+<span class="sd">        baseline_method : str</span>
+<span class="sd">            Method for baseline computation</span>
+<span class="sd">        baseline_params : dict</span>
+<span class="sd">            Parameters for baseline computation</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Computed baseline</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">angle_baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle_smooth</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle_smooth</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">angle_baseline</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute_baseline</span><span class="p">(</span>
@@ -542,7 +652,24 @@
         <span class="n">tail_speed_filter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">tail_speed_boxcar_filter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Smooth trajectory using 1€ filter and compute derivative&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute tail speed and vigor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        angle : np.ndarray</span>
+<span class="sd">            Input angles, shape (T, n_segments)</span>
+<span class="sd">        fps : int</span>
+<span class="sd">            Frames per second</span>
+<span class="sd">        tail_speed_filter : int</span>
+<span class="sd">            Filter length for speed computation</span>
+<span class="sd">        tail_speed_boxcar_filter : int</span>
+<span class="sd">            Filter length for boxcar smoothing</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Computed tail vigor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">angle_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">angle_speed</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span>

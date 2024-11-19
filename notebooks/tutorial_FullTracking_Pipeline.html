@@ -434,6 +434,30 @@ The pipeline handles preprocessing of tracking data and segmentation/classificat
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TailPreprocessingConfig(fps=700, limit_na_ms=100, num_pcs=4, savgol_window_ms=15, baseline_method=&#39;median&#39;, baseline_params={&#39;fps&#39;: 700, &#39;half_window&#39;: 350}, tail_speed_filter_ms=100, tail_speed_boxcar_filter_ms=14)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span><span class="o">.</span><span class="n">savgol_window</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ethogram</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tracking_data</span><span class="p">)</span>
 </pre></div>
 </div>

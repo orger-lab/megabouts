@@ -374,6 +374,30 @@
 <div class="viewcode-block" id="TrajPreprocessingResult">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult">[docs]</a>
 <span class="k">class</span> <span class="nc">TrajPreprocessingResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for trajectory preprocessing results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x, y : np.ndarray</span>
+<span class="sd">        Raw position coordinates</span>
+<span class="sd">    yaw : np.ndarray</span>
+<span class="sd">        Raw orientation angles</span>
+<span class="sd">    x_smooth, y_smooth : np.ndarray</span>
+<span class="sd">        Smoothed position coordinates</span>
+<span class="sd">    yaw_smooth : np.ndarray</span>
+<span class="sd">        Smoothed orientation angles</span>
+<span class="sd">    axial_speed : np.ndarray</span>
+<span class="sd">        Speed along body axis</span>
+<span class="sd">    lateral_speed : np.ndarray</span>
+<span class="sd">        Speed perpendicular to body axis</span>
+<span class="sd">    yaw_speed : np.ndarray</span>
+<span class="sd">        Angular velocity</span>
+<span class="sd">    vigor : np.ndarray</span>
+<span class="sd">        Kinematic activity measure</span>
+<span class="sd">    no_tracking : np.ndarray</span>
+<span class="sd">        Boolean mask indicating frames with no tracking</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TrajPreprocessingResult.__init__">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -453,14 +477,42 @@
 <div class="viewcode-block" id="TrajPreprocessing.preprocess_traj_df">
 <a class="viewcode-back" href="../../../api/preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.preprocess_traj_df">[docs]</a>
     <span class="k">def</span> <span class="nf">preprocess_traj_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Preprocess trajectory data from a DataFrame.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess trajectory data from a DataFrame.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            traj_df (pd.DataFrame): DataFrame containing head trajectory data (x,y,yaw).</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        traj_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing head trajectory data (x,y,yaw)</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            pd.DataFrame: Preprocessed DataFrame with hierarchical structure.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        TrajPreprocessingResult</span>
+<span class="sd">            Preprocessed trajectory data</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; from megabouts.config import TrajPreprocessingConfig</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Create sample data</span>
+<span class="sd">        &gt;&gt;&gt; t = np.linspace(0, 1, 100)  # 1 second at 100 fps</span>
+<span class="sd">        &gt;&gt;&gt; traj_df = pd.DataFrame({</span>
+<span class="sd">        ...     &#39;x&#39;: t,  # constant forward speed</span>
+<span class="sd">        ...     &#39;y&#39;: np.zeros_like(t),  # no lateral movement</span>
+<span class="sd">        ...     &#39;yaw&#39;: np.zeros_like(t)  # no rotation</span>
+<span class="sd">        ... })</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Preprocess</span>
+<span class="sd">        &gt;&gt;&gt; config = TrajPreprocessingConfig(fps=100)</span>
+<span class="sd">        &gt;&gt;&gt; preprocessor = TrajPreprocessing(config)</span>
+<span class="sd">        &gt;&gt;&gt; result = preprocessor.preprocess_traj_df(traj_df)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Verify forward movement was detected</span>
+<span class="sd">        &gt;&gt;&gt; np.mean(result.axial_speed[20:-20]) &gt; 0  # positive forward speed</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; np.allclose(result.lateral_speed[20:-20], 0, atol=1e-10)  # no lateral speed</span>
+<span class="sd">        True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x_input</span><span class="p">,</span> <span class="n">y_input</span><span class="p">,</span> <span class="n">yaw_input</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">traj_df</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
@@ -511,7 +563,26 @@
     <span class="k">def</span> <span class="nf">interp_traj_nan</span><span class="p">(</span>
         <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">limit_na</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolates missing values in trajectory data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolates missing values in trajectory data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x, y : np.ndarray</span>
+<span class="sd">            Position coordinates</span>
+<span class="sd">        yaw : np.ndarray</span>
+<span class="sd">            Orientation angles</span>
+<span class="sd">        limit_na : int</span>
+<span class="sd">            Maximum number of consecutive NaN values to interpolate</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        x, y : np.ndarray</span>
+<span class="sd">            Interpolated position coordinates</span>
+<span class="sd">        yaw : np.ndarray</span>
+<span class="sd">            Interpolated orientation angles</span>
+<span class="sd">        no_tracking : np.ndarray</span>
+<span class="sd">            Boolean mask indicating frames with no tracking</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Interpolate within limit na:</span>
         <span class="n">yaw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw</span><span class="p">))</span>
         <span class="n">yaw</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yaw</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">yaw</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yaw</span><span class="p">)])</span>
@@ -539,7 +610,24 @@
     <span class="k">def</span> <span class="nf">one_euro_filter</span><span class="p">(</span>
         <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">freq_cutoff_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rate</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply 1€ filter over x.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply 1€ filter over x.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : np.ndarray</span>
+<span class="sd">            Input signal</span>
+<span class="sd">        freq_cutoff_min : float</span>
+<span class="sd">            Minimum cutoff frequency in Hz</span>
+<span class="sd">        beta : float</span>
+<span class="sd">            Speed coefficient</span>
+<span class="sd">        rate : int</span>
+<span class="sd">            Sampling rate in Hz</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Filtered signal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x_smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x_smooth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -567,7 +655,40 @@
     <span class="k">def</span> <span class="nf">compute_speed</span><span class="p">(</span>
         <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">yaw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_diff</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the axial, lateral, and yaw speed of a body.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the axial, lateral, and yaw speed of a body.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x, y : np.ndarray</span>
+<span class="sd">            Position coordinates</span>
+<span class="sd">        yaw : np.ndarray</span>
+<span class="sd">            Orientation angles</span>
+<span class="sd">        fps : int</span>
+<span class="sd">            Frames per second</span>
+<span class="sd">        n_diff : int</span>
+<span class="sd">            Filter length for derivative computation</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        axial_speed : np.ndarray</span>
+<span class="sd">            Speed along body axis</span>
+<span class="sd">        lateral_speed : np.ndarray</span>
+<span class="sd">            Speed perpendicular to body axis</span>
+<span class="sd">        yaw_speed : np.ndarray</span>
+<span class="sd">            Angular velocity</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; t = np.linspace(0, 1, 100)  # 1 second at 100 fps</span>
+<span class="sd">        &gt;&gt;&gt; x = t  # constant forward speed</span>
+<span class="sd">        &gt;&gt;&gt; y = np.zeros_like(t)  # no lateral movement</span>
+<span class="sd">        &gt;&gt;&gt; yaw = np.zeros_like(t)  # no rotation</span>
+<span class="sd">        &gt;&gt;&gt; ax, lat, yaw_speed = TrajPreprocessing.compute_speed(x, y, yaw, fps=100, n_diff=11)</span>
+<span class="sd">        &gt;&gt;&gt; np.mean(ax[20:-20]) &gt; 0  # positive forward speed</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; np.allclose(lat[20:-20], 0, atol=1e-10)  # no lateral speed</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">body_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">)])[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">position_change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">body_vector</span><span class="p">)</span>
         <span class="n">position_change</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">robust_diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span> <span class="n">filter_length</span><span class="o">=</span><span class="n">n_diff</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -597,7 +718,36 @@
         <span class="n">lag</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the kinematic activity of a body.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the kinematic activity of a body.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axial_speed : np.ndarray</span>
+<span class="sd">            Speed along body axis</span>
+<span class="sd">        lateral_speed : np.ndarray</span>
+<span class="sd">            Speed perpendicular to body axis</span>
+<span class="sd">        yaw_speed : np.ndarray</span>
+<span class="sd">            Angular velocity</span>
+<span class="sd">        lag : int</span>
+<span class="sd">            Number of frames to compute activity over</span>
+<span class="sd">        fps : int</span>
+<span class="sd">            Frames per second</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Kinematic activity measure</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; n_frames = 100</span>
+<span class="sd">        &gt;&gt;&gt; speeds = np.zeros((n_frames, 3))  # no movement initially</span>
+<span class="sd">        &gt;&gt;&gt; speeds[50:60, 0] = 1  # burst of forward movement</span>
+<span class="sd">        &gt;&gt;&gt; activity = TrajPreprocessing.compute_kinematic_activity(</span>
+<span class="sd">        ...     speeds[:, 0], speeds[:, 1], speeds[:, 2], lag=10, fps=100)</span>
+<span class="sd">        &gt;&gt;&gt; np.any(activity &gt; 0)  # detected activity during burst</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">traj_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">axial_speed</span><span class="p">,</span> <span class="n">lateral_speed</span><span class="p">,</span> <span class="n">yaw_speed</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
         <span class="n">traj_speed</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">traj_speed</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">traj_cumul</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">traj_speed</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>

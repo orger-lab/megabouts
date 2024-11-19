@@ -390,6 +390,18 @@
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.tail_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TailPreprocessingResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_tracking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessingResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for tail preprocessing results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle</strong> (<em>np.ndarray</em>) – Raw tail angles</p></li>
+<li><p><strong>angle_baseline</strong> (<em>np.ndarray</em>) – Computed baseline of tail angles</p></li>
+<li><p><strong>angle_smooth</strong> (<em>np.ndarray</em>) – Smoothed and baseline-substracted tail angles</p></li>
+<li><p><strong>vigor</strong> (<em>np.ndarray</em>) – Computed tail vigor</p></li>
+<li><p><strong>no_tracking</strong> (<em>np.ndarray</em>) – Boolean mask indicating frames with no tracking</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_tracking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessingResult.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult.__init__" title="Link to this definition">#</a></dt>
@@ -413,50 +425,157 @@
 <dd><p>Preprocess tail angle data from a DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tail_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing tail angle data.</p>
+<dd class="field-odd"><p><strong>tail_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing tail angle data</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Preprocessed Tail</p>
+<dd class="field-even"><p>Preprocessed tail data</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult" title="megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">TailPreprocessingResult</a></p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TailPreprocessingConfig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create sample tail angles (100 timepoints, 10 segments)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">))[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
+<span class="gp">... </span>    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;angle_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">TailPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">TailPreprocessing</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_tail_df</span><span class="p">(</span><span class="n">tail_df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">result</span><span class="o">.</span><span class="n">angle_smooth</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">vigor</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># vigor is 1D time series</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.preprocess_tail_angle">
 <span class="sig-name descname"><span class="pre">preprocess_tail_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.preprocess_tail_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.preprocess_tail_angle" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Preprocess raw tail angle data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>angle</strong> (<em>np.ndarray</em>) – Raw tail angles, shape (T, n_segments)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>angle</strong> (<em>np.ndarray</em>) – Preprocessed angles</p></li>
+<li><p><strong>angle_baseline</strong> (<em>np.ndarray</em>) – Computed baseline</p></li>
+<li><p><strong>no_tracking</strong> (<em>np.ndarray</em>) – Boolean mask for frames with no tracking</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.interp_tail_nan">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interp_tail_nan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.interp_tail_nan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.interp_tail_nan" title="Link to this definition">#</a></dt>
 <dd><p>Interpolates missing values in tail angle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle</strong> (<em>np.ndarray</em>) – Tail angles with potential NaN values, shape (T, n_segments)</p></li>
+<li><p><strong>limit_na</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of consecutive NaN values to interpolate, by default 5</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>angle_no_nan</strong> (<em>np.ndarray</em>) – Interpolated angles</p></li>
+<li><p><strong>no_tracking</strong> (<em>np.ndarray</em>) – Boolean mask indicating frames with no tracking</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.clean_using_pca">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_using_pca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.clean_using_pca"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.clean_using_pca" title="Link to this definition">#</a></dt>
 <dd><p>Apply PCA autoencoding to clean up a multidimensional time series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle</strong> (<em>np.ndarray</em>) – Input angles, shape (T, n_segments)</p></li>
+<li><p><strong>num_pcs</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of principal components to use, by default 4</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PCA-cleaned angles</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.smooth_tail_angle">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">smooth_tail_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savgol_window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.smooth_tail_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.smooth_tail_angle" title="Link to this definition">#</a></dt>
 <dd><p>Smooth the tail angle data using Savitzky-Golay filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle</strong> (<em>np.ndarray</em>) – Input angles, shape (T, n_segments)</p></li>
+<li><p><strong>savgol_window</strong> (<em>int</em>) – Window length for Savitzky-Golay filter (must be odd)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Smoothed angles</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_baseline">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle_smooth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.compute_baseline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_baseline" title="Link to this definition">#</a></dt>
 <dd><p>Compute the baseline for the smoothed tail angle data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle_smooth</strong> (<em>np.ndarray</em>) – Smoothed angles, shape (T, n_segments)</p></li>
+<li><p><strong>baseline_method</strong> (<em>str</em>) – Method for baseline computation</p></li>
+<li><p><strong>baseline_params</strong> (<em>dict</em>) – Parameters for baseline computation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Computed baseline</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_tail_speed">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_tail_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_speed_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_speed_boxcar_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/tail_preprocessing.html#TailPreprocessing.compute_tail_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.tail_preprocessing.TailPreprocessing.compute_tail_speed" title="Link to this definition">#</a></dt>
-<dd><p>Smooth trajectory using 1€ filter and compute derivative</p>
+<dd><p>Compute tail speed and vigor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle</strong> (<em>np.ndarray</em>) – Input angles, shape (T, n_segments)</p></li>
+<li><p><strong>fps</strong> (<em>int</em>) – Frames per second</p></li>
+<li><p><strong>tail_speed_filter</strong> (<em>int</em>) – Filter length for speed computation</p></li>
+<li><p><strong>tail_speed_boxcar_filter</strong> (<em>int</em>) – Filter length for boxcar smoothing</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Computed tail vigor</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -465,6 +584,24 @@
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.preprocessing.traj_preprocessing.</span></span><span class="sig-name descname"><span class="pre">TrajPreprocessingResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axial_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lateral_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_tracking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessingResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for trajectory preprocessing results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Raw position coordinates</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Raw position coordinates</p></li>
+<li><p><strong>yaw</strong> (<em>np.ndarray</em>) – Raw orientation angles</p></li>
+<li><p><strong>x_smooth</strong> (<em>np.ndarray</em>) – Smoothed position coordinates</p></li>
+<li><p><strong>y_smooth</strong> (<em>np.ndarray</em>) – Smoothed position coordinates</p></li>
+<li><p><strong>yaw_smooth</strong> (<em>np.ndarray</em>) – Smoothed orientation angles</p></li>
+<li><p><strong>axial_speed</strong> (<em>np.ndarray</em>) – Speed along body axis</p></li>
+<li><p><strong>lateral_speed</strong> (<em>np.ndarray</em>) – Speed perpendicular to body axis</p></li>
+<li><p><strong>yaw_speed</strong> (<em>np.ndarray</em>) – Angular velocity</p></li>
+<li><p><strong>vigor</strong> (<em>np.ndarray</em>) – Kinematic activity measure</p></li>
+<li><p><strong>no_tracking</strong> (<em>np.ndarray</em>) – Boolean mask indicating frames with no tracking</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axial_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lateral_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_tracking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessingResult.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult.__init__" title="Link to this definition">#</a></dt>
@@ -488,39 +625,156 @@
 <dd><p>Preprocess trajectory data from a DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>traj_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing head trajectory data (x,y,yaw).</p>
+<dd class="field-odd"><p><strong>traj_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing head trajectory data (x,y,yaw)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Preprocessed DataFrame with hierarchical structure.</p>
+<dd class="field-even"><p>Preprocessed trajectory data</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
+<dd class="field-odd"><p><a class="reference internal" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult" title="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult">TrajPreprocessingResult</a></p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.config</span> <span class="kn">import</span> <span class="n">TrajPreprocessingConfig</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create sample data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 1 second at 100 fps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span>  <span class="c1"># constant forward speed</span>
+<span class="gp">... </span>    <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">),</span>  <span class="c1"># no lateral movement</span>
+<span class="gp">... </span>    <span class="s1">&#39;yaw&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># no rotation</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Preprocess</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">TrajPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">preprocess_traj_df</span><span class="p">(</span><span class="n">traj_df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Verify forward movement was detected</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">axial_speed</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="o">-</span><span class="mi">20</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>  <span class="c1"># positive forward speed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">lateral_speed</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="o">-</span><span class="mi">20</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">)</span>  <span class="c1"># no lateral speed</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.interp_traj_nan">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interp_traj_nan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_na</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing.interp_traj_nan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.interp_traj_nan" title="Link to this definition">#</a></dt>
 <dd><p>Interpolates missing values in trajectory data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Position coordinates</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Position coordinates</p></li>
+<li><p><strong>yaw</strong> (<em>np.ndarray</em>) – Orientation angles</p></li>
+<li><p><strong>limit_na</strong> (<em>int</em>) – Maximum number of consecutive NaN values to interpolate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>x, y</strong> (<em>np.ndarray</em>) – Interpolated position coordinates</p></li>
+<li><p><strong>yaw</strong> (<em>np.ndarray</em>) – Interpolated orientation angles</p></li>
+<li><p><strong>no_tracking</strong> (<em>np.ndarray</em>) – Boolean mask indicating frames with no tracking</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.one_euro_filter">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">one_euro_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_cutoff_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing.one_euro_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.one_euro_filter" title="Link to this definition">#</a></dt>
 <dd><p>Apply 1€ filter over x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Input signal</p></li>
+<li><p><strong>freq_cutoff_min</strong> (<em>float</em>) – Minimum cutoff frequency in Hz</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – Speed coefficient</p></li>
+<li><p><strong>rate</strong> (<em>int</em>) – Sampling rate in Hz</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered signal</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.compute_speed">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_diff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing.compute_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.compute_speed" title="Link to this definition">#</a></dt>
 <dd><p>Compute the axial, lateral, and yaw speed of a body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Position coordinates</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Position coordinates</p></li>
+<li><p><strong>yaw</strong> (<em>np.ndarray</em>) – Orientation angles</p></li>
+<li><p><strong>fps</strong> (<em>int</em>) – Frames per second</p></li>
+<li><p><strong>n_diff</strong> (<em>int</em>) – Filter length for derivative computation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>axial_speed</strong> (<em>np.ndarray</em>) – Speed along body axis</p></li>
+<li><p><strong>lateral_speed</strong> (<em>np.ndarray</em>) – Speed perpendicular to body axis</p></li>
+<li><p><strong>yaw_speed</strong> (<em>np.ndarray</em>) – Angular velocity</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 1 second at 100 fps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">t</span>  <span class="c1"># constant forward speed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># no lateral movement</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yaw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># no rotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">yaw_speed</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">compute_speed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_diff</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="o">-</span><span class="mi">20</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>  <span class="c1"># positive forward speed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="o">-</span><span class="mi">20</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">)</span>  <span class="c1"># no lateral speed</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.compute_kinematic_activity">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_kinematic_activity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axial_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lateral_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/megabouts/preprocessing/traj_preprocessing.html#TrajPreprocessing.compute_kinematic_activity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.preprocessing.traj_preprocessing.TrajPreprocessing.compute_kinematic_activity" title="Link to this definition">#</a></dt>
 <dd><p>Compute the kinematic activity of a body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axial_speed</strong> (<em>np.ndarray</em>) – Speed along body axis</p></li>
+<li><p><strong>lateral_speed</strong> (<em>np.ndarray</em>) – Speed perpendicular to body axis</p></li>
+<li><p><strong>yaw_speed</strong> (<em>np.ndarray</em>) – Angular velocity</p></li>
+<li><p><strong>lag</strong> (<em>int</em>) – Number of frames to compute activity over</p></li>
+<li><p><strong>fps</strong> (<em>int</em>) – Frames per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Kinematic activity measure</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n_frames</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">speeds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_frames</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># no movement initially</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">speeds</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># burst of forward movement</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activity</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="o">.</span><span class="n">compute_kinematic_activity</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">speeds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">speeds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">speeds</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">lag</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">activity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># detected activity during burst</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>

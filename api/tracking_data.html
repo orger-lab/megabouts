@@ -389,120 +389,164 @@
 <dl class="py function" id="module-megabouts.tracking_data.convert_tracking">
 <dt class="sig sig-object py" id="megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint">
 <span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.convert_tracking.</span></span><span class="sig-name descname"><span class="pre">interpolate_tail_keypoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_segments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/convert_tracking.html#interpolate_tail_keypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.convert_tracking.interpolate_tail_keypoint" title="Link to this definition">#</a></dt>
-<dd><p>Interpolates the tail keypoints to create a curve with a specified number of segments.</p>
+<dd><p>Interpolate tail keypoints to create a smooth curve.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tail_x</strong> (<em>numpy.ndarray</em>) – The x-coordinates of the tail keypoints. Shape: (T, n_segments_input).</p></li>
-<li><p><strong>tail_y</strong> (<em>numpy.ndarray</em>) – The y-coordinates of the tail keypoints. Shape: (T, n_segments_input).</p></li>
-<li><p><strong>n_segments</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of segments to interpolate. Default: 10.</p></li>
+<li><p><strong>tail_x</strong> (<em>np.ndarray</em>) – X-coordinates of tail keypoints, shape (T, n_segments_input)</p></li>
+<li><p><strong>tail_y</strong> (<em>np.ndarray</em>) – Y-coordinates of tail keypoints, shape (T, n_segments_input)</p></li>
+<li><p><strong>n_segments</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of segments in output curve, by default 10</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Interpolated x-coordinates and y-coordinates of the tail keypoints. Shape: (T, n_segments+1).</p>
+<dd class="field-even"><p>(tail_x_interp, tail_y_interp) : Interpolated coordinates
+Each array has shape (T, n_segments+1)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_interp</span><span class="p">,</span> <span class="n">y_interp</span> <span class="o">=</span> <span class="n">interpolate_tail_keypoint</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">n_segments</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_interp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">9</span>  <span class="c1"># n_segments + 1 points</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="megabouts.tracking_data.convert_tracking.compute_angles_from_keypoints">
 <span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.convert_tracking.</span></span><span class="sig-name descname"><span class="pre">compute_angles_from_keypoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/convert_tracking.html#compute_angles_from_keypoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.convert_tracking.compute_angles_from_keypoints" title="Link to this definition">#</a></dt>
-<dd><p>Computes the tail angles and body angle based on keypoints.</p>
+<dd><p>Compute tail angles and body orientation from keypoints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>head_x</strong> (<em>ndarray</em>) – X-coordinates of the head keypoints.</p></li>
-<li><p><strong>head_y</strong> (<em>ndarray</em>) – Y-coordinates of the head keypoints.</p></li>
-<li><p><strong>tail_x</strong> (<em>ndarray</em>) – X-coordinates of the tail keypoints.</p></li>
-<li><p><strong>tail_y</strong> (<em>ndarray</em>) – Y-coordinates of the tail keypoints.</p></li>
+<li><p><strong>head_x</strong> (<em>np.ndarray</em>) – X-coordinates of head, shape (T,)</p></li>
+<li><p><strong>head_y</strong> (<em>np.ndarray</em>) – Y-coordinates of head, shape (T,)</p></li>
+<li><p><strong>tail_x</strong> (<em>np.ndarray</em>) – X-coordinates of tail points, shape (T, N_keypoints)</p></li>
+<li><p><strong>tail_y</strong> (<em>np.ndarray</em>) – Y-coordinates of tail points, shape (T, N_keypoints)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing the tail angles (tail_angle) and the body angle (head_yaw).</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>tail_angle</strong> (<em>np.ndarray or None</em>) – Cumulative angles between tail segments, shape (T, N_keypoints-1)
+None if only one tail point</p></li>
+<li><p><strong>head_yaw</strong> (<em>np.ndarray</em>) – Body orientation angle, shape (T,)</p></li>
+</ul>
+</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;SLEAP_fulltracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_x</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;left_eye.x&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;right_eye.x&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_y</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;left_eye.y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;right_eye.y&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="sa">f</span><span class="s2">&quot;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.x&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="sa">f</span><span class="s2">&quot;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.y&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="n">compute_angles_from_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># one angle between each segment</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="megabouts.tracking_data.convert_tracking.convert_tail_angle_to_keypoints">
 <span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.convert_tracking.</span></span><span class="sig-name descname"><span class="pre">convert_tail_angle_to_keypoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_to_tail_mm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_to_tail_mm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.32</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/convert_tracking.html#convert_tail_angle_to_keypoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.convert_tracking.convert_tail_angle_to_keypoints" title="Link to this definition">#</a></dt>
-<dd><p>Converts tail angles back to keypoints.</p>
+<dd><p>Convert tail angles back to keypoint coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>head_x</strong> (<em>ndarray</em>) – X-coordinates of the head.</p></li>
-<li><p><strong>head_y</strong> (<em>ndarray</em>) – Y-coordinates of the head.</p></li>
-<li><p><strong>head_yaw</strong> (<em>ndarray</em>) – Body angle.</p></li>
-<li><p><strong>tail_angle</strong> (<em>ndarray</em>) – Tail angles.</p></li>
-<li><p><strong>body_to_tail_mm</strong> (<em>float</em>) – Distance from body to first tail keypoint in mm. Default: 0.5.</p></li>
-<li><p><strong>tail_to_tail_mm</strong> (<em>float</em>) – Distance between consecutive tail keypoints in mm. Default: 0.32.</p></li>
+<li><p><strong>head_x</strong> (<em>np.ndarray</em>) – X-coordinates of head, shape (T,)</p></li>
+<li><p><strong>head_y</strong> (<em>np.ndarray</em>) – Y-coordinates of head, shape (T,)</p></li>
+<li><p><strong>head_yaw</strong> (<em>np.ndarray</em>) – Body orientation angles, shape (T,)</p></li>
+<li><p><strong>tail_angle</strong> (<em>np.ndarray</em>) – Tail segment angles, shape (T, N_segments)</p></li>
+<li><p><strong>body_to_tail_mm</strong> (<em>float</em><em>, </em><em>optional</em>) – Distance from body to first tail point, by default 0.5</p></li>
+<li><p><strong>tail_to_tail_mm</strong> (<em>float</em><em>, </em><em>optional</em>) – Distance between consecutive tail points, by default 0.32</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tail keypoints (tail_x, tail_y).</p>
+<dd class="field-even"><p>(tail_x, tail_y) : Tail keypoint coordinates
+Each array has shape (T, N_segments+1)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;head_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;head_y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;head_angle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_angle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span> <span class="o">=</span> <span class="n">convert_tail_angle_to_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">head_x</span><span class="p">),</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="megabouts.tracking_data.convert_tracking.interpolate_tail_angle">
 <span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.convert_tracking.</span></span><span class="sig-name descname"><span class="pre">interpolate_tail_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_segments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/convert_tracking.html#interpolate_tail_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.convert_tracking.interpolate_tail_angle" title="Link to this definition">#</a></dt>
-<dd><p>Interpolates tail angles.</p>
+<dd><p>Interpolate tail angles to a different number of segments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tail_angle</strong> (<em>ndarray</em>) – Tail angles.</p></li>
-<li><p><strong>n_segments</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of segments. Default: 10.</p></li>
+<li><p><strong>tail_angle</strong> (<em>np.ndarray</em>) – Tail angles, shape (T, N_segments)</p></li>
+<li><p><strong>n_segments</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of segments in output, by default 10</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Interpolated tail angles.</p>
+<dd class="field-even"><p>Interpolated tail angles, shape (T, n_segments)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;tail_angle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interp_angles</span> <span class="o">=</span> <span class="n">interpolate_tail_angle</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">,</span> <span class="n">n_segments</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interp_angles</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">),</span> <span class="mi">8</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function" id="module-megabouts.tracking_data.load_example">
 <dt class="sig sig-object py" id="megabouts.tracking_data.load_example.load_example_data">
 <span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.load_example.</span></span><span class="sig-name descname"><span class="pre">load_example_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/load_example.html#load_example_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.load_example.load_example_data" title="Link to this definition">#</a></dt>
-<dd><p>Load tracking data from various sources.</p>
+<dd><p>Load example tracking data from various sources.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – The source of the tracking data. Options are:
-‘fulltracking_posture’, ‘SLEAP_fulltracking’, ‘HR_DLC’, ‘zebrabox_SLEAP’.</p>
+- ‘fulltracking_posture’: High-res posture data (700 fps)
+- ‘SLEAP_fulltracking’: SLEAP tracking data (350 fps)
+- ‘HR_DLC’: Head-restrained DLC data (250 fps)
+- ‘zebrabox_SLEAP’: Zebrabox SLEAP data (25 fps)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>A tuple containing:</dt><dd><ul class="simple">
-<li><p>df (pd.DataFrame): The loaded tracking data.</p></li>
-<li><p>fps (int): The frames per second of the data.</p></li>
-<li><p>mm_per_unit (float): The millimeters per unit of the data.</p></li>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The loaded tracking data</p></li>
+<li><p><strong>fps</strong> (<em>int</em>) – Frames per second of the recording</p></li>
+<li><p><strong>mm_per_unit</strong> (<em>float</em>) – Scale factor to convert units to millimeters</p></li>
 </ul>
-</dd>
-</dl>
 </p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If an invalid source is provided.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;SLEAP_fulltracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fps</span>
+<span class="go">700</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mm_per_unit</span>
+<span class="go">1</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -515,21 +559,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fps</strong> (<em>int</em>) – Frames per second.</p></li>
-<li><p><strong>tracking</strong> (<em>str</em>) – Type of tracking (‘full_tracking’, ‘head_tracking’, ‘tail_tracking’).</p></li>
+<li><p><strong>fps</strong> (<em>int</em>) – Frames per second of the recording (between 20 and 700)</p></li>
+<li><p><strong>tracking</strong> (<em>str</em>) – Type of tracking (‘full_tracking’, ‘head_tracking’, ‘tail_tracking’)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>AttributeError</strong> – If invalid tracking type or input type is provided.</p>
-</dd>
 </dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data.data_loader</span> <span class="kn">import</span> <span class="n">TrackingConfig</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_config</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tracking_config</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
-<span class="go">30</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tracking_config</span><span class="o">.</span><span class="n">tracking</span><span class="p">)</span>
-<span class="go">full_tracking</span>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">fps</span>
+<span class="go">700</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;head_tracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">tracking</span>
+<span class="go">&#39;head_tracking&#39;</span>
 </pre></div>
 </div>
 <dl class="py method">
@@ -559,6 +600,26 @@
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.FullTrackingData">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.tracking_data.</span></span><span class="sig-name descname"><span class="pre">FullTrackingData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#FullTrackingData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.FullTrackingData" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#megabouts.tracking_data.tracking_data.TrackingData" title="megabouts.tracking_data.tracking_data.TrackingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackingData</span></code></a></p>
+<p>Container for full tracking data including both head and tail information.</p>
+<p>The class provides two constructors:
+- from_keypoints: construct from raw x,y coordinates
+- from_posture: construct from head position and tail angles</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_angle&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s2">&quot;tail_angle&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">head_x</span><span class="o">=</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="o">=</span><span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="o">=</span><span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="o">=</span><span class="n">tail_angle</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.FullTrackingData.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#FullTrackingData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.FullTrackingData.__init__" title="Link to this definition">#</a></dt>
@@ -567,12 +628,34 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.FullTrackingData.from_keypoints">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_keypoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#FullTrackingData.from_keypoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.FullTrackingData.from_keypoints" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Construct from raw keypoint coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>head_x</strong> (<em>array-like</em>) – Head coordinates, shape (T,)</p></li>
+<li><p><strong>head_y</strong> (<em>array-like</em>) – Head coordinates, shape (T,)</p></li>
+<li><p><strong>tail_x</strong> (<em>array-like</em>) – Tail coordinates, shape (T, N_segments)</p></li>
+<li><p><strong>tail_y</strong> (<em>array-like</em>) – Tail coordinates, shape (T, N_segments)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.FullTrackingData.from_posture">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_posture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#FullTrackingData.from_posture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.FullTrackingData.from_posture" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Construct from head position and tail angles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>head_x</strong> (<em>array-like</em>) – Head coordinates, shape (T,)</p></li>
+<li><p><strong>head_y</strong> (<em>array-like</em>) – Head coordinates, shape (T,)</p></li>
+<li><p><strong>head_yaw</strong> (<em>array-like</em>) – Head orientation, shape (T,)</p></li>
+<li><p><strong>tail_angle</strong> (<em>array-like</em>) – Tail angles, shape (T, N_segments)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.FullTrackingData.tail_df">
@@ -595,6 +678,21 @@
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.HeadTrackingData">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.tracking_data.</span></span><span class="sig-name descname"><span class="pre">HeadTrackingData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swimbladder_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swimbladder_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#HeadTrackingData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.HeadTrackingData" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#megabouts.tracking_data.tracking_data.TrackingData" title="megabouts.tracking_data.tracking_data.TrackingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackingData</span></code></a></p>
+<p>Container for head tracking data.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;zebrabox_SLEAP&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mid_eye.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mid_eye.y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">swimbladder_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;swim_bladder.x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">swimbladder_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;swim_bladder.y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">HeadTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">head_x</span><span class="o">=</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="o">=</span><span class="n">head_y</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">swimbladder_x</span><span class="o">=</span><span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="o">=</span><span class="n">swimbladder_y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.HeadTrackingData.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_yaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swimbladder_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swimbladder_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#HeadTrackingData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.HeadTrackingData.__init__" title="Link to this definition">#</a></dt>
@@ -621,6 +719,17 @@
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.TailTrackingData">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.tracking_data.tracking_data.</span></span><span class="sig-name descname"><span class="pre">TailTrackingData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#TailTrackingData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.TailTrackingData" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#megabouts.tracking_data.tracking_data.TrackingData" title="megabouts.tracking_data.tracking_data.TrackingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackingData</span></code></a></p>
+<p>Container for tail tracking data.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;HR_DLC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DLC_resnet50_Zebrafish&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="sa">f</span><span class="s2">&quot;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DLC_resnet50_Zebrafish&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="sa">f</span><span class="s2">&quot;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">TailTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="o">=</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="o">=</span><span class="n">tail_y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="megabouts.tracking_data.tracking_data.TailTrackingData.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/tracking_data/tracking_data.html#TailTrackingData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.tracking_data.tracking_data.TailTrackingData.__init__" title="Link to this definition">#</a></dt>

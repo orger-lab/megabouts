@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>megabouts.tracking_data.load_example &#8212; Megabouts 0.1.1 documentation</title>
+    <title>megabouts.pipeline.head_restrained_pipeline &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -51,7 +51,7 @@
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/megabouts/tracking_data/load_example';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/megabouts/pipeline/head_restrained_pipeline';</script>
     <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -345,7 +345,7 @@
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">megabouts.tracking_data.load_example</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">megabouts.pipeline.head_restrained_pipeline</span></li>
   </ul>
 </nav>
 </div>
@@ -362,81 +362,133 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for megabouts.tracking_data.load_example</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+  <h1>Source code for megabouts.pipeline.head_restrained_pipeline</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..config.preprocessing_config</span> <span class="kn">import</span> <span class="n">TailPreprocessingConfig</span>
+<span class="kn">from</span> <span class="nn">..preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessing</span>
+
+<span class="kn">from</span> <span class="nn">..config.segmentation_config</span> <span class="kn">import</span> <span class="n">TailSegmentationConfig</span>
+<span class="kn">from</span> <span class="nn">..segmentation.segmentation</span> <span class="kn">import</span> <span class="n">Segmentation</span>
 
 
-<div class="viewcode-block" id="load_example_data">
-<a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.load_example.load_example_data">[docs]</a>
-<span class="k">def</span> <span class="nf">load_example_data</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load example tracking data from various sources.</span>
+<span class="kn">from</span> <span class="nn">..config.sparse_coding_config</span> <span class="kn">import</span> <span class="n">SparseCodingConfig</span>
+<span class="kn">from</span> <span class="nn">..sparse_coding.sparse_coding</span> <span class="kn">import</span> <span class="n">SparseCoding</span>
+
+<span class="kn">from</span> <span class="nn">..pipeline.base_pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+
+<div class="viewcode-block" id="HeadRestrainedPipeline">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline">[docs]</a>
+<span class="k">class</span> <span class="nc">HeadRestrainedPipeline</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pipeline for processing head-restrained fish data.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    source : str</span>
-<span class="sd">        The source of the tracking data. Options are:</span>
-<span class="sd">        - &#39;fulltracking_posture&#39;: High-res posture data (700 fps)</span>
-<span class="sd">        - &#39;SLEAP_fulltracking&#39;: SLEAP tracking data (350 fps)</span>
-<span class="sd">        - &#39;HR_DLC&#39;: Head-restrained DLC data (250 fps)</span>
-<span class="sd">        - &#39;zebrabox_SLEAP&#39;: Zebrabox SLEAP data (25 fps)</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    df : pd.DataFrame</span>
-<span class="sd">        The loaded tracking data</span>
-<span class="sd">    fps : int</span>
-<span class="sd">        Frames per second of the recording</span>
-<span class="sd">    mm_per_unit : float</span>
-<span class="sd">        Scale factor to convert units to millimeters</span>
+<span class="sd">    tracking_cfg : TrackingConfig</span>
+<span class="sd">        Configuration for tracking data</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;fulltracking_posture&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; fps</span>
-<span class="sd">    700</span>
-<span class="sd">    &gt;&gt;&gt; mm_per_unit</span>
-<span class="sd">    1</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import TrackingConfig, TailTrackingData, load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;HR_DLC&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; tail_x = df[&quot;DLC_resnet50_Zebrafish&quot;].loc[:, [(f&quot;tail{i}&quot;, &quot;x&quot;) for i in range(11)]].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tail_y = df[&quot;DLC_resnet50_Zebrafish&quot;].loc[:, [(f&quot;tail{i}&quot;, &quot;y&quot;) for i in range(11)]].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tracking_data = TailTrackingData.from_keypoints(tail_x=tail_x, tail_y=tail_y)</span>
+<span class="sd">    &gt;&gt;&gt; tracking_cfg = TrackingConfig(fps=fps, tracking=&#39;tail_tracking&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; pipeline = HeadRestrainedPipeline(tracking_cfg)</span>
+<span class="sd">    &gt;&gt;&gt; sparse_coding_result, segments, tail = pipeline.run(tracking_data)</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(sparse_coding_result.df, pd.DataFrame)</span>
+<span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">sources</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;fulltracking_posture&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;example_highres_posture_700fps.csv&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">700</span><span class="p">,</span>
-            <span class="s2">&quot;mm_per_unit&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;SLEAP_fulltracking&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;example_fulltracking_SLEAP_350fps.csv&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
-            <span class="s2">&quot;mm_per_unit&quot;</span><span class="p">:</span> <span class="mf">0.025</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;HR_DLC&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;example_headrestrained_DLC_250fps.csv&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
-            <span class="s2">&quot;mm_per_unit&quot;</span><span class="p">:</span> <span class="mf">0.01578</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;zebrabox_SLEAP&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;example_zebrabox_SLEAP_25fps.csv&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-            <span class="s2">&quot;mm_per_unit&quot;</span><span class="p">:</span> <span class="mf">0.11</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
 
-    <span class="k">if</span> <span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid source provided. Available sources are: &#39;fulltracking_posture&#39;, &#39;SLEAP_fulltracking&#39;, &#39;HR_DLC&#39;, &#39;zebrabox_SLEAP&#39;.&quot;</span>
+<div class="viewcode-block" id="HeadRestrainedPipeline.__init__">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_cfg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">tracking_cfg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_parameters_for_pipeline</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="HeadRestrainedPipeline.initialize_parameters_for_pipeline">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.initialize_parameters_for_pipeline">[docs]</a>
+    <span class="k">def</span> <span class="nf">initialize_parameters_for_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TailPreprocessingConfig</span><span class="p">(</span>
+            <span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
+            <span class="n">baseline_method</span><span class="o">=</span><span class="s2">&quot;whittaker&quot;</span><span class="p">,</span>
+            <span class="n">baseline_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lmbda&quot;</span><span class="p">:</span> <span class="mf">1e5</span><span class="p">,</span> <span class="s2">&quot;half_window&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">},</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tail_segmentation_cfg</span> <span class="o">=</span> <span class="n">TailSegmentationConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sparse_coding_cfg</span> <span class="o">=</span> <span class="n">SparseCodingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span></div>
 
-    <span class="n">metadata</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="n">source</span><span class="p">]</span>
-    <span class="n">csv_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;example_dataset&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;HR_DLC&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;fps&quot;</span><span class="p">],</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;mm_per_unit&quot;</span><span class="p">]</span></div>
+<div class="viewcode-block" id="HeadRestrainedPipeline.preprocess_tail">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.preprocess_tail">[docs]</a>
+    <span class="k">def</span> <span class="nf">preprocess_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess tail angle data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tail_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing tail angle data</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        TailPreprocessingResult</span>
+<span class="sd">            Preprocessed tail data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tail</span> <span class="o">=</span> <span class="n">TailPreprocessing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_tail_df</span><span class="p">(</span>
+            <span class="n">tail_df</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">tail</span></div>
+
+
+<div class="viewcode-block" id="HeadRestrainedPipeline.segment_tail">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.segment_tail">[docs]</a>
+    <span class="k">def</span> <span class="nf">segment_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_vigor</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Segment tail movement into bouts.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tail_vigor : np.ndarray</span>
+<span class="sd">            Tail vigor signal</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SegmentationResult</span>
+<span class="sd">            Detected segments</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">Segmentation</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail_segmentation_cfg</span><span class="p">)</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">tail_vigor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">segments</span></div>
+
+
+<div class="viewcode-block" id="HeadRestrainedPipeline.compute_sparse_coding">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.compute_sparse_coding">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_sparse_coding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute sparse coding of tail angles.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tail_angle : np.ndarray</span>
+<span class="sd">            Tail angle data</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SparseCodingResult</span>
+<span class="sd">            Sparse coding results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sparse_coding</span> <span class="o">=</span> <span class="n">SparseCoding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sparse_coding_cfg</span><span class="p">)</span>
+        <span class="n">sparse_coding_result</span> <span class="o">=</span> <span class="n">sparse_coding</span><span class="o">.</span><span class="n">sparse_code_tail_angle</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sparse_coding_result</span></div>
+
+
+<div class="viewcode-block" id="HeadRestrainedPipeline.run">
+<a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_data</span><span class="p">):</span>
+        <span class="n">tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_tail</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="p">)</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_tail</span><span class="p">(</span><span class="n">tail</span><span class="o">.</span><span class="n">vigor</span><span class="p">)</span>
+        <span class="n">sparse_coding_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_sparse_coding</span><span class="p">(</span><span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sparse_coding_result</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">tail</span></div>
+</div>
 
 </pre></div>
 

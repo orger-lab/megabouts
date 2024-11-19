@@ -372,6 +372,22 @@
 <div class="viewcode-block" id="BoutsDataset">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.transformer_network.BoutsDataset">[docs]</a>
 <span class="k">class</span> <span class="nc">BoutsDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset class for bout data with continuous positional encoding.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : np.ndarray</span>
+<span class="sd">        Input features, shape (n_bouts, bout_duration, n_features)</span>
+<span class="sd">    t_sample : np.ndarray</span>
+<span class="sd">        Time points for each sample</span>
+<span class="sd">    sampling_mask : np.ndarray</span>
+<span class="sd">        Boolean mask for valid samples</span>
+<span class="sd">    device : torch.device, optional</span>
+<span class="sd">        Device to store tensors on</span>
+<span class="sd">    precision : torch.dtype, optional</span>
+<span class="sd">        Precision of tensors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="BoutsDataset.__init__">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.transformer_network.BoutsDataset.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">sampling_mask</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -431,6 +447,22 @@
 <div class="viewcode-block" id="TransAm">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.transformer_network.TransAm">[docs]</a>
 <span class="k">class</span> <span class="nc">TransAm</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer model for bout classification.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mapping_label_to_sublabel : dict</span>
+<span class="sd">        Mapping from main labels to sublabels</span>
+<span class="sd">    feature_size : int, optional</span>
+<span class="sd">        Size of feature embedding, by default 64</span>
+<span class="sd">    num_layers : int, optional</span>
+<span class="sd">        Number of transformer layers, by default 3</span>
+<span class="sd">    dropout : float, optional</span>
+<span class="sd">        Dropout rate, by default 0.0</span>
+<span class="sd">    nhead : int, optional</span>
+<span class="sd">        Number of attention heads, by default 8</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TransAm.__init__">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.transformer_network.TransAm.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

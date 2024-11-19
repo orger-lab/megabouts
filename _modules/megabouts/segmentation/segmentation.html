@@ -378,6 +378,20 @@
 <div class="viewcode-block" id="SegmentationResult">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult">[docs]</a>
 <span class="k">class</span> <span class="nc">SegmentationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for segmentation results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config : SegmentationConfig</span>
+<span class="sd">        Configuration used for segmentation</span>
+<span class="sd">    onset : np.ndarray</span>
+<span class="sd">        Start frames of detected segments</span>
+<span class="sd">    offset : np.ndarray</span>
+<span class="sd">        End frames of detected segments</span>
+<span class="sd">    T : int</span>
+<span class="sd">        Total number of frames in recording</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="SegmentationResult.__init__">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -394,6 +408,13 @@
 <div class="viewcode-block" id="SegmentationResult.set_HB1">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.SegmentationResult.set_HB1">[docs]</a>
     <span class="k">def</span> <span class="nf">set_HB1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_half_beat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the first half-beat frames for each segment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        first_half_beat : np.ndarray</span>
+<span class="sd">            Frame indices of first half-beats, must match length of onset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_half_beat</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Length of first_half_beat must be equal to the length of onset&quot;</span>
@@ -408,6 +429,20 @@
     <span class="k">def</span> <span class="nf">extract_tail_array</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">align_to_onset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract tail angles for each detected segment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tail_angle : np.ndarray</span>
+<span class="sd">            Full tail angle array, shape (T, n_segments)</span>
+<span class="sd">        align_to_onset : bool, optional</span>
+<span class="sd">            If True, align to bout onset, else to HB1, by default True</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Array of tail angles for each bout, shape (n_bouts, n_segments, bout_duration)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">align_to_onset</span><span class="p">:</span>
             <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span>
         <span class="k">else</span><span class="p">:</span>
@@ -436,6 +471,27 @@
         <span class="n">align</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">idx_ref</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract trajectory data for each detected segment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        head_x, head_y : np.ndarray</span>
+<span class="sd">            Head position coordinates</span>
+<span class="sd">        head_angle : np.ndarray</span>
+<span class="sd">            Head orientation angles</span>
+<span class="sd">        align_to_onset : bool, optional</span>
+<span class="sd">            If True, align to bout onset, else to HB1, by default True</span>
+<span class="sd">        align : bool, optional</span>
+<span class="sd">            Whether to align trajectories, by default True</span>
+<span class="sd">        idx_ref : int, optional</span>
+<span class="sd">            Reference frame for alignment, by default 0</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Array of trajectory data for each bout, shape (n_bouts, 3, bout_duration)</span>
+<span class="sd">            Channels are [x, y, angle]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">align_to_onset</span><span class="p">:</span>
             <span class="n">onset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span>
         <span class="k">else</span><span class="p">:</span>
@@ -477,6 +533,8 @@
 <div class="viewcode-block" id="Segmentation">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation">[docs]</a>
 <span class="k">class</span> <span class="nc">Segmentation</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for segmentation algorithms.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="Segmentation.__init__">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">):</span>
@@ -487,7 +545,18 @@
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.segment">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform segmentation on the provided data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform segmentation on the provided data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : np.ndarray</span>
+<span class="sd">            Data to segment</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SegmentationResult</span>
+<span class="sd">            Detected segments</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 
@@ -495,14 +564,17 @@
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.Segmentation.from_config">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SegmentationConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Segmentation&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Factory method to create appropriate segmentation instances based on configuration.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Factory method to create appropriate segmentation instances.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            config (SegmentationConfig): Configuration object for segmentation.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        config : SegmentationConfig</span>
+<span class="sd">            Configuration for segmentation</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Segmentation: An instance of a subclass of Segmentation.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Segmentation</span>
+<span class="sd">            Instance of appropriate segmentation subclass</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">TailSegmentationConfig</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">TailSegmentation</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
@@ -528,14 +600,17 @@
 <div class="viewcode-block" id="TailSegmentation.segment">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TailSegmentation.segment">[docs]</a>
     <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_vigor</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Segment data based on tail vigor.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Segment data based on tail vigor.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            tail_speed (np.ndarray): 1D Array of tail vigor.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tail_vigor : np.ndarray</span>
+<span class="sd">            1D Array of tail vigor</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Tuple[np.ndarray, np.ndarray, float]: Onset and offset indices, and threshold value.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SegmentationResult</span>
+<span class="sd">            Detected segments</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">Thresh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">threshold</span>
@@ -566,14 +641,17 @@
 <div class="viewcode-block" id="TrajSegmentation.segment">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.segment">[docs]</a>
     <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kinematic_activity</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SegmentationResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Segment data based on kinematic activity.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Segment data based on kinematic activity.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            kinematic_activity (np.ndarray): Array of kinematic activity values.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kinematic_activity : np.ndarray</span>
+<span class="sd">            Array of kinematic activity values</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Tuple[np.ndarray, np.ndarray]: Onset and offset indices.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SegmentationResult</span>
+<span class="sd">            Detected segments</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">peaks</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span>
@@ -596,7 +674,21 @@
 <div class="viewcode-block" id="TrajSegmentation.find_inter_peak_min">
 <a class="viewcode-back" href="../../../api/segmentation.html#megabouts.segmentation.segmentation.TrajSegmentation.find_inter_peak_min">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">find_inter_peak_min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">peaks</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">find_inter_peak_min</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">peaks</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find minima between peaks.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : np.ndarray</span>
+<span class="sd">            Input signal</span>
+<span class="sd">        peaks : np.ndarray</span>
+<span class="sd">            Indices of peaks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Indices of minima between peaks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">peaks_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">peaks</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
         <span class="n">inter_peak_min</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">p1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">p1</span><span class="p">:</span><span class="n">p2</span><span class="p">])</span> <span class="k">for</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">peaks_list</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">peaks_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
@@ -613,18 +705,25 @@
         <span class="n">inter_peak_min</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">peak_percentage</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Find the onset and offset around each peak where the signal goes below a certain percentage of the peak value.</span>
-<span class="sd">        Ensure that segments do not overlap and that the duration is non-negative.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find onset and offset around each peak.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            x (np.ndarray): Input signal</span>
-<span class="sd">            peaks (np.ndarray): Indices of peaks in the signal</span>
-<span class="sd">            peak_percentage (float): Percentage of the peak value to determine onset and offset</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : np.ndarray</span>
+<span class="sd">            Input signal</span>
+<span class="sd">        peaks : np.ndarray</span>
+<span class="sd">            Indices of peaks</span>
+<span class="sd">        inter_peak_min : np.ndarray</span>
+<span class="sd">            Indices of minima between peaks</span>
+<span class="sd">        peak_percentage : float</span>
+<span class="sd">            Percentage of peak value to determine onset/offset</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            np.ndarray: Onset indices</span>
-<span class="sd">            np.ndarray: Offset indices</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        onset : np.ndarray</span>
+<span class="sd">            Onset indices</span>
+<span class="sd">        offset : np.ndarray</span>
+<span class="sd">            Offset indices</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">onset</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="p">[]</span>
@@ -653,20 +752,36 @@
 <span class="k">def</span> <span class="nf">align_traj_array</span><span class="p">(</span>
     <span class="n">traj_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">idx_ref</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bout_duration</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Align trajectory arrays to a reference point.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Align trajectory arrays to a reference point.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        traj_array (np.ndarray): Array of shape (N, 3, bout_duration) containing x, y, and heading</span>
-<span class="sd">        idx_ref (int): Reference index for alignment</span>
-<span class="sd">        bout_duration (int): Duration of bout</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    traj_array : np.ndarray</span>
+<span class="sd">        Array of shape (N, 3, bout_duration) containing x, y, and heading</span>
+<span class="sd">    idx_ref : int</span>
+<span class="sd">        Reference index for alignment</span>
+<span class="sd">    bout_duration : int</span>
+<span class="sd">        Duration of bout</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        np.ndarray: Aligned trajectory array</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Aligned trajectory array</span>
 
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If idx_ref is negative or greater than bout_duration</span>
-<span class="sd">        ValueError: If traj_array does not have the expected shape</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If idx_ref is negative or greater than bout_duration</span>
+<span class="sd">        If traj_array does not have the expected shape</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; N, duration = 10, 100  # 10 bouts, 100 frames each</span>
+<span class="sd">    &gt;&gt;&gt; traj = np.zeros((N, 3, duration))  # x, y, heading</span>
+<span class="sd">    &gt;&gt;&gt; traj[:, 0, :] = np.linspace(0, 1, duration)  # x increases linearly</span>
+<span class="sd">    &gt;&gt;&gt; aligned = align_traj_array(traj, idx_ref=0, bout_duration=duration)</span>
+<span class="sd">    &gt;&gt;&gt; np.allclose(aligned[:, 0, 0], 0)  # all trajectories start at x=0</span>
+<span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">traj_array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>

@@ -377,6 +377,25 @@
 <div class="viewcode-block" id="TailBouts">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.TailBouts">[docs]</a>
 <span class="k">class</span> <span class="nc">TailBouts</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for classified bout data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    segments : SegmentationResult</span>
+<span class="sd">        Segmentation results containing bout timing information</span>
+<span class="sd">    classif_results : dict</span>
+<span class="sd">        Classification results containing:</span>
+<span class="sd">        - &#39;cat&#39;: bout categories (numpy array)</span>
+<span class="sd">        - &#39;subcat&#39;: bout subcategories (numpy array)</span>
+<span class="sd">        - &#39;sign&#39;: bout direction (-1 or 1) (numpy array)</span>
+<span class="sd">        - &#39;proba&#39;: classification probabilities (numpy array)</span>
+<span class="sd">        - &#39;first_half_beat&#39;: frame indices of first half-beats (numpy array)</span>
+<span class="sd">    tail_array : np.ndarray, optional</span>
+<span class="sd">        Tail angles for each bout, shape (n_bouts, n_segments, bout_duration)</span>
+<span class="sd">    traj_array : np.ndarray, optional</span>
+<span class="sd">        Trajectory data for each bout, shape (n_bouts, 3, bout_duration)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TailBouts.__init__">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.TailBouts.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">classif_results</span><span class="p">,</span> <span class="n">tail_array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">traj_array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -431,6 +450,41 @@
 <div class="viewcode-block" id="BoutClassifier">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier">[docs]</a>
 <span class="k">class</span> <span class="nc">BoutClassifier</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classifier for zebrafish swimming bouts.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tracking_cfg : TrackingConfig</span>
+<span class="sd">        Configuration for tracking data</span>
+<span class="sd">    segmentation_cfg : SegmentationConfig</span>
+<span class="sd">        Configuration for bout segmentation</span>
+<span class="sd">    exclude_CS : bool, optional</span>
+<span class="sd">        Whether to exclude capture swim bouts, by default False</span>
+<span class="sd">    device : torch.device, optional</span>
+<span class="sd">        Device to run model on, by default None (auto-select)</span>
+<span class="sd">    precision : torch.dtype, optional</span>
+<span class="sd">        Model precision, by default None (auto-select)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import TrackingConfig</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.config.segmentation_config import TailSegmentationConfig</span>
+<span class="sd">    &gt;&gt;&gt; # Initialize classifier</span>
+<span class="sd">    &gt;&gt;&gt; tracking_cfg = TrackingConfig(fps=100, tracking=&#39;full_tracking&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; segmentation_cfg = TailSegmentationConfig(fps=100)</span>
+<span class="sd">    &gt;&gt;&gt; bout_duration = segmentation_cfg.bout_duration</span>
+<span class="sd">    &gt;&gt;&gt; # Create fake bout data (10 bouts, 7 tail segments, bout_duration frames)</span>
+<span class="sd">    &gt;&gt;&gt; tail_array = np.zeros((10, 7, bout_duration))</span>
+<span class="sd">    &gt;&gt;&gt; traj_array = np.zeros((10, 3, bout_duration))  # x, y, angle</span>
+<span class="sd">    &gt;&gt;&gt; classifier = BoutClassifier(tracking_cfg, segmentation_cfg)</span>
+<span class="sd">    &gt;&gt;&gt; results = classifier.run_classification(tail_array=tail_array, traj_array=traj_array)</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(results, dict)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; &quot;cat&quot; in results and &quot;sign&quot; in results</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="BoutClassifier.__init__">
 <a class="viewcode-back" href="../../../api/classification.html#megabouts.classification.classification.BoutClassifier.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

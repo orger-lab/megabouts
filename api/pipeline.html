@@ -385,6 +385,294 @@
                   
   <section id="module-megabouts.pipeline">
 <span id="megabouts-pipeline"></span><h1>megabouts.pipeline<a class="headerlink" href="#module-megabouts.pipeline" title="Link to this heading">#</a></h1>
+<dl class="py class" id="module-megabouts.pipeline.freely_swimming_pipeline">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.pipeline.freely_swimming_pipeline.</span></span><span class="sig-name descname"><span class="pre">EthogramHeadTracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bouts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramHeadTracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for head tracking ethogram data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segments</strong> (<a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult"><em>SegmentationResult</em></a>) – Segmentation results</p></li>
+<li><p><strong>bouts</strong> (<a class="reference internal" href="classification.html#megabouts.classification.classification.TailBouts" title="megabouts.classification.classification.TailBouts"><em>TailBouts</em></a>) – Classified bout data</p></li>
+<li><p><strong>traj</strong> (<a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult" title="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult"><em>TrajPreprocessingResult</em></a>) – Preprocessed trajectory data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bouts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramHeadTracking.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_df">
+<span class="sig-name descname"><span class="pre">compute_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bouts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramHeadTracking.compute_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_df" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_time_series">
+<span class="sig-name descname"><span class="pre">compute_time_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramHeadTracking.compute_time_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_time_series" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.pipeline.freely_swimming_pipeline.</span></span><span class="sig-name descname"><span class="pre">EthogramFullTracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bouts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramFullTracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for full tracking ethogram data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segments</strong> (<a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult"><em>SegmentationResult</em></a>) – Segmentation results</p></li>
+<li><p><strong>bouts</strong> (<a class="reference internal" href="classification.html#megabouts.classification.classification.TailBouts" title="megabouts.classification.classification.TailBouts"><em>TailBouts</em></a>) – Classified bout data</p></li>
+<li><p><strong>tail</strong> (<a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult" title="megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult"><em>TailPreprocessingResult</em></a>) – Preprocessed tail data</p></li>
+<li><p><strong>traj</strong> (<a class="reference internal" href="preprocessing.html#megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult" title="megabouts.preprocessing.traj_preprocessing.TrajPreprocessingResult"><em>TrajPreprocessingResult</em></a>) – Preprocessed trajectory data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bouts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramFullTracking.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_df">
+<span class="sig-name descname"><span class="pre">compute_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bouts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramFullTracking.compute_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_df" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_time_series">
+<span class="sig-name descname"><span class="pre">compute_time_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#EthogramFullTracking.compute_time_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_time_series" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.pipeline.freely_swimming_pipeline.</span></span><span class="sig-name descname"><span class="pre">HeadTrackingPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_CS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></p>
+<p>Pipeline for processing freely swimming fish with head tracking only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracking_cfg</strong> (<a class="reference internal" href="tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig" title="megabouts.tracking_data.tracking_data.TrackingConfig"><em>TrackingConfig</em></a>) – Configuration for tracking data</p></li>
+<li><p><strong>exclude_CS</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to exclude capture swim bouts, by default False</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">HeadTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_angle&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">HeadTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">head_x</span><span class="o">=</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="o">=</span><span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="o">=</span><span class="n">head_yaw</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;head_tracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">HeadTrackingPipeline</span><span class="p">(</span><span class="n">tracking_cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ethogram</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tracking_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ethogram</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_CS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.initialize_parameters_for_pipeline">
+<span class="sig-name descname"><span class="pre">initialize_parameters_for_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline.initialize_parameters_for_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.initialize_parameters_for_pipeline" title="Link to this definition">#</a></dt>
+<dd><p>Initialize pipeline parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.preprocess_traj">
+<span class="sig-name descname"><span class="pre">preprocess_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline.preprocess_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.preprocess_traj" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.segment_traj">
+<span class="sig-name descname"><span class="pre">segment_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_vigor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline.segment_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.segment_traj" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.classify_bouts">
+<span class="sig-name descname"><span class="pre">classify_bouts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline.classify_bouts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.classify_bouts" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#HeadTrackingPipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.run" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.pipeline.freely_swimming_pipeline.</span></span><span class="sig-name descname"><span class="pre">FullTrackingPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_CS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></p>
+<p>Pipeline for processing freely swimming fish with full tracking data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracking_cfg</strong> (<a class="reference internal" href="tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig" title="megabouts.tracking_data.tracking_data.TrackingConfig"><em>TrackingConfig</em></a>) – Configuration for tracking data</p></li>
+<li><p><strong>exclude_CS</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to exclude capture swim bouts, by default False</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">FullTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;fulltracking_posture&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head_yaw</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_angle&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_angle</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s2">&quot;tail_angle&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">FullTrackingData</span><span class="o">.</span><span class="n">from_posture</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">head_x</span><span class="o">=</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="o">=</span><span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="o">=</span><span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="o">=</span><span class="n">tail_angle</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;full_tracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">FullTrackingPipeline</span><span class="p">(</span><span class="n">tracking_cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ethogram</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tracking_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ethogram</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_CS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.initialize_parameters_for_pipeline">
+<span class="sig-name descname"><span class="pre">initialize_parameters_for_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.initialize_parameters_for_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.initialize_parameters_for_pipeline" title="Link to this definition">#</a></dt>
+<dd><p>Initialize pipeline parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_tail">
+<span class="sig-name descname"><span class="pre">preprocess_tail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.preprocess_tail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_tail" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_traj">
+<span class="sig-name descname"><span class="pre">preprocess_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.preprocess_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_traj" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.segment">
+<span class="sig-name descname"><span class="pre">segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vigor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.segment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.segment" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.classify_bouts">
+<span class="sig-name descname"><span class="pre">classify_bouts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.classify_bouts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.classify_bouts" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/freely_swimming_pipeline.html#FullTrackingPipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.run" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-megabouts.pipeline.head_restrained_pipeline">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">megabouts.pipeline.head_restrained_pipeline.</span></span><span class="sig-name descname"><span class="pre">HeadRestrainedPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></p>
+<p>Pipeline for processing head-restrained fish data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tracking_cfg</strong> (<a class="reference internal" href="tracking_data.html#megabouts.tracking_data.tracking_data.TrackingConfig" title="megabouts.tracking_data.tracking_data.TrackingConfig"><em>TrackingConfig</em></a>) – Configuration for tracking data</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">TailTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="n">mm_per_unit</span> <span class="o">=</span> <span class="n">load_example_data</span><span class="p">(</span><span class="s1">&#39;HR_DLC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DLC_resnet50_Zebrafish&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="sa">f</span><span class="s2">&quot;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DLC_resnet50_Zebrafish&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[(</span><span class="sa">f</span><span class="s2">&quot;tail</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]]</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mm_per_unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">TailTrackingData</span><span class="o">.</span><span class="n">from_keypoints</span><span class="p">(</span><span class="n">tail_x</span><span class="o">=</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="o">=</span><span class="n">tail_y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">TrackingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;tail_tracking&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">HeadRestrainedPipeline</span><span class="p">(</span><span class="n">tracking_cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sparse_coding_result</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tracking_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">sparse_coding_result</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.initialize_parameters_for_pipeline">
+<span class="sig-name descname"><span class="pre">initialize_parameters_for_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline.initialize_parameters_for_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.initialize_parameters_for_pipeline" title="Link to this definition">#</a></dt>
+<dd><p>Initialize pipeline parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.preprocess_tail">
+<span class="sig-name descname"><span class="pre">preprocess_tail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline.preprocess_tail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.preprocess_tail" title="Link to this definition">#</a></dt>
+<dd><p>Preprocess tail angle data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tail_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing tail angle data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preprocessed tail data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="preprocessing.html#megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult" title="megabouts.preprocessing.tail_preprocessing.TailPreprocessingResult">TailPreprocessingResult</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.segment_tail">
+<span class="sig-name descname"><span class="pre">segment_tail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_vigor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline.segment_tail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.segment_tail" title="Link to this definition">#</a></dt>
+<dd><p>Segment tail movement into bouts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tail_vigor</strong> (<em>np.ndarray</em>) – Tail vigor signal</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Detected segments</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="segmentation.html#megabouts.segmentation.segmentation.SegmentationResult" title="megabouts.segmentation.segmentation.SegmentationResult">SegmentationResult</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.compute_sparse_coding">
+<span class="sig-name descname"><span class="pre">compute_sparse_coding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tail_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline.compute_sparse_coding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.compute_sparse_coding" title="Link to this definition">#</a></dt>
+<dd><p>Compute sparse coding of tail angles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tail_angle</strong> (<em>np.ndarray</em>) – Tail angle data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sparse coding results</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SparseCodingResult</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/megabouts/pipeline/head_restrained_pipeline.html#HeadRestrainedPipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.run" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -416,6 +704,57 @@
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking"><code class="docutils literal notranslate"><span class="pre">EthogramHeadTracking</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.__init__"><code class="docutils literal notranslate"><span class="pre">EthogramHeadTracking.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_df"><code class="docutils literal notranslate"><span class="pre">EthogramHeadTracking.compute_df()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_time_series"><code class="docutils literal notranslate"><span class="pre">EthogramHeadTracking.compute_time_series()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking"><code class="docutils literal notranslate"><span class="pre">EthogramFullTracking</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.__init__"><code class="docutils literal notranslate"><span class="pre">EthogramFullTracking.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_df"><code class="docutils literal notranslate"><span class="pre">EthogramFullTracking.compute_df()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_time_series"><code class="docutils literal notranslate"><span class="pre">EthogramFullTracking.compute_time_series()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.__init__"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.initialize_parameters_for_pipeline"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline.initialize_parameters_for_pipeline()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.preprocess_traj"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline.preprocess_traj()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.segment_traj"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline.segment_traj()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.classify_bouts"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline.classify_bouts()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.run"><code class="docutils literal notranslate"><span class="pre">HeadTrackingPipeline.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.__init__"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.initialize_parameters_for_pipeline"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.initialize_parameters_for_pipeline()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_tail"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.preprocess_tail()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_traj"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.preprocess_traj()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.segment"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.segment()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.classify_bouts"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.classify_bouts()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.run"><code class="docutils literal notranslate"><span class="pre">FullTrackingPipeline.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.__init__"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.initialize_parameters_for_pipeline"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline.initialize_parameters_for_pipeline()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.preprocess_tail"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline.preprocess_tail()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.segment_tail"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline.segment_tail()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.compute_sparse_coding"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline.compute_sparse_coding()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megabouts.pipeline.head_restrained_pipeline.HeadRestrainedPipeline.run"><code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 

@@ -376,20 +376,21 @@
 <span class="k">class</span> <span class="nc">TrackingConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for zebrafish tracking datasets.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        fps (int): Frames per second.</span>
-<span class="sd">        tracking (str): Type of tracking (&#39;full_tracking&#39;, &#39;head_tracking&#39;, &#39;tail_tracking&#39;).</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fps : int</span>
+<span class="sd">        Frames per second of the recording (between 20 and 700)</span>
+<span class="sd">    tracking : str</span>
+<span class="sd">        Type of tracking (&#39;full_tracking&#39;, &#39;head_tracking&#39;, &#39;tail_tracking&#39;)</span>
 
-<span class="sd">    Raises:</span>
-<span class="sd">        AttributeError: If invalid tracking type or input type is provided.</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; from megabouts.tracking_data.data_loader import TrackingConfig</span>
-<span class="sd">        &gt;&gt;&gt; tracking_config = TrackingConfig(fps=30, tracking=&#39;full_tracking&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; print(tracking_config.fps)</span>
-<span class="sd">        30</span>
-<span class="sd">        &gt;&gt;&gt; print(tracking_config.tracking)</span>
-<span class="sd">        full_tracking</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; config = TrackingConfig(fps=700, tracking=&#39;full_tracking&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; config.fps</span>
+<span class="sd">    700</span>
+<span class="sd">    &gt;&gt;&gt; config = TrackingConfig(fps=25, tracking=&#39;head_tracking&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; config.tracking</span>
+<span class="sd">    &#39;head_tracking&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TrackingConfig.__init__">
@@ -442,6 +443,29 @@
 <div class="viewcode-block" id="FullTrackingData">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData">[docs]</a>
 <span class="k">class</span> <span class="nc">FullTrackingData</span><span class="p">(</span><span class="n">TrackingData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for full tracking data including both head and tail information.</span>
+
+<span class="sd">    The class provides two constructors:</span>
+<span class="sd">    - from_keypoints: construct from raw x,y coordinates</span>
+<span class="sd">    - from_posture: construct from head position and tail angles</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;fulltracking_posture&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; head_x = df[&quot;head_x&quot;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; head_y = df[&quot;head_y&quot;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; head_yaw = df[&quot;head_angle&quot;].values</span>
+<span class="sd">    &gt;&gt;&gt; tail_angle = df.filter(like=&quot;tail_angle&quot;).values</span>
+<span class="sd">    &gt;&gt;&gt; tracking_data = FullTrackingData.from_posture(</span>
+<span class="sd">    ...     head_x=head_x, head_y=head_y, head_yaw=head_yaw, tail_angle=tail_angle</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(tracking_data.tail_df, pd.DataFrame)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(tracking_data.traj_df, pd.DataFrame)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="FullTrackingData.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
@@ -458,6 +482,15 @@
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.from_keypoints">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_keypoints</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct from raw keypoint coordinates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        head_x, head_y : array-like</span>
+<span class="sd">            Head coordinates, shape (T,)</span>
+<span class="sd">        tail_x, tail_y : array-like</span>
+<span class="sd">            Tail coordinates, shape (T, N_segments)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_keypoints</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">11</span><span class="p">:</span>
             <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span> <span class="o">=</span> <span class="n">interpolate_tail_keypoint</span><span class="p">(</span><span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -471,6 +504,17 @@
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.FullTrackingData.from_posture">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_posture</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct from head position and tail angles.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        head_x, head_y : array-like</span>
+<span class="sd">            Head coordinates, shape (T,)</span>
+<span class="sd">        head_yaw : array-like</span>
+<span class="sd">            Head orientation, shape (T,)</span>
+<span class="sd">        tail_angle : array-like</span>
+<span class="sd">            Tail angles, shape (T, N_segments)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_posture</span><span class="p">(</span><span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tail_angle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">interpolate_tail_angle</span><span class="p">(</span><span class="n">tail_angle</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -542,6 +586,23 @@
 <div class="viewcode-block" id="HeadTrackingData">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.HeadTrackingData">[docs]</a>
 <span class="k">class</span> <span class="nc">HeadTrackingData</span><span class="p">(</span><span class="n">TrackingData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for head tracking data.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;zebrabox_SLEAP&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; head_x = df[&#39;mid_eye.x&#39;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; head_y = df[&#39;mid_eye.y&#39;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; swimbladder_x = df[&#39;swim_bladder.x&#39;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; swimbladder_y = df[&#39;swim_bladder.y&#39;].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tracking_data = HeadTrackingData.from_keypoints(</span>
+<span class="sd">    ...     head_x=head_x, head_y=head_y,</span>
+<span class="sd">    ...     swimbladder_x=swimbladder_x, swimbladder_y=swimbladder_y)</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(tracking_data.traj_df, pd.DataFrame)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="HeadTrackingData.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.HeadTrackingData.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head_x</span><span class="p">,</span> <span class="n">head_y</span><span class="p">,</span> <span class="n">head_yaw</span><span class="p">,</span> <span class="n">swimbladder_x</span><span class="p">,</span> <span class="n">swimbladder_y</span><span class="p">):</span>
@@ -602,6 +663,19 @@
 <div class="viewcode-block" id="TailTrackingData">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData">[docs]</a>
 <span class="k">class</span> <span class="nc">TailTrackingData</span><span class="p">(</span><span class="n">TrackingData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for tail tracking data.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from megabouts.tracking_data import load_example_data</span>
+<span class="sd">    &gt;&gt;&gt; df, fps, mm_per_unit = load_example_data(&#39;HR_DLC&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; tail_x = df[&quot;DLC_resnet50_Zebrafish&quot;].loc[:, [(f&quot;tail{i}&quot;, &quot;x&quot;) for i in range(11)]].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tail_y = df[&quot;DLC_resnet50_Zebrafish&quot;].loc[:, [(f&quot;tail{i}&quot;, &quot;y&quot;) for i in range(11)]].values * mm_per_unit</span>
+<span class="sd">    &gt;&gt;&gt; tracking_data = TailTrackingData.from_keypoints(tail_x=tail_x, tail_y=tail_y)</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(tracking_data.tail_df, pd.DataFrame)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="TailTrackingData.__init__">
 <a class="viewcode-back" href="../../../api/tracking_data.html#megabouts.tracking_data.tracking_data.TailTrackingData.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_x</span><span class="p">,</span> <span class="n">tail_y</span><span class="p">,</span> <span class="n">tail_angle</span><span class="p">):</span>
