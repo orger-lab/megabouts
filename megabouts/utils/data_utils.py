@@ -41,7 +41,8 @@ def create_hierarchical_df(
     ...     ('label5', 'None', data5)
     ... ]
     >>> df = create_hierarchical_df(data_info)
-    >>> print(df.head())
+    >>> df.columns.get_level_values(0).unique()
+    Index(['label1', 'label2', 'label3', 'label4', 'label5'], dtype='object')
     """
     if not data_info:
         raise ValueError(

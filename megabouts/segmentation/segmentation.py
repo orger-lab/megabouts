@@ -11,6 +11,20 @@ from ..config.segmentation_config import (
 
 
 class SegmentationResult:
+    """Container for segmentation results.
+
+    Parameters
+    ----------
+    config : SegmentationConfig
+        Configuration used for segmentation
+    onset : np.ndarray
+        Start frames of detected segments
+    offset : np.ndarray
+        End frames of detected segments
+    T : int
+        Total number of frames in recording
+    """
+
     def __init__(
         self, config: SegmentationConfig, onset: np.ndarray, offset: np.ndarray, T: int
     ):
@@ -22,6 +36,13 @@ class SegmentationResult:
         self.HB1 = None
 
     def set_HB1(self, first_half_beat: np.ndarray):
+        """Set the first half-beat frames for each segment.
+
+        Parameters
+        ----------
+        first_half_beat : np.ndarray
+            Frame indices of first half-beats, must match length of onset
+        """
         if len(first_half_beat) != len(self.onset):
             raise ValueError(
                 "Length of first_half_beat must be equal to the length of onset"
@@ -33,6 +54,20 @@ class SegmentationResult:
     def extract_tail_array(
         self, *, tail_angle: np.ndarray, align_to_onset: bool = True
     ) -> np.ndarray:
+        """Extract tail angles for each detected segment.
+
+        Parameters
+        ----------
+        tail_angle : np.ndarray
+            Full tail angle array, shape (T, n_segments)
+        align_to_onset : bool, optional
+            If True, align to bout onset, else to HB1, by default True
+
+        Returns
+        -------
+        np.ndarray
+            Array of tail angles for each bout, shape (n_bouts, n_segments, bout_duration)
+        """
         if align_to_onset:
             onset = self.onset
         else:
@@ -58,6 +93,27 @@ class SegmentationResult:
         align: bool = True,
         idx_ref: int = 0,
     ) -> np.ndarray:
+        """Extract trajectory data for each detected segment.
+
+        Parameters
+        ----------
+        head_x, head_y : np.ndarray
+            Head position coordinates
+        head_angle : np.ndarray
+            Head orientation angles
+        align_to_onset : bool, optional
+            If True, align to bout onset, else to HB1, by default True
+        align : bool, optional
+            Whether to align trajectories, by default True
+        idx_ref : int, optional
+            Reference frame for alignment, by default 0
+
+        Returns
+        -------
+        np.ndarray
+            Array of trajectory data for each bout, shape (n_bouts, 3, bout_duration)
+            Channels are [x, y, angle]
+        """
         if align_to_onset:
             onset = self.onset
         else:
@@ -92,24 +148,40 @@ class SegmentationResult:
 
 
 class Segmentation(ABC):
+    """Abstract base class for segmentation algorithms."""
+
     def __init__(self, config: SegmentationConfig):
         self.config = config
 
     @abstractmethod
     def segment(self, data: np.ndarray) -> SegmentationResult:
-        """Perform segmentation on the provided data."""
+        """Perform segmentation on the provided data.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Data to segment
+
+        Returns
+        -------
+        SegmentationResult
+            Detected segments
+        """
         pass
 
     @classmethod
     def from_config(cls, config: SegmentationConfig) -> "Segmentation":
-        """
-        Factory method to create appropriate segmentation instances based on configuration.
+        """Factory method to create appropriate segmentation instances.
 
-        Args:
-            config (SegmentationConfig): Configuration object for segmentation.
+        Parameters
+        ----------
+        config : SegmentationConfig
+            Configuration for segmentation
 
-        Returns:
-            Segmentation: An instance of a subclass of Segmentation.
+        Returns
+        -------
+        Segmentation
+            Instance of appropriate segmentation subclass
         """
         if isinstance(config, TailSegmentationConfig):
             return TailSegmentation(config)
@@ -126,14 +198,17 @@ class TailSegmentation(Segmentation):
         super().__init__(config)
 
     def segment(self, tail_vigor: np.ndarray) -> SegmentationResult:
-        """
-        Segment data based on tail vigor.
+        """Segment data based on tail vigor.
 
-        Args:
-            tail_speed (np.ndarray): 1D Array of tail vigor.
+        Parameters
+        ----------
+        tail_vigor : np.ndarray
+            1D Array of tail vigor
 
-        Returns:
-            Tuple[np.ndarray, np.ndarray, float]: Onset and offset indices, and threshold value.
+        Returns
+        -------
+        SegmentationResult
+            Detected segments
         """
 
         Thresh = self.config.threshold
@@ -155,14 +230,17 @@ class TrajSegmentation(Segmentation):
         super().__init__(config)
 
     def segment(self, kinematic_activity: np.ndarray) -> SegmentationResult:
-        """
-        Segment data based on kinematic activity.
+        """Segment data based on kinematic activity.
 
-        Args:
-            kinematic_activity (np.ndarray): Array of kinematic activity values.
+        Parameters
+        ----------
+        kinematic_activity : np.ndarray
+            Array of kinematic activity values
 
-        Returns:
-            Tuple[np.ndarray, np.ndarray]: Onset and offset indices.
+        Returns
+        -------
+        SegmentationResult
+            Detected segments
         """
 
         peaks, _ = find_peaks(
@@ -182,7 +260,21 @@ class TrajSegmentation(Segmentation):
         return segments
 
     @staticmethod
-    def find_inter_peak_min(x, peaks):
+    def find_inter_peak_min(x: np.ndarray, peaks: np.ndarray) -> np.ndarray:
+        """Find minima between peaks.
+
+        Parameters
+        ----------
+        x : np.ndarray
+            Input signal
+        peaks : np.ndarray
+            Indices of peaks
+
+        Returns
+        -------
+        np.ndarray
+            Indices of minima between peaks
+        """
         peaks_list = [0] + peaks.tolist() + [len(x)]
         inter_peak_min = [
             p1 + np.argmin(x[p1:p2]) for p1, p2 in zip(peaks_list[:-1], peaks_list[1:])
@@ -196,18 +288,25 @@ class TrajSegmentation(Segmentation):
         inter_peak_min: np.ndarray,
         peak_percentage: float,
     ) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Find the onset and offset around each peak where the signal goes below a certain percentage of the peak value.
-        Ensure that segments do not overlap and that the duration is non-negative.
+        """Find onset and offset around each peak.
 
-        Args:
-            x (np.ndarray): Input signal
-            peaks (np.ndarray): Indices of peaks in the signal
-            peak_percentage (float): Percentage of the peak value to determine onset and offset
+        Parameters
+        ----------
+        x : np.ndarray
+            Input signal
+        peaks : np.ndarray
+            Indices of peaks
+        inter_peak_min : np.ndarray
+            Indices of minima between peaks
+        peak_percentage : float
+            Percentage of peak value to determine onset/offset
 
-        Returns:
-            np.ndarray: Onset indices
-            np.ndarray: Offset indices
+        Returns
+        -------
+        onset : np.ndarray
+            Onset indices
+        offset : np.ndarray
+            Offset indices
         """
         onset = []
         offset = []
@@ -232,20 +331,36 @@ class TrajSegmentation(Segmentation):
 def align_traj_array(
     traj_array: np.ndarray, idx_ref: int, bout_duration: int
 ) -> np.ndarray:
-    """
-    Align trajectory arrays to a reference point.
+    """Align trajectory arrays to a reference point.
 
-    Args:
-        traj_array (np.ndarray): Array of shape (N, 3, bout_duration) containing x, y, and heading
-        idx_ref (int): Reference index for alignment
-        bout_duration (int): Duration of bout
+    Parameters
+    ----------
+    traj_array : np.ndarray
+        Array of shape (N, 3, bout_duration) containing x, y, and heading
+    idx_ref : int
+        Reference index for alignment
+    bout_duration : int
+        Duration of bout
 
-    Returns:
-        np.ndarray: Aligned trajectory array
+    Returns
+    -------
+    np.ndarray
+        Aligned trajectory array
 
-    Raises:
-        ValueError: If idx_ref is negative or greater than bout_duration
-        ValueError: If traj_array does not have the expected shape
+    Raises
+    ------
+    ValueError
+        If idx_ref is negative or greater than bout_duration
+        If traj_array does not have the expected shape
+
+    Examples
+    --------
+    >>> N, duration = 10, 100  # 10 bouts, 100 frames each
+    >>> traj = np.zeros((N, 3, duration))  # x, y, heading
+    >>> traj[:, 0, :] = np.linspace(0, 1, duration)  # x increases linearly
+    >>> aligned = align_traj_array(traj, idx_ref=0, bout_duration=duration)
+    >>> np.allclose(aligned[:, 0, 0], 0)  # all trajectories start at x=0
+    True
     """
     if (
         not isinstance(traj_array, np.ndarray)

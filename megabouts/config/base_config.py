@@ -5,8 +5,19 @@ from dataclasses import dataclass, field
 class BaseConfig:
     """Base configuration class.
 
-    Attributes:
-        fps (int): frames per second.
+    Parameters
+    ----------
+    fps : int
+        Frames per second of the recording.
+        Cannot be modified after initialization.
+
+    Examples
+    --------
+    >>> config = BaseConfig(fps=30)
+    >>> config.fps
+    30
+    >>> config.convert_ms_to_frames(1000)  # 1 second
+    30
     """
 
     fps: int = field(init=True, repr=True)
@@ -27,25 +38,40 @@ class BaseConfig:
 
     def convert_ms_to_frames(self, milliseconds: float) -> int:
         """Convert milliseconds to an equivalent number of frames.
-        Args:
-            milliseconds (float): Time in milliseconds.
-        Returns:
-            int: Equivalent time in frames.
-        Example:
-            >>> from megabouts.config.component_configs import TailPreprocessingConfig
-            >>> config = TailPreprocessingConfig(fps=30)
-            >>> config.convert_ms_to_frames(1000)
-            30
+
+        Parameters
+        ----------
+        milliseconds : float
+            Time in milliseconds
+
+        Returns
+        -------
+        int
+            Equivalent time in frames
         """
         return int(milliseconds / 1000 * self.fps)
 
 
 class ConfigManager:
     """Manager for handling multiple configuration instances.
-    Args:
-        *configs: Variable length configuration list.
-    Attributes:
-        configs (dict): Dictionary storing configuration instances categorized by their class type.
+
+    Ensures consistency between different configuration components,
+    particularly checking that fps values match across all configs.
+
+    Parameters
+    ----------
+    *configs : BaseConfig
+        Variable number of configuration instances
+
+    Examples
+    --------
+    >>> from megabouts.config import TailPreprocessingConfig, TrajPreprocessingConfig
+    >>> tail_cfg = TailPreprocessingConfig(fps=40)
+    >>> traj_cfg = TrajPreprocessingConfig(fps=40)
+    >>> cfg_manager = ConfigManager(tail_cfg, traj_cfg)
+    Consistent FPS across all configurations: 40
+    >>> cfg_manager.check_configs('tailpreprocessing')
+    True
     """
 
     def __init__(self, *configs):
@@ -63,20 +89,11 @@ class ConfigManager:
 
     def check_fps_consistency(self):
         """Check if all configurations share the same fps value.
-        Returns:
-            bool: True if FPS is consistent across all configurations, False otherwise.
-        Example:
-            >>> from megabouts.config.base_config import ConfigManager
-            >>> from megabouts.config.component_configs import TailPreprocessingConfig
-            >>> from megabouts.config.component_configs import TrajPreprocessingConfig
-            >>> fps = 40
-            >>> tail_preprocessing_cfg= TailPreprocessingConfig(fps=fps)
-            >>> traj_preprocessing_cfg = TrajPreprocessingConfig(fps=fps)
-            >>> cfg_manager = ConfigManager(tail_preprocessing_cfg, traj_preprocessing_cfg)
-            Consistent FPS across all configurations: 40
-            >>> cfg_manager.check_fps_consistency()
-            Consistent FPS across all configurations: 40
-            True
+
+        Returns
+        -------
+        bool
+            True if FPS is consistent across all configurations
         """
         fps_values = [
             config.fps for config in self.configs.values() if hasattr(config, "fps")
@@ -92,20 +109,15 @@ class ConfigManager:
     def check_configs(self, *required_configs):
         """Check if all required configurations are provided.
 
-        Args:
-            *required_configs: Variable length list of required configuration names.
+        Parameters
+        ----------
+        *required_configs : str
+            Names of required configuration components
 
-        Returns:
-            bool: True if all required configurations are present, False otherwise.
-
-        Example:
-            >>> from megabouts.config.base_config import ConfigManager
-            >>> from megabouts.config.component_configs import TailPreprocessingConfig
-            >>> tail_preprocessing_cfg = TailPreprocessingConfig(fps=30)
-            >>> cfg_manager = ConfigManager(tail_preprocessing_cfg)
-            Consistent FPS across all configurations: 30
-            >>> cfg_manager.check_configs('tailpreprocessing')
-            True
+        Returns
+        -------
+        bool
+            True if all required configurations are present
         """
         adjusted_required_configs = [
             config.replace("_config", "") for config in required_configs

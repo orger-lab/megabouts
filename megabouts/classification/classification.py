@@ -10,6 +10,25 @@ from ..config.segmentation_config import SegmentationConfig
 
 
 class TailBouts:
+    """Container for classified bout data.
+
+    Parameters
+    ----------
+    segments : SegmentationResult
+        Segmentation results containing bout timing information
+    classif_results : dict
+        Classification results containing:
+        - 'cat': bout categories (numpy array)
+        - 'subcat': bout subcategories (numpy array)
+        - 'sign': bout direction (-1 or 1) (numpy array)
+        - 'proba': classification probabilities (numpy array)
+        - 'first_half_beat': frame indices of first half-beats (numpy array)
+    tail_array : np.ndarray, optional
+        Tail angles for each bout, shape (n_bouts, n_segments, bout_duration)
+    traj_array : np.ndarray, optional
+        Trajectory data for each bout, shape (n_bouts, 3, bout_duration)
+    """
+
     def __init__(self, *, segments, classif_results, tail_array=None, traj_array=None):
         # Segmentation Info:
         self.onset = segments.onset
@@ -58,6 +77,41 @@ class TailBouts:
 
 
 class BoutClassifier:
+    """Classifier for zebrafish swimming bouts.
+
+    Parameters
+    ----------
+    tracking_cfg : TrackingConfig
+        Configuration for tracking data
+    segmentation_cfg : SegmentationConfig
+        Configuration for bout segmentation
+    exclude_CS : bool, optional
+        Whether to exclude capture swim bouts, by default False
+    device : torch.device, optional
+        Device to run model on, by default None (auto-select)
+    precision : torch.dtype, optional
+        Model precision, by default None (auto-select)
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from megabouts.tracking_data import TrackingConfig
+    >>> from megabouts.config.segmentation_config import TailSegmentationConfig
+    >>> # Initialize classifier
+    >>> tracking_cfg = TrackingConfig(fps=100, tracking='full_tracking')
+    >>> segmentation_cfg = TailSegmentationConfig(fps=100)
+    >>> bout_duration = segmentation_cfg.bout_duration
+    >>> # Create fake bout data (10 bouts, 7 tail segments, bout_duration frames)
+    >>> tail_array = np.zeros((10, 7, bout_duration))
+    >>> traj_array = np.zeros((10, 3, bout_duration))  # x, y, angle
+    >>> classifier = BoutClassifier(tracking_cfg, segmentation_cfg)
+    >>> results = classifier.run_classification(tail_array=tail_array, traj_array=traj_array)
+    >>> isinstance(results, dict)
+    True
+    >>> "cat" in results and "sign" in results
+    True
+    """
+
     def __init__(
         self,
         tracking_cfg: TrackingConfig,

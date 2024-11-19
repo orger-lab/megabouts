@@ -27,16 +27,36 @@ def find_onset_offset_numpy(binary_serie):
 
 
 def robust_diff(x, dt=1 / 700, filter_length=71):
-    """
-    Compute the robust estimate of the derivative of a sequence of values.
+    """Compute robust derivative using Holoborodko's smooth noise-robust differentiator.
 
-    Parameters:
-    - x: 1D numpy array of values to differentiate.
-    - dt: float, time step to use in the derivative calculation.
-    - filter_length: int, length of the filter to use in the derivative calculation.
+    Uses a central difference scheme optimized for noise reduction while preserving
+    the signal's higher derivatives. See:
+    https://www.holoborodko.com/pavel/numerical-methods/numerical-derivative/smooth-low-noise-differentiators/
 
-    Returns:
-    - filtered: 1D numpy array of the robust derivative estimate of the input sequence.
+    Parameters
+    ----------
+    x : ndarray
+        Input signal, shape (n_samples,)
+    dt : float, optional
+        Time step between samples, by default 1/700
+    filter_length : int, optional
+        Length of the filter, must be odd, by default 71
+        Longer filters give smoother derivatives but require more edge padding
+
+    Returns
+    -------
+    ndarray
+        Filtered derivative, shape (n_samples,)
+        First and last (filter_length-1)/2 points are NaN
+
+    Examples
+    --------
+    >>> t = np.linspace(0, 1, 701)  # 700 fps
+    >>> x = np.sin(2*np.pi*t)  # sine wave
+    >>> dx = robust_diff(x)
+    >>> # Check derivative at middle point close to expected cos(2*pi*t)
+    >>> np.abs(dx[350] - 2*np.pi*np.cos(2*np.pi*0.5)) < 0.1
+    True
     """
     if not filter_length % 2 == 1:
         raise ValueError("Filter length must be odd.")
@@ -55,15 +75,28 @@ def robust_diff(x, dt=1 / 700, filter_length=71):
 
 
 def compute_angle_between_vectors(v1, v2):
-    """
-    Computes the angle between two vectors.
+    """Computes the signed angle between two vectors.
 
-    Args:
-        v1 (ndarray): First set of vectors with shape (num_vectors, num_dimensions).
-        v2 (ndarray): Second set of vectors with shape (num_vectors, num_dimensions).
+    Parameters
+    ----------
+    v1 : ndarray
+        First set of vectors with shape (num_vectors, 2)
+    v2 : ndarray
+        Second set of vectors with shape (num_vectors, 2)
 
-    Returns:
-        ndarray: Array of angles between the vectors.
+    Returns
+    -------
+    ndarray
+        Signed angles between vectors in radians, shape (num_vectors,)
+        Positive angle indicates counterclockwise rotation from v1 to v2
+
+    Examples
+    --------
+    >>> v1 = np.array([[1, 0], [0, 1]])  # right, up
+    >>> v2 = np.array([[0, 1], [-1, 0]])  # up, left
+    >>> angles = compute_angle_between_vectors(v1, v2)
+    >>> np.allclose(angles, [np.pi/2, np.pi/2])
+    True
     """
     dot_product = np.einsum("ij,ij->i", v1, v2)
     cos_angle = dot_product
@@ -74,18 +107,32 @@ def compute_angle_between_vectors(v1, v2):
 
 
 def compute_outer_circle(x, y, interval=100):
-    """
-    Compute the smallest circle that encloses a set of points.
+    """Compute smallest circle enclosing a subset of points.
 
-    The set of points is obtained by selecting every `interval`-th point from the input x and y sequences.
+    Parameters
+    ----------
+    x : ndarray
+        X coordinates of points
+    y : ndarray
+        Y coordinates of points
+    interval : int, optional
+        Sample points every `interval` steps, by default 100
 
-    Parameters:
-    - x: 1D numpy array of x-coordinates of the points.
-    - y: 1D numpy array of y-coordinates of the points.
-    - interval: int, the interval at which to select points from the input sequences.
+    Returns
+    -------
+    tuple
+        (xc, yc, radius) : Center coordinates and radius of enclosing circle
 
-    Returns:
-    - circle: tuple of (xc, yc, radius), where xc and yc are the coordinates of the center of the circle, and radius is the circle radius.
+    Examples
+    --------
+    >>> theta = np.linspace(0, 2*np.pi, 1000)
+    >>> x = np.cos(theta)  # unit circle
+    >>> y = np.sin(theta)
+    >>> xc, yc, r = compute_outer_circle(x, y)
+    >>> np.allclose([xc, yc], [0, 0], atol=0.1)  # center near origin
+    True
+    >>> np.abs(r - 1.0) < 0.1  # radius near 1
+    True
     """
     p = [(x[i], y[i]) for i in np.arange(0, len(x), interval)]
     Circle = smallestenclosingcircle.make_circle(p)

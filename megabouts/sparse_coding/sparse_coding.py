@@ -7,6 +7,22 @@ from ..config.sparse_coding_config import SparseCodingConfig
 
 
 class SparseCodingResult:
+    """Container for sparse coding results.
+
+    Parameters
+    ----------
+    tail_angle : np.ndarray
+        Raw tail angles
+    sparse_code : np.ndarray
+        Sparse code
+    decomposition : np.ndarray
+        Tail angle decomposed into contributions from each atom
+    tail_angle_hat : np.ndarray
+        Reconstructed tail angles
+    regressor : np.ndarray
+        Vigor decomposition
+    """
+
     def __init__(
         self,
         tail_angle: np.ndarray,
@@ -45,6 +61,18 @@ class SparseCoding:
         self.config = config
 
     def sparse_code_tail_angle(self, tail_angle: np.ndarray) -> SparseCodingResult:
+        """Sparse code tail angle data.
+
+        Parameters
+        ----------
+        tail_angle : np.ndarray
+            Raw tail angles, shape (T, n_segments)
+
+        Returns
+        -------
+        SparseCodingResult
+            Results of sparse coding
+        """
         N_Seg = self.config.Dict.shape[1]
         T = tail_angle.shape[0]
         N_atoms = self.config.N_atoms
@@ -54,7 +82,7 @@ class SparseCoding:
 
         opt = cbpdnin.ConvBPDNInhib.Options(
             {
-                "Verbose": True,
+                "Verbose": False,
                 "MaxMainIter": 200,
                 "RelStopTol": 5e-3,
                 "AuxVarObj": False,
@@ -92,12 +120,17 @@ class SparseCoding:
     ) -> np.ndarray:
         """Split a given tail angle sequence into batches.
 
-        Args:
-            tail_angle (np.ndarray): 2D array of tail angle values, shape (time_steps, n_segments)
-            batch_duration (int, optional): Duration of each batch. Defaults to 20000.
+        Parameters
+        ----------
+        tail_angle : np.ndarray
+            2D array of tail angle values, shape (time_steps, n_segments)
+        batch_duration : int, optional
+            Duration of each batch, by default 20000
 
-        Returns:
-            np.ndarray: 3D array of batched tail angles, shape (batch_duration, n_segments, n_batches)
+        Returns
+        -------
+        np.ndarray
+            3D array of batched tail angles, shape (batch_duration, n_segments, n_batches)
         """
         N = int(np.ceil(tail_angle.shape[0] / batch_duration))
         Nseg = tail_angle.shape[1]
@@ -110,12 +143,17 @@ class SparseCoding:
     def unbatch_result(result: np.ndarray, original_length: int) -> np.ndarray:
         """Unbatch the result back to its original shape.
 
-        Args:
-            result (np.ndarray): Batched array of shape (time_steps, batch_size, n_features)
-            original_length (int): Original sequence length to truncate to
+        Parameters
+        ----------
+        result : np.ndarray
+            Batched array of shape (time_steps, batch_size, n_features)
+        original_length : int
+            Original sequence length to truncate to
 
-        Returns:
-            np.ndarray: Unbatched array of shape (original_length, n_features)
+        Returns
+        -------
+        np.ndarray
+            Unbatched array of shape (original_length, n_features)
         """
         result_flat = np.zeros((result.shape[0] * result.shape[1], result.shape[2]))
         for i in range(result.shape[2]):
@@ -126,12 +164,17 @@ class SparseCoding:
     def compute_decomposition(self, z: np.ndarray, original_length: int) -> np.ndarray:
         """Compute the decomposition from the sparse codes.
 
-        Args:
-            z (np.ndarray): Sparse codes array of shape (time_steps, n_atoms)
-            original_length (int): Original sequence length to truncate to
+        Parameters
+        ----------
+        z : np.ndarray
+            Sparse codes array of shape (time_steps, n_atoms)
+        original_length : int
+            Original sequence length to truncate to
 
-        Returns:
-        - Decomposition array.
+        Returns
+        -------
+        np.ndarray
+            Decomposition array
         """
         decomposition = np.zeros((z.shape[1], original_length))
         for j in range(z.shape[1]):

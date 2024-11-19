@@ -18,6 +18,18 @@ from ..pipeline.base_pipeline import Pipeline
 
 
 class EthogramHeadTracking:
+    """Container for head tracking ethogram data.
+
+    Parameters
+    ----------
+    segments : SegmentationResult
+        Segmentation results
+    bouts : TailBouts
+        Classified bout data
+    traj : TrajPreprocessingResult
+        Preprocessed trajectory data
+    """
+
     def __init__(self, segments, bouts, traj):
         self.segments = segments
         self.df = self.compute_df(bouts, traj)
@@ -57,6 +69,20 @@ class EthogramHeadTracking:
 
 
 class EthogramFullTracking:
+    """Container for full tracking ethogram data.
+
+    Parameters
+    ----------
+    segments : SegmentationResult
+        Segmentation results
+    bouts : TailBouts
+        Classified bout data
+    tail : TailPreprocessingResult
+        Preprocessed tail data
+    traj : TrajPreprocessingResult
+        Preprocessed trajectory data
+    """
+
     def __init__(self, segments, bouts, tail, traj):
         self.segments = segments
         self.df = self.compute_df(bouts, tail, traj)
@@ -98,6 +124,33 @@ class EthogramFullTracking:
 
 
 class HeadTrackingPipeline(Pipeline):
+    """Pipeline for processing freely swimming fish with head tracking only.
+
+    Parameters
+    ----------
+    tracking_cfg : TrackingConfig
+        Configuration for tracking data
+    exclude_CS : bool, optional
+        Whether to exclude capture swim bouts, by default False
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from megabouts.tracking_data import TrackingConfig, HeadTrackingData, load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> head_x = df["head_x"].values * mm_per_unit
+    >>> head_y = df["head_y"].values * mm_per_unit
+    >>> head_yaw = df["head_angle"].values
+    >>> tracking_data = HeadTrackingData.from_posture(
+    ...     head_x=head_x, head_y=head_y, head_yaw=head_yaw
+    ... )
+    >>> tracking_cfg = TrackingConfig(fps=fps, tracking='head_tracking')
+    >>> pipeline = HeadTrackingPipeline(tracking_cfg)
+    >>> ethogram, bouts, segments, traj = pipeline.run(tracking_data)
+    >>> isinstance(ethogram.df, pd.DataFrame)
+    True
+    """
+
     def __init__(self, tracking_cfg, exclude_CS=False):
         self.tracking_cfg = tracking_cfg
         # self.logger = logging.getLogger(__name__)
@@ -178,6 +231,34 @@ class HeadTrackingPipeline(Pipeline):
 
 
 class FullTrackingPipeline(Pipeline):
+    """Pipeline for processing freely swimming fish with full tracking data.
+
+    Parameters
+    ----------
+    tracking_cfg : TrackingConfig
+        Configuration for tracking data
+    exclude_CS : bool, optional
+        Whether to exclude capture swim bouts, by default False
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from megabouts.tracking_data import TrackingConfig, FullTrackingData, load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> head_x = df["head_x"].values * mm_per_unit
+    >>> head_y = df["head_y"].values * mm_per_unit
+    >>> head_yaw = df["head_angle"].values
+    >>> tail_angle = df.filter(like="tail_angle").values
+    >>> tracking_data = FullTrackingData.from_posture(
+    ...     head_x=head_x, head_y=head_y, head_yaw=head_yaw, tail_angle=tail_angle
+    ... )
+    >>> tracking_cfg = TrackingConfig(fps=fps, tracking='full_tracking')
+    >>> pipeline = FullTrackingPipeline(tracking_cfg)
+    >>> ethogram, bouts, segments, tail, traj = pipeline.run(tracking_data)
+    >>> isinstance(ethogram.df, pd.DataFrame)
+    True
+    """
+
     def __init__(self, tracking_cfg, exclude_CS=False):
         self.tracking_cfg = tracking_cfg
         # self.logger = logging.getLogger(__name__)

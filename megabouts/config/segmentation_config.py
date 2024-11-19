@@ -55,9 +55,3 @@ class TrajSegmentationConfig(SegmentationConfig):
 
     peak_prominence: float = 0.4
     peak_percentage: float = 0.2
-    # margin_before_peak_ms: float = 28
-
-    # @property
-    # def margin_before_peak(self):
-    #    """Convert the minimum segment size from milliseconds to frames."""
-    #    return self.convert_ms_to_frames(self.margin_before_peak_ms)

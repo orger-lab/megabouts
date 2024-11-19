@@ -7,6 +7,30 @@ from ..config.preprocessing_config import TrajPreprocessingConfig
 
 
 class TrajPreprocessingResult:
+    """Container for trajectory preprocessing results.
+
+    Parameters
+    ----------
+    x, y : np.ndarray
+        Raw position coordinates
+    yaw : np.ndarray
+        Raw orientation angles
+    x_smooth, y_smooth : np.ndarray
+        Smoothed position coordinates
+    yaw_smooth : np.ndarray
+        Smoothed orientation angles
+    axial_speed : np.ndarray
+        Speed along body axis
+    lateral_speed : np.ndarray
+        Speed perpendicular to body axis
+    yaw_speed : np.ndarray
+        Angular velocity
+    vigor : np.ndarray
+        Kinematic activity measure
+    no_tracking : np.ndarray
+        Boolean mask indicating frames with no tracking
+    """
+
     def __init__(
         self,
         x,
@@ -75,14 +99,42 @@ class TrajPreprocessing:
         self.config = config
 
     def preprocess_traj_df(self, traj_df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Preprocess trajectory data from a DataFrame.
+        """Preprocess trajectory data from a DataFrame.
 
-        Args:
-            traj_df (pd.DataFrame): DataFrame containing head trajectory data (x,y,yaw).
+        Parameters
+        ----------
+        traj_df : pd.DataFrame
+            DataFrame containing head trajectory data (x,y,yaw)
 
-        Returns:
-            pd.DataFrame: Preprocessed DataFrame with hierarchical structure.
+        Returns
+        -------
+        TrajPreprocessingResult
+            Preprocessed trajectory data
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> import pandas as pd
+        >>> from megabouts.config import TrajPreprocessingConfig
+        >>>
+        >>> # Create sample data
+        >>> t = np.linspace(0, 1, 100)  # 1 second at 100 fps
+        >>> traj_df = pd.DataFrame({
+        ...     'x': t,  # constant forward speed
+        ...     'y': np.zeros_like(t),  # no lateral movement
+        ...     'yaw': np.zeros_like(t)  # no rotation
+        ... })
+        >>>
+        >>> # Preprocess
+        >>> config = TrajPreprocessingConfig(fps=100)
+        >>> preprocessor = TrajPreprocessing(config)
+        >>> result = preprocessor.preprocess_traj_df(traj_df)
+        >>>
+        >>> # Verify forward movement was detected
+        >>> np.mean(result.axial_speed[20:-20]) > 0  # positive forward speed
+        True
+        >>> np.allclose(result.lateral_speed[20:-20], 0, atol=1e-10)  # no lateral speed
+        True
         """
         x_input, y_input, yaw_input = (
             traj_df["x"].values,
@@ -130,7 +182,26 @@ class TrajPreprocessing:
     def interp_traj_nan(
         x: np.ndarray, y: np.ndarray, yaw: np.ndarray, limit_na: int
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """Interpolates missing values in trajectory data."""
+        """Interpolates missing values in trajectory data.
+
+        Parameters
+        ----------
+        x, y : np.ndarray
+            Position coordinates
+        yaw : np.ndarray
+            Orientation angles
+        limit_na : int
+            Maximum number of consecutive NaN values to interpolate
+
+        Returns
+        -------
+        x, y : np.ndarray
+            Interpolated position coordinates
+        yaw : np.ndarray
+            Interpolated orientation angles
+        no_tracking : np.ndarray
+            Boolean mask indicating frames with no tracking
+        """
         # Interpolate within limit na:
         yaw = np.arctan2(np.sin(yaw), np.cos(yaw))
         yaw[~np.isnan(yaw)] = np.unwrap(yaw[~np.isnan(yaw)])
@@ -155,7 +226,24 @@ class TrajPreprocessing:
     def one_euro_filter(
         x: np.ndarray, freq_cutoff_min: float, beta: float, rate: int
     ) -> np.ndarray:
-        """Apply 1€ filter over x."""
+        """Apply 1€ filter over x.
+
+        Parameters
+        ----------
+        x : np.ndarray
+            Input signal
+        freq_cutoff_min : float
+            Minimum cutoff frequency in Hz
+        beta : float
+            Speed coefficient
+        rate : int
+            Sampling rate in Hz
+
+        Returns
+        -------
+        np.ndarray
+            Filtered signal
+        """
         n_frames = len(x)
         x_smooth = np.zeros_like(x)
         x_smooth[0] = x[0]
@@ -180,7 +268,40 @@ class TrajPreprocessing:
     def compute_speed(
         x: np.ndarray, y: np.ndarray, yaw: np.ndarray, fps: int, n_diff: int
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """Compute the axial, lateral, and yaw speed of a body."""
+        """Compute the axial, lateral, and yaw speed of a body.
+
+        Parameters
+        ----------
+        x, y : np.ndarray
+            Position coordinates
+        yaw : np.ndarray
+            Orientation angles
+        fps : int
+            Frames per second
+        n_diff : int
+            Filter length for derivative computation
+
+        Returns
+        -------
+        axial_speed : np.ndarray
+            Speed along body axis
+        lateral_speed : np.ndarray
+            Speed perpendicular to body axis
+        yaw_speed : np.ndarray
+            Angular velocity
+
+        Examples
+        --------
+        >>> t = np.linspace(0, 1, 100)  # 1 second at 100 fps
+        >>> x = t  # constant forward speed
+        >>> y = np.zeros_like(t)  # no lateral movement
+        >>> yaw = np.zeros_like(t)  # no rotation
+        >>> ax, lat, yaw_speed = TrajPreprocessing.compute_speed(x, y, yaw, fps=100, n_diff=11)
+        >>> np.mean(ax[20:-20]) > 0  # positive forward speed
+        True
+        >>> np.allclose(lat[20:-20], 0, atol=1e-10)  # no lateral speed
+        True
+        """
         body_vector = np.array([np.cos(yaw), np.sin(yaw)])[:, :-1]
         position_change = np.zeros_like(body_vector)
         position_change[0, :] = robust_diff(x, dt=1 / fps, filter_length=n_diff)[:-1]
@@ -207,7 +328,36 @@ class TrajPreprocessing:
         lag: int,
         fps: int,
     ) -> np.ndarray:
-        """Compute the kinematic activity of a body."""
+        """Compute the kinematic activity of a body.
+
+        Parameters
+        ----------
+        axial_speed : np.ndarray
+            Speed along body axis
+        lateral_speed : np.ndarray
+            Speed perpendicular to body axis
+        yaw_speed : np.ndarray
+            Angular velocity
+        lag : int
+            Number of frames to compute activity over
+        fps : int
+            Frames per second
+
+        Returns
+        -------
+        np.ndarray
+            Kinematic activity measure
+
+        Examples
+        --------
+        >>> n_frames = 100
+        >>> speeds = np.zeros((n_frames, 3))  # no movement initially
+        >>> speeds[50:60, 0] = 1  # burst of forward movement
+        >>> activity = TrajPreprocessing.compute_kinematic_activity(
+        ...     speeds[:, 0], speeds[:, 1], speeds[:, 2], lag=10, fps=100)
+        >>> np.any(activity > 0)  # detected activity during burst
+        True
+        """
         traj_speed = np.vstack((axial_speed, lateral_speed, yaw_speed)).T
         traj_speed[np.isnan(traj_speed)] = 0
         traj_cumul = np.cumsum(np.abs(traj_speed), axis=0)

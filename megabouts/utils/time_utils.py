@@ -3,48 +3,92 @@ from scipy.interpolate import interp1d
 
 
 def convert_frame_duration(n_frames_origin: int, fps_origin: int, fps_new: int) -> int:
-    """_summary_
+    """Convert number of frames between different sampling rates.
 
-    Args:
-        n_frames (int): number of frames in input times series
-        fps_origin (int): fps of input times series
-        fps_new (int): target fps
+    Parameters
+    ----------
+    n_frames_origin : int
+        Number of frames in original time series
+    fps_origin : int
+        Original frames per second
+    fps_new : int
+        Target frames per second
 
-    Returns:
-        int: number of frames corresponding for target fps
+    Returns
+    -------
+    int
+        Number of frames at target fps
+
+    Examples
+    --------
+    >>> convert_frame_duration(700, fps_origin=700, fps_new=100)
+    100
     """
 
     return int(np.ceil(fps_new / fps_origin * n_frames_origin))
 
 
 def convert_ms_to_frames(fps: int, duration: float) -> int:
-    """Convert duration in ms to number of frames
+    """Convert duration in milliseconds to number of frames.
 
-    Args:
-        fps (int): frame rate
-        duration (float): duration in ms
+    Parameters
+    ----------
+    fps : int
+        Frame rate
+    duration : float
+        Duration in milliseconds
 
-    Returns:
-        int: number of frames correponding to duration
+    Returns
+    -------
+    int
+        Number of frames corresponding to duration
+
+    Examples
+    --------
+    >>> convert_ms_to_frames(fps=100, duration=100)  # 100ms at 100fps
+    10
     """
     n_frames = int(np.ceil(duration * fps / 1000))
     return n_frames
 
 
 def create_downsampling_function(
-    fps_new: int, fps_origin: int, duration=200, duration_unit="ms", kind="linear"
+    fps_new: int, fps_origin: int, duration: int, duration_unit="ms", kind="linear"
 ):
-    """Generate function that will downsample according to fps_new
+    """Generate function for downsampling time series data.
 
-    Args:
-        fps_new (int): target fps
-        fps_origin (int, optional): Defaults to 700.
-        duration (float): duration of sequence in ms or frames
-        duration_units (string): 'ms' or 'frames'
-        kind (str,optional): Defauts to linear, The string can be  'nearest', 'slinear', 'quadratic', 'cubic'...
+    Parameters
+    ----------
+    fps_new : int
+        Target frames per second
+    fps_origin : int
+        Original frames per second
+    duration : float, optional
+        Duration of sequence
+    duration_unit : str, optional
+        Unit for duration: 'ms' or 'frames', by default 'ms'
+    kind : str, optional
+        Interpolation method: 'linear', 'nearest', 'cubic', etc., by default 'linear'
 
-    Returns:
-        _type_: downsampling function that downsample a np.ndarray along a given axis
+    Returns
+    -------
+    downsampling_f : callable
+        Function that downsamples arrays along specified axis
+    n_frames_new : int
+        Number of frames in downsampled output
+    t : ndarray
+        Original time points
+    tnew : ndarray
+        Downsampled time points
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> x = np.random.rand(700, 10)  # 700fps data, 10 features
+    >>> downsample_f, n_frames, t, tnew = create_downsampling_function(fps_new=350, fps_origin=700, duration=len(x), duration_unit='frames')
+    >>> x_downsampled = downsample_f(x, axis=0)
+    >>> x_downsampled.shape[0] == 350  # check output length
+    True
     """
     duration_units = ["ms", "frames"]
     if duration_unit not in duration_units:

@@ -10,16 +10,32 @@ from functools import partial
 
 
 def compute_baseline(x, method, params):
-    """Main function to compute baseline
+    """Main function to compute baseline.
 
-    Args:
-        x (np.ndarray): input signal (T,)
-        method (string): can be either 'slow' 'beads' or 'whittaker'
-        params (dict): dict of parameters. Should contains fps field.
-        If 'whittaker' should containd field lambda.
+    Parameters
+    ----------
+    x : np.ndarray
+        Input signal, shape (T,)
+    method : str
+        Method for baseline computation:
+        - 'None': returns zero baseline
+        - 'median': uses median filter with gaussian smoothing
+        - 'whittaker': uses Whittaker smoother with adaptive weights
+    params : dict
+        Parameters for baseline computation. Must contain:
+        - 'fps': sampling rate
+        - 'half_window': for median method
+        - 'lmbda': for whittaker method
 
-    Returns:
-        np.ndarray: baseline of x
+    Returns
+    -------
+    np.ndarray
+        Baseline of x, same shape as input
+
+    Notes
+    -----
+    For 'whittaker' method with sequences longer than 100*fps frames,
+    the computation is done in batches for efficiency.
     """
 
     fps = params["fps"]
@@ -29,20 +45,11 @@ def compute_baseline(x, method, params):
         window_size = 2 * params["half_window"] + 1
         baseline = ndimage.median_filter(x, size=window_size, mode="constant", cval=0)
         baseline = ndimage.gaussian_filter(baseline, sigma=window_size / 6)
-        # baseline = np.zeros_like(x)
-        """
-        baseline = noise_median(x, 
-                                half_window=params['half_window'], 
-                                smooth_half_window=None, 
-                                sigma=None,
-                                mode='constant',
-                                constant_values=0)[0]"""
+
     elif method == "whittaker":
         baseline_func = partial(
             compute_baseline_whittaker,
             win_slow=params["half_window"],
-            win_std=int(fps / 2),
-            thresh_sigma=1,
             lmbda=params["lmbda"],
         )
     else:
@@ -69,21 +76,22 @@ def compute_baseline(x, method, params):
     return baseline
 
 
-def compute_baseline_whittaker(
-    x, win_slow=700, win_std=int(700 / 2), thresh_sigma=1, lmbda=1e4
-):
-    """
-    Compute the baseline of a given input using the Whittaker smoother.
+def compute_baseline_whittaker(x, win_slow=700, lmbda=1e4):
+    """Compute the baseline of a given input using the Whittaker smoother.
 
-    Parameters:
-    - x: 1D numpy array of the input values.
-    - win_slow: int, slow window size to use when computing the slow baseline.
-    - win_std: int, window size to use when computing the standard deviation for clipping.
-    - thresh_sigma: float, number of standard deviations to use as the clipping threshold.
-    - lmbda: float, regularization parameter to use in the Whittaker smoother.
+    Parameters
+    ----------
+    x : np.ndarray
+        Input signal, shape (T,)
+    win_slow : int, optional
+        Window size for slow baseline computation, by default 700
+    lmbda : float, optional
+        Regularization parameter for Whittaker smoother, by default 1e4
 
-    Returns:
-    - baseline: 1D numpy array of the computed baseline.
+    Returns
+    -------
+    np.ndarray
+        Baseline signal, same shape as input
     """
     slow_baseline = noise_median(
         x,
@@ -105,15 +113,19 @@ def compute_baseline_whittaker(
 
 
 def compute_baseline_on_batch(x_batch, baseline_func):
-    """
-    Compute the baseline of a batch of input values using a given baseline computation function.
+    """Compute baseline for each element in a batch.
 
-    Parameters:
-    - x_batch: list of 1D numpy arrays, the input values to compute the baseline for.
-    - baseline_func: function, the function to use to compute the baseline of each element of x_batch.
+    Parameters
+    ----------
+    x_batch : list
+        List of 1D numpy arrays to compute baseline for
+    baseline_func : callable
+        Function to compute baseline for each array
 
-    Returns:
-    - y_batch: list of 1D numpy arrays, the computed baselines for each element of x_batch.
+    Returns
+    -------
+    list
+        List of computed baselines for each input array
     """
     y_batch = []
     for x in x_batch:
@@ -124,20 +136,32 @@ def compute_baseline_on_batch(x_batch, baseline_func):
 
 def compute_batch(x, L_center, L_edge):
     """Batch input into overlapping segments.
-    The input will be mirror-padded to have a lenght divisible by L_center+L_edge.
 
-    Args:
-        x (np.ndarray): input time series to batch (T,)
-        L_center (int): lenght of batch non overlapping
-        L_edge (int): lenght of overlap between batch, should be larger than 2
+    The input will be mirror-padded to have a length divisible by L_center+L_edge.
 
-    Returns:
-        - x_batch - list of batched input including padding
-        - left_edge - list of interval for the left side overlapping segments of each batch
-        - center - list of interval for the center of each batch
-        - right edge - list of interval for the right side overlapping segments of each batch
-        - T - length of input x
-        - T_padded - lenght of padded input x
+    Parameters
+    ----------
+    x : np.ndarray
+        Input time series to batch, shape (T,)
+    L_center : int
+        Length of non-overlapping batch segment
+    L_edge : int
+        Length of overlap between batches, should be larger than 2
+
+    Returns
+    -------
+    x_batch : list
+        List of batched input including padding
+    left_edge : list
+        Intervals for left overlapping segments
+    center : list
+        Intervals for center segments
+    right_edge : list
+        Intervals for right overlapping segments
+    T : int
+        Length of input x
+    T_padded : int
+        Length of padded input x
     """
     T = len(x)
     T_padded = int(np.ceil(T / (L_edge + L_center)) * (L_center + L_edge))
@@ -170,20 +194,32 @@ def compute_batch(x, L_center, L_edge):
 
 def merge_batch(y_batch, T_padded, T, left_edge, center, right_edge, L_center, L_edge):
     """Unbatch input signal into a time series.
+
     Uses sigmoid weighting to smoothly merge overlapping segments.
 
-    Args:
-        y_batch (list): list of batched input including padding
-        T_padded (int): length of padded input
-        T (int): length of input before padding
-        left_edge (list): list of intervals for left overlapping segments
-        center (list): list of intervals for center segments
-        right_edge (list): list of intervals for right overlapping segments
-        L_center (int): length of non-overlapping batch segment
-        L_edge (int): length of overlap between batches
+    Parameters
+    ----------
+    y_batch : list
+        List of batched input including padding
+    T_padded : int
+        Length of padded input
+    T : int
+        Length of input before padding
+    left_edge : list
+        Intervals for left overlapping segments
+    center : list
+        Intervals for center segments
+    right_edge : list
+        Intervals for right overlapping segments
+    L_center : int
+        Length of non-overlapping batch segment
+    L_edge : int
+        Length of overlap between batches
 
-    Returns:
-        np.ndarray: merged signal of length T
+    Returns
+    -------
+    np.ndarray
+        Merged signal of length T
     """
     # Pre-compute sigmoid weights
     x = np.linspace(-L_edge / 2, L_edge / 2, L_edge)

@@ -20,7 +20,6 @@ class SparseCodingConfig(BaseConfig):
         N_atoms: int, number of atoms in the dictionary.
     """
 
-    # Dict: np.ndarray = field(default_factory=lambda: np.zeros(1))
     lmbda: float = 0.01
     gamma: float = 0.01
     mu: float = 0.05
@@ -34,7 +33,7 @@ class SparseCodingConfig(BaseConfig):
     def load_dictionary(self):
         config_dir = os.path.dirname(__file__)
         sparse_coding_dir = os.path.join(os.path.dirname(config_dir), "sparse_coding")
-        filename = os.path.join(sparse_coding_dir, "4atomsDictHR_allTensor.npy")
+        filename = os.path.join(sparse_coding_dir, "sparse_coding_dict.npy")
         if not os.path.exists(filename):
             raise FileNotFoundError(f"Dictionary file not found: {filename}")
 

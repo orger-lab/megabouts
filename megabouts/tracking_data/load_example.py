@@ -3,25 +3,33 @@ import pandas as pd
 
 
 def load_example_data(source):
-    """
-    Load tracking data from various sources.
+    """Load example tracking data from various sources.
 
-    Args:
-        source (str): The source of the tracking data. Options are:
-                      'fulltracking_posture', 'SLEAP_fulltracking', 'HR_DLC', 'zebrabox_SLEAP'.
+    Parameters
+    ----------
+    source : str
+        The source of the tracking data. Options are:
+        - 'fulltracking_posture': High-res posture data (700 fps)
+        - 'SLEAP_fulltracking': SLEAP tracking data (350 fps)
+        - 'HR_DLC': Head-restrained DLC data (250 fps)
+        - 'zebrabox_SLEAP': Zebrabox SLEAP data (25 fps)
 
-    Returns:
-        tuple: A tuple containing:
-            - df (pd.DataFrame): The loaded tracking data.
-            - fps (int): The frames per second of the data.
-            - mm_per_unit (float): The millimeters per unit of the data.
+    Returns
+    -------
+    df : pd.DataFrame
+        The loaded tracking data
+    fps : int
+        Frames per second of the recording
+    mm_per_unit : float
+        Scale factor to convert units to millimeters
 
-    Raises:
-        ValueError: If an invalid source is provided.
-
-    Examples:
-        >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
-        >>> df, fps, mm_per_unit = load_example_data('SLEAP_fulltracking')
+    Examples
+    --------
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> fps
+    700
+    >>> mm_per_unit
+    1
     """
     sources = {
         "fulltracking_posture": {

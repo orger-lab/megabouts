@@ -4,16 +4,32 @@ from ..utils.math_utils import compute_angle_between_vectors
 
 
 def interpolate_tail_keypoint(tail_x, tail_y, n_segments=10):
-    """
-    Interpolates the tail keypoints to create a curve with a specified number of segments.
+    """Interpolate tail keypoints to create a smooth curve.
 
-    Parameters:
-        tail_x (numpy.ndarray): The x-coordinates of the tail keypoints. Shape: (T, n_segments_input).
-        tail_y (numpy.ndarray): The y-coordinates of the tail keypoints. Shape: (T, n_segments_input).
-        n_segments (int, optional): The number of segments to interpolate. Default: 10.
+    Parameters
+    ----------
+    tail_x : np.ndarray
+        X-coordinates of tail keypoints, shape (T, n_segments_input)
+    tail_y : np.ndarray
+        Y-coordinates of tail keypoints, shape (T, n_segments_input)
+    n_segments : int, optional
+        Number of segments in output curve, by default 10
 
-    Returns:
-        tuple: Interpolated x-coordinates and y-coordinates of the tail keypoints. Shape: (T, n_segments+1).
+    Returns
+    -------
+    tuple
+        (tail_x_interp, tail_y_interp) : Interpolated coordinates
+        Each array has shape (T, n_segments+1)
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> tail_x = df.filter(like='tail_x').values
+    >>> tail_y = df.filter(like='tail_y').values
+    >>> x_interp, y_interp = interpolate_tail_keypoint(tail_x, tail_y, n_segments=8)
+    >>> x_interp.shape[1] == 9  # n_segments + 1 points
+    True
     """
     if n_segments < 2:
         raise ValueError("There should be more than 3 keypoints.")
@@ -55,17 +71,38 @@ def interpolate_tail_keypoint(tail_x, tail_y, n_segments=10):
 
 
 def compute_angles_from_keypoints(head_x, head_y, tail_x, tail_y):
-    """
-    Computes the tail angles and body angle based on keypoints.
+    """Compute tail angles and body orientation from keypoints.
 
-    Args:
-        head_x (ndarray): X-coordinates of the head keypoints.
-        head_y (ndarray): Y-coordinates of the head keypoints.
-        tail_x (ndarray): X-coordinates of the tail keypoints.
-        tail_y (ndarray): Y-coordinates of the tail keypoints.
+    Parameters
+    ----------
+    head_x : np.ndarray
+        X-coordinates of head, shape (T,)
+    head_y : np.ndarray
+        Y-coordinates of head, shape (T,)
+    tail_x : np.ndarray
+        X-coordinates of tail points, shape (T, N_keypoints)
+    tail_y : np.ndarray
+        Y-coordinates of tail points, shape (T, N_keypoints)
 
-    Returns:
-        tuple: A tuple containing the tail angles (tail_angle) and the body angle (head_yaw).
+    Returns
+    -------
+    tail_angle : np.ndarray or None
+        Cumulative angles between tail segments, shape (T, N_keypoints-1)
+        None if only one tail point
+    head_yaw : np.ndarray
+        Body orientation angle, shape (T,)
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('SLEAP_fulltracking')
+    >>> head_x = ((df["left_eye.x"] + df["right_eye.x"]) / 2) * mm_per_unit
+    >>> head_y = ((df["left_eye.y"] + df["right_eye.y"]) / 2) * mm_per_unit
+    >>> tail_x = df[[f"tail{i}.x" for i in range(5)]].values * mm_per_unit
+    >>> tail_y = df[[f"tail{i}.y" for i in range(5)]].values * mm_per_unit
+    >>> angles, yaw = compute_angles_from_keypoints(head_x, head_y, tail_x, tail_y)
+    >>> angles.shape[1] == tail_x.shape[1] - 1  # one angle between each segment
+    True
     """
 
     if len(tail_x.shape) == 1:
@@ -100,19 +137,40 @@ def compute_angles_from_keypoints(head_x, head_y, tail_x, tail_y):
 def convert_tail_angle_to_keypoints(
     head_x, head_y, head_yaw, tail_angle, body_to_tail_mm=0.5, tail_to_tail_mm=0.32
 ):
-    """
-    Converts tail angles back to keypoints.
+    """Convert tail angles back to keypoint coordinates.
 
-    Args:
-        head_x (ndarray): X-coordinates of the head.
-        head_y (ndarray): Y-coordinates of the head.
-        head_yaw (ndarray): Body angle.
-        tail_angle (ndarray): Tail angles.
-        body_to_tail_mm (float): Distance from body to first tail keypoint in mm. Default: 0.5.
-        tail_to_tail_mm (float): Distance between consecutive tail keypoints in mm. Default: 0.32.
+    Parameters
+    ----------
+    head_x : np.ndarray
+        X-coordinates of head, shape (T,)
+    head_y : np.ndarray
+        Y-coordinates of head, shape (T,)
+    head_yaw : np.ndarray
+        Body orientation angles, shape (T,)
+    tail_angle : np.ndarray
+        Tail segment angles, shape (T, N_segments)
+    body_to_tail_mm : float, optional
+        Distance from body to first tail point, by default 0.5
+    tail_to_tail_mm : float, optional
+        Distance between consecutive tail points, by default 0.32
 
-    Returns:
-        tuple: Tail keypoints (tail_x, tail_y).
+    Returns
+    -------
+    tuple
+        (tail_x, tail_y) : Tail keypoint coordinates
+        Each array has shape (T, N_segments+1)
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> head_x = df['head_x'].values * mm_per_unit
+    >>> head_y = df['head_y'].values * mm_per_unit
+    >>> head_yaw = df['head_angle'].values
+    >>> tail_angle = df.filter(like='tail_angle').values
+    >>> tail_x, tail_y = convert_tail_angle_to_keypoints(head_x, head_y, head_yaw, tail_angle)
+    >>> tail_x.shape == (len(head_x), tail_angle.shape[1] + 1)
+    True
     """
     T, num_segments = tail_angle.shape[0], tail_angle.shape[1] + 1
     tail_x = np.zeros((T, num_segments))
@@ -137,15 +195,28 @@ def convert_tail_angle_to_keypoints(
 
 
 def interpolate_tail_angle(tail_angle, n_segments=10):
-    """
-    Interpolates tail angles.
+    """Interpolate tail angles to a different number of segments.
 
-    Args:
-        tail_angle (ndarray): Tail angles.
-        n_segments (int, optional): Number of segments. Default: 10.
+    Parameters
+    ----------
+    tail_angle : np.ndarray
+        Tail angles, shape (T, N_segments)
+    n_segments : int, optional
+        Number of segments in output, by default 10
 
-    Returns:
-        ndarray: Interpolated tail angles.
+    Returns
+    -------
+    np.ndarray
+        Interpolated tail angles, shape (T, n_segments)
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> tail_angle = df.filter(like='tail_angle').values
+    >>> interp_angles = interpolate_tail_angle(tail_angle, n_segments=8)
+    >>> interp_angles.shape == (len(tail_angle), 8)
+    True
     """
     T = tail_angle.shape[0]
     body_x, body_y, body_angle = np.zeros(T) + 0.5, np.zeros(T), np.zeros(T)
@@ -159,4 +230,4 @@ def interpolate_tail_angle(tail_angle, n_segments=10):
     tail_angle_interp, head_yaw = compute_angles_from_keypoints(
         body_x, body_y, tail_x_interp, tail_y_interp
     )
-    return tail_angle_interp  # ,tail_x,tail_y,tail_x_interp, tail_y_interp
+    return tail_angle_interp

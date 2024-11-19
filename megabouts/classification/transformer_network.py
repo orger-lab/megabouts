@@ -5,6 +5,22 @@ import numpy as np
 
 
 class BoutsDataset(Dataset):
+    """Dataset class for bout data with continuous positional encoding.
+
+    Parameters
+    ----------
+    X : np.ndarray
+        Input features, shape (n_bouts, bout_duration, n_features)
+    t_sample : np.ndarray
+        Time points for each sample
+    sampling_mask : np.ndarray
+        Boolean mask for valid samples
+    device : torch.device, optional
+        Device to store tensors on
+    precision : torch.dtype, optional
+        Precision of tensors
+    """
+
     def __init__(self, X, t_sample, sampling_mask, device=None, precision=None):
         device = (
             device
@@ -49,6 +65,22 @@ class ContinuousPositionalEncoding(nn.Module):
 
 
 class TransAm(nn.Module):
+    """Transformer model for bout classification.
+
+    Parameters
+    ----------
+    mapping_label_to_sublabel : dict
+        Mapping from main labels to sublabels
+    feature_size : int, optional
+        Size of feature embedding, by default 64
+    num_layers : int, optional
+        Number of transformer layers, by default 3
+    dropout : float, optional
+        Dropout rate, by default 0.0
+    nhead : int, optional
+        Number of attention heads, by default 8
+    """
+
     def __init__(
         self,
         mapping_label_to_sublabel,

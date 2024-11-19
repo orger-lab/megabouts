@@ -9,20 +9,21 @@ from .convert_tracking import interpolate_tail_keypoint, interpolate_tail_angle
 class TrackingConfig:
     """Configuration for zebrafish tracking datasets.
 
-    Args:
-        fps (int): Frames per second.
-        tracking (str): Type of tracking ('full_tracking', 'head_tracking', 'tail_tracking').
+    Parameters
+    ----------
+    fps : int
+        Frames per second of the recording (between 20 and 700)
+    tracking : str
+        Type of tracking ('full_tracking', 'head_tracking', 'tail_tracking')
 
-    Raises:
-        AttributeError: If invalid tracking type or input type is provided.
-
-    Example:
-        >>> from megabouts.tracking_data.data_loader import TrackingConfig
-        >>> tracking_config = TrackingConfig(fps=30, tracking='full_tracking')
-        >>> print(tracking_config.fps)
-        30
-        >>> print(tracking_config.tracking)
-        full_tracking
+    Examples
+    --------
+    >>> config = TrackingConfig(fps=700, tracking='full_tracking')
+    >>> config.fps
+    700
+    >>> config = TrackingConfig(fps=25, tracking='head_tracking')
+    >>> config.tracking
+    'head_tracking'
     """
 
     def __init__(self, *, fps, tracking):
@@ -60,6 +61,29 @@ class TrackingData(ABC):
 
 
 class FullTrackingData(TrackingData):
+    """Container for full tracking data including both head and tail information.
+
+    The class provides two constructors:
+    - from_keypoints: construct from raw x,y coordinates
+    - from_posture: construct from head position and tail angles
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('fulltracking_posture')
+    >>> head_x = df["head_x"].values * mm_per_unit
+    >>> head_y = df["head_y"].values * mm_per_unit
+    >>> head_yaw = df["head_angle"].values
+    >>> tail_angle = df.filter(like="tail_angle").values
+    >>> tracking_data = FullTrackingData.from_posture(
+    ...     head_x=head_x, head_y=head_y, head_yaw=head_yaw, tail_angle=tail_angle
+    ... )
+    >>> isinstance(tracking_data.tail_df, pd.DataFrame)
+    True
+    >>> isinstance(tracking_data.traj_df, pd.DataFrame)
+    True
+    """
+
     def __init__(self, head_x, head_y, head_yaw, tail_x, tail_y, tail_angle):
         self._tail_x = tail_x
         self._tail_y = tail_y
@@ -71,6 +95,15 @@ class FullTrackingData(TrackingData):
 
     @classmethod
     def from_keypoints(cls, *, head_x, head_y, tail_x, tail_y):
+        """Construct from raw keypoint coordinates.
+
+        Parameters
+        ----------
+        head_x, head_y : array-like
+            Head coordinates, shape (T,)
+        tail_x, tail_y : array-like
+            Tail coordinates, shape (T, N_segments)
+        """
         cls._validate_keypoints(head_x, head_y, tail_x, tail_y)
         if tail_x.shape[1] != 11:
             tail_x, tail_y = interpolate_tail_keypoint(tail_x, tail_y, 10)
@@ -81,6 +114,17 @@ class FullTrackingData(TrackingData):
 
     @classmethod
     def from_posture(cls, *, head_x, head_y, head_yaw, tail_angle):
+        """Construct from head position and tail angles.
+
+        Parameters
+        ----------
+        head_x, head_y : array-like
+            Head coordinates, shape (T,)
+        head_yaw : array-like
+            Head orientation, shape (T,)
+        tail_angle : array-like
+            Tail angles, shape (T, N_segments)
+        """
         cls._validate_posture(head_x, head_y, head_yaw, tail_angle)
         if tail_angle.shape[1] != 10:
             tail_angle = interpolate_tail_angle(tail_angle, 10)
@@ -148,6 +192,23 @@ class FullTrackingData(TrackingData):
 
 
 class HeadTrackingData(TrackingData):
+    """Container for head tracking data.
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('zebrabox_SLEAP')
+    >>> head_x = df['mid_eye.x'].values * mm_per_unit
+    >>> head_y = df['mid_eye.y'].values * mm_per_unit
+    >>> swimbladder_x = df['swim_bladder.x'].values * mm_per_unit
+    >>> swimbladder_y = df['swim_bladder.y'].values * mm_per_unit
+    >>> tracking_data = HeadTrackingData.from_keypoints(
+    ...     head_x=head_x, head_y=head_y,
+    ...     swimbladder_x=swimbladder_x, swimbladder_y=swimbladder_y)
+    >>> isinstance(tracking_data.traj_df, pd.DataFrame)
+    True
+    """
+
     def __init__(self, head_x, head_y, head_yaw, swimbladder_x, swimbladder_y):
         self._head_x = head_x
         self._head_y = head_y
@@ -196,6 +257,19 @@ class HeadTrackingData(TrackingData):
 
 
 class TailTrackingData(TrackingData):
+    """Container for tail tracking data.
+
+    Examples
+    --------
+    >>> from megabouts.tracking_data import load_example_data
+    >>> df, fps, mm_per_unit = load_example_data('HR_DLC')
+    >>> tail_x = df["DLC_resnet50_Zebrafish"].loc[:, [(f"tail{i}", "x") for i in range(11)]].values * mm_per_unit
+    >>> tail_y = df["DLC_resnet50_Zebrafish"].loc[:, [(f"tail{i}", "y") for i in range(11)]].values * mm_per_unit
+    >>> tracking_data = TailTrackingData.from_keypoints(tail_x=tail_x, tail_y=tail_y)
+    >>> isinstance(tracking_data.tail_df, pd.DataFrame)
+    True
+    """
+
     def __init__(self, tail_x, tail_y, tail_angle):
         self._tail_x = tail_x
         self._tail_y = tail_y
