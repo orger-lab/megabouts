@@ -22,6 +22,7 @@ extensions = [
     "sphinx.ext.napoleon",  # Support for NumPy and Google style docstrings
     "sphinxcontrib.video",  # Video embedding support
     "sphinx_togglebutton",  # Collapsible content
+    "sphinx_tabs.tabs",
 ]
 
 # -- Path setup -----------------------------------------------------------

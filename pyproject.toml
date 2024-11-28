@@ -46,7 +46,7 @@ docs = [
       "build",
       "twine",
       "setuptools",
-      "sphinx",
+      "sphinx>=5.0.0",
       "sphinx_design",
       "pydata-sphinx-theme",
       "sphinx-autobuild",
@@ -55,7 +55,9 @@ docs = [
       "sphinxcontrib-video",
       "sphinxcontrib-jupyter",
       "sphinx-togglebutton",
-      "sphinx-gallery"
+      "sphinx-gallery",
+      "sphinx-tabs"
+
 ]
 
 
