@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=065274ff" />
   
   <!-- So that users can add custom icons -->
@@ -52,6 +53,7 @@
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/tabs.js?v=3030b3cb"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -351,18 +353,21 @@
 Our software supports locomotion analysis in both freely swimming and head-restrained conditions,
 with the goal of promoting standardized zebrafish locomotion studies across neuroscience, pharmacology, and genetics.</p>
 <p>Please support the development of Megabouts by starring and/or watching the project on <a class="reference external" href="https://github.com/orger-lab/megabouts">Github</a>!</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="_images/VideoPreyCapture.gif"><img alt="High resolution ethogram analysis" src="_images/VideoPreyCapture.gif" style="width: 800px;" />
+<p>Megabouts is designed for flexibility, allowing it to manage a variety of tracking configurations and ensuring consistent analysis across diverse experimental setups.
+Below are two examples demonstrating Megabouts in action, using the same algorithm to classify movements recorded under different tracking configuration.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Analysis of ‘tail + trajectory’ tracking at 700 fps</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Analysis of ‘trajectory only tracking’ at 25 fps</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><a class="reference internal image-reference" href="_images/VideoPreyCapture.gif"><img alt="High-resolution ethogram analysis" class="align-center" src="_images/VideoPreyCapture.gif" style="width: 800px;" />
 </a>
-</figure>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><a class="reference internal image-reference" href="_images/VideoZebrabox.gif"><img alt="Low-resolution ethogram analysis" class="align-center" src="_images/VideoZebrabox.gif" style="width: 800px;" />
+</a>
+</div></div>
 <section id="installation-and-setup">
 <h2>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Link to this heading">#</a></h2>
 <p>The software is available on <a class="reference external" href="https://github.com/orger-lab/megabouts">GitHub</a>. Please head over to the <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a> tab to find step-by-step installation instructions and example use cases in the <a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a> tab.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Megabouts is under active development and might include breaking changes
-between versions. If you use Megabouts in your work, we recommend double-checking
-your current version.</p>
+between versions.</p>
 </div>
 </section>
 <section id="publication">
@@ -371,8 +376,8 @@ your current version.</p>
 <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1">our paper on bioRxiv</a>:</p>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">jouary2024megabouts</span><span class="p">,</span>
 <span class="na">title</span><span class="p">=</span><span class="s">{Megabouts: a flexible pipeline for zebrafish locomotion analysis}</span><span class="p">,</span>
-<span class="na">author</span><span class="p">=</span><span class="s">{Jouary, Adrien and Laborde, Alexandre and Silva, Pedro T and Mata, J Miguel</span>
-<span class="s">        and Marques, Joao C and Collins, Elena and Peterson, Randall T</span>
+<span class="na">author</span><span class="p">=</span><span class="s">{Jouary, Adrien and Silva, Pedro TM and Laborde, Alexandre and Mata, J Miguel</span>
+<span class="s">        and Marques, Joao C and Collins, Elena MD and Peterson, Randall T</span>
 <span class="s">        and Machens, Christian K and Orger, Michael B}</span><span class="p">,</span>
 <span class="na">journal</span><span class="p">=</span><span class="s">{bioRxiv}</span><span class="p">,</span>
 <span class="na">pages</span><span class="p">=</span><span class="s">{2024--09}</span><span class="p">,</span>

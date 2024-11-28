@@ -47,7 +47,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* TrackingConfig and TrackingData similar to [tutorial_Loading_Data](./tutorial_Loading_Data.ipynb)"
+    "* TrackingConfig and TrackingData similar to [tutorial_Loading_Data](./Loading_Data.ipynb)"
    ]
   },
   {
