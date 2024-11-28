@@ -65,7 +65,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 2,
    "metadata": {
     "tags": [
      "hide-input"
@@ -594,7 +594,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -741,7 +741,7 @@
        "4     -0.015487           NaN  "
       ]
      },
-     "execution_count": 5,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -760,7 +760,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -776,7 +776,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -795,7 +795,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -813,7 +813,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 7,
    "metadata": {
     "tags": [
      "hide-input"
@@ -939,7 +939,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -1160,7 +1160,7 @@
        "[5 rows x 39 columns]"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1180,7 +1180,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1191,12 +1191,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* We will place nan on the tail keypoints coordinate when the likelihood is below a threshold"
+    "* We will place NaN on the tail keypoints coordinates when the likelihood is below a threshold"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1215,12 +1215,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* We extract the tail keypoints coordinate and convert them in millimeters:"
+    "* We extract the tail keypoints coordinates and convert them in millimeters:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1254,7 +1254,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1270,7 +1270,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 13,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1333,7 +1333,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
@@ -1449,7 +1449,7 @@
        "4            0.832367  120.054565  118.565849       0.820087  "
       ]
      },
-     "execution_count": 16,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1468,7 +1468,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1479,12 +1479,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* We will place nan on the keypoints coordinate when the score is below a threshold"
+    "* We will place NaN on the keypoints coordinates when the score is below a threshold"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1502,12 +1502,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* We extract the head and swim bladder keypoints coordinate and convert them in millimeters:"
+    "* We extract the head and swim bladder keypoints coordinates and convert them in millimeters:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1526,7 +1526,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1547,7 +1547,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 19,
    "metadata": {
     "tags": [
      "hide-input"
@@ -1644,7 +1644,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [
     {
@@ -1849,7 +1849,7 @@
        "[5 rows x 24 columns]"
       ]
      },
-     "execution_count": 22,
+     "execution_count": 20,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1868,7 +1868,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1879,12 +1879,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* We will place nan on the keypoints coordinate when the score is below a threshold"
+    "* We will place NaN on the keypoints coordinates when the score is below a threshold"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1901,12 +1901,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* We extract the head and tail keypoints coordinate and convert them in millimeters:"
+    "* We extract the head and tail keypoints coordinates and convert them in millimeters:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1926,12 +1926,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Finally we keypoints array are loaded into the `FullTrackingData` class:"
+    "* Finally the keypoints arrays are loaded into the `FullTrackingData` class:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 24,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1949,7 +1949,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 25,
    "metadata": {
     "tags": [
      "hide-input"

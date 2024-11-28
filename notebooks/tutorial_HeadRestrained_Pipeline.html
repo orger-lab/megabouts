@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sparse-coding pipeline &#8212; Megabouts 0.1.1 documentation</title>
+    <title>Head-restrained pipeline &#8212; Megabouts 0.1.1 documentation</title>
   
   
   
@@ -347,7 +347,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Sparse-coding pipeline</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Head-restrained pipeline</span></li>
   </ul>
 </nav>
 </div>
@@ -364,8 +364,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="sparse-coding-pipeline">
-<h1>Sparse-coding pipeline<a class="headerlink" href="#sparse-coding-pipeline" title="Link to this heading">#</a></h1>
+  <section id="head-restrained-pipeline">
+<h1>Head-restrained pipeline<a class="headerlink" href="#head-restrained-pipeline" title="Link to this heading">#</a></h1>
 <p><strong>The following notebook illustrate the <code class="docutils literal notranslate"><span class="pre">HeadRestrainedPipeline</span></code> class.</strong></p>
 <ul class="simple">
 <li><p><strong>Several preprocessing steps are used for head-restrained recording of the tail angle</strong>:</p>
@@ -446,7 +446,7 @@
 </div>
 </div>
 <ul class="simple">
-<li><p>In contrast with freely-swimming where the default baseline method is <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code>, the default baseline method for head-restrained pipeline is set to <code class="docutils literal notranslate"><span class="pre">&quot;whittaker&quot;</span></code> for head-restrained recordings.</p></li>
+<li><p>In contrast with freely-swimming where the default baseline method is <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code>, the default baseline method for head-restrained pipeline is set to <code class="docutils literal notranslate"><span class="pre">&quot;whittaker&quot;</span></code>.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -500,7 +500,11 @@
         <span class="s2">&quot;tab:red&quot;</span><span class="p">,</span>
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;λ = </span><span class="si">{</span><span class="n">lmbda</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">str_</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;λ = </span><span class="si">{</span><span class="n">lmbda</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="n">lmbda</span> <span class="o">==</span> <span class="mf">1e4</span><span class="p">:</span>
+        <span class="n">str_</span> <span class="o">+=</span> <span class="s2">&quot; (default)&quot;</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">str_</span><span class="p">)</span>
+
     <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 <span class="n">ax</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
@@ -510,7 +514,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/52e1ac1dbd10d4a5b9687c232c8691e009f2de90552a4a7921bc637e0f47760e.png" src="../_images/52e1ac1dbd10d4a5b9687c232c8691e009f2de90552a4a7921bc637e0f47760e.png" />
+<img alt="../_images/cddb9f180051c0ab6634a7e3c57a63bf239873f82dc858f0b7288caad225d931.png" src="../_images/cddb9f180051c0ab6634a7e3c57a63bf239873f82dc858f0b7288caad225d931.png" />
 </div>
 </div>
 <ul class="simple">

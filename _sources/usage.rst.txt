@@ -19,7 +19,7 @@ If you are working with video recordings of zebrafish larvae, you can also track
 
 - **SLEAP**: `SLEAP Website <https://sleap.ai/>`_ | `SLEAP Paper <https://www.nature.com/articles/s41592-022-01426-1>`_
 
-Once you have your zebrafish tracking data, you're ready to analyze it with Megabouts!"
+Once you have your zebrafish tracking data, you're ready to analyze it with Megabouts!
 
 Installing Megabouts
 --------------------

@@ -116,7 +116,7 @@ Classification
       .. raw:: html
 
          <div class="example-img-plot-overlay">
-         Tail Movement Classification
+         Tail Bout Classification
          </div>
 
       .. image:: _static/images/thumbnail_tail_classification.png
