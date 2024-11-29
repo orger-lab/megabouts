@@ -50,21 +50,22 @@ The software is available on `GitHub <https://github.com/orger-lab/megabouts>`_.
 Publication
 ------------
 The details for the method can be found in
-`our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v1>`_:
+`our paper on bioRxiv <https://www.biorxiv.org/content/10.1101/2024.09.14.613078v2>`_:
 
 .. code-block:: bibtex
 
-   @article{jouary2024megabouts,
-   title={Megabouts: a flexible pipeline for zebrafish locomotion analysis},
-   author={Jouary, Adrien and Silva, Pedro TM and Laborde, Alexandre and Mata, J Miguel 
-           and Marques, Joao C and Collins, Elena MD and Peterson, Randall T 
-           and Machens, Christian K and Orger, Michael B},
-   journal={bioRxiv},
-   pages={2024--09},
-   year={2024},
-   publisher={Cold Spring Harbor Laboratory}
+   @article {Jouary2024.09.14.613078,
+      author = {Jouary, Adrien and Silva, Pedro T.M. and Laborde, Alexandre and Mata, J. Miguel and Marques, Joao C. and Collins, Elena and Peterson, Randall T. and Machens, Christian K. and Orger, Michael B.},
+      title = {Megabouts: a flexible pipeline for zebrafish locomotion analysis},
+      elocation-id = {2024.09.14.613078},
+      year = {2024},
+      doi = {10.1101/2024.09.14.613078},
+      publisher = {Cold Spring Harbor Laboratory},
+      abstract = {Accurate quantification of animal behavior is crucial for advancing neuroscience and for defining reliable physiological markers. We introduce Megabouts (megabouts.ai), a software package standardizing zebrafish larvae locomotion analysis across experimental setups. Its flexibility, achieved with a Transformer neural network, allows the classification of actions regardless of tracking methods or frame rates. We demonstrate Megabouts{\textquoteright} ability to quantify sensorimotor transformations and enhance sensitivity to drug-induced phenotypes through high-throughput, high-resolution behavioral analysis.Competing Interest StatementThe authors have declared no competing interest.},
+      URL = {https://www.biorxiv.org/content/early/2024/11/28/2024.09.14.613078},
+      eprint = {https://www.biorxiv.org/content/early/2024/11/28/2024.09.14.613078.full.pdf},
+      journal = {bioRxiv}
    }
-
 
 .. toctree::
    :hidden:
