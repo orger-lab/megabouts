@@ -14,9 +14,9 @@
 
 Welcome to Megabouts' documentation!
 ====================================
-Accurate measurements of animal behavior are crucial for neuroscience, as well as genetic and pharmacological screening. Megabouts is a Python toolbox designed to precisely quantify zebrafish larval locomotion.
-Our software supports locomotion analysis in both freely swimming and head-restrained conditions, 
-with the goal of promoting standardized zebrafish locomotion studies across neuroscience, pharmacology, and genetics.
+Accurate measurement of animal behavior is essential for neuroscience, as well as genetic and pharmacological screening. 
+Megabouts is a Python toolbox designed to precisely quantify zebrafish larval locomotion. 
+It supports locomotion analysis in both freely swimming and head-restrained conditions and is designed to facilitate the standardized quantification of behavior.
 
 Please support the development of Megabouts by starring and/or watching the project on Github_!
 
