@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Head-restrained pipeline &#8212; Megabouts 0.1.1 documentation</title>
+    <title>Head-restrained pipeline &#8212; Megabouts 0.1.2 documentation</title>
   
   
   
@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,22 +27,22 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=065274ff" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=a58bc63e"></script>
+    <script src="../_static/documentation_options.js?v=92734c54"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -51,14 +51,13 @@
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/tutorial_HeadRestrained_Pipeline';</script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1" />
+  <meta name="docsearch:version" content="0.1.2" />
   </head>
   
   
@@ -120,7 +119,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.2 documentation</p>
   
 </a></div>
     
@@ -319,9 +318,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -381,13 +385,13 @@
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
-<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cycler</span><span class="w"> </span><span class="kn">import</span> <span class="n">cycler</span>
 
-<span class="kn">from</span> <span class="nn">megabouts.tracking_data</span> <span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">TailTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
-<span class="kn">from</span> <span class="nn">megabouts.pipeline</span> <span class="kn">import</span> <span class="n">HeadRestrainedPipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">megabouts.tracking_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrackingConfig</span><span class="p">,</span> <span class="n">TailTrackingData</span><span class="p">,</span> <span class="n">load_example_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">megabouts.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeadRestrainedPipeline</span>
 </pre></div>
 </div>
 </div>
@@ -514,7 +518,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/cddb9f180051c0ab6634a7e3c57a63bf239873f82dc858f0b7288caad225d931.png" src="../_images/cddb9f180051c0ab6634a7e3c57a63bf239873f82dc858f0b7288caad225d931.png" />
+<img alt="../_images/ba34bb3ee1cda8ffdbf1fa8b33a7f89be332025bcb2fc0673a9489e317bcd9b2.png" src="../_images/ba34bb3ee1cda8ffdbf1fa8b33a7f89be332025bcb2fc0673a9489e317bcd9b2.png" />
 </div>
 </div>
 <ul class="simple">
@@ -558,7 +562,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/4d5fbf36ea42082257f737cd9bb48e18aeed9d0f695e2bec3138da3ea4b3fe4b.png" src="../_images/4d5fbf36ea42082257f737cd9bb48e18aeed9d0f695e2bec3138da3ea4b3fe4b.png" />
+<img alt="../_images/a117449f66c4730b1d8ae28cb77733879666cbf277818e22375449c3a2b72d19.png" src="../_images/a117449f66c4730b1d8ae28cb77733879666cbf277818e22375449c3a2b72d19.png" />
 </div>
 </div>
 <ul class="simple">
@@ -618,7 +622,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/43756613c5cb8c36f9f29c4705a4971e1559cde462087c817974bd7ead669a62.png" src="../_images/43756613c5cb8c36f9f29c4705a4971e1559cde462087c817974bd7ead669a62.png" />
+<img alt="../_images/f488c6eec23be4cf1345f8056f3d870497230397590ad9593899adba09609077.png" src="../_images/f488c6eec23be4cf1345f8056f3d870497230397590ad9593899adba09609077.png" />
 </div>
 </div>
 <ul class="simple">
@@ -692,7 +696,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/491b88cd275cbec8322bb046576b2ecc9e0706370a09ec3c7d551b6dd8e58aba.png" src="../_images/491b88cd275cbec8322bb046576b2ecc9e0706370a09ec3c7d551b6dd8e58aba.png" />
+<img alt="../_images/8fd5f8c93566f88ead155004e5b33d93fd23ccb55e235bde7f84917b2500a515.png" src="../_images/8fd5f8c93566f88ead155004e5b33d93fd23ccb55e235bde7f84917b2500a515.png" />
 </div>
 </div>
 </section>
@@ -719,13 +723,13 @@
 
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/notebooks/tutorial_HeadRestrained_Pipeline.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/notebooks/tutorial_HeadRestrained_Pipeline.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -740,8 +744,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -761,7 +765,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>
@@ -774,7 +778,8 @@
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

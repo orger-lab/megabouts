@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>megabouts.pipeline.freely_swimming_pipeline &#8212; Megabouts 0.1.1 documentation</title>
+    <title>megabouts.pipeline.freely_swimming_pipeline &#8212; Megabouts 0.1.2 documentation</title>
   
   
   
@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,22 +26,22 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=065274ff" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+    <script src="../../../_static/documentation_options.js?v=92734c54"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -50,14 +50,13 @@
     <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/megabouts/pipeline/freely_swimming_pipeline';</script>
     <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1" />
+  <meta name="docsearch:version" content="0.1.2" />
   </head>
   
   
@@ -119,7 +118,7 @@
   
   
   
-    <p class="title logo__title">Megabouts 0.1.1 documentation</p>
+    <p class="title logo__title">Megabouts 0.1.2 documentation</p>
   
 </a></div>
     
@@ -314,9 +313,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -363,28 +367,28 @@
                 <article class="bd-article">
                   
   <h1>Source code for megabouts.pipeline.freely_swimming_pipeline</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
-<span class="kn">from</span> <span class="nn">..config.preprocessing_config</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..config.preprocessing_config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">TailPreprocessingConfig</span><span class="p">,</span>
     <span class="n">TrajPreprocessingConfig</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..preprocessing.traj_preprocessing</span> <span class="kn">import</span> <span class="n">TrajPreprocessing</span>
-<span class="kn">from</span> <span class="nn">..preprocessing.tail_preprocessing</span> <span class="kn">import</span> <span class="n">TailPreprocessing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..preprocessing.traj_preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrajPreprocessing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..preprocessing.tail_preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TailPreprocessing</span>
 
-<span class="kn">from</span> <span class="nn">..config.segmentation_config</span> <span class="kn">import</span> <span class="n">TailSegmentationConfig</span><span class="p">,</span> <span class="n">TrajSegmentationConfig</span>
-<span class="kn">from</span> <span class="nn">..segmentation.segmentation</span> <span class="kn">import</span> <span class="n">Segmentation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..config.segmentation_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">TailSegmentationConfig</span><span class="p">,</span> <span class="n">TrajSegmentationConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..segmentation.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">Segmentation</span>
 
-<span class="kn">from</span> <span class="nn">..classification.classification</span> <span class="kn">import</span> <span class="n">TailBouts</span><span class="p">,</span> <span class="n">BoutClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..classification.classification</span><span class="w"> </span><span class="kn">import</span> <span class="n">TailBouts</span><span class="p">,</span> <span class="n">BoutClassifier</span>
 
-<span class="kn">from</span> <span class="nn">..utils.data_utils</span> <span class="kn">import</span> <span class="n">create_hierarchical_df</span>
-<span class="kn">from</span> <span class="nn">..pipeline.base_pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.data_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_hierarchical_df</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..pipeline.base_pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
 
 
 <div class="viewcode-block" id="EthogramHeadTracking">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking">[docs]</a>
-<span class="k">class</span> <span class="nc">EthogramHeadTracking</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EthogramHeadTracking</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for head tracking ethogram data.</span>
 
 <span class="sd">    Parameters</span>
@@ -399,14 +403,14 @@
 
 <div class="viewcode-block" id="EthogramHeadTracking.__init__">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="n">segments</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_df</span><span class="p">(</span><span class="n">bouts</span><span class="p">,</span> <span class="n">traj</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="EthogramHeadTracking.compute_df">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_df">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
         <span class="n">head_x</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">x</span>
         <span class="n">head_y</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">y</span>
         <span class="n">head_angle</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">yaw</span>
@@ -436,7 +440,7 @@
 
 <div class="viewcode-block" id="EthogramHeadTracking.compute_time_series">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramHeadTracking.compute_time_series">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_time_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">default_val</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_time_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">default_val</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">x_ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">default_val</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">on_</span><span class="p">,</span> <span class="n">off_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">)):</span>
             <span class="n">x_ts</span><span class="p">[</span><span class="n">on_</span><span class="p">:</span><span class="n">off_</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -447,7 +451,7 @@
 
 <div class="viewcode-block" id="EthogramFullTracking">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking">[docs]</a>
-<span class="k">class</span> <span class="nc">EthogramFullTracking</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EthogramFullTracking</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for full tracking ethogram data.</span>
 
 <span class="sd">    Parameters</span>
@@ -464,14 +468,14 @@
 
 <div class="viewcode-block" id="EthogramFullTracking.__init__">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="n">segments</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_df</span><span class="p">(</span><span class="n">bouts</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="EthogramFullTracking.compute_df">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_df">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
         <span class="n">tail_angle</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span>
         <span class="n">vigor</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="n">vigor</span>
         <span class="n">head_x</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">x</span>
@@ -503,7 +507,7 @@
 
 <div class="viewcode-block" id="EthogramFullTracking.compute_time_series">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.EthogramFullTracking.compute_time_series">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_time_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">default_val</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_time_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">default_val</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">x_ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">default_val</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">on_</span><span class="p">,</span> <span class="n">off_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">offset</span><span class="p">)):</span>
             <span class="n">x_ts</span><span class="p">[</span><span class="n">on_</span><span class="p">:</span><span class="n">off_</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -514,7 +518,7 @@
 
 <div class="viewcode-block" id="HeadTrackingPipeline">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline">[docs]</a>
-<span class="k">class</span> <span class="nc">HeadTrackingPipeline</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HeadTrackingPipeline</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pipeline for processing freely swimming fish with head tracking only.</span>
 
 <span class="sd">    Parameters</span>
@@ -544,7 +548,7 @@
 
 <div class="viewcode-block" id="HeadTrackingPipeline.__init__">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_cfg</span><span class="p">,</span> <span class="n">exclude_CS</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_cfg</span><span class="p">,</span> <span class="n">exclude_CS</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">tracking_cfg</span>
         <span class="c1"># self.logger = logging.getLogger(__name__)</span>
         <span class="c1"># logging.basicConfig(level=logging.INFO)</span>
@@ -555,14 +559,14 @@
 
 <div class="viewcode-block" id="HeadTrackingPipeline.initialize_parameters_for_pipeline">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.initialize_parameters_for_pipeline">[docs]</a>
-    <span class="k">def</span> <span class="nf">initialize_parameters_for_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize_parameters_for_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">traj_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TrajPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">traj_segmentation_cfg</span> <span class="o">=</span> <span class="n">TrajSegmentationConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="HeadTrackingPipeline.preprocess_traj">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.preprocess_traj">[docs]</a>
-    <span class="k">def</span> <span class="nf">preprocess_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_df</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_df</span><span class="p">):</span>
         <span class="n">traj</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traj_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_traj_df</span><span class="p">(</span>
             <span class="n">traj_df</span>
         <span class="p">)</span>
@@ -571,7 +575,7 @@
 
 <div class="viewcode-block" id="HeadTrackingPipeline.segment_traj">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.segment_traj">[docs]</a>
-    <span class="k">def</span> <span class="nf">segment_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_vigor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">segment_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_vigor</span><span class="p">):</span>
         <span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">Segmentation</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traj_segmentation_cfg</span><span class="p">)</span>
         <span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">traj_vigor</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">segments</span></div>
@@ -579,7 +583,7 @@
 
 <div class="viewcode-block" id="HeadTrackingPipeline.classify_bouts">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.classify_bouts">[docs]</a>
-    <span class="k">def</span> <span class="nf">classify_bouts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">segments</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">classify_bouts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">segments</span><span class="p">):</span>
         <span class="c1"># Include Nan:</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">x_smooth</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">y_smooth</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">yaw_smooth</span>
         <span class="n">x</span><span class="p">[</span><span class="n">traj</span><span class="o">.</span><span class="n">no_tracking</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">traj</span><span class="o">.</span><span class="n">no_tracking</span><span class="p">],</span> <span class="n">yaw</span><span class="p">[</span><span class="n">traj</span><span class="o">.</span><span class="n">no_tracking</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -613,7 +617,7 @@
 
 <div class="viewcode-block" id="HeadTrackingPipeline.run">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.HeadTrackingPipeline.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_data</span><span class="p">):</span>
         <span class="c1"># self.logger.info(&quot;Running FullTrackingPipeline...&quot;)</span>
         <span class="c1"># self.logger.info(&quot;Preprocessing...&quot;)</span>
         <span class="n">traj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_traj</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">traj_df</span><span class="p">)</span>
@@ -627,7 +631,7 @@
         <span class="k">return</span> <span class="n">ethogram</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">traj</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">lin1</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Parameters are: traj_preprocessing_cfg: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">traj_preprocessing_cfg</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -635,14 +639,14 @@
         <span class="n">lin2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Parameters are: traj_segmentation_cfg: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">traj_segmentation_cfg</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">lin1</span> <span class="o">+</span> <span class="n">lin2</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
 
 
 
 <div class="viewcode-block" id="FullTrackingPipeline">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline">[docs]</a>
-<span class="k">class</span> <span class="nc">FullTrackingPipeline</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FullTrackingPipeline</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pipeline for processing freely swimming fish with full tracking data.</span>
 
 <span class="sd">    Parameters</span>
@@ -673,7 +677,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.__init__">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_cfg</span><span class="p">,</span> <span class="n">exclude_CS</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_cfg</span><span class="p">,</span> <span class="n">exclude_CS</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span> <span class="o">=</span> <span class="n">tracking_cfg</span>
         <span class="c1"># self.logger = logging.getLogger(__name__)</span>
         <span class="c1"># logging.basicConfig(level=logging.INFO)</span>
@@ -684,7 +688,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.initialize_parameters_for_pipeline">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.initialize_parameters_for_pipeline">[docs]</a>
-    <span class="k">def</span> <span class="nf">initialize_parameters_for_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize_parameters_for_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TailPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">traj_preprocessing_cfg</span> <span class="o">=</span> <span class="n">TrajPreprocessingConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">segmentation_cfg</span> <span class="o">=</span> <span class="n">TailSegmentationConfig</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_cfg</span><span class="o">.</span><span class="n">fps</span><span class="p">)</span></div>
@@ -692,7 +696,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.preprocess_tail">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_tail">[docs]</a>
-    <span class="k">def</span> <span class="nf">preprocess_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_df</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_df</span><span class="p">):</span>
         <span class="n">tail</span> <span class="o">=</span> <span class="n">TailPreprocessing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_tail_df</span><span class="p">(</span>
             <span class="n">tail_df</span>
         <span class="p">)</span>
@@ -701,7 +705,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.preprocess_traj">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.preprocess_traj">[docs]</a>
-    <span class="k">def</span> <span class="nf">preprocess_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_df</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_traj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj_df</span><span class="p">):</span>
         <span class="n">traj</span> <span class="o">=</span> <span class="n">TrajPreprocessing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traj_preprocessing_cfg</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_traj_df</span><span class="p">(</span>
             <span class="n">traj_df</span>
         <span class="p">)</span>
@@ -710,7 +714,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.segment">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.segment">[docs]</a>
-    <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vigor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vigor</span><span class="p">):</span>
         <span class="n">segmentation_function</span> <span class="o">=</span> <span class="n">Segmentation</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segmentation_cfg</span><span class="p">)</span>
         <span class="n">segments</span> <span class="o">=</span> <span class="n">segmentation_function</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">vigor</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">segments</span></div>
@@ -718,7 +722,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.classify_bouts">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.classify_bouts">[docs]</a>
-    <span class="k">def</span> <span class="nf">classify_bouts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">segments</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">classify_bouts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">segments</span><span class="p">):</span>
         <span class="n">tail_array</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">extract_tail_array</span><span class="p">(</span><span class="n">tail_angle</span><span class="o">=</span><span class="n">tail</span><span class="o">.</span><span class="n">angle_smooth</span><span class="p">)</span>
         <span class="n">traj_array</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">extract_traj_array</span><span class="p">(</span>
             <span class="n">head_x</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">x_smooth</span><span class="p">,</span> <span class="n">head_y</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">y_smooth</span><span class="p">,</span> <span class="n">head_angle</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">yaw_smooth</span>
@@ -755,7 +759,7 @@
 
 <div class="viewcode-block" id="FullTrackingPipeline.run">
 <a class="viewcode-back" href="../../../api/pipeline.html#megabouts.pipeline.freely_swimming_pipeline.FullTrackingPipeline.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracking_data</span><span class="p">):</span>
         <span class="c1"># self.logger.info(&quot;Running FullTrackingPipeline...&quot;)</span>
         <span class="c1"># self.logger.info(&quot;Preprocessing...&quot;)</span>
         <span class="n">tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_tail</span><span class="p">(</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">tail_df</span><span class="p">)</span>
@@ -778,7 +782,7 @@
         <span class="k">return</span> <span class="n">ethogram</span><span class="p">,</span> <span class="n">bouts</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">traj</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">lin1</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Parameters are: tail_preprocessing_cfg: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tail_preprocessing_cfg</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -790,7 +794,7 @@
         <span class="n">lin3</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Parameters are: tail_segmentation_cfg: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">segmentation_cfg</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">lin1</span> <span class="o">+</span> <span class="n">lin2</span> <span class="o">+</span> <span class="n">lin3</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
 
 </pre></div>
@@ -822,8 +826,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -843,7 +847,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>
@@ -856,7 +860,8 @@
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
