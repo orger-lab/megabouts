@@ -103,9 +103,9 @@ class SparseCoding:
             dimK=1,
             dimN=1,
         )
-        z = b.solve().squeeze()
+        z = b.solve()[:, 0, :, :]
         z = SparseCoding.unbatch_result(z, T)
-        tail_angle_hat = b.reconstruct().squeeze().swapaxes(1, 2)
+        tail_angle_hat = b.reconstruct().swapaxes(1, 2)
         tail_angle_hat = SparseCoding.unbatch_result(tail_angle_hat, T)
 
         decomposition = self.compute_decomposition(z, tail_angle.shape[0])

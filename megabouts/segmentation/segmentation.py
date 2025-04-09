@@ -81,6 +81,7 @@ class SegmentationResult:
             id_ed = min(id_ed, self.T - 1)
             dur = id_ed - id_st
             tail_array[i, :, :dur] = tail_angle[id_st:id_ed, :].T
+
         return tail_array
 
     def extract_traj_array(
@@ -142,8 +143,21 @@ class SegmentationResult:
 
         return traj_array
 
-    def align_traj_array(self, traj_array: np.ndarray, idx_ref) -> np.ndarray:
-        """Wrapper around the standalone align_traj_array function."""
+    def align_traj_array(self, traj_array: np.ndarray, idx_ref: int) -> np.ndarray:
+        """Align trajectory arrays to a reference point.
+
+        Parameters
+        ----------
+        traj_array : np.ndarray
+            Array of shape (N, 3, bout_duration) containing x, y, and heading
+        idx_ref : int
+            Reference index for alignment
+
+        Returns
+        -------
+        np.ndarray
+            Aligned trajectory array
+        """
         return align_traj_array(traj_array, idx_ref, self.config.bout_duration)
 
 
@@ -368,7 +382,7 @@ def align_traj_array(
         or traj_array.shape[1] != 3
     ):
         raise ValueError(
-            f"traj_array must be a numpy array of shape (N, 3, bout_duration), got shape {traj_array.shape}"
+            f"traj_array must be a numpy array of shape (N, 3, {bout_duration}), got shape {traj_array.shape}"
         )
 
     if idx_ref < 0 or idx_ref >= bout_duration:
