@@ -6,6 +6,7 @@
 
 [![PyPI version](https://badge.fury.io/py/megabouts.svg)](https://badge.fury.io/py/megabouts)
 [![Documentation Status](https://img.shields.io/badge/docs-megabouts.ai-blue)](https://megabouts.ai)
+[![PyPI Downloads](https://static.pepy.tech/badge/megabouts)](https://pepy.tech/projects/megabouts)
 
 </div>
 
